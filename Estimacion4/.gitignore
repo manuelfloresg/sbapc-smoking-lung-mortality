@@ -1,0 +1,125 @@
+# ============================================================
+# Bloomberg 2025 / Estimacion4
+# Git versiona código, documentación y configs chicas.
+# Dropbox conserva datos, resultados y outputs pesados.
+# ============================================================
+
+
+# ------------------------------------------------------------
+# R / RStudio
+# ------------------------------------------------------------
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+*.Rproj.user/
+*.RData
+*.rds
+*.RDS
+*.rda
+*.Rda
+
+
+# ------------------------------------------------------------
+# Resultados, runtime, caches, temporales pesados
+# ------------------------------------------------------------
+**/results/
+**/runtime/
+**/cache/
+**/caches/
+**/tmp/
+**/temp/
+**/logs/
+**/log/
+**/output/
+**/outputs/
+**/figures/
+**/plots/
+**/tables/
+**/exports/
+**/diagnostics/
+**/debug_outputs/
+**/inla_tmp/
+**/tmp_inla/
+
+
+# ------------------------------------------------------------
+# Bases de datos / datos derivados / insumos pesados
+# Ajustamos luego si alguna carpeta chica debe entrar.
+# ------------------------------------------------------------
+**/data/
+**/datos/
+**/bases/
+**/raw/
+**/processed/
+**/intermediate/
+**/input/
+**/inputs/
+
+
+# ------------------------------------------------------------
+# Formatos pesados o generados
+# ------------------------------------------------------------
+*.csv
+*.tsv
+*.xlsx
+*.xls
+*.dta
+*.sav
+*.parquet
+*.feather
+*.fst
+*.sqlite
+*.db
+*.zip
+*.7z
+*.rar
+*.tar
+*.gz
+*.png
+*.jpg
+*.jpeg
+*.tif
+*.tiff
+*.bmp
+*.svg
+*.pdf
+*.html
+*.docx
+*.pptx
+
+
+# ------------------------------------------------------------
+# LaTeX generado
+# ------------------------------------------------------------
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+
+
+# ------------------------------------------------------------
+# Stata generado
+# ------------------------------------------------------------
+*.smcl
+*.gph
+*.ster
+*.tmp
+
+
+# ------------------------------------------------------------
+# Sistema operativo / editores
+# ------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
