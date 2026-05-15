@@ -332,19 +332,12 @@ fit_apc_incidence <- function(inc_hist, pop_all,
                   mu_lwr  = fv_lwr,
                   mu_upr  = fv_upr,
                   .E_safe = pmax(exp(logE), 1e-12),
-                  .offset_mult = exp(dplyr::coalesce(inc_tech_offset, 0) + dplyr::coalesce(coef_fc_offset_I, 0)),
-                  rate_from_fv_over_E = mu_hat / .E_safe,
-                  rate_from_fv_over_E_times_offset = rate_from_fv_over_E * .offset_mult,
-                  rate_from_lp_over_E = exp(lp_mean) / .E_safe,
-                  rate_from_lp_over_E_times_offset = rate_from_lp_over_E * .offset_mult,
-                  rate_blend_geom = sqrt(pmax(rate_from_fv_over_E_times_offset, 0) * pmax(rate_from_lp_over_E, 0)),
-                  rate_blend_geom_times_offset = rate_blend_geom * .offset_mult,
-                  rate_blend_arith = 0.5 * (rate_from_fv_over_E_times_offset + rate_from_lp_over_E),
-                  rate_blend_logmid = exp(0.5 * (log(pmax(rate_from_fv_over_E_times_offset, 1e-300)) + log(pmax(rate_from_lp_over_E, 1e-300)))),
-                  rate_hat = rate_from_lp_over_E,
+                  rate_total_fv = mu_hat / .E_safe,
+                  rate_total_lp = exp(lp_mean) / .E_safe,
+                  rate_hat = rate_total_lp,
                   rate_lwr = exp(lp_lwr) / .E_safe,
                   rate_upr = exp(lp_upr) / .E_safe) %>%
-    dplyr::select(-.E_safe, -.offset_mult)
+    dplyr::select(-.E_safe)
 
   grid_all <- apply_incidence_level_anchor(grid_all, last_hist_year = last_year_inc)
   grid_all <- apply_inc_coef_fc_posthoc_lock(grid_all, last_hist_year = last_year_inc)
@@ -356,7 +349,7 @@ fit_apc_incidence <- function(inc_hist, pop_all,
                                                                 "period_raw", "mapped_period", "period_is_clamped", "period_shift",
                                                                 "cohort_raw", "mapped_cohort", "cohort_is_edge", "cohort_clamp_low", "cohort_clamp_high", "cohort_shift",
                                                                 "support_n", "support_frac", "horizon", "horizon_block",
-                                                                "inc_tech_offset", "coef_fc_signal_I", "coef_fc_recenter_I", "coef_fc_offset_I", "coef_fc_offset_I_raw", "coef_fc_offset_I_effective", "coef_fc_posthoc_adj", "coef_fc_posthoc_lock_mode", "lp_mean", "lp_lwr", "lp_upr", "fv_mean", "fv_lwr", "fv_upr", "mu_hat", "mu_lwr", "mu_upr", "rate_from_fv_over_E", "rate_from_fv_over_E_times_offset", "rate_from_lp_over_E", "rate_from_lp_over_E_times_offset", "rate_blend_geom", "rate_blend_geom_times_offset", "rate_blend_arith", "rate_blend_logmid", "eta_apc_manual", "eta_offset_manual", "eta_total_manual", "rate_manual", "mu_manual", "lp_gap_manual", "rate_hat", "rate_lwr", "rate_upr"))),
+                                                                "inc_tech_offset", "coef_fc_signal_I", "coef_fc_recenter_I", "coef_fc_offset_I", "coef_fc_offset_I_raw", "coef_fc_offset_I_effective", "coef_fc_posthoc_adj", "coef_fc_posthoc_lock_mode", "lp_mean", "lp_lwr", "lp_upr", "fv_mean", "fv_lwr", "fv_upr", "mu_hat", "mu_lwr", "mu_upr", "rate_total_fv", "rate_total_lp", "eta_apc_manual", "eta_offset_manual", "eta_total_manual", "rate_manual", "mu_manual", "lp_gap_manual", "rate_hat", "rate_lwr", "rate_upr"))),
     border_diag_future = border_diag_future,
     border_diag_summary = summarise_incidence_border_diag(border_diag_future, exposure_col = "E"),
     lev_inc   = list(age = lev_age, period = sort(unique(grid_all$period)), cohort = lev_coh),
@@ -517,9 +510,9 @@ fit_apc_incidence_cond_prev <- function(inc_hist, pop_all, fit_prev,
   s_histP_val <- NA_real_
   base_year_val <- prev_base_year
   
-  # Centrado del offset para estabilizar INLA
-  offset_raw <- dplyr::coalesce(as.numeric(inc_base_z$offset_prev_rr), 0)
-  offset_mean <- mean(offset_raw, na.rm = TRUE)
+  # Centrado del offset para estabilizar INLA (centrado en el último año para evitar saltos)
+  offset_raw  <- dplyr::coalesce(as.numeric(inc_base_z$offset_prev_rr), 0)
+  offset_mean <- mean(inc_base_z$offset_prev_rr[inc_base_z$period == max(inc_base_z$period, na.rm=TRUE)], na.rm = TRUE)
   offset_epi_hist <- offset_raw - offset_mean
   
   # Limpiar columnas técnicas previas usando R base para evitar errores de duplicados

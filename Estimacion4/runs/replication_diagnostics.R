@@ -17,13 +17,13 @@ library(future)
 library(future.apply)
 
 # --- Canonical Configuration for Paper ---
-CANONICAL_SEEDS <- 1:10
+CANONICAL_SEEDS <- 1:50
 CANONICAL_DGPS  <- c("spec_linear")
-CANONICAL_SCENS <- c("freeze", "up1pc", "down1pc", "quit")
+CANONICAL_SCENS <- c("freeze", "up1pc", "down3pc", "quit")
 CAUSE_ID        <- "lung"
 
 # Output Directories
-OUT_BASE    <- "results/20260507_ESTIMATE_V14"
+OUT_BASE    <- "results/20260515_FINAL_PROD"
 OUT_SEC4    <- file.path(OUT_BASE, "section4")
 OUT_APPENDIX <- file.path(OUT_BASE, "appendixC")
 OUT_RAW     <- file.path(OUT_BASE, "raw_data")
@@ -65,6 +65,9 @@ run_single_seed_replication <- function(seed, dgp, scens = CANONICAL_SCENS, forc
   sim_freeze <- simulate_PIM_data(cause_id = CAUSE_ID, seed = seed, dgp = dgp, scenario_name = "freeze", ...)
   prev_cfg_freeze <- get_prev_config(scenario = "freeze")
   res_freeze <- run_pipeline_both_from_inputs(inputs = inputs, cfg_row = cfg_row, prev_cfg = prev_cfg_freeze, ...)
+  # SANITIZAR INMEDIATAMENTE para evitar errores de memoria (buffer overflow en serialize)
+  if (!is.null(res_freeze$resM)) res_freeze$resM <- sanitize_pipeline_output(res_freeze$resM)
+  if (!is.null(res_freeze$resF)) res_freeze$resF <- sanitize_pipeline_output(res_freeze$resF)
   res_freeze$meta  <- list(seed = seed, dgp = dgp, scenario = "freeze", args = list(...))
   res_freeze$truth <- sim_freeze$truth
   res_freeze$inc_truth_grid <- sim_freeze$inc_truth_grid
@@ -539,4 +542,3 @@ replicate_all_simulations <- function() {
   
   message("\nALL REPLICATION TASKS COMPLETED SUCCESSFULLY.")
 }
-

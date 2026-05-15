@@ -1,27 +1,32 @@
+# scratch/check_z_prev.R
+source("runs/_runtime_setup.R")
+source("runs/_source_all.R")
+source("adapters/build_inputs_sim.R")
 
-q_f <- readRDS('results/20260507_0153_STABLE_V14/raw_data/res_spec_linear_s4_freeze.rds')
-q_q <- readRDS('results/20260507_0153_STABLE_V14/raw_data/res_spec_linear_s4_quit.rds')
+library(dplyr)
+library(ggplot2)
 
-cat('--- z_prev (Informed log-offset) Check ---\n')
-z_f <- q_f$resM$inc_fit$rates_all_full$z_prev
-z_q <- q_q$resM$inc_fit$rates_all_full$z_prev
+seed <- 4
+dgp <- "spec_linear"
+cause_id <- "lung"
+sex <- "M"
 
-df_z <- data.frame(
-  period = q_f$resM$inc_fit$rates_all_full$period,
-  age = q_f$resM$inc_fit$rates_all_full$age,
-  z_freeze = z_f,
-  z_quit = z_q
-)
+# Load the simulation input
+rds_file <- sprintf("results/20260515_ESTIMATE_V15/raw_data/res_%s_s%s_up1pc.rds", dgp, seed)
+if (!file.exists(rds_file)) stop("File not found: ", rds_file)
 
-# Look at 2050
-cat('\nYear 2050 Sample (Age 50):\n')
-print(df_z[df_z$period == 2050 & df_z$age == 50, ])
+res <- readRDS(rds_file)
+# res$resM$rates_all_full contains the data
 
-cat('\nMean difference in z_prev (Future only):\n')
-fut_idx <- df_z$period > 2022
-cat(sprintf('Mean(z_freeze - z_quit) in future: %.10f\n', mean(df_z$z_freeze[fut_idx] - df_z$z_quit[fut_idx])))
+df <- res$resM$rates_all_full %>%
+  filter(age == 65) %>%
+  select(period, z_prev, coef_fc_offset_I, rate_hat)
 
-cat('\n--- Predicted Rates Check ---\n')
-r_f <- q_f$resM$inc_fit$rates_all_full$rate_hat
-r_q <- q_q$resM$inc_fit$rates_all_full$rate_hat
-cat(sprintf('Mean Absolute Difference in rate_hat (Future): %.10f\n', mean(abs(r_f[fut_idx] - r_q[fut_idx]))))
+print(head(df))
+print(tail(df))
+
+ggplot(df, aes(x = period, y = z_prev)) +
+  geom_line() +
+  ggtitle(sprintf("z_prev for Age 65, Seed %d, UP1PC", seed))
+
+ggsave("results/20260515_ESTIMATE_V15/scratch_z_prev_check.png")

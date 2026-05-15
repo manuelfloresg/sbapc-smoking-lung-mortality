@@ -227,15 +227,15 @@ simulate_PIM_data <- function(cause_id = "lung",
   zI_scen_true_used <- z_scen %>% dplyr::transmute(sex, age, period, cohort, grid_id, z_prev_used = z_prev)
 
   # --------- INCIDENCIA (DGP Poisson con APC + g(z)) ----------
-  aI <- .make_rw1(length(lev_age), 0.04); names(aI) <- lev_age
+  aI <- .make_rw1(length(lev_age), 0.02); names(aI) <- lev_age
   # Estabilizar período en proyección para que los escenarios sean visibles
-  pI_raw <- .make_rw1(length(lev_per), 0.03)
+  pI_raw <- .make_rw1(length(lev_per), 0.015)
   idx_fut_per <- lev_per > last_hist
   if (any(idx_fut_per)) {
     pI_raw[idx_fut_per] <- pI_raw[max(which(!idx_fut_per))] 
   }
   pI <- pI_raw; names(pI) <- lev_per
-  cI <- .make_rw1(length(lev_coh), 0.05); names(cI) <- lev_coh
+  cI <- .make_rw1(length(lev_coh), 0.03); names(cI) <- lev_coh
   sex_shift_inc <- inc_sex_shift[as.character(grid$sex)]
   sex_shift_inc[is.na(sex_shift_inc)] <- 0
 

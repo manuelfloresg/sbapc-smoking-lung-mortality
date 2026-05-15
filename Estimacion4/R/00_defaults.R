@@ -334,7 +334,7 @@ EDGE_WEIGHT_MIN <- 0.25
 # =============================================================
 
 # --- Proyección de γ^P (para construir el índice P→I) ---
-COHORT_FC_METHOD <- "damped_trend"             # "freeze","arima","trend","damped_trend"
+COHORT_FC_METHOD <- "freeze"             # "freeze","arima","trend","damped_trend"
 COHORT_FC_WINDOW <- 5L                         # ventana reciente para pendiente local
 COHORT_FC_DAMPING <- 0.8                       # amortiguación geométrica de la pendiente (0<δ<=1)
 
