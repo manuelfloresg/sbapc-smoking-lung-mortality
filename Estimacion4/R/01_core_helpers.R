@@ -2362,16 +2362,12 @@ inla_tag <- function(tag,
 clean_res_inla <- function(obj) {
   if (is.null(obj)) return(NULL)
   if (inherits(obj, "inla")) {
-    obj$.args <- NULL
+    # PRESERVAR data para reconstrucción de escenarios
+    data_keep <- obj$.args$data
+    obj$.args <- list(data = data_keep)
+    
     obj$all.hyper <- NULL
-    # obj$misc$configs <- NULL # opcional; a veces se usa para muestreo
-    # obj$misc$lincomb.derived.correlation.matrix <- NULL
-    # obj$misc$lincomb.derived.covariance.matrix <- NULL
     if (!is.null(obj$formula)) environment(obj$formula) <- .GlobalEnv
-    if (!is.null(obj$call)) {
-       # Limpiar el call para que no guarde el dataset entero en la cadena de texto
-       # obj$call <- NULL 
-    }
   }
   obj
 }

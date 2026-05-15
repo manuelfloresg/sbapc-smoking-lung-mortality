@@ -483,7 +483,8 @@ run_pipeline_both_from_inputs <- function(inputs,
     stop("No encontré pop_all en inputs para reconstruir incidencia freeze-benchmark.")
   }
 
-  res_scen <- unserialize(serialize(res_base, NULL))
+  # Usamos asignación simple; R maneja el copy-on-write eficientemente sin desbordar el buffer de serialización
+  res_scen <- res_base
 
   .rebuild_one_sex <- function(base_sex, scen_sex, sex_sel) {
     if (is.null(base_sex) || is.null(scen_sex)) return(list(base = base_sex, scen = scen_sex))

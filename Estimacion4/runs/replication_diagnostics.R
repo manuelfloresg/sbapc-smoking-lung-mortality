@@ -69,19 +69,17 @@ run_single_seed_replication <- function(seed, dgp, scens = CANONICAL_SCENS, forc
   if (!is.null(res_freeze$resM)) res_freeze$resM <- sanitize_pipeline_output(res_freeze$resM)
   if (!is.null(res_freeze$resF)) res_freeze$resF <- sanitize_pipeline_output(res_freeze$resF)
   res_freeze$meta  <- list(seed = seed, dgp = dgp, scenario = "freeze", args = list(...))
-  res_freeze$truth <- sim_freeze$truth
-  res_freeze$inc_truth_grid <- sim_freeze$inc_truth_grid
-  res_freeze$mort_truth_grid <- sim_freeze$mort_truth_grid
-  res_freeze$pop_all <- sim_freeze$pop_all
+  # No adjuntamos la verdad todavía para mantener res_freeze liviano para el rebuilder
   
   # 2) Rebuild other scenarios from the freeze benchmark
   other_scens <- setdiff(scens, "freeze")
+  gc() # Limpiar memoria antes del bucle pesado
   for (scen in other_scens) {
     message("  Rebuilding: ", scen)
     prev_cfg_scen <- get_prev_config(scenario = scen)
     
     out_rebuild <- .rebuild_scenario_freeze_benchmark(
-      res_base = res_freeze, # Still unsanitized here
+      res_base = res_freeze, 
       inputs = inputs,
       cfg_row = cfg_row,
       prev_cfg_scen = prev_cfg_scen
@@ -95,7 +93,7 @@ run_single_seed_replication <- function(seed, dgp, scens = CANONICAL_SCENS, forc
     res_scen$truth <- sim_scen$truth
     res_scen$inc_truth_grid <- sim_scen$inc_truth_grid
     res_scen$mort_truth_grid <- sim_scen$mort_truth_grid
-    res_scen$pop_all <- sim_scen$pop_all
+    # res_scen$pop_all <- sim_scen$pop_all # Demasiado pesado
     
     # Now sanitize and save the scenario result
     if (exists("sanitize_pipeline_output", inherits = TRUE)) {
@@ -105,7 +103,12 @@ run_single_seed_replication <- function(seed, dgp, scens = CANONICAL_SCENS, forc
     saveRDS(res_scen, file.path(OUT_RAW, sprintf("res_%s_s%d_%s.rds", dgp, seed, scen)))
   }
   
-  # 3) Finally sanitize and save the freeze benchmark itself
+  # 3) Finally attach truth to freeze and save
+  res_freeze$truth <- sim_freeze$truth
+  res_freeze$inc_truth_grid <- sim_freeze$inc_truth_grid
+  res_freeze$mort_truth_grid <- sim_freeze$mort_truth_grid
+  # res_freeze$pop_all <- sim_freeze$pop_all 
+  
   if (exists("sanitize_pipeline_output", inherits = TRUE)) {
     if (!is.null(res_freeze$resM)) res_freeze$resM <- sanitize_pipeline_output(res_freeze$resM)
     if (!is.null(res_freeze$resF)) res_freeze$resF <- sanitize_pipeline_output(res_freeze$resF)
