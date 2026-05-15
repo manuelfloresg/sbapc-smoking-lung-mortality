@@ -2362,26 +2362,57 @@ inla_tag <- function(tag,
 clean_res_inla <- function(obj) {
   if (is.null(obj)) return(NULL)
   if (inherits(obj, "inla")) {
-    # PRESERVAR data para reconstrucción de escenarios
+    # PRESERVAR solo lo mínimo para reconstrucción y diagnóstico
+    # .args$data es necesario para lev_age, lev_per, etc. en el rebuilder
     data_keep <- obj$.args$data
-    obj$.args <- list(data = data_keep)
     
-    obj$all.hyper <- NULL
+    # Limpiar ambientes de fórmulas para evitar arrastrar todo el workspace
     if (!is.null(obj$formula)) environment(obj$formula) <- .GlobalEnv
+    if (!is.null(obj$.args$formula)) environment(obj$.args$formula) <- .GlobalEnv
+    
+    # Remover componentes pesados que no se usan en el pipeline de simulación masiva
+    obj$all.hyper <- NULL
+    obj$marginals.random <- NULL
+    obj$marginals.fixed <- NULL
+    obj$marginals.hyperpar <- NULL
+    obj$marginals.linear.predictor <- NULL
+    obj$marginals.fitted.values <- NULL
+    obj$latent <- NULL
+    
+    # Reducir .args
+    obj$.args <- list(data = data_keep, formula = obj$.args$formula)
+    
+    # Limpiar summaries (a veces tienen atributos pesados)
+    for (nm in names(obj)) {
+      if (grepl("^summary", nm) && is.data.frame(obj[[nm]])) {
+        attr(obj[[nm]], "post.sample") <- NULL
+      }
+    }
   }
   obj
 }
 
 # --- Sanitización recursiva de listas de resultados ---
 sanitize_pipeline_output <- function(out) {
-  if (is.list(out)) {
-    # Evitar recursión infinita si ya hay un ciclo (aunque intentamos prevenirlos)
-    # Por ahora solo limpiamos los niveles conocidos
-    if (!is.null(out$fit_prev)) out$fit_prev <- clean_res_inla(out$fit_prev)
-    if (!is.null(out$inc_fit$fit_inc)) out$inc_fit$fit_inc <- clean_res_inla(out$inc_fit$fit_inc)
-    if (!is.null(out$fit_bapc)) out$fit_bapc <- clean_res_inla(out$fit_bapc)
-    if (!is.null(out$fit_anchor_cond)) out$fit_anchor_cond <- clean_res_inla(out$fit_anchor_cond)
-    if (!is.null(out$fit_anchor_noP)) out$fit_anchor_noP <- clean_res_inla(out$fit_anchor_noP)
-  }
+  if (!is.list(out)) return(out)
+  
+  # 1. PRESERVAR fit_prev (vital para rebuilder) pero sanitizado
+  if (!is.null(out$fit_prev)) out$fit_prev <- clean_res_inla(out$fit_prev)
+  
+  # 2. DISCARD heavy mortality fits (ya tenemos los dataframes extraídos)
+  # Estos son los que pesan 250MB+ por seed
+  out$fit_anchor <- NULL
+  out$fit_anchor_cond <- NULL
+  out$fit_anchor_noP <- NULL
+  out$fit_bapc <- NULL
+  
+  # 3. Sanitizar fit de incidencia si existe
+  if (!is.null(out$inc_fit$fit_inc)) out$inc_fit$fit_inc <- clean_res_inla(out$inc_fit$fit_inc)
+  
+  # 4. Limpiar versiones extra (suffixes) y duplicados
+  out$inc_fit_inla <- NULL
+  out$inc_annual_cond_inla <- NULL
+  out$annual_anchor_inla <- NULL
+  
   out
 }

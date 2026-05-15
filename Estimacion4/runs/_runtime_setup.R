@@ -67,9 +67,13 @@ INLA::inla.setOption(num.threads = 1L)
 # For the DGP tanh logic
 Sys.setenv(OMP_NUM_THREADS = "1")
 
-# 2) Environment variables
+# 2) Environment variables (Persistent Defaults)
 # =============================================================
-# Add any specific environment setup here
+# Hard-coded defaults for this workspace to ensure zero-config execution
+options(BAPC_PATH_MORT_CSV = "d:/Dropbox/Investigacion/Bloomberg_2025/Mortalidad/muertes_suavizadas_cancer.csv")
+options(BAPC_PATH_POP_DTA  = "d:/Dropbox/Investigacion/Bloomberg_2025/Base de datos/Proyecciones población/poblacion_1950_2070_empalmada.dta")
+options(BAPC_PATH_PREV_DTA = "d:/Dropbox/Investigacion/Bloomberg_2025/Base de datos/base_completa.dta")
+options(BAPC_PATH_INC_CSV  = "d:/Dropbox/Investigacion/Bloomberg_2025/Resultados/incidencia_suavizada_1998_2022.csv")
 
 message("BAPC project_root : ", project_root)
 message("BAPC runtime      : ", BAPC_PATHS$runtime)

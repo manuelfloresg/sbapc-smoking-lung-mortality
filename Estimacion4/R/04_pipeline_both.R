@@ -229,7 +229,7 @@ run_pipeline_both <- function(
       mort_trend_scenario = mort_trend_scenario, delta_tech = delta_tech,
       inc_include_trend = inc_include_trend, inc_trend_scenario = inc_trend_scenario,
       delta_inc = delta_inc, sd_beta_I = sd_beta_I, use_weighted_cohort = use_weighted_cohort,
-      A_star = NA_real_, beta_mode = beta_mode, gammaP_method = gammaP_method, trend_type = trend_type,
+      A_star = A_star, beta_mode = beta_mode, gammaP_method = gammaP_method, trend_type = trend_type,
       method_policy_by_sex = list(
         M = tryCatch(resM$params$method_policy, error = function(e) NULL),
         F = tryCatch(resF$params$method_policy, error = function(e) NULL)
@@ -271,6 +271,9 @@ run_pipeline_both <- function(
 run_pipeline_both_from_inputs <- function(inputs,
                                           cfg_row,
                                           prev_cfg = NULL,
+                                          beta_mode = BETA_MODE,
+                                          gammaP_method = GAMMAP_METHOD,
+                                          trend_type = TREND_TYPE,
                                           emit_prev_diag_console = EMIT_PREV_DIAG_CONSOLE,
                                           emit_prev_diag_write = TRUE,
                                           ...) {
@@ -294,8 +297,11 @@ run_pipeline_both_from_inputs <- function(inputs,
     inc_hist_tbl  = inputs$inc_hist_tbl,
     path_prev_dta = if (!is.null(inputs$prev_path)) inputs$prev_path else PATH_PREV_DTA,
     prev_micro_df = if (is.data.frame(inputs$prev_data)) inputs$prev_data else NULL,
-    A_star = NA_real_, beta_mode = BETA_MODE,
-    gammaP_method = GAMMAP_METHOD, trend_type = TREND_TYPE, use_age_slope = FALSE,
+    A_star = NA_real_, 
+    beta_mode = beta_mode,
+    gammaP_method = gammaP_method, 
+    trend_type = trend_type, 
+    use_age_slope = FALSE,
     mort_trend_scenario = MORT_TREND_SCENARIO, delta_tech = DELTA_TECH,
     prev_inc_channel_mode = PREV_INC_CHANNEL_MODE,
     emit_prev_diag_console = emit_prev_diag_console,
@@ -498,11 +504,6 @@ run_pipeline_both_from_inputs <- function(inputs,
       dplyr::mutate(sex = as.character(sex), age = as.integer(age), period = as.integer(period))
     last_hist <- as.integer(base_sex$inc_fit$last_year_inc %||% base_sex$diag$last_hist_year %||% 2022L)
 
-    if (is.null(base_sex$inc_annual_cond_inla)) base_sex$inc_annual_cond_inla <- base_sex$inc_annual_cond
-    if (is.null(scen_sex$inc_annual_cond_inla)) scen_sex$inc_annual_cond_inla <- scen_sex$inc_annual_cond
-    if (is.null(base_sex$inc_fit_inla)) base_sex$inc_fit_inla <- base_sex$inc_fit
-    if (is.null(scen_sex$inc_fit_inla)) scen_sex$inc_fit_inla <- scen_sex$inc_fit
-
     if (identical(normalize_prev_scenario_name(prev_cfg_scen$scenario %||% "freeze"), "freeze")) {
       scen_sex$diag$scenario_build_mode <- "freeze_copy"
       scen_sex$diag$scenario_build_benchmark <- "freeze"
@@ -599,10 +600,18 @@ run_pipeline_both_from_inputs <- function(inputs,
       dplyr::mutate(
         off_epi_base = .safe_num(dplyr::coalesce(offset_prev_rr, 0)),
         off_epi_scen = .safe_num(dplyr::coalesce(offset_prev_rr_scen, offset_prev_rr, off_epi_base)),
-        
-        # Scenario Incidence Shift: Apply Delta-Offset logic (M-2.2)
-        rate_scen = apply_incidence_scenario_shift(rate_hat, off_epi_scen, off_epi_base, bz_hat),
-        
+        bz_hat = bz_hat,
+        rate_scen = apply_incidence_scenario_shift(rate_hat, off_epi_scen, off_epi_base, bz_hat)
+      )
+    
+    # --- DIAGNOSTIC PRINT ---
+    if (isTRUE(BAPC_VERBOSE) || TRUE) {
+      avg_ratio <- mean(fut$rate_scen / fut$rate_hat, na.rm=TRUE)
+      message(sprintf(">>> [REBUILD] Scenario: %s | Avg Inc Multiplier: %.4f", prev_cfg_scen$scenario, avg_ratio))
+    }
+
+    fut <- fut %>%
+      dplyr::mutate(
         # Preserve uncertainty relatives
         rel_lwr = pmax(rate_lwr / pmax(rate_hat, 1e-12), 1e-12),
         rel_upr = pmax(rate_upr / pmax(rate_hat, 1e-12), 1e-12),
@@ -640,6 +649,12 @@ run_pipeline_both_from_inputs <- function(inputs,
     eta_offset_scen <- dplyr::coalesce(.safe_num(fut$inc_tech_offset), 0) + off_total_scen
     eta_apc_base <- .safe_num(fut$eta_apc_manual)
     eta_total_scen <- ifelse(is.finite(eta_apc_base), eta_apc_base + eta_offset_scen, log(pmax(rate_scen, 1e-12)))
+
+    # --- DIAGNOSTIC PRINT MORTALITY ---
+    if (isTRUE(BAPC_VERBOSE) || TRUE) {
+      avg_mort_mult <- mean(exp(eta_total_scen) / exp(eta_apc_base + dplyr::coalesce(.safe_num(fut$inc_tech_offset),0) + .safe_num(fut$coef_fc_offset_I)), na.rm=TRUE)
+      message(sprintf(">>> [REBUILD] Scenario: %s | Avg Mort Multiplier: %.4f", prev_cfg_scen$scenario, avg_mort_mult))
+    }
 
     fut_rebuilt <- fut %>%
       dplyr::mutate(
@@ -753,16 +768,16 @@ run_pipeline_both_from_inputs <- function(inputs,
     
     zf_rebuilt <- zf_rebuilt %>%
       dplyr::select(dplyr::any_of(c("sex", "age", "period", "cohort", "q_eff", "z_prev",
-                                     "p_cur", "delta_p_cur", "quit_flow", "p_never", "p_former_total",
-                                     "noncurrent_rescale", "offset_prev_rr", "rr_inc", "quit_horizon_years",
-                                     "prev_source", "within_prev_age_support", "within_prev_period_support",
-                                     "within_prev_observed_support", "within_prev_support",
-                                     "prev_scenario_name", "prev_scenario_applied",
-                                     "coef_fc_signal_I", "coef_fc_recenter_I",
-                                     "coef_fc_offset_I_epi", "coef_fc_offset_I_apc", "coef_fc_offset_I",
-                                     "period_raw", "mapped_period", "period_is_clamped", "period_shift",
-                                     "cohort_raw", "mapped_cohort", "cohort_is_edge", "cohort_clamp_low", "cohort_clamp_high", "cohort_shift",
-                                     "support_n", "support_frac", "horizon", "horizon_block")))
+                                    "p_cur", "delta_p_cur", "quit_flow", "p_never", "p_former_total",
+                                    "noncurrent_rescale", "offset_prev_rr", "rr_inc", "quit_horizon_years",
+                                    "prev_source", "within_prev_age_support", "within_prev_period_support",
+                                    "within_prev_observed_support", "within_prev_support",
+                                    "prev_scenario_name", "prev_scenario_applied",
+                                    "coef_fc_signal_I", "coef_fc_recenter_I",
+                                    "coef_fc_offset_I_epi", "coef_fc_offset_I_apc", "coef_fc_offset_I",
+                                    "period_raw", "mapped_period", "period_is_clamped", "period_shift",
+                                    "cohort_raw", "mapped_cohort", "cohort_is_edge", "cohort_clamp_low", "cohort_clamp_high", "cohort_shift",
+                                    "support_n", "support_frac", "horizon", "horizon_block")))
 
     scen_sex$inc_fit$rates_all <- scen_rates
     scen_sex$inc_fit$rates_all_full <- scen_full
@@ -774,22 +789,30 @@ run_pipeline_both_from_inputs <- function(inputs,
 
     # 2. Get scenario offsets (Full and NoP)
     # Mortality Offset Calculation
-    # mort_data_cond: Uses Scenario Incidence (I|P)
-    # mort_data_noP: Uses Pure BAPC Incidence (I)
+    # mort_data_cond: Uses Scenario Incidence (I|P) + Scenario Prevalence (P_scen)
+    # mort_data_noP: Uses Pure BAPC Incidence (I) + Base Prevalence (P_base)
     
     # Setup join keys for mortality
     key_candidates_m <- c("sex", "age", "period", "cohort")
     join_keys_m <- intersect(key_candidates_m, names(scen_full))
 
-    # Construct mortality template: Start with tech offsets from base, add prev from scen
-    mort_template_attach <- .prep_mort_template_attach(base_sex$mort_anchor_data_cond) %>%
+    # Template for Informed Scenario (M | I_scen | P_scen)
+    mort_template_scen <- .prep_mort_template_attach(base_sex$mort_anchor_data_cond) %>%
       dplyr::left_join(
         scen_full %>% dplyr::select(dplyr::all_of(join_keys_m), mort_offset_epi = offset_prev_rr),
         by = join_keys_m
       )
 
+    # Template for Uninformed Scenario (M | I_scen | P_base) 
+    # Note: Even if I is informed by P, we want to see the effect of NOT informing M about the P-delta.
+    mort_template_noP <- .prep_mort_template_attach(base_sex$mort_anchor_data_cond) %>%
+      dplyr::left_join(
+        base_full %>% dplyr::select(dplyr::all_of(join_keys_m), mort_offset_epi = offset_prev_rr),
+        by = join_keys_m
+      )
+
     mort_data_cond <- attach_external_mortality_offset(
-      mort_all = mort_template_attach,
+      mort_all = mort_template_scen,
       inc_rates_all = scen_rates %>% dplyr::select(sex, age, period, rate_hat),
       pop_all_tbl = pop_sex,
       cause_id = cause_id_cur,
@@ -797,16 +820,95 @@ run_pipeline_both_from_inputs <- function(inputs,
     )
     
     mort_data_noP <- attach_external_mortality_offset(
-      mort_all = mort_template_attach,
+      mort_all = mort_template_noP,
       inc_rates_all = inc_bapc_rates_all,
       pop_all_tbl = pop_sex,
       cause_id = cause_id_cur,
       sex_sel = sex_sel
     )
-
+    pred_base <- tibble::as_tibble(base_sex$mort_anchor_pred_detail)
+    
     # Recover keys in pred_base and mort_data_cond if missing
     pred_base <- recover_demographic_keys(pred_base)
     mort_data_cond <- recover_demographic_keys(mort_data_cond)
 
     key_candidates_m <- c("sex", "age", "period", "cohort")
     join_keys_m <- intersect(key_candidates_m, intersect(names(mort_data_cond), names(pred_base)))
+    off_tbl <- mort_data_cond %>%
+      dplyr::mutate(offset_total = dplyr::coalesce(.safe_num(log_mort_ext), 0) + dplyr::coalesce(.safe_num(mort_anchor_tech_offset), 0)) %>%
+      dplyr::select(dplyr::all_of(join_keys_m), offset_total)
+    pred_s <- pred_base %>%
+      dplyr::select(-dplyr::any_of(c("offset_total", "mu_hat", "mu_lwr", "mu_upr"))) %>%
+      dplyr::left_join(off_tbl, by = join_keys_m)
+
+    n_pred <- nrow(pred_s)
+    offset_joined <- if ("offset_total" %in% names(pred_s)) .safe_num(pred_s$offset_total) else rep(NA_real_, n_pred)
+    # SAFE JOIN APPROACH: Use suffixes to distinguish base from new
+    pred_s <- pred_base %>%
+      dplyr::left_join(
+        mort_data_cond %>% 
+          dplyr::mutate(offset_total_new = .safe_num(log_mort_ext) + .safe_num(mort_anchor_tech_offset)) %>%
+          dplyr::select(dplyr::all_of(join_keys_m), offset_total_new),
+        by = join_keys_m
+      ) %>%
+      dplyr::mutate(
+        # Delta approach
+        .off_delta = .safe_num(offset_total_new) - .safe_num(offset_total),
+        .off_ratio = exp(dplyr::coalesce(.off_delta, 0)),
+        
+        # Apply change to baseline estimates
+        mu_hat = mu_hat * .off_ratio,
+        mu_lwr = mu_lwr * .off_ratio,
+        mu_upr = mu_upr * .off_ratio,
+        
+        # Update current offset for future consistency
+        offset_total = offset_total_new
+      ) %>%
+      dplyr::select(-.off_delta, -.off_ratio, -offset_total_new)
+
+    scen_sex$annual_anchor <- summarise_annual_prediction(pred_s)
+    scen_sex$annual_anchor_raw <- scen_sex$annual_anchor
+    scen_sex$mort_anchor_pred_detail <- pred_s
+    
+    # PRESERVE BENCHMARKS: Copy directly from base to ensure absolute consistency
+    scen_sex$annual_bapc <- base_sex$annual_bapc
+    scen_sex$annual_anchor_noP <- base_sex$annual_anchor_noP
+    scen_sex$inc_annual_bapc <- base_sex$inc_annual_bapc
+    scen_sex$inc_annual_noP <- base_sex$inc_annual_noP
+
+    list(base = base_sex, scen = scen_sex)
+  }
+
+  mm <- .rebuild_one_sex(res_base$resM, res_scen$resM, "M")
+  ff <- .rebuild_one_sex(res_base$resF, res_scen$resF, "F")
+  res_base$resM <- mm$base; res_scen$resM <- mm$scen
+  res_base$resF <- ff$base; res_scen$resF <- ff$scen
+
+  list(res_base = res_base, res_scen = res_scen)
+}
+
+
+
+# =============================================================
+# Freeze-benchmark reconstruction path (active replication strategy)
+# =============================================================
+
+.rebuild_scenario_freeze_benchmark <- function(res_base,
+                                               inputs,
+                                               cfg_row,
+                                               prev_cfg_scen,
+                                               overwrite_main = TRUE) {
+  out <- .rebuild_incidence_freeze_benchmark(
+    res_base = res_base,
+    inputs = inputs,
+    cfg_row = cfg_row,
+    prev_cfg_scen = prev_cfg_scen,
+    overwrite_main = overwrite_main
+  )
+  .rebuild_anchor_freeze_benchmark(
+    res_base = out$res_base,
+    res_scen = out$res_scen,
+    overwrite_main = overwrite_main
+  )
+}
+
