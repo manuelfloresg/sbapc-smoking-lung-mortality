@@ -50,7 +50,16 @@ compare_pipeline_to_truth <- function(res_both, sim, out_dir = NULL, prefix = ""
       dplyr::filter(as.character(sex) == sx, age >= 35, age <= 89)
     
     if (!("exposure" %in% names(true))) {
-      true <- true %>% dplyr::left_join(sim$pop_all, by = c("sex", "age", "period"))
+      if (!is.null(sim$pop_all)) {
+        true <- true %>% dplyr::left_join(sim$pop_all, by = c("sex", "age", "period"))
+      } else {
+        # Fallback: Usar exposición del fit (hat_raw) si pop_all no está
+        # pero tenemos que alinear por edad/periodo/sexo
+        pop_fallback <- hat_raw %>% 
+          dplyr::select(age, period, exposure = E) %>%
+          dplyr::mutate(sex = sx)
+        true <- true %>% dplyr::left_join(pop_fallback, by = c("sex", "age", "period"))
+      }
     }
 
     true <- true %>%
