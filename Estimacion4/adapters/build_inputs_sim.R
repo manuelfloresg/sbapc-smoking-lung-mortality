@@ -189,13 +189,8 @@ simulate_PIM_data <- function(cause_id = "lung",
       fac <- (1 - scen_rate)^k
       z_scen$p_curr[idx_fut] <- pmin(pmax(z_scen$p_curr[idx_fut] * fac[idx_fut], 1e-8), 1 - 1e-8)
     } else if (identical(scenario_name, "quit")) {
-      # POLÍTICA: Prevalencia corriente cae a cero gradualmente para evitar saltos estructurales
-      # Ramp down over 10 years (more gradual)
-      ramp_years <- 10
-      k_ramp <- pmin(pmax(z_scen$period - base_year, 0), ramp_years)
-      ramp_fac <- pmax(1 - k_ramp / ramp_years, 0)
-      z_scen$p_curr[idx_fut] <- z_scen$p_curr[idx_fut] * ramp_fac[idx_fut]
-      z_scen$p_curr[idx_fut] <- pmax(z_scen$p_curr[idx_fut], 1e-8)
+      # POLÍTICA: Todo el mundo deja de fumar de golpe (Instant Drop)
+      z_scen$p_curr[idx_fut] <- 0
     }
     
     # RECALCULAR q_eff y z_prev a partir de la nueva trayectoria de p_curr

@@ -787,26 +787,6 @@ build_prev_current_surface_for_inc <- function(target_grid,
                                      'within_prev_observed_support.fill', 'within_prev_support.fill', 'prev_scenario_name.fill', 'prev_scenario_applied.fill')))
   }
 
-  if (!is.null(prev_cfg) && identical(prev_cfg$axis, 'period')) {
-    scen_prev <- tryCatch(normalize_prev_scenario_name(prev_cfg$scenario), error = function(e) 'freeze')
-    k_prev <- pmax(0L, suppressWarnings(as.integer(support_grid$period)) - suppressWarnings(as.integer(prev_cfg$base_year))[1])
-    idx_prev <- is.finite(k_prev) & k_prev > 0L
-    if (any(idx_prev) && !identical(scen_prev, 'freeze')) {
-      p_base <- pmin(pmax(as.numeric(support_grid$p_cur), 0), 1)
-      if (identical(scen_prev, 'up1pc')) {
-        p_base[idx_prev] <- pmin(pmax(p_base[idx_prev] * (1 + abs(prev_cfg$annual_rate))^k_prev[idx_prev], 0), 1)
-      } else if (identical(scen_prev, 'down1pc')) {
-        p_base[idx_prev] <- pmin(pmax(p_base[idx_prev] * (1 - abs(prev_cfg$annual_rate))^k_prev[idx_prev], 0), 1)
-      } else if (identical(scen_prev, 'down3pc')) {
-        p_base[idx_prev] <- pmin(pmax(p_base[idx_prev] * (1 - abs(prev_cfg$annual_rate_down3))^k_prev[idx_prev], 0), 1)
-      } else if (identical(scen_prev, 'quit')) {
-        p_base[idx_prev] <- 0
-      }
-      support_grid$p_cur <- p_base
-      support_grid$prev_scenario_name <- dplyr::if_else(idx_prev, as.character(scen_prev), support_grid$prev_scenario_name)
-      support_grid$prev_scenario_applied <- dplyr::if_else(idx_prev, TRUE, support_grid$prev_scenario_applied %||% FALSE)
-    }
-  }
 
 
   out <- target_grid %>% dplyr::left_join(
@@ -906,6 +886,28 @@ build_prev_current_surface_for_inc <- function(target_grid,
 
   # (Scenario applied at support_grid level for consistent stock-model history)
 
+
+  # --- APLICAR ESCENARIO AL FINAL (afecta a todas las edades y fuentes) ---
+  if (!is.null(prev_cfg) && identical(prev_cfg$axis, 'period')) {
+    scen_prev <- tryCatch(normalize_prev_scenario_name(prev_cfg$scenario), error = function(e) 'freeze')
+    k_prev <- pmax(0L, suppressWarnings(as.integer(out$period)) - suppressWarnings(as.integer(prev_cfg$base_year))[1])
+    idx_prev <- is.finite(k_prev) & k_prev > 0L
+    if (any(idx_prev) && !identical(scen_prev, 'freeze')) {
+      p_base <- pmin(pmax(as.numeric(out$p_cur), 0), 1)
+      if (identical(scen_prev, 'up1pc')) {
+        p_base[idx_prev] <- pmin(pmax(p_base[idx_prev] * (1 + abs(prev_cfg$annual_rate))^k_prev[idx_prev], 0), 1)
+      } else if (identical(scen_prev, 'down1pc')) {
+        p_base[idx_prev] <- pmin(pmax(p_base[idx_prev] * (1 - abs(prev_cfg$annual_rate))^k_prev[idx_prev], 0), 1)
+      } else if (identical(scen_prev, 'down3pc')) {
+        p_base[idx_prev] <- pmin(pmax(p_base[idx_prev] * (1 - abs(prev_cfg$annual_rate_down3))^k_prev[idx_prev], 0), 1)
+      } else if (identical(scen_prev, 'quit')) {
+        p_base[idx_prev] <- 0
+      }
+      out$p_cur <- p_base
+      out$prev_scenario_name    <- dplyr::if_else(idx_prev, as.character(scen_prev), as.character(out$prev_scenario_name))
+      out$prev_scenario_applied <- dplyr::if_else(idx_prev, TRUE, out$prev_scenario_applied %||% FALSE)
+    }
+  }
 
   out %>%
     dplyr::arrange(.row_id_prev_current) %>%

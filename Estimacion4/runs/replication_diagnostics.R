@@ -17,10 +17,21 @@ library(future)
 library(future.apply)
 
 # --- Canonical Configuration for Paper ---
+# ------------------------------------------------------------
+# PROJECT PARAMETERS
+# ------------------------------------------------------------
 CANONICAL_SEEDS <- 1:50
 CANONICAL_DGPS  <- c("spec_linear")
 CANONICAL_SCENS <- c("freeze", "up1pc", "down3pc", "quit")
 CAUSE_ID        <- "lung"
+
+# Scenario Palette
+SCEN_COLORS <- c(
+  "up1pc"   = "#D73027", # Red
+  "freeze"  = "#FDAE61", # Orange
+  "down3pc" = "#1A9850", # Green
+  "quit"    = "#4575B4"  # Blue
+)
 
 # Output Directories
 OUT_BASE    <- file.path(BAPC_PATHS$results, "20260515_FINAL_PROD")
@@ -239,104 +250,85 @@ extract_all_metrics <- function(seeds = CANONICAL_SEEDS, dgps = CANONICAL_DGPS, 
 # 3. PLOTTING FUNCTIONS
 # =============================================================
 
-plot_deconstruction_figure <- function(seed = 4, dgp = "spec_linear", scen = "quit") {
-  rds_file <- file.path(OUT_RAW, sprintf("res_%s_s%d_%s.rds", dgp, seed, scen))
-  if (!file.exists(rds_file)) stop("RDS not found for deconstruction.")
-  rb <- read_rds_safe(rds_file)
-  if (inherits(rb, "try-error")) stop("Corrupt RDS for deconstruction: ", rds_file)
+plot_deconstruction_figure <- function(res_both, seed = 4, dgp = "spec_linear", scen = "quit", ylim = NULL) {
+  # Panel A: Baseline deconstruction
+  # No Prevalencia vs BAPC puro
+  df_M <- res_both$resM$annual_anchor_noP %>% select(period, deaths_noP = deaths_hat) %>%
+    left_join(res_both$resM$annual_bapc %>% select(period, deaths_bapc = deaths_hat), by = "period") %>%
+    mutate(gain = deaths_noP - deaths_bapc, sex = "M")
   
-  diag_res <- compare_pipeline_to_truth(rb, rb, out_dir = NULL)
+  df_F <- res_both$resF$annual_anchor_noP %>% select(period, deaths_noP = deaths_hat) %>%
+    left_join(res_both$resF$annual_bapc %>% select(period, deaths_bapc = deaths_hat), by = "period") %>%
+    mutate(gain = deaths_noP - deaths_bapc, sex = "F")
   
-  df_mort <- diag_res$mort
+  df_A <- bind_rows(df_M, df_F) %>% filter(period > 2022)
   
-  # Preparar para plot comparativo con nomenclatura del usuario
-  plot_df <- df_mort %>%
-    dplyr::select(
-      period, sex, 
-      Truth = deaths_true, 
-      `Informed SBAPC (M | I | P)` = deaths_hat, 
-      `Uninformed SBAPC (M | I)` = deaths_noP, 
-      `Pure BAPC (M)` = deaths_bapc
-    ) %>%
-    tidyr::pivot_longer(
-      cols = c(Truth, `Informed SBAPC (M | I | P)`, `Uninformed SBAPC (M | I)`, `Pure BAPC (M)`), 
-      names_to = "Series", values_to = "Deaths"
-    )
+  p1 <- ggplot(df_A, aes(x = period, y = gain, fill = sex)) +
+    geom_col(position = "dodge") +
+    labs(title = "Step 1: Structural Info Gain", subtitle = "Incidence-Mortality Alignment (No Prev)", y = "Deaths Saved", x = NULL) +
+    theme_paper_main(base_size = 9)
+  if(!is.null(ylim)) p1 <- p1 + coord_cartesian(ylim = ylim)
+
+  # Panel B: Informed gain (Informed vs No Prevalencia)
+  df_M2 <- res_both$resM$annual_anchor %>% select(period, deaths_inf = deaths_hat) %>%
+    left_join(res_both$resM$annual_anchor_noP %>% select(period, deaths_noP = deaths_hat), by = "period") %>%
+    mutate(gain = deaths_inf - deaths_noP, sex = "M")
+    
+  df_F2 <- res_both$resF$annual_anchor %>% select(period, deaths_inf = deaths_hat) %>%
+    left_join(res_both$resF$annual_anchor_noP %>% select(period, deaths_noP = deaths_hat), by = "period") %>%
+    mutate(gain = deaths_inf - deaths_noP, sex = "F")
+    
+  df_B <- bind_rows(df_M2, df_F2) %>% filter(period > 2022)
   
-  plot_df$Series <- factor(plot_df$Series, levels = c("Truth", "Informed SBAPC (M | I | P)", "Uninformed SBAPC (M | I)", "Pure BAPC (M)"))
-  
-  last_hist <- rb$meta$last_hist %||% 2022
-  
-  g <- ggplot(plot_df, aes(x = period, y = Deaths, color = Series, linetype = Series)) +
-    geom_line(linewidth = 1) +
-    geom_vline(xintercept = last_hist, linetype = "dotted", color = "gray50") +
-    facet_wrap(~sex, scales = "free_y") +
-    scale_color_manual(values = c(
-      "Truth" = "black", 
-      "Informed SBAPC (M | I | P)" = "#CD5C5C", 
-      "Uninformed SBAPC (M | I)" = "#ff7f0e", 
-      "Pure BAPC (M)" = "#4682B4"
-    )) +
-    scale_linetype_manual(values = c(
-      "Truth" = "dashed", 
-      "Informed SBAPC (M | I | P)" = "solid", 
-      "Uninformed SBAPC (M | I)" = "dotdash", 
-      "Pure BAPC (M)" = "dotted"
-    )) +
-    labs(title = "Information Gain Deconstruction",
-         subtitle = sprintf("Seed %d | DGP: %s | Scenario: %s", seed, dgp, scen),
-         y = "Annual Deaths", x = "Year") +
-    theme_paper_main(base_size = 11) +
-    theme(legend.position = "bottom")
-  
-  return(g)
+  p2 <- ggplot(df_B, aes(x = period, y = gain, fill = sex)) +
+    geom_col(position = "dodge") +
+    labs(title = "Step 2: Prevalence Info Gain", subtitle = "SBAPC with Informed Scenario", y = "Deaths Saved", x = "Year") +
+    theme_paper_main(base_size = 9)
+  if(!is.null(ylim)) p2 <- p2 + coord_cartesian(ylim = ylim)
+
+  (p1 / p2) + plot_annotation(title = sprintf("Gain Deconstruction: %s | %s (Seed %d)", dgp, scen, seed))
 }
 
 plot_scenario_sensitivity_informed <- function(seed = 4, dgp = "spec_linear") {
-  scens <- c("freeze", "up1pc", "down1pc", "quit")
-  data_list <- list()
+  scens_to_plot <- c("freeze", "up1pc", "down3pc", "quit")
   
-  for (sc in scens) {
-    rds_file <- file.path(OUT_RAW, sprintf("res_%s_s%d_%s.rds", dgp, seed, sc))
-    if (!file.exists(rds_file)) next
-    rb <- read_rds_safe(rds_file)
-    if (inherits(rb, "try-error")) next
+  data_list <- list()
+  for (scen in scens_to_plot) {
+    f_path <- file.path(OUT_RAW, sprintf("res_%s_s%d_%s.rds", dgp, seed, scen))
+    if (!file.exists(f_path)) {
+      message("Sensitivity informed: File not found ", f_path)
+      next
+    }
+    res_both <- readRDS(f_path)
     
-    # Extract Informed SBAPC (annual_anchor)
-    # resM and resF
-    df_m <- rb$resM$annual_anchor %>% mutate(sex = "M", scenario = sc)
-    df_f <- rb$resF$annual_anchor %>% mutate(sex = "F", scenario = sc)
-    data_list[[sc]] <- bind_rows(df_m, df_f)
+    # Extraer mortalidad agregada (ambos sexos)
+    m_m <- res_both$resM$annual_anchor %>% select(period, deaths_hat) %>% mutate(sex = "M")
+    m_f <- res_both$resF$annual_anchor %>% select(period, deaths_hat) %>% mutate(sex = "F")
+    
+    data_list[[scen]] <- bind_rows(m_m, m_f) %>%
+      group_by(period) %>%
+      summarise(deaths = sum(deaths_hat, na.rm = TRUE), .groups = "drop") %>%
+      mutate(scenario = scen)
   }
   
-  if (length(data_list) == 0) stop("No RDS found for sensitivity plot.")
-  plot_df <- bind_rows(data_list)
+  df_all <- bind_rows(data_list)
+  last_hist <- 2022
   
-  # Factor scenarios for legend
-  plot_df$scenario <- factor(plot_df$scenario, levels = scens)
-  
-  g <- ggplot(plot_df, aes(x = period, y = deaths_hat, color = scenario, group = scenario)) +
-    geom_line(linewidth = 1) +
-    geom_vline(xintercept = 2022, linetype = "dotted", color = "gray50") +
-    facet_wrap(~sex, scales = "free_y") +
-    scale_color_manual(values = c(
-      "freeze" = "gray30", 
-      "up1pc" = "#CD5C5C", 
-      "down1pc" = "#4682B4", 
-      "quit" = "#228B22"
-    )) +
-    labs(title = sprintf("Scenario Sensitivity: Informed SBAPC (Seed %d)", seed),
-         subtitle = "Comparing Informed SBAPC Projections across Policy Scenarios",
-         y = "Projected Deaths", x = "Year", color = "Scenario") +
-    theme_paper_main(base_size = 11)
-  
-  return(g)
+  ggplot(df_all, aes(x = period, y = deaths, color = scenario)) +
+    geom_vline(xintercept = last_hist, linetype = "dotted") +
+    geom_line(linewidth = 1.2) +
+    scale_color_manual(values = SCEN_COLORS) +
+    labs(title = "Policy Sensitivity: Projected Deaths by Scenario",
+         subtitle = sprintf("Seed %d | DGP: %s | (Total Population)", seed, dgp),
+         y = "Total Annual Deaths", x = "Year", color = "Scenario") +
+    theme_paper_main()
 }
 
 plot_transmission_waterfall <- function(seed = 4, dgp = "spec_linear", scen = "quit") {
-  # Panel A: Delta Smoking Stock (1 - p_never)
-  # Panel B: Delta Incidence
-  # Panel C: Delta Mortality
+  # Panel A: Current Prevalence Level
+  # Panel B: Effective Exposure (The 'Slide')
+  # Panel C: Incidence Rate % change
+  # Panel D: Mortality % change
   
   rds_file <- file.path(OUT_RAW, sprintf("res_%s_s%d_%s.rds", dgp, seed, scen))
   rds_freeze <- file.path(OUT_RAW, sprintf("res_%s_s%d_freeze.rds", dgp, seed))
@@ -348,30 +340,27 @@ plot_transmission_waterfall <- function(seed = 4, dgp = "spec_linear", scen = "q
     stop("Corrupt RDS for waterfall: ", rds_file, " or ", rds_freeze)
   }
   
-  sim_args <- rb_scen$meta$args %||% list()
-  sim_scen <- rb_scen
-  sim_frz  <- rb_frz
-  
   get_stock <- function(rb) {
-    # Combinar z_prev_hist y z_prev_future para ambos sexos
     data_list <- list()
     for (sx in c("M", "F")) {
       sex_res <- if (sx == "M") rb$resM else rb$resF
       if (is.null(sex_res)) next
       
-      # Rates all (for incidence rate)
       r_all <- sex_res$inc_fit$rates_all %>% mutate(sex = sx)
       
       # Prevalence stock (from diag)
-      # p_cur is the current smoker proportion
+      # p_cur now correctly reflects the vertical policy drop if applicable.
       z_h <- sex_res$diag$z_prev_hist
       z_f <- sex_res$diag$z_prev_future
       z_all <- bind_rows(z_h, z_f) %>% 
         group_by(period) %>% 
-        summarise(current_prev = mean(as.numeric(p_cur), na.rm = TRUE), .groups = "drop") %>%
+        summarise(
+          current_prev  = mean(as.numeric(p_cur), na.rm = TRUE),
+          current_q_eff = mean(as.numeric(q_eff), na.rm = TRUE), 
+          .groups = "drop"
+        ) %>%
         mutate(sex = sx)
       
-      # Join
       res_sx <- r_all %>%
         group_by(period, sex) %>%
         summarise(inc_rate = mean(rate_hat, na.rm = TRUE), .groups = "drop") %>%
@@ -388,24 +377,31 @@ plot_transmission_waterfall <- function(seed = 4, dgp = "spec_linear", scen = "q
   diff_stock <- stock_scen %>%
     left_join(stock_frz, by = c("period", "sex"), suffix = c("_scen", "_frz")) %>%
     mutate(
-      diff_pcur = current_prev_scen - current_prev_frz,
       diff_inc  = (inc_rate_scen - inc_rate_frz) / pmax(inc_rate_frz, 1e-12) * 100
     )
   
-  # Panel A: Current Prevalence Level (instead of Delta)
+  # Panel A: Current Prevalence Level
   pA <- ggplot(diff_stock, aes(x = period, y = current_prev_scen * 100, color = sex)) +
     geom_line(linewidth = 1) +
     geom_line(aes(y = current_prev_frz * 100), linetype = "dotted", alpha = 0.7) +
-    labs(title = "Stage 1: Smoking Prevalence Level", y = "Prevalence Rate (%)", x = NULL) +
-    theme_paper_main(base_size = 10)
-  
-  # Panel B: Incidence Rate % change
-  pB <- ggplot(diff_stock, aes(x = period, y = diff_inc, color = sex)) +
+    labs(title = "Stage 1: Smoking Prevalence Level (p_curr)", y = "Rate (%)", x = NULL) +
+    theme_paper_main(base_size = 9)
+    
+  # Panel B: Effective Exposure (The 'Slide')
+  pB <- ggplot(diff_stock, aes(x = period, y = current_q_eff_scen * 100, color = sex)) +
     geom_line(linewidth = 1) +
-    labs(title = "Stage 2: Change in Incidence Rate", y = "% Delta Rate", x = NULL) +
-    theme_paper_main(base_size = 10)
+    geom_line(aes(y = current_q_eff_frz * 100), linetype = "dotted", alpha = 0.7) +
+    labs(title = "Stage 2: Effective Exposure Level (q_eff)", y = "Stock (%)", x = NULL) +
+    theme_paper_main(base_size = 9)
   
-  # Panel C: Mortality % change (Stratified by sex)
+  # Panel C: Incidence Rate % change
+  pC <- ggplot(diff_stock, aes(x = period, y = diff_inc, color = sex)) +
+    geom_hline(yintercept = 0, linetype = "dashed", alpha = 0.5) +
+    geom_line(linewidth = 1) +
+    labs(title = "Stage 3: Change in Incidence Rate", y = "% Delta Rate", x = NULL) +
+    theme_paper_main(base_size = 9)
+  
+  # Panel D: Mortality % change
   get_mort_diff <- function(sex_res_scen, sex_res_frz, sex_lab) {
     m_scen <- sex_res_scen$annual_anchor %>% select(period, deaths_scen = deaths_hat)
     m_frz  <- sex_res_frz$annual_anchor %>% select(period, deaths_frz = deaths_hat)
@@ -419,14 +415,14 @@ plot_transmission_waterfall <- function(seed = 4, dgp = "spec_linear", scen = "q
     get_mort_diff(rb_scen$resF, rb_frz$resF, "F")
   )
   
-  pC <- ggplot(diff_mort, aes(x = period, y = diff_pct, color = sex)) +
+  pD <- ggplot(diff_mort, aes(x = period, y = diff_pct, color = sex)) +
     geom_hline(yintercept = 0, linetype = "dashed", alpha = 0.5) +
     geom_line(linewidth = 1) +
-    labs(title = "Stage 3: Change in Total Deaths", y = "% Delta Deaths", x = "Year") +
-    theme_paper_main(base_size = 10)
+    labs(title = "Stage 4: Change in Total Deaths", y = "% Delta Deaths", x = "Year") +
+    theme_paper_main(base_size = 9)
   
-  (pA / pB / pC) + plot_annotation(title = sprintf("Transmission Waterfall: %s Scenario (Seed %d)", scen, seed)) &
-    theme_paper_main(base_size = 11)
+  (pA | pB) / (pC | pD) + plot_annotation(title = sprintf("Transmission Waterfall: %s Scenario (Seed %d)", scen, seed)) &
+    theme_paper_main(base_size = 10)
 }
 
 plot_reliability_calibration <- function(data) {
@@ -480,9 +476,17 @@ plot_reliability_calibration <- function(data) {
 # =============================================================
 
 replicate_main_paper <- function() {
-  # 1. Deconstruction
-  g1 <- plot_deconstruction_figure(seed = 4, dgp = "spec_linear", scen = "quit")
-  ggsave(file.path(OUT_SEC4, "fig_deconstruction_seed4.png"), g1, width = 10, height = 6, bg = "white")
+  # 1. Deconstruction by scenario (Informed)
+  for (scen in c("freeze", "up1pc", "down3pc", "quit")) {
+    f_path <- file.path(OUT_RAW, sprintf("res_%s_s%d_%s.rds", "spec_linear", 4, scen))
+    if (file.exists(f_path)) {
+      rb <- readRDS(f_path)
+      # User requested same scale across scenarios
+      # Using a fixed ylim for comparison (adjust if needed based on typical gain values)
+      p_dec <- plot_deconstruction_figure(rb, seed = 4, scen = scen, ylim = c(-50, 200))
+      ggsave(file.path(OUT_SEC4, sprintf("fig_deconstruction_seed4_%s.png", scen)), p_dec, width = 8, height = 7, bg = "white")
+    }
+  }
   
   # 2. Waterfall
   g2 <- plot_transmission_waterfall(seed = 4, dgp = "spec_linear", scen = "quit")
