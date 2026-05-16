@@ -16,10 +16,14 @@ if (!exists("project_root")) {
 # 0) Configuration and Paths
 # =============================================================
 
+# Prioritize Dropbox for results if available
+dropbox_results <- "d:/Dropbox/Investigacion/Bloomberg_2025/Estimacion4/results"
+default_results <- file.path(project_root, "results")
+
 BAPC_PATHS <- list(
   project_root = project_root,
   runtime      = file.path(project_root, "runtime"),
-  results      = file.path(project_root, "results"),
+  results      = if (dir.exists(dropbox_results)) dropbox_results else default_results,
   inla_tmp     = "C:/tmp_inla"
 )
 

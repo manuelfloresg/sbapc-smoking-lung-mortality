@@ -23,7 +23,7 @@ CANONICAL_SCENS <- c("freeze", "up1pc", "down3pc", "quit")
 CAUSE_ID        <- "lung"
 
 # Output Directories
-OUT_BASE    <- "results/20260515_FINAL_PROD"
+OUT_BASE    <- file.path(BAPC_PATHS$results, "20260515_FINAL_PROD")
 OUT_SEC4    <- file.path(OUT_BASE, "section4")
 OUT_APPENDIX <- file.path(OUT_BASE, "appendixC")
 OUT_RAW     <- file.path(OUT_BASE, "raw_data")
@@ -392,12 +392,11 @@ plot_transmission_waterfall <- function(seed = 4, dgp = "spec_linear", scen = "q
       diff_inc  = (inc_rate_scen - inc_rate_frz) / pmax(inc_rate_frz, 1e-12) * 100
     )
   
-  # Panel A: Current Prevalence change
-  pA <- ggplot(diff_stock, aes(x = period, y = diff_pcur, color = sex)) +
-    geom_hline(yintercept = 0, linetype = "dashed", alpha = 0.5) +
+  # Panel A: Current Prevalence Level (instead of Delta)
+  pA <- ggplot(diff_stock, aes(x = period, y = current_prev_scen * 100, color = sex)) +
     geom_line(linewidth = 1) +
-    scale_y_continuous(limits = c(-0.4, 0.4)) +
-    labs(title = "Stage 1: Change in Current Prevalence", y = "Delta Prevalence", x = NULL) +
+    geom_line(aes(y = current_prev_frz * 100), linetype = "dotted", alpha = 0.7) +
+    labs(title = "Stage 1: Smoking Prevalence Level", y = "Prevalence Rate (%)", x = NULL) +
     theme_paper_main(base_size = 10)
   
   # Panel B: Incidence Rate % change
@@ -432,23 +431,43 @@ plot_transmission_waterfall <- function(seed = 4, dgp = "spec_linear", scen = "q
 
 plot_reliability_calibration <- function(data) {
   # data$inc contains the errors per period/sex/seed/dgp
-  # but we need to join with support info to get 'horizon' and 'support_frac'
-  
-  # For the calibration plot, we aggregate all seeds and DGPs
-  # to show how error grows with horizon.
   
   df <- data$inc %>%
     dplyr::filter(period > 2022) %>%
     dplyr::mutate(horizon = period - 2022)
   
-  # Join with support info if available, otherwise just use horizon
+  # Calculate endogenous horizons from support_frac thresholds (0.5 and 0.33)
+  horizons_info <- df %>%
+    group_by(horizon) %>%
+    summarise(avg_support = mean(support_frac, na.rm = TRUE), .groups = "drop") %>%
+    arrange(horizon)
+  
+  h_caution <- horizons_info$horizon[which(horizons_info$avg_support < 0.50)[1]]
+  h_risky   <- horizons_info$horizon[which(horizons_info$avg_support < 0.33)[1]]
+  
+  vlines <- c()
+  if (!is.na(h_caution)) vlines <- c(vlines, h_caution)
+  if (!is.na(h_risky))   vlines <- c(vlines, h_risky)
+
   g <- ggplot(df, aes(x = horizon, y = abs(rel_error) * 100)) +
     stat_summary(fun.data = "mean_cl_boot", geom = "ribbon", alpha = 0.2, fill = "blue") +
-    stat_summary(fun = "mean", geom = "line", linewidth = 1, color = "blue") +
-    geom_vline(xintercept = c(5, 10, 20), linetype = "dashed", color = "gray60") +
-    annotate("text", x = 2.5, y = Inf, label = "Credible", vjust = 1.5, size = 3.5, family = "serif") +
-    annotate("text", x = 7.5, y = Inf, label = "Caution", vjust = 1.5, size = 3.5, family = "serif") +
-    labs(title = "Reliability Calibration: Error vs. Horizon",
+    stat_summary(fun = "mean", geom = "line", linewidth = 1, color = "blue")
+    
+  if (length(vlines) > 0) {
+    g <- g + geom_vline(xintercept = vlines, linetype = "dashed", color = "gray60")
+    # Add labels for categories
+    if (!is.na(h_caution)) {
+       g <- g + annotate("text", x = h_caution/2, y = Inf, label = "Credible", vjust = 1.5, size = 3.5, family = "serif")
+       if (!is.na(h_risky)) {
+         g <- g + annotate("text", x = (h_caution + h_risky)/2, y = Inf, label = "Caution", vjust = 1.5, size = 3.5, family = "serif")
+         g <- g + annotate("text", x = h_risky + (max(df$horizon)-h_risky)/2, y = Inf, label = "Risky", vjust = 1.5, size = 3.5, family = "serif")
+       } else {
+         g <- g + annotate("text", x = h_caution + (max(df$horizon)-h_caution)/2, y = Inf, label = "Caution", vjust = 1.5, size = 3.5, family = "serif")
+       }
+    }
+  }
+
+  g <- g + labs(title = "Reliability Calibration: Error vs. Horizon",
          y = "Mean Absolute Relative Error (%)", x = "Projection Horizon (Years)") +
     theme_paper_main(base_size = 11)
   
