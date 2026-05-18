@@ -106,6 +106,16 @@ For an exploratory production run, call `run_simulation_replication()` directly
 with an explicit seed set and worker count, then generate figures through
 `replicate_main_paper()`.
 
+To write a production candidate to a fresh folder, set `BAPC_OUT_BASE` before
+loading the replication hub:
+
+```r
+Sys.setenv(BAPC_OUT_BASE = "results/20260518_PROD_CANDIDATE")
+source("runs/replication_diagnostics.R")
+run_simulation_replication(seeds = 1:50, n_cores = 6, force_rerun = TRUE)
+replicate_main_paper()
+```
+
 ## Important Outputs
 
 The main diagnostic products currently used for the simulation section include:

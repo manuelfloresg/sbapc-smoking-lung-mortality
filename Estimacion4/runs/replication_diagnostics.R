@@ -41,7 +41,9 @@ SCEN_LABELS <- c(
 )
 
 # Output Directories
-OUT_BASE    <- file.path(BAPC_PATHS$results, "20260515_FINAL_PROD")
+.out_base_env <- Sys.getenv("BAPC_OUT_BASE", unset = "")
+OUT_BASE    <- if (nzchar(.out_base_env)) .out_base_env else file.path(BAPC_PATHS$results, "20260515_FINAL_PROD")
+OUT_BASE    <- normalizePath(OUT_BASE, winslash = "/", mustWork = FALSE)
 OUT_SEC4    <- file.path(OUT_BASE, "section4")
 OUT_APPENDIX <- file.path(OUT_BASE, "appendixC")
 OUT_RAW     <- file.path(OUT_BASE, "raw_data")
