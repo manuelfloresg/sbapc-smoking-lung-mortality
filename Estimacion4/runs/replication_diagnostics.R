@@ -125,6 +125,59 @@ save_paper_plot <- function(plot, path_no_ext, width, height, bg = "white", form
   invisible(path_no_ext)
 }
 
+PAPER_EXPORT_PROFILE <- {
+  val <- Sys.getenv("BAPC_PAPER_EXPORT_PROFILE", unset = "")
+  if (!nzchar(val)) val <- getOption("BAPC_PAPER_EXPORT_PROFILE", "manuscript")
+  match.arg(as.character(val)[1], c("manuscript", "legacy"))
+}
+
+PAPER_FIG_SPECS <- list(
+  manuscript = list(
+    scenario_atlas = list(width = 7.2, height = 3.3, base_size = 9.8),
+    waterfall = list(width = 7.0, height = 8.7, base_size = 10.2),
+    sensitivity = list(width = 6.8, height = 4.0, base_size = 10.0),
+    transmission_map = list(width = 7.2, height = 5.6, base_size = 8.8),
+    transmission_support = list(width = 7.2, height = 5.3, base_size = 8.8),
+    scenario_effect = list(width = 7.2, height = 3.8, base_size = 9.6),
+    scenario_effect_bysex = list(width = 7.2, height = 5.6, base_size = 8.9),
+    reliability = list(width = 6.8, height = 4.1, base_size = 10.0),
+    bias_distribution = list(width = 6.8, height = 4.8, base_size = 9.8),
+    case_study = list(width = 6.8, height = 4.2, base_size = 9.8)
+  ),
+  legacy = list(
+    scenario_atlas = list(width = 14, height = 5, base_size = 12),
+    waterfall = list(width = 8, height = 10, base_size = 9),
+    sensitivity = list(width = 10, height = 6, base_size = 10.5),
+    transmission_map = list(width = 13, height = 9, base_size = 10),
+    transmission_support = list(width = 13, height = 8, base_size = 10),
+    scenario_effect = list(width = 12, height = 5.8, base_size = 10),
+    scenario_effect_bysex = list(width = 12, height = 7.5, base_size = 10),
+    reliability = list(width = 10, height = 6, base_size = 11),
+    bias_distribution = list(width = 10, height = 7, base_size = 10),
+    case_study = list(width = 10, height = 6, base_size = 11)
+  )
+)
+
+paper_fig_spec <- function(key, profile = PAPER_EXPORT_PROFILE) {
+  spec <- PAPER_FIG_SPECS[[profile]][[key]]
+  if (is.null(spec)) stop("Unknown paper figure spec: ", key)
+  spec
+}
+
+paper_fig_base_size <- function(key) paper_fig_spec(key)$base_size
+
+save_profiled_plot <- function(plot, path_no_ext, key, bg = "white", ...) {
+  spec <- paper_fig_spec(key)
+  save_paper_plot(
+    plot = plot,
+    path_no_ext = path_no_ext,
+    width = spec$width,
+    height = spec$height,
+    bg = bg,
+    ...
+  )
+}
+
 figure_file_names <- function(stem, format = FIG_FORMAT) {
   paste0(stem, ".", figure_exts(format))
 }
@@ -540,7 +593,8 @@ extract_all_metrics <- function(seeds = CANONICAL_SEEDS, dgps = CANONICAL_DGPS, 
 # 3. PLOTTING FUNCTIONS
 # =============================================================
 
-plot_deconstruction_figure <- function(seed = 4, dgp = "spec_linear", scen = "quit") {
+plot_deconstruction_figure <- function(seed = 4, dgp = "spec_linear", scen = "quit",
+                                       base_size = paper_fig_base_size("case_study")) {
   rds_file <- file.path(OUT_RAW, sprintf("res_%s_s%d_%s.rds", dgp, seed, scen))
   if (!file.exists(rds_file)) stop("RDS not found for deconstruction.")
   rb <- read_rds_safe(rds_file)
@@ -577,13 +631,14 @@ plot_deconstruction_figure <- function(seed = 4, dgp = "spec_linear", scen = "qu
     scale_color_manual(values = MODEL_COLORS, breaks = decomp_levels) +
     scale_linetype_manual(values = MODEL_LINETYPES, breaks = decomp_levels) +
     labs(y = "Annual deaths", x = "Year", color = "Series", linetype = "Series") +
-    theme_paper_main(base_size = 11) +
+    theme_paper_main(base_size = base_size) +
     theme(legend.position = "bottom")
   
   return(g)
 }
 
-plot_scenario_atlas_by_sex <- function(seed = 4, sex_lab = "M") {
+plot_scenario_atlas_by_sex <- function(seed = 4, sex_lab = "M",
+                                       base_size = paper_fig_base_size("scenario_atlas")) {
   # Scenarios to include in the requested order
   scens <- c("up1pc", "freeze", "down1pc", "quit")
   all_data <- list()
@@ -632,7 +687,7 @@ plot_scenario_atlas_by_sex <- function(seed = 4, sex_lab = "M") {
     scale_color_manual(values = pal, breaks = model_levels) +
     scale_linetype_manual(values = types, breaks = model_levels) +
     labs(y = "Annual deaths", x = "Year", color = "Model", linetype = "Model") +
-    theme_paper_main(base_size = 12) +
+    theme_paper_main(base_size = base_size) +
     theme(legend.position = "bottom", strip.background = element_rect(fill = "gray95"))
   
   return(g)
@@ -640,7 +695,8 @@ plot_scenario_atlas_by_sex <- function(seed = 4, sex_lab = "M") {
 
 # =============================================================
 
-plot_scenario_sensitivity_informed <- function(seed = 4, dgp = "spec_linear") {
+plot_scenario_sensitivity_informed <- function(seed = 4, dgp = "spec_linear",
+                                               base_size = paper_fig_base_size("sensitivity")) {
   scens_to_plot <- c("up1pc", "freeze", "down1pc", "quit")
   
   data_list <- list()
@@ -671,10 +727,11 @@ plot_scenario_sensitivity_informed <- function(seed = 4, dgp = "spec_linear") {
     geom_line(linewidth = 1.2) +
     scale_color_manual(values = SCEN_COLORS, labels = SCEN_LABELS) +
     labs(y = "Total annual deaths", x = "Year", color = "Scenario") +
-    theme_paper_main()
+    theme_paper_main(base_size = base_size)
 }
 
-plot_transmission_waterfall <- function(seed = 4, dgp = "spec_linear", scen = "quit") {
+plot_transmission_waterfall <- function(seed = 4, dgp = "spec_linear", scen = "quit",
+                                        base_size = paper_fig_base_size("waterfall")) {
   # Panel A: Current Prevalence Level
   # Panel B: Effective Exposure (The 'Slide')
   # Panel C: Incidence Rate % change
@@ -733,7 +790,7 @@ plot_transmission_waterfall <- function(seed = 4, dgp = "spec_linear", scen = "q
     geom_line(data = stock_frz, aes(y = current_prev * 100), linetype = "dotted", alpha = 0.7) +
     scale_color_manual(values = SEX_COLORS, drop = FALSE) +
     labs(title = "Smoking prevalence", y = "Percent", x = NULL, color = "Sex") +
-    theme_paper_main(base_size = 9)
+    theme_paper_main(base_size = base_size)
     
   # Panel B: Effective Exposure
   pB <- ggplot(stock_scen, aes(x = period, y = current_q_eff * 100, color = sex)) +
@@ -741,7 +798,7 @@ plot_transmission_waterfall <- function(seed = 4, dgp = "spec_linear", scen = "q
     geom_line(data = stock_frz, aes(y = current_q_eff * 100), linetype = "dotted", alpha = 0.7) +
     scale_color_manual(values = SEX_COLORS, drop = FALSE) +
     labs(title = "Effective smoking exposure", y = "Percent", x = NULL, color = "Sex") +
-    theme_paper_main(base_size = 9)
+    theme_paper_main(base_size = base_size)
   
   # Panel C: Incidence Rate Levels
   pC <- ggplot(stock_scen, aes(x = period, y = inc_rate * 100000, color = sex)) +
@@ -749,7 +806,7 @@ plot_transmission_waterfall <- function(seed = 4, dgp = "spec_linear", scen = "q
     geom_line(data = stock_frz, aes(y = inc_rate * 100000), linetype = "dotted", alpha = 0.7) +
     scale_color_manual(values = SEX_COLORS, drop = FALSE) +
     labs(title = "Incidence rate", y = "Rate per 100,000", x = NULL, color = "Sex") +
-    theme_paper_main(base_size = 9)
+    theme_paper_main(base_size = base_size)
   
   # Panel D: Total Deaths Levels
   pD <- ggplot(stock_scen, aes(x = period, y = deaths_hat, color = sex)) +
@@ -757,11 +814,11 @@ plot_transmission_waterfall <- function(seed = 4, dgp = "spec_linear", scen = "q
     geom_line(data = stock_frz, aes(y = deaths_hat), linetype = "dotted", alpha = 0.7) +
     scale_color_manual(values = SEX_COLORS, drop = FALSE) +
     labs(title = "Annual deaths", y = "Annual deaths", x = "Year", color = "Sex") +
-    theme_paper_main(base_size = 9)
+    theme_paper_main(base_size = base_size)
   
   ((pA | pB) / (pC | pD)) +
     patchwork::plot_layout(guides = "collect") &
-    theme_paper_main(base_size = 10) &
+    theme_paper_main(base_size = base_size) &
     theme(legend.position = "bottom")
 }
 
@@ -770,13 +827,14 @@ plot_transmission_map <- function(seed = 4,
                                   sex_lab = "M",
                                   scens = c("up1pc", "freeze", "down1pc", "quit"),
                                   raw_dir = OUT_RAW,
-                                  title_suffix = NULL) {
+                                  title_suffix = NULL,
+                                  base_size = paper_fig_base_size("transmission_map")) {
   sex_lab <- match.arg(as.character(sex_lab)[1], c("M", "F"))
   series_levels <- unname(MODEL_LABELS[c("truth", "sbapc")])
   metric_levels <- c(
-    "Current smoking prevalence",
-    "Effective smoking exposure",
-    "Annual incident cases",
+    "Current smoking",
+    "Effective exposure",
+    "Incident cases",
     "Annual deaths"
   )
 
@@ -807,8 +865,8 @@ plot_transmission_map <- function(seed = 4,
       dplyr::filter(as.character(sex) == sex_lab) %>%
       dplyr::group_by(period) %>%
       dplyr::summarise(
-        `Current smoking prevalence` = mean(as.numeric(p_curr), na.rm = TRUE) * 100,
-        `Effective smoking exposure` = mean(as.numeric(q_eff), na.rm = TRUE) * 100,
+        `Current smoking` = mean(as.numeric(p_curr), na.rm = TRUE) * 100,
+        `Effective exposure` = mean(as.numeric(q_eff), na.rm = TRUE) * 100,
         .groups = "drop"
       ) %>%
       tidyr::pivot_longer(-period, names_to = "metric", values_to = "value") %>%
@@ -821,8 +879,8 @@ plot_transmission_map <- function(seed = 4,
       dplyr::filter(as.character(sex) == sex_lab) %>%
       dplyr::group_by(period) %>%
       dplyr::summarise(
-        `Current smoking prevalence` = mean(as.numeric(p_cur), na.rm = TRUE) * 100,
-        `Effective smoking exposure` = mean(as.numeric(q_eff), na.rm = TRUE) * 100,
+        `Current smoking` = mean(as.numeric(p_cur), na.rm = TRUE) * 100,
+        `Effective exposure` = mean(as.numeric(q_eff), na.rm = TRUE) * 100,
         .groups = "drop"
       ) %>%
       tidyr::pivot_longer(-period, names_to = "metric", values_to = "value") %>%
@@ -835,11 +893,11 @@ plot_transmission_map <- function(seed = 4,
       dplyr::filter(as.character(sex) == sex_lab) %>%
       dplyr::group_by(period) %>%
       dplyr::summarise(value = sum(as.numeric(rateI_scen_true) * exposure, na.rm = TRUE), .groups = "drop") %>%
-      dplyr::mutate(metric = "Annual incident cases", series = MODEL_LABELS[["truth"]])
+      dplyr::mutate(metric = "Incident cases", series = MODEL_LABELS[["truth"]])
 
     est_inc <- sex_res$inc_annual_cond %>%
       dplyr::transmute(period = as.integer(period), value = as.numeric(cases_hat),
-                       metric = "Annual incident cases", series = MODEL_LABELS[["sbapc"]])
+                       metric = "Incident cases", series = MODEL_LABELS[["sbapc"]])
     if (!any(est_inc$period <= 2022, na.rm = TRUE) && !identical(scen, "freeze")) {
       if (is.null(freeze_hist_inc_by_seed)) {
         freeze_file <- file.path(raw_dir, sprintf("res_%s_s%d_freeze.rds", dgp, seed))
@@ -849,7 +907,7 @@ plot_transmission_map <- function(seed = 4,
           freeze_hist_inc_by_seed <- sex_freeze$inc_annual_cond %>%
             dplyr::filter(as.integer(period) <= 2022) %>%
             dplyr::transmute(period = as.integer(period), value = as.numeric(cases_hat),
-                             metric = "Annual incident cases", series = MODEL_LABELS[["sbapc"]])
+                             metric = "Incident cases", series = MODEL_LABELS[["sbapc"]])
         } else {
           freeze_hist_inc_by_seed <- tibble::tibble()
         }
@@ -887,7 +945,7 @@ plot_transmission_map <- function(seed = 4,
     scale_color_manual(values = MODEL_COLORS[series_levels], breaks = series_levels) +
     scale_linetype_manual(values = MODEL_LINETYPES[series_levels], breaks = series_levels) +
     labs(x = "Year", y = NULL, color = "Series", linetype = "Series") +
-    theme_paper_main(base_size = 10) +
+    theme_paper_main(base_size = base_size) +
     theme(
       legend.position = "bottom",
       strip.background = element_rect(fill = "gray95"),
@@ -902,23 +960,26 @@ plot_transmission_map_support_compare <- function(seed = 4,
                                                   realistic_raw_dir = OUT_RAW,
                                                   oracle_raw_dir = OUT_RAW_ORACLE,
                                                   realistic_label = "Observed-window SBAPC",
-                                                  oracle_label = "Full-support SBAPC") {
+                                                  oracle_label = "Full-support SBAPC",
+                                                  base_size = paper_fig_base_size("transmission_support")) {
   sex_lab <- match.arg(as.character(sex_lab)[1], c("M", "F"))
   metric_levels <- c(
-    "Current smoking prevalence",
-    "Effective smoking exposure",
-    "Annual incident cases",
+    "Current smoking",
+    "Effective exposure",
+    "Incident cases",
     "Annual deaths"
   )
   series_levels <- c("Truth", realistic_label, oracle_label)
 
   g_real <- plot_transmission_map(
     seed = seed, dgp = dgp, sex_lab = sex_lab, scens = scens,
-    raw_dir = realistic_raw_dir
+    raw_dir = realistic_raw_dir,
+    base_size = base_size
   )
   g_oracle <- plot_transmission_map(
     seed = seed, dgp = dgp, sex_lab = sex_lab, scens = scens,
-    raw_dir = oracle_raw_dir
+    raw_dir = oracle_raw_dir,
+    base_size = base_size
   )
 
   df_real <- tibble::as_tibble(g_real$data)
@@ -954,7 +1015,7 @@ plot_transmission_map_support_compare <- function(seed = 4,
       breaks = series_levels
     ) +
     labs(x = "Year", y = NULL, color = "Series", linetype = "Series") +
-    theme_paper_main(base_size = 10) +
+    theme_paper_main(base_size = base_size) +
     theme(
       legend.position = "bottom",
       strip.background = element_rect(fill = "gray95"),
@@ -1003,8 +1064,8 @@ generate_support_transmission_maps <- function(seed = 4,
     save_paper_plot(
       g,
       file.path(OUT_SEC4, sprintf("fig_transmission_map_support_compare_seed%d_%s", seed, sx)),
-      width = 13,
-      height = 8,
+      width = paper_fig_spec("transmission_support")$width,
+      height = paper_fig_spec("transmission_support")$height,
       bg = "white"
     )
   }
@@ -1142,7 +1203,8 @@ summarise_scenario_effect_recovery <- function(effect_df) {
 plot_scenario_effect_recovery <- function(effect_df,
                                           include_models = unname(MODEL_LABELS[c("sbapc", "bapc")]),
                                           title = NULL,
-                                          subtitle = NULL) {
+                                          subtitle = NULL,
+                                          base_size = paper_fig_base_size("scenario_effect")) {
   truth_df <- effect_df %>%
     dplyr::distinct(seed, dgp, scenario, scenario_label, sex, period, effect_true_pct) %>%
     dplyr::mutate(model = MODEL_LABELS[["truth"]], effect_pct = effect_true_pct)
@@ -1219,7 +1281,7 @@ plot_scenario_effect_recovery <- function(effect_df,
       color = "Series",
       linetype = "Series"
     ) +
-    theme_paper_main(base_size = 10) +
+    theme_paper_main(base_size = base_size) +
     ggplot2::theme(
       legend.position = "bottom",
       strip.background = ggplot2::element_rect(fill = "gray95"),
@@ -1285,21 +1347,23 @@ generate_scenario_effect_products <- function(data = NULL) {
 
   g_main <- plot_scenario_effect_recovery(
     effect_total,
-    include_models = unname(MODEL_LABELS[c("sbapc", "bapc")])
+    include_models = unname(MODEL_LABELS[c("sbapc", "bapc")]),
+    base_size = paper_fig_base_size("scenario_effect")
   )
-  save_paper_plot(g_main, file.path(OUT_SEC4, "fig_scenario_effect_recovery"), width = 12, height = 5.8, bg = "white")
+  save_profiled_plot(g_main, file.path(OUT_SEC4, "fig_scenario_effect_recovery"), key = "scenario_effect", bg = "white")
 
   g_bysex <- plot_scenario_effect_recovery(
     effect_bysex,
-    include_models = unname(MODEL_LABELS[c("sbapc", "sbapc_no_prev", "bapc")])
+    include_models = unname(MODEL_LABELS[c("sbapc", "sbapc_no_prev", "bapc")]),
+    base_size = paper_fig_base_size("scenario_effect_bysex")
   )
-  save_paper_plot(g_bysex, file.path(OUT_APPENDIX, "fig_scenario_effect_recovery_bysex"), width = 12, height = 7.5, bg = "white")
+  save_profiled_plot(g_bysex, file.path(OUT_APPENDIX, "fig_scenario_effect_recovery_bysex"), key = "scenario_effect_bysex", bg = "white")
 
   invisible(list(effect_total = effect_total, effect_bysex = effect_bysex,
                  summary_total = summary_total, summary_bysex = summary_bysex))
 }
 
-plot_reliability_calibration <- function(data) {
+plot_reliability_calibration <- function(data, base_size = paper_fig_base_size("reliability")) {
   # data$inc contains the errors per period/sex/seed/dgp
   
   df <- data$inc %>%
@@ -1365,7 +1429,7 @@ plot_reliability_calibration <- function(data) {
          y = "Mean absolute relative error (%)",
          x = "Projection horizon (years)"
        ) +
-    theme_paper_main(base_size = 11)
+    theme_paper_main(base_size = base_size)
   
   return(g)
 }
@@ -1379,20 +1443,20 @@ replicate_main_paper <- function() {
   # 1. Scenario Atlas (By Sex)
   for (sx in c("M", "F")) {
     g_atlas <- plot_scenario_atlas_by_sex(seed = 4, sex_lab = sx)
-    save_paper_plot(g_atlas, file.path(OUT_SEC4, sprintf("fig_scenario_atlas_seed4_%s", sx)), width = 14, height = 5, bg = "white")
+    save_profiled_plot(g_atlas, file.path(OUT_SEC4, sprintf("fig_scenario_atlas_seed4_%s", sx)), key = "scenario_atlas", bg = "white")
   }
   
   # 2. Waterfall
   g2 <- plot_transmission_waterfall(seed = 4, dgp = "spec_linear", scen = "quit")
-  save_paper_plot(g2, file.path(OUT_SEC4, "fig_waterfall_seed4"), width = 8, height = 10, bg = "white")
+  save_profiled_plot(g2, file.path(OUT_SEC4, "fig_waterfall_seed4"), key = "waterfall", bg = "white")
   
   # 3. Scenario Sensitivity (New)
   g_sens <- plot_scenario_sensitivity_informed(seed = 4, dgp = "spec_linear")
-  save_paper_plot(g_sens, file.path(OUT_SEC4, "fig_sensitivity_seed4"), width = 10, height = 6, bg = "white")
+  save_profiled_plot(g_sens, file.path(OUT_SEC4, "fig_sensitivity_seed4"), key = "sensitivity", bg = "white")
   
   # 4. Transmission map
   g_map <- plot_transmission_map(seed = 4, dgp = "spec_linear", sex_lab = "M")
-  save_paper_plot(g_map, file.path(OUT_SEC4, "fig_transmission_map_seed4_M"), width = 13, height = 9, bg = "white")
+  save_profiled_plot(g_map, file.path(OUT_SEC4, "fig_transmission_map_seed4_M"), key = "transmission_map", bg = "white")
   generate_support_transmission_maps(seed = 4, dgp = "spec_linear", force_oracle = FALSE)
 
   # 5. Bias Table
@@ -1403,7 +1467,7 @@ replicate_main_paper <- function() {
   
   # 6. Reliability Plot
   g3 <- plot_reliability_calibration(data)
-  save_paper_plot(g3, file.path(OUT_SEC4, "fig_reliability_calibration"), width = 10, height = 6, bg = "white")
+  save_profiled_plot(g3, file.path(OUT_SEC4, "fig_reliability_calibration"), key = "reliability", bg = "white")
   
   # 7. Support Summary
   write_csv(data$support, file.path(OUT_SEC4, "support_summary.csv"))
@@ -1438,8 +1502,8 @@ generate_appendix_c <- function() {
     facet_wrap(facet_vars) +
     scale_fill_manual(values = scen_colors_by_label) +
     labs(y = "Projection bias (%)", x = "Scenario") +
-    theme_paper_main(base_size = 10) + theme(legend.position = "none")
-  save_paper_plot(g_bias, file.path(OUT_APPENDIX, "fig_bias_distributions"), width = 10, height = 7, bg = "white")
+    theme_paper_main(base_size = paper_fig_base_size("bias_distribution")) + theme(legend.position = "none")
+  save_profiled_plot(g_bias, file.path(OUT_APPENDIX, "fig_bias_distributions"), key = "bias_distribution", bg = "white")
   
   # 2. Case Studies Selection (Based on Projection Bias in 'quit' scenario)
   # We'll pick Best (min abs bias), Median, and Worst (max abs bias)
@@ -1453,7 +1517,7 @@ generate_appendix_c <- function() {
     s <- case_seeds$seed[i]
     lbl <- case_seeds$label[i]
     g_case <- plot_deconstruction_figure(seed = s, dgp = "spec_linear", scen = "quit")
-    save_paper_plot(g_case, file.path(OUT_APPENDIX, sprintf("fig_case_study_%s_s%d", tolower(lbl), s)), width = 10, height = 6, bg = "white")
+    save_profiled_plot(g_case, file.path(OUT_APPENDIX, sprintf("fig_case_study_%s_s%d", tolower(lbl), s)), key = "case_study", bg = "white")
   }
   
   # 3. Full Detailed Table (CSV)
