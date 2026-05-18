@@ -379,8 +379,10 @@ PREV_INC_CHANNEL_MODE <- "stock_former"          # main PREV -> INC channel
 PREV_INC_MAX_QUIT_YEARS <- NA_integer_           # if NA, use maximum available from the risk-reversal schedule
 PREV_BACKCAST_MODE <- "freeze_first_period"     # period effect backcast for PREV
 PREV_BACKCAST_COHORT_MODE <- "freeze_oldest"    # unobserved cohorts backcast for PREV
-PREV_EDGE_COMPLETION_MODE <- "apc_posterior"    # "apc_posterior", "constant_boundary", or legacy "carry_states"
+PREV_EDGE_COMPLETION_MODE <- "constant_boundary" # "constant_boundary", "damped_apc", "apc_posterior", or legacy "carry_states"
 PREV_EDGE_COMPLETION_TREND_TYPE <- "trend"      # trend type used only for APC completion outside observed support
+PREV_EDGE_COMPLETION_WINDOW <- COHORT_FC_WINDOW # recent window for damped_apc local slopes
+PREV_EDGE_COMPLETION_DAMPING <- COHORT_FC_DAMPING # geometric damping for damped_apc local slopes
 PREV_POST65_MODE <- PREV_EDGE_COMPLETION_MODE   # legacy alias
 BETA_MODE <- "fixed_rr_offset"                 # fixed relative risk offset is the only supported mechanism
 

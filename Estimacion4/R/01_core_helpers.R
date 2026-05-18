@@ -682,8 +682,10 @@ backcast_gammaP <- function(gammaP_hist_df, cohorts_past, method = c('freeze_old
                                 value_name,
                                 eff_name,
                                 needed_values,
-                                mode = c("apc_posterior", "constant_boundary"),
-                                trend_type = c("level", "trend")) {
+                                mode = c("apc_posterior", "damped_apc", "constant_boundary"),
+                                trend_type = c("level", "trend"),
+                                window = PREV_EDGE_COMPLETION_WINDOW,
+                                damping = PREV_EDGE_COMPLETION_DAMPING) {
   mode <- match.arg(mode)
   trend_type <- match.arg(trend_type)
   needed_values <- sort(unique(suppressWarnings(as.integer(needed_values))))
@@ -711,18 +713,42 @@ backcast_gammaP <- function(gammaP_hist_df, cohorts_past, method = c('freeze_old
   }
   past <- needed_values[needed_values < min(hist$value, na.rm = TRUE)]
   future <- needed_values[needed_values > max(hist$value, na.rm = TRUE)]
-  past_df <- backcast_gammaP(
-    hist %>% dplyr::transmute(cohort = value, gammaP = eff),
-    past,
-    method = "trend",
-    trend_type = trend_type
-  ) %>% dplyr::transmute(value = as.integer(cohort), eff = gammaP)
-  future_df <- forecast_gammaP(
-    hist %>% dplyr::transmute(cohort = value, gammaP = eff),
-    future,
-    method = "trend",
-    trend_type = trend_type
-  ) %>% dplyr::transmute(value = as.integer(cohort), eff = gammaP)
+  hist_gamma <- hist %>% dplyr::transmute(cohort = value, gammaP = eff)
+  if (identical(mode, "damped_apc")) {
+    rev_hist <- hist_gamma %>%
+      dplyr::arrange(dplyr::desc(cohort)) %>%
+      dplyr::transmute(cohort = -cohort, gammaP = gammaP)
+    past_df <- forecast_gammaP(
+      rev_hist,
+      sort(unique(-past)),
+      method = "damped_trend",
+      trend_type = trend_type,
+      window = window,
+      damping = damping
+    ) %>%
+      dplyr::transmute(value = as.integer(-cohort), eff = gammaP)
+    future_df <- forecast_gammaP(
+      hist_gamma,
+      future,
+      method = "damped_trend",
+      trend_type = trend_type,
+      window = window,
+      damping = damping
+    ) %>% dplyr::transmute(value = as.integer(cohort), eff = gammaP)
+  } else {
+    past_df <- backcast_gammaP(
+      hist_gamma,
+      past,
+      method = "trend",
+      trend_type = trend_type
+    ) %>% dplyr::transmute(value = as.integer(cohort), eff = gammaP)
+    future_df <- forecast_gammaP(
+      hist_gamma,
+      future,
+      method = "trend",
+      trend_type = trend_type
+    ) %>% dplyr::transmute(value = as.integer(cohort), eff = gammaP)
+  }
   dplyr::bind_rows(hist, past_df, future_df) %>%
     dplyr::filter(value %in% needed_values) %>%
     dplyr::arrange(value)
@@ -740,6 +766,8 @@ build_prev_current_surface_for_inc <- function(target_grid,
                                                post65_mode = PREV_POST65_MODE,
                                                edge_completion_mode = PREV_EDGE_COMPLETION_MODE,
                                                edge_completion_trend_type = PREV_EDGE_COMPLETION_TREND_TYPE,
+                                               edge_completion_window = PREV_EDGE_COMPLETION_WINDOW,
+                                               edge_completion_damping = PREV_EDGE_COMPLETION_DAMPING,
                                                age_min_p = AGE_P_MIN,
                                                age_max_p = AGE_P_MAX) {
   if (is.null(prev_cfg)) prev_cfg <- make_prev_config()
@@ -859,28 +887,31 @@ build_prev_current_surface_for_inc <- function(target_grid,
     by = '.row_id_prev_current'
   )
 
-  completion_mode <- if (edge_completion_mode %in% c("apc_posterior", "constant_boundary", "carry_states")) {
+  completion_mode <- if (edge_completion_mode %in% c("apc_posterior", "damped_apc", "constant_boundary", "carry_states")) {
     edge_completion_mode
-  } else if (post65_mode %in% c("apc_posterior", "constant_boundary", "carry_states")) {
+  } else if (post65_mode %in% c("apc_posterior", "damped_apc", "constant_boundary", "carry_states")) {
     post65_mode
   } else {
     "carry_states"
   }
-  completion_trend_type <- if (completion_mode %in% c("apc_posterior", "constant_boundary")) {
+  completion_trend_type <- if (completion_mode %in% c("apc_posterior", "damped_apc", "constant_boundary")) {
     edge_completion_trend_type
   } else {
     trend_type
   }
-  completion_mode <- if (completion_mode %in% c("apc_posterior", "constant_boundary")) completion_mode else "legacy"
+  completion_mode <- if (completion_mode %in% c("apc_posterior", "damped_apc", "constant_boundary")) completion_mode else "legacy"
   if (!identical(completion_mode, "legacy")) {
     age_ext <- .prev_extend_effect(age_re, "age", "age_eff", out$age,
-                                   mode = completion_mode, trend_type = completion_trend_type) %>%
+                                   mode = completion_mode, trend_type = completion_trend_type,
+                                   window = edge_completion_window, damping = edge_completion_damping) %>%
       dplyr::rename(age = value, age_eff_completion = eff)
     per_ext <- .prev_extend_effect(per_re_hist, "period", "period_eff", out$period,
-                                   mode = completion_mode, trend_type = completion_trend_type) %>%
+                                   mode = completion_mode, trend_type = completion_trend_type,
+                                   window = edge_completion_window, damping = edge_completion_damping) %>%
       dplyr::rename(period = value, period_eff_completion = eff)
     coh_ext <- .prev_extend_effect(coh_hist, "cohort", "cohort_eff", out$cohort,
-                                   mode = completion_mode, trend_type = completion_trend_type) %>%
+                                   mode = completion_mode, trend_type = completion_trend_type,
+                                   window = edge_completion_window, damping = edge_completion_damping) %>%
       dplyr::rename(cohort = value, cohort_eff_completion = eff)
     completion_df <- out %>%
       dplyr::select(.row_id_prev_current, age, period, cohort) %>%
@@ -906,7 +937,11 @@ build_prev_current_surface_for_inc <- function(target_grid,
         p_cur = dplyr::if_else(.needs_completion & is.finite(p_cur_completion), p_cur_completion, p_cur),
         prev_source = dplyr::if_else(
           .needs_completion & is.finite(p_cur_completion),
-          ifelse(identical(completion_mode, "apc_posterior"), "apc_completion", "constant_boundary_completion"),
+          dplyr::case_when(
+            identical(completion_mode, "apc_posterior") ~ "apc_completion",
+            identical(completion_mode, "damped_apc") ~ "damped_apc_completion",
+            TRUE ~ "constant_boundary_completion"
+          ),
           prev_source
         ),
         within_prev_age_support = dplyr::if_else(.needs_completion & is.finite(p_cur_completion),
