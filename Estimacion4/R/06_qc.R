@@ -88,13 +88,12 @@ qc_proj_flags <- function(proj_tbl, growth_ratio_thr = 2, end_width_rel_thr = 1.
 make_qc_summary <- function(params_tbl, proj_tbl) {
   if (is.null(params_tbl) || nrow(params_tbl) == 0) return(tibble::tibble())
 
-  need_cols <- c("beta_mode", "rr_inc", "A_I_star", "prev_sign", "L_I", "bridge_years")
+  need_cols <- c("beta_mode", "rr_inc", "prev_sign", "L_I", "bridge_years")
   for (nm in need_cols) if (!nm %in% names(params_tbl)) params_tbl[[nm]] <- NA_real_
 
   params0 <- params_tbl %>%
     dplyr::mutate(
       rr_inc       = to_num(rr_inc),
-      A_I_star     = to_num(A_I_star),
       prev_sign    = to_num(prev_sign),
       L_I          = to_num(L_I),
       bridge_years = suppressWarnings(as.integer(bridge_years))
@@ -105,8 +104,6 @@ make_qc_summary <- function(params_tbl, proj_tbl) {
       flag_rr_inc_missing = is.na(rr_inc),
       flag_rr_inc_invalid = is.na(rr_inc) | (rr_inc <= 1),
       flag_prev_sign_bad = is.na(prev_sign) | !(prev_sign %in% c(-1, 1)),
-      flag_AI_missing    = is.na(A_I_star),
-      flag_AI_nonpos     = is.na(A_I_star) | (A_I_star <= 0),
       flag_bridge_neg    = is.na(bridge_years) | (bridge_years < 0)
     )
 
@@ -120,7 +117,7 @@ make_qc_summary <- function(params_tbl, proj_tbl) {
     dplyr::mutate(across(dplyr::starts_with("flag_"), ~ dplyr::coalesce(as.logical(.x), FALSE))) %>%
     dplyr::mutate(qc_score = rowSums(dplyr::across(dplyr::starts_with("flag_")), na.rm = TRUE)) %>%
     dplyr::select(cause_id, label, sex,
-                  beta_mode, rr_inc, A_I_star, prev_sign, L_I, bridge_years,
+                  beta_mode, rr_inc, prev_sign, L_I, bridge_years,
                   dplyr::starts_with("flag_"), dplyr::contains("growth_ratio_credible"), qc_score) %>%
     dplyr::arrange(dplyr::desc(qc_score), cause_id, sex)
 }

@@ -1,115 +1,129 @@
-# SBAPC Simulation & Estimation Replication Package
+# SBAPC Simulation Replication Package
 
-This repository contains the complete replication code, simulation scripts, and output generation routines for the **SBAPC (Smoking-adjusted Bayesian Age-Period-Cohort) projection model** manuscript. 
+This folder contains the replication code for the simulation section of the
+SBAPC mortality projection paper. The current workflow is centered on the
+simulation DGP, the SBAPC estimator, and diagnostics comparing projected
+trajectories against simulated truth.
 
-This package is fully configured to reproduce the quantitative results, LaTeX tables, and high-resolution figures presented in **Section 4 (Simulation Validation)** and **Appendix C (Supplemental Sensitivity & Seed Case Studies)**.
+## Current Method Defaults
 
----
+The canonical simulation scenarios are:
 
-## 1. Overview of the SBAPC Model
+- `freeze`: prevalence frozen at 2022.
+- `up1pc`: prevalence increases at the rate set by `PREV_ANNUAL_RATE_UP`.
+- `down1pc`: prevalence decreases at the rate set by `PREV_ANNUAL_RATE_DOWN`.
+- `quit`: prevalence moves to the quit/floor scenario.
 
-The **SBAPC** model enhances the traditional Bayesian Age-Period-Cohort (BAPC) projection framework by integrating smoking prevalence dynamics. It maps historical and future smoking trends to lung cancer and other tobacco-related cancer incidence, accounting for:
-* Stratified Risk Ratios (RRs) by sex and cancer site.
-* Smoking cessation risk-reversal schedules (up to a 50-year horizon).
-* Stochastic cohort exposure stock calculation (the "effective exposure slide" $q_{eff}$).
+The current edge-completion default for prevalence outside the observed window is:
 
-By aligning the Data Generating Process (DGP) with the estimator, this codebase proves that SBAPC eliminates the historical level mismatches and systematic biases of uninformed APC models.
-
----
-
-## 2. Directory Structure
-
+```r
+PREV_EDGE_COMPLETION_MODE <- "constant_boundary"
 ```
+
+Alternative sensitivity modes remain available:
+
+- `damped_apc`
+- `apc_posterior`
+- legacy `carry_states`
+
+The default was changed after multi-seed diagnostics showed that unconstrained
+APC posterior extrapolation was too aggressive at the observation-window edges.
+
+## Directory Structure
+
+```text
 Estimacion4/
-├── R/                         # Core implementation of the BAPC/SBAPC engine
-│   ├── 00_defaults.R          # Configurable defaults, scenario definitions, and colors
-│   ├── 01_core_helpers.R      # Risk-reversal calculations and core utility functions
-│   ├── 02_stage_models.R      # INLA Model training routines for prevalence and incidence
-│   ├── 03_pipeline_sex.R      # Sex-stratified modeling pipeline
-│   ├── 04_pipeline_both.R     # Two-sex orchestrator and population aggregator
-│   ├── 04b_rebuilder_helpers.R# Scenario reconstruction wrappers
-│   ├── 05_postprocess.R       # Projection consolidation and data framing
-│   ├── 07_plots_paper.R       # Standard manuscript visualization helpers
-│   ├── 09_figures_maintext.R  # Specific Section 4 main text figure builders
-│   └── 31_diagnostics_against_truth.R # Multi-seed truth/estimator comparison math
-├── adapters/                  # Data standardization and simulation DGP builders
-│   ├── build_inputs_real.R    # Real-world data ingestion adapter
-│   └── build_inputs_sim.R     # Simulation Data Generating Process (DGP) engine
-├── runs/                      # Script entrypoints and parallel batch runners
-│   ├── _runtime_setup.R       # PATH configurations and directory auto-creation
-│   ├── _source_all.R          # Helper to source all R engine submodules
-│   └── replication_diagnostics.R # CENTRAL REPLICATION ENTRYPOINT
-└── results/                   # Destination folder for generated tables and figures
-    └── 20260515_FINAL_PROD/
-        ├── section4/          # Main manuscript Section 4 replication outputs
-        └── appendixC/         # Supplemental Appendix C replication outputs
+  adapters/
+    build_inputs_real.R
+    build_inputs_sim.R
+  R/
+    00_defaults.R
+    01_core_helpers.R
+    01b_engine_consistency_helpers.R
+    01c_prediction_rebuild_helpers.R
+    02_stage_models.R
+    03_pipeline_sex.R
+    04_pipeline_both.R
+    04b_rebuilder_helpers.R
+    05_postprocess.R
+    06_qc.R
+    09_figures_maintext.R
+    10_diagnostics_methodpaper.R
+    31_diagnostics_against_truth.R
+  runs/
+    _runtime_setup.R
+    _source_all.R
+    _source_diagnostics.R
+    diagnostic_truth_comparison.R
+    replication_diagnostics.R
+    run_audit_simulation.R
+    run_full_replication_50.R
+    run_method_paper.R
+    run_real_9sites.R
+    run_real_lung.R
 ```
 
----
+Generated results are written under `results/` and are intentionally ignored by
+Git. Heavy RDS outputs should not be uploaded as journal replication files.
 
-## 3. Software Dependencies & Requirements
+## Runtime Safety
 
-To execute the replication pipeline, you require **R (version >= 4.5.0)** and the following libraries:
+INLA temporary files must not be created inside Dropbox. The runtime setup
+redirects R and INLA temporary paths to a local temp directory, currently:
 
-### CRAN Packages
-* `dplyr`, `tidyr`, `readr` (data manipulation)
-* `ggplot2` (visualization)
-* `patchwork` (multi-panel figure layout)
-* `future`, `future.apply` (robust multi-core parallelization)
-* `stringr`, `stringi` (text normalizations)
-
-### Bioconductor / External Packages
-* **`INLA` (Integrated Nested Laplace Approximations):** Used for Bayesian APC inference.
-  To install INLA, run:
-  ```R
-  install.packages("INLA", repos = c(gstat = "https://inla.r-inla-download.org/R/stable", CRAN = "https://cloud.r-project.org"), dep = TRUE)
-  ```
-
----
-
-## 4. How to Run the Replication
-
-The entire simulation replication and output generation is automated.
-
-### 4.1 Running the Full Pipeline (50 Seeds)
-To run the full 50-seed simulation batch in parallel (highly recommended if you have 6+ cores available) and regenerate all paper outputs, execute:
-
-```bash
-cd Estimacion4
-Rscript runs/replication_diagnostics.R
+```text
+C:/tmp_inla
 ```
 
-Inside R, you can trigger the orchestrator manually:
-```R
+Run scripts from `D:/Git/Bloomberg_2025/Estimacion4`, not from Dropbox.
+
+## R Setup
+
+The working environment currently uses R 4.6 with a local user library:
+
+```text
+D:/Git/Bloomberg_2025/.Rlib/4.6
+```
+
+The `.Rlib/` folder is local infrastructure and is ignored by Git.
+
+## Main Simulation Entry Point
+
+From `Estimacion4/`:
+
+```r
 source("runs/replication_diagnostics.R")
 replicate_all_simulations()
 ```
 
-> [!NOTE]
-> The simulations utilize 6 parallel workers via `future` to distribute memory footprint safely, as INLA is memory-intensive. Running all 50 seeds takes approximately 20–30 minutes on a modern multi-core workstation.
+The default full run is configured for 50 seeds through:
 
----
+```r
+CANONICAL_SEEDS <- 1:50
+```
 
-## 5. Description of Generated Replications
+For an exploratory production run, call `run_simulation_replication()` directly
+with an explicit seed set and worker count, then generate figures through
+`replicate_main_paper()`.
 
-Upon completion, all outputs are saved to the `results/20260515_FINAL_PROD/` directory:
+## Important Outputs
 
-The canonical simulation scenarios are `freeze`, `up1pc`, `down1pc`, and `quit`. The moderate increase/decrease rates are controlled in `R/00_defaults.R` via `PREV_ANNUAL_RATE_UP` and `PREV_ANNUAL_RATE_DOWN`.
+The main diagnostic products currently used for the simulation section include:
 
-Figures are exported as SVG by default through `BAPC_FIG_FORMAT <- "svg"` in `R/00_defaults.R`. Set `options(BAPC_FIG_FORMAT = "png")` or environment variable `BAPC_FIG_FORMAT=png` to export PNG instead; use `"both"` to write both formats.
+- scenario atlas by sex;
+- transmission map comparing truth, window-limited SBAPC, and full-support SBAPC;
+- edge-completion sensitivity diagnostics;
+- bias and reliability summaries across seeds.
 
-Large intermediate RDS files are not intended for journal upload. Use `compact_replication_rds()` after a production run to write a lighter `raw_data_compact/` cache while preserving the original heavy `raw_data/` directory for local forensic debugging.
+Figures are exported as SVG by default through `BAPC_FIG_FORMAT`.
 
-### 5.1 Section 4: Main Paper Outputs
-* **`tab_bias_summary.tex`**: LaTeX table summarizing historical and projection bias across all scenarios. Proof that historical bias is $\approx 0\%$.
-* **`fig_scenario_atlas_seed4_M.png` / `fig_scenario_atlas_seed4_F.png`**: Scenario Atlas showing true vs. estimated deaths for Males and Females across all 4 scenarios on a shared axis.
-* **`fig_waterfall_seed4.png`**: The four-stage transmission waterfall showing how prevalence changes propagate to deaths.
-* **`fig_reliability_calibration.png`**: Projection reliability errors across a 50-year horizon, divided into *Credible*, *Caution*, and *Risky* zones.
-* **`fig_sensitivity_seed4.png`**: Scenario sensitivity chart displaying total aggregated projected deaths.
+## Replication Packaging Rule
 
-### 5.2 Appendix C: Supplemental & Distributional Analysis
-* **`fig_bias_distributions.png`**: Global boxplot deconstructing the projection bias distributions across all 50 stochastic seeds.
-* **`fig_case_study_best_s18.png` / `fig_case_study_best_s29.png`**: Performance atlas for the "Best Case" simulation seeds.
-* **`fig_case_study_median_s21.png` / `fig_case_study_median_s44.png`**: Performance atlas for the "Median Case" simulation seeds.
-* **`fig_case_study_worst_s22.png` / `fig_case_study_worst_s33.png`**: Performance atlas for the "Worst Case" simulation seeds.
-* **`full_simulation_matrix.csv`**: Detailed tabular dataset containing the individual seed metrics, projections, and raw bias calculations.
+For journal submission, include source code, README, and small deterministic
+tables/figures needed for manuscript reproduction. Exclude:
+
+- `results/raw_data*/`
+- `runtime/`
+- `.Rlib/`
+- INLA temp folders
+- exploratory scratch scripts and logs

@@ -124,7 +124,6 @@ pack_params <- function(res_both, cause_id, label) {
   out <- list()
   if (!is.null(res_both$resM)) out[[length(out)+1]] <- tibble::tibble(
     cause_id = cause_id, label = label, sex = "M",
-    A_I_star   = res_both$resM$diag$A_I_star,
     prev_sign  = res_both$resM$diag$prev_sign,
     beta_mode  = tryCatch(res_both$resM$diag$prev$beta_mode, error = function(e) BETA_MODE),
     rr_inc     = tryCatch(res_both$resM$diag$prev$rr_inc, error = function(e) NA_real_),
@@ -145,7 +144,6 @@ pack_params <- function(res_both, cause_id, label) {
   )
   if (!is.null(res_both$resF)) out[[length(out)+1]] <- tibble::tibble(
     cause_id = cause_id, label = label, sex = "F",
-    A_I_star   = res_both$resF$diag$A_I_star,
     prev_sign  = res_both$resF$diag$prev_sign,
     beta_mode  = tryCatch(res_both$resF$diag$prev$beta_mode, error = function(e) BETA_MODE),
     rr_inc     = tryCatch(res_both$resF$diag$prev$rr_inc, error = function(e) NA_real_),

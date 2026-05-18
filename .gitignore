@@ -1,0 +1,24 @@
+# Local R libraries and generated outputs
+.Rlib/
+results/
+runtime/
+
+# Project generated outputs, caches, and diagnostics
+Estimacion4/results/
+Estimacion4/runtime/
+Estimacion4/diag_prev_simulated.csv
+Estimacion4/dump_inla_err.rda
+Estimacion4/scratch/
+
+# R session state
+.Rhistory
+.RData
+.Ruserdata/
+.Rproj.user/
+
+# Temporary files
+tmp/
+temp/
+logs/
+*.tmp
+*.log

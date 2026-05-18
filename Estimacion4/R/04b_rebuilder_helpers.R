@@ -50,15 +50,8 @@ get_mortality_kernel_weights <- function(p01, p13, p35) {
 
 #' Calculate Incidence Sensitivity Coefficient (bz_hat)
 #' @description Returns the sensitivity coefficient based on BETA_MODE.
-get_incidence_sensitivity_coef <- function(beta_mode, beta_P_eff = NULL) {
-  if (identical(beta_mode, "fixed_rr_offset")) {
-    return(1.0)
-  } else {
-    # In estimate mode, we use the posterior mean (beta_P_eff)
-    bz <- as.numeric(beta_P_eff)
-    if (!is.finite(bz)) return(1.0) # Fallback to 1.0 if estimation failed
-    return(bz)
-  }
+get_incidence_sensitivity_coef <- function(beta_mode = "fixed_rr_offset", beta_P_eff = NULL) {
+  return(1.0)
 }
 
 #' Apply Scenario Incidence Shift
