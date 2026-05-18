@@ -738,6 +738,8 @@ build_prev_current_surface_for_inc <- function(target_grid,
                                                backcast_period_mode = PREV_BACKCAST_MODE,
                                                backcast_cohort_mode = PREV_BACKCAST_COHORT_MODE,
                                                post65_mode = PREV_POST65_MODE,
+                                               edge_completion_mode = PREV_EDGE_COMPLETION_MODE,
+                                               edge_completion_trend_type = PREV_EDGE_COMPLETION_TREND_TYPE,
                                                age_min_p = AGE_P_MIN,
                                                age_max_p = AGE_P_MAX) {
   if (is.null(prev_cfg)) prev_cfg <- make_prev_config()
@@ -857,16 +859,28 @@ build_prev_current_surface_for_inc <- function(target_grid,
     by = '.row_id_prev_current'
   )
 
-  completion_mode <- if (post65_mode %in% c("apc_posterior", "constant_boundary")) post65_mode else "legacy"
+  completion_mode <- if (edge_completion_mode %in% c("apc_posterior", "constant_boundary", "carry_states")) {
+    edge_completion_mode
+  } else if (post65_mode %in% c("apc_posterior", "constant_boundary", "carry_states")) {
+    post65_mode
+  } else {
+    "carry_states"
+  }
+  completion_trend_type <- if (completion_mode %in% c("apc_posterior", "constant_boundary")) {
+    edge_completion_trend_type
+  } else {
+    trend_type
+  }
+  completion_mode <- if (completion_mode %in% c("apc_posterior", "constant_boundary")) completion_mode else "legacy"
   if (!identical(completion_mode, "legacy")) {
     age_ext <- .prev_extend_effect(age_re, "age", "age_eff", out$age,
-                                   mode = completion_mode, trend_type = trend_type) %>%
+                                   mode = completion_mode, trend_type = completion_trend_type) %>%
       dplyr::rename(age = value, age_eff_completion = eff)
     per_ext <- .prev_extend_effect(per_re_hist, "period", "period_eff", out$period,
-                                   mode = completion_mode, trend_type = trend_type) %>%
+                                   mode = completion_mode, trend_type = completion_trend_type) %>%
       dplyr::rename(period = value, period_eff_completion = eff)
     coh_ext <- .prev_extend_effect(coh_hist, "cohort", "cohort_eff", out$cohort,
-                                   mode = completion_mode, trend_type = trend_type) %>%
+                                   mode = completion_mode, trend_type = completion_trend_type) %>%
       dplyr::rename(cohort = value, cohort_eff_completion = eff)
     completion_df <- out %>%
       dplyr::select(.row_id_prev_current, age, period, cohort) %>%
