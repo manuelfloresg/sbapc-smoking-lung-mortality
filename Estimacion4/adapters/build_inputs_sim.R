@@ -24,16 +24,49 @@
   dz
 }
 
-simulate_prev_micro <- function(prev_truth, n_cell = 200L) {
+.sim_cell_seed <- function(base_seed, sex, age, period, cohort) {
+  modulus <- 2147483000
+  sex_code <- ifelse(as.character(sex) == "F", 2, 1)
+  raw <- as.numeric(base_seed) * 1000003 +
+    as.numeric(sex_code) * 9176 +
+    as.numeric(age) * 1009 +
+    as.numeric(period) * 917 +
+    as.numeric(cohort) * 101
+  as.integer((raw %% modulus) + 1)
+}
+
+simulate_prev_micro <- function(prev_truth, n_cell = 200L, cell_seed = NULL) {
   stopifnot(all(c("sex","age","period","cohort","p_true") %in% names(prev_truth)))
   idx <- rep(seq_len(nrow(prev_truth)), each = as.integer(n_cell))
   df <- prev_truth[idx, c("sex","age","period","cohort","p_true")]
+  prob <- pmax(pmin(df$p_true, 1 - 1e-8), 1e-8)
+  fuma <- if (is.null(cell_seed)) {
+    stats::rbinom(nrow(df), size = 1L, prob = prob)
+  } else {
+    draws <- vector("list", nrow(prev_truth))
+    n_cell_int <- as.integer(n_cell)
+    for (i in seq_len(nrow(prev_truth))) {
+      set.seed(.sim_cell_seed(
+        base_seed = cell_seed,
+        sex = prev_truth$sex[i],
+        age = prev_truth$age[i],
+        period = prev_truth$period[i],
+        cohort = prev_truth$cohort[i]
+      ))
+      draws[[i]] <- stats::rbinom(
+        n_cell_int,
+        size = 1L,
+        prob = pmax(pmin(prev_truth$p_true[i], 1 - 1e-8), 1e-8)
+      )
+    }
+    unlist(draws, use.names = FALSE)
+  }
   tibble::tibble(
     period = as.integer(df$period),
     age    = as.integer(df$age),
     cohort = as.integer(df$cohort),
     sex    = factor(as.character(df$sex), levels = c("M", "F")),
-    fuma   = stats::rbinom(nrow(df), size = 1L, prob = pmax(pmin(df$p_true, 1 - 1e-8), 1e-8)),
+    fuma   = fuma,
     w      = 1,
     d_act  = 1L,
     d_12m  = 0L,
@@ -160,7 +193,7 @@ simulate_PIM_data <- function(cause_id = "lung",
     dplyr::left_join(prev_stock, by = c("sex", "age", "period", "cohort")) %>%
     dplyr::transmute(sex, age, period, cohort, p_true = p_true)
   set_stage_seed(100000L)
-  prev_micro <- simulate_prev_micro(prev_truth = prev_truth, n_cell = N_prev_micro)
+  prev_micro <- simulate_prev_micro(prev_truth = prev_truth, n_cell = N_prev_micro, cell_seed = seed)
 
   gammaP_true <- tibble::tibble(
     cohort = lev_coh_p,
