@@ -1,30 +1,56 @@
 # =============================================================
 # Runtime setup for project execution
 # =============================================================
-# .libPaths(c("C:/Users/Manuel/AppData/Local/R/win-library/4.5", .libPaths()))
-# Ensure we include the 4.5 library if it exists and we are on 4.5.x
-if (R.version$major == "4" && grepl("^4\\.5", R.version$minor)) {
-  u_lib <- "C:/Users/Manuel/AppData/Local/R/win-library/4.5"
-  if (dir.exists(u_lib)) .libPaths(unique(c(u_lib, .libPaths())))
-}
 
+# Make user-level R libraries visible across R 4.x patch/minor versions.
+# R.version$minor is "5.3" for R 4.5.3, so do not test it as "4.5".
+.candidate_user_libs <- unique(c(
+  Sys.getenv("BAPC_R_LIB", unset = ""),
+  Sys.getenv("R_LIBS_USER", unset = ""),
+  file.path(Sys.getenv("LOCALAPPDATA", unset = ""), "R", "win-library", c("4.6", "4.5", "4.4"))
+))
+.candidate_user_libs <- .candidate_user_libs[nzchar(.candidate_user_libs)]
+.candidate_user_libs <- .candidate_user_libs[dir.exists(.candidate_user_libs)]
+if (length(.candidate_user_libs)) {
+  .libPaths(unique(c(.candidate_user_libs, .libPaths())))
+}
 
 if (!exists("project_root")) {
   project_root <- normalizePath(getwd(), winslash = "/", mustWork = FALSE)
 }
 
+# Prefer a project-local package library when present. This keeps replication
+# dependencies out of Dropbox and out of system-level R folders.
+.r_minor <- paste(R.version$major, strsplit(R.version$minor, ".", fixed = TRUE)[[1]][1], sep = ".")
+.project_lib_roots <- unique(c(
+  file.path(project_root, ".Rlib"),
+  file.path(dirname(project_root), ".Rlib")
+))
+.project_libs <- as.vector(outer(.project_lib_roots, c(.r_minor, R.version$major), file.path))
+.project_libs <- .project_libs[dir.exists(.project_libs)]
+if (length(.project_libs)) {
+  .libPaths(unique(c(.project_libs, .libPaths())))
+}
+
 # 0) Configuration and Paths
 # =============================================================
 
-# Prioritize Dropbox for results if available
-dropbox_results <- "d:/Dropbox/Investigacion/Bloomberg_2025/Estimacion4/results"
 default_results <- file.path(project_root, "results")
+results_override <- Sys.getenv("BAPC_RESULTS_DIR", unset = "")
+if (!nzchar(results_override)) {
+  results_override <- getOption("BAPC_RESULTS_DIR", default_results)
+}
+
+inla_tmp_override <- Sys.getenv("BAPC_INLA_TMPDIR", unset = "")
+if (!nzchar(inla_tmp_override)) {
+  inla_tmp_override <- getOption("BAPC_INLA_TMPDIR", "C:/tmp_inla")
+}
 
 BAPC_PATHS <- list(
   project_root = project_root,
   runtime      = file.path(project_root, "runtime"),
-  results      = if (dir.exists(dropbox_results)) dropbox_results else default_results,
-  inla_tmp     = "C:/tmp_inla"
+  results      = results_override,
+  inla_tmp     = inla_tmp_override
 )
 
 # Only the truly project-local folders live inside the project.
@@ -34,6 +60,14 @@ invisible(lapply(
   dir.create, recursive = TRUE, showWarnings = FALSE
 ))
 dir.create(BAPC_PATHS$inla_tmp, recursive = TRUE, showWarnings = FALSE)
+
+# Force all temp-related paths away from Dropbox before loading INLA.
+Sys.setenv(
+  INLA_TMPDIR = BAPC_PATHS$inla_tmp,
+  TMPDIR      = BAPC_PATHS$inla_tmp,
+  TMP         = BAPC_PATHS$inla_tmp,
+  TEMP        = BAPC_PATHS$inla_tmp
+)
 
 # 1) Packages and options
 # =============================================================
@@ -46,8 +80,9 @@ missing_pkgs <- required_pkgs[!vapply(required_pkgs, requireNamespace, logical(1
 if (length(missing_pkgs)) {
   stop(
     sprintf(
-      "Missing required packages: %s. Install them before running the project.",
-      paste(missing_pkgs, collapse = ", ")
+      "Missing required packages: %s. Install them before running the project. Current .libPaths(): %s",
+      paste(missing_pkgs, collapse = ", "),
+      paste(.libPaths(), collapse = " | ")
     )
   )
 }
@@ -62,22 +97,30 @@ suppressPackageStartupMessages({
 # ---------------------------
 # GLOBAL INLA CONFIGURATION
 # ---------------------------
-# Setting this here ensures every script uses the thread-safe shared tmp
+# Setting this here ensures every script uses the thread-safe shared tmp.
 options(INLA.tmpdir = BAPC_PATHS$inla_tmp)
 INLA::inla.setOption(working.directory = BAPC_PATHS$inla_tmp)
 
-# Avoid multi-threading issues in parallel workers
+# Avoid multi-threading issues in parallel workers.
 INLA::inla.setOption(num.threads = 1L)
-# For the DGP tanh logic
 Sys.setenv(OMP_NUM_THREADS = "1")
 
-# 2) Environment variables (Persistent Defaults)
+# 2) Real-data path defaults
 # =============================================================
-# Hard-coded defaults for this workspace to ensure zero-config execution
-options(BAPC_PATH_MORT_CSV = "d:/Dropbox/Investigacion/Bloomberg_2025/Mortalidad/muertes_suavizadas_cancer.csv")
-options(BAPC_PATH_POP_DTA  = "d:/Dropbox/Investigacion/Bloomberg_2025/Base de datos/Proyecciones población/poblacion_1950_2070_empalmada.dta")
-options(BAPC_PATH_PREV_DTA = "d:/Dropbox/Investigacion/Bloomberg_2025/Base de datos/base_completa.dta")
-options(BAPC_PATH_INC_CSV  = "d:/Dropbox/Investigacion/Bloomberg_2025/Resultados/incidencia_suavizada_1998_2022.csv")
+# These defaults support the local Uruguay empirical runs. Simulation replication
+# is self-contained and does not require the files to exist.
+if (is.null(getOption("BAPC_PATH_MORT_CSV"))) {
+  options(BAPC_PATH_MORT_CSV = "d:/Dropbox/Investigacion/Bloomberg_2025/Mortalidad/muertes_suavizadas_cancer.csv")
+}
+if (is.null(getOption("BAPC_PATH_POP_DTA"))) {
+  options(BAPC_PATH_POP_DTA = "d:/Dropbox/Investigacion/Bloomberg_2025/Base de datos/Proyecciones población/poblacion_1950_2070_empalmada.dta")
+}
+if (is.null(getOption("BAPC_PATH_PREV_DTA"))) {
+  options(BAPC_PATH_PREV_DTA = "d:/Dropbox/Investigacion/Bloomberg_2025/Base de datos/base_completa.dta")
+}
+if (is.null(getOption("BAPC_PATH_INC_CSV"))) {
+  options(BAPC_PATH_INC_CSV = "d:/Dropbox/Investigacion/Bloomberg_2025/Resultados/incidencia_suavizada_1998_2022.csv")
+}
 
 message("BAPC project_root : ", project_root)
 message("BAPC runtime      : ", BAPC_PATHS$runtime)

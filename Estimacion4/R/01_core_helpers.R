@@ -339,6 +339,8 @@ forecast_gammaP <- function(gammaP_hist_df, cohorts_future,
 adjust_gammaP_future <- function(gammaP_hist_df, gammaP_fut_df,
                                  scenario = PREV_SCENARIO,
                                  annual_rate = PREV_ANNUAL_RATE,
+                                 annual_rate_up = PREV_ANNUAL_RATE_UP,
+                                 annual_rate_down = PREV_ANNUAL_RATE_DOWN,
                                  annual_rate_down3 = PREV_ANNUAL_RATE_DOWN3,
                                  base_year = PREV_BASE_YEAR) {
   if (!nrow(gammaP_fut_df)) return(gammaP_fut_df)
@@ -349,7 +351,13 @@ adjust_gammaP_future <- function(gammaP_hist_df, gammaP_fut_df,
     gammaP_fut_df$gammaP <- last_val
     
   } else if (scenario %in% c("up1pc","down1pc","down3pc")) {
-    step <- if (identical(scenario, "up1pc")) abs(annual_rate) else if (identical(scenario, "down1pc")) -abs(annual_rate) else -abs(annual_rate_down3)
+    step <- if (identical(scenario, "up1pc")) {
+      abs(annual_rate_up %||% annual_rate)
+    } else if (identical(scenario, "down1pc")) {
+      -abs(annual_rate_down %||% annual_rate)
+    } else {
+      -abs(annual_rate_down3)
+    }
     k <- pmax(0, gammaP_fut_df$cohort - base_year)  # años desde 2022
     # odds_t = odds_ref * (1+step)^k  =>  logit shift = k*log(1+step)
     gammaP_fut_df$gammaP <- gammaP_fut_df$gammaP + k * log1p(step)
@@ -625,7 +633,7 @@ get_risk_reversal_w <- function(cause_id = NULL, sex = NULL, years_since_quit = 
   dplyr::coalesce(as.numeric(out), 0) # Blindaje final contra NAs en tendencia
 }
 
-.prev_hist_surface_from_fit <- function.prev_hist_surface_from_fit <- function(fit_prev, prev_inla = NULL) {
+.prev_hist_surface_from_fit <- function(fit_prev, prev_inla = NULL) {
   if (is.null(prev_inla)) prev_inla <- tryCatch(fit_prev$.args$data, error = function(e) NULL)
   if (is.null(prev_inla) || !is.data.frame(prev_inla) || !nrow(prev_inla)) return(tibble::tibble())
   lp <- tryCatch(fit_prev$summary.linear.predictor, error = function(e) NULL)
@@ -724,6 +732,8 @@ build_prev_current_surface_for_inc <- function(target_grid,
   coh_future <- adjust_gammaP_future(coh_hist %>% dplyr::transmute(cohort, gammaP = cohort_eff), coh_future,
                                      scenario = if (!is.null(prev_cfg$backbone) && identical(prev_cfg$backbone, 'forecast')) prev_cfg$scenario else 'freeze',
                                      annual_rate = prev_cfg$annual_rate,
+                                     annual_rate_up = prev_cfg$annual_rate_up %||% prev_cfg$annual_rate,
+                                     annual_rate_down = prev_cfg$annual_rate_down %||% prev_cfg$annual_rate,
                                      annual_rate_down3 = prev_cfg$annual_rate_down3,
                                      base_year = prev_cfg$base_year) %>%
     dplyr::rename(cohort_eff = gammaP)
@@ -892,14 +902,25 @@ build_prev_current_surface_for_inc <- function(target_grid,
     scen_prev <- tryCatch(normalize_prev_scenario_name(prev_cfg$scenario), error = function(e) 'freeze')
     k_prev <- pmax(0L, suppressWarnings(as.integer(out$period)) - suppressWarnings(as.integer(prev_cfg$base_year))[1])
     idx_prev <- is.finite(k_prev) & k_prev > 0L
-    if (any(idx_prev) && !identical(scen_prev, 'freeze')) {
+    if (any(idx_prev)) {
       p_base <- pmin(pmax(as.numeric(out$p_cur), 0), 1)
-      if (identical(scen_prev, 'up1pc')) {
-        p_base[idx_prev] <- pmin(pmax(p_base[idx_prev] * (1 + abs(prev_cfg$annual_rate))^k_prev[idx_prev], 0), 1)
+      ref_tbl <- out %>%
+        dplyr::filter(period == suppressWarnings(as.integer(prev_cfg$base_year))[1]) %>%
+        dplyr::select(sex, age, p_ref = p_cur) %>%
+        dplyr::distinct(sex, age, .keep_all = TRUE)
+      ref_vec <- out %>%
+        dplyr::select(sex, age) %>%
+        dplyr::left_join(ref_tbl, by = c('sex', 'age')) %>%
+        dplyr::pull(p_ref)
+      idx_ref <- idx_prev & is.finite(ref_vec)
+      if (identical(scen_prev, 'freeze')) {
+        p_base[idx_ref] <- pmin(pmax(as.numeric(ref_vec[idx_ref]), 0), 1)
+      } else if (identical(scen_prev, 'up1pc')) {
+        p_base[idx_ref] <- pmin(pmax(as.numeric(ref_vec[idx_ref]) * (1 + abs(prev_cfg$annual_rate_up %||% prev_cfg$annual_rate))^k_prev[idx_ref], 0), 1)
       } else if (identical(scen_prev, 'down1pc')) {
-        p_base[idx_prev] <- pmin(pmax(p_base[idx_prev] * (1 - abs(prev_cfg$annual_rate))^k_prev[idx_prev], 0), 1)
+        p_base[idx_ref] <- pmin(pmax(as.numeric(ref_vec[idx_ref]) * (1 - abs(prev_cfg$annual_rate_down %||% prev_cfg$annual_rate))^k_prev[idx_ref], 0), 1)
       } else if (identical(scen_prev, 'down3pc')) {
-        p_base[idx_prev] <- pmin(pmax(p_base[idx_prev] * (1 - abs(prev_cfg$annual_rate_down3))^k_prev[idx_prev], 0), 1)
+        p_base[idx_ref] <- pmin(pmax(as.numeric(ref_vec[idx_ref]) * (1 - abs(prev_cfg$annual_rate_down3))^k_prev[idx_ref], 0), 1)
       } else if (identical(scen_prev, 'quit')) {
         p_base[idx_prev] <- 0
       }
@@ -2395,11 +2416,16 @@ clean_res_inla <- function(obj) {
 }
 
 # --- Sanitización recursiva de listas de resultados ---
-sanitize_pipeline_output <- function(out) {
+sanitize_pipeline_output <- function(out, keep_rebuilder = FALSE) {
   if (!is.list(out)) return(out)
   
-  # 1. PRESERVAR fit_prev (vital para rebuilder) pero sanitizado
-  if (!is.null(out$fit_prev)) out$fit_prev <- clean_res_inla(out$fit_prev)
+  # keep_rebuilder=TRUE preserves internals needed only while rebuilding
+  # scenarios from the freeze benchmark within the same run.
+  if (isTRUE(keep_rebuilder)) {
+    if (!is.null(out$fit_prev)) out$fit_prev <- clean_res_inla(out$fit_prev)
+  } else {
+    out$fit_prev <- NULL
+  }
   
   # 2. DISCARD heavy mortality fits (ya tenemos los dataframes extraídos)
   # Estos son los que pesan 250MB+ por seed
@@ -2408,13 +2434,34 @@ sanitize_pipeline_output <- function(out) {
   out$fit_anchor_noP <- NULL
   out$fit_bapc <- NULL
   
-  # 3. Sanitizar fit de incidencia si existe
   if (!is.null(out$inc_fit$fit_inc)) out$inc_fit$fit_inc <- clean_res_inla(out$inc_fit$fit_inc)
+  if (!is.null(out$inc_fit$fit)) out$inc_fit$fit <- clean_res_inla(out$inc_fit$fit)
+  if (!isTRUE(keep_rebuilder)) {
+    if (!is.null(out$inc_fit$fit_inc)) out$inc_fit$fit_inc <- NULL
+    if (!is.null(out$inc_fit$fit)) out$inc_fit$fit <- NULL
+  }
+  if (!is.null(out$inc_fit_bapc$fit_inc)) out$inc_fit_bapc$fit_inc <- clean_res_inla(out$inc_fit_bapc$fit_inc)
+  if (!is.null(out$inc_fit_bapc$fit)) out$inc_fit_bapc$fit <- clean_res_inla(out$inc_fit_bapc$fit)
+  if (!isTRUE(keep_rebuilder)) {
+    if (!is.null(out$inc_fit_bapc$fit_inc)) out$inc_fit_bapc$fit_inc <- NULL
+    if (!is.null(out$inc_fit_bapc$fit)) out$inc_fit_bapc$fit <- NULL
+  }
   
-  # 4. Limpiar versiones extra (suffixes) y duplicados
   out$inc_fit_inla <- NULL
   out$inc_annual_cond_inla <- NULL
   out$annual_anchor_inla <- NULL
+  out$annual_anchor_raw_inla <- NULL
+
+  if (!isTRUE(keep_rebuilder)) {
+    out$mort_anchor_pred_detail <- NULL
+    out$mort_anchor_data_cond <- NULL
+    out$mort_anchor_data_noP <- NULL
+    out$pred_anchor_cond <- NULL
+    out$pred_anchor_noP <- NULL
+    out$pred_bapc <- NULL
+    out$annual_anchor_components_cond <- NULL
+    out$annual_anchor_components_noP <- NULL
+  }
   
   out
 }

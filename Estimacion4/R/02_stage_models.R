@@ -389,6 +389,8 @@ fit_apc_incidence_cond_prev <- function(inc_hist, pop_all, fit_prev,
                                         prev_scenario = PREV_SCENARIO,
                                         prev_scenario_axis = PREV_SCENARIO_AXIS,
                                         prev_annual_rate = PREV_ANNUAL_RATE,
+                                        prev_annual_rate_up = PREV_ANNUAL_RATE_UP,
+                                        prev_annual_rate_down = PREV_ANNUAL_RATE_DOWN,
                                         prev_annual_rate_down3 = PREV_ANNUAL_RATE_DOWN3,
                                         prev_base_year = PREV_BASE_YEAR,
                                         quit_mode = QUIT_MODE,
@@ -400,7 +402,6 @@ fit_apc_incidence_cond_prev <- function(inc_hist, pop_all, fit_prev,
                                         prev_base_M = PREV_BASE_M,
                                         prev_base_F = PREV_BASE_F,
                                         prev_base_default = PREV_BASE_DEFAULT,
-                                        beta_mode = BETA_MODE,
                                         rr_inc = NA_real_,
                                         prev_base_prob = NA_real_,
                                         cause_id = NA_character_,
@@ -408,7 +409,7 @@ fit_apc_incidence_cond_prev <- function(inc_hist, pop_all, fit_prev,
                                         prev_inc_channel_mode = PREV_INC_CHANNEL_MODE) {
   
   if (identical(INC_TREND_ON, "none")) inc_degree <- 0L
-  beta_mode <- match.arg(as.character(beta_mode)[1], c("estimate","prior_ols","offset","fixed_rr_offset"))
+  beta_mode <- "fixed_rr_offset"
   rr_use <- suppressWarnings(as.numeric(rr_inc))[1]
   if (!is.finite(rr_use) || rr_use <= 1) rr_use <- 2.0
   pop_all <- ensure_exposure(pop_all)
@@ -416,6 +417,8 @@ fit_apc_incidence_cond_prev <- function(inc_hist, pop_all, fit_prev,
     scenario = prev_scenario,
     axis = prev_scenario_axis,
     annual_rate = prev_annual_rate,
+    annual_rate_up = prev_annual_rate_up,
+    annual_rate_down = prev_annual_rate_down,
     annual_rate_down3 = prev_annual_rate_down3,
     base_year = prev_base_year,
     backbone = PREV_BACKBONE,
@@ -458,6 +461,8 @@ fit_apc_incidence_cond_prev <- function(inc_hist, pop_all, fit_prev,
   gammaP_fut <- adjust_gammaP_future(gammaP_hist, gammaP_fut,
                                      scenario = "freeze",
                                      annual_rate = prev_annual_rate,
+                                     annual_rate_up = prev_annual_rate_up,
+                                     annual_rate_down = prev_annual_rate_down,
                                      annual_rate_down3 = prev_annual_rate_down3,
                                      base_year = prev_base_year)
   gammaP_all <- dplyr::bind_rows(gammaP_hist, gammaP_fut)
@@ -733,7 +738,8 @@ fit_apc_incidence_cond_prev <- function(inc_hist, pop_all, fit_prev,
         lev_coh,
         fut_levels = fut_grid$cohort,
         ref_levels = pmin(pmax(fut_grid$cohort, min(lev_coh)), max(lev_coh)),
-        method = INC_COEF_FC_METHOD
+        method = gammaP_method,
+        trend_type = trend_type
       )
     } else {
       fc_parts <- build_coef_fc_components(
@@ -741,7 +747,8 @@ fit_apc_incidence_cond_prev <- function(inc_hist, pop_all, fit_prev,
         lev_per,
         fut_levels = pmin(fut_grid$period, max(lev_per)),
         ref_levels = pmin(fut_grid$period, max(lev_per)),
-        method = INC_COEF_FC_METHOD
+        method = gammaP_method,
+        trend_type = trend_type
       )
     }
     rec_locked <- apply_coef_fc_recenter_lock(fc_parts$recenter)

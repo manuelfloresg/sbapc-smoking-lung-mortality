@@ -34,7 +34,8 @@ for (seed in seeds) {
     cfg_row <- tibble::tibble(
       cause_id = cause_id,
       AGE_M_MIN = sim_base$meta$age_min, AGE_M_MAX = sim_base$meta$age_max,
-      AGE_P_MIN = sim_base$meta$age_min, AGE_P_MAX = sim_base$meta$age_max,
+      AGE_P_MIN = sim_base$meta$age_min_p %||% sim_base$meta$age_min,
+      AGE_P_MAX = sim_base$meta$age_max_p %||% sim_base$meta$age_max,
       AGE_I_MIN = sim_base$meta$age_min, AGE_I_MAX = sim_base$meta$age_max,
       L_I_MAX_YEARS = 3L,
       MORT_SHOCK_YEARS = list(integer(0)),

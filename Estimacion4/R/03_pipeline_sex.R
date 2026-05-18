@@ -1,9 +1,10 @@
-# 5) Pipeline por sexo (Prev → Inc → Mort)
+# 5) Sex-specific Pipeline (Prev → Inc → Mort)
 # =============================================================
 
 run_pipeline_sex <- function(
     sex_sel = c("M","F"),
     period_min_m = PERIOD_M_MIN, period_max_m = PERIOD_M_MAX,
+    period_min_p = PERIOD_M_MIN, period_max_p = PERIOD_M_MAX,
     age_min_m = AGE_M_MIN, age_max_m = AGE_M_MAX,
     age_min_p = AGE_P_MIN, age_max_p = AGE_P_MAX,
     age_min_i = AGE_I_MIN, age_max_i = AGE_I_MAX,
@@ -16,8 +17,8 @@ run_pipeline_sex <- function(
     sd_beta_I = SD_BETA_I,
     use_weighted_cohort = USE_WEIGHTED_COHORT,
     sd_cohort_resid = SD_COHORT_RESID, sd_beta_fixed = SD_BETA_FIXED,
-    use_age_slope = FALSE, A_star = NA_real_,  
-    beta_mode = c("estimate","prior_ols","offset","fixed_rr_offset"), beta_force = NULL,
+    use_age_slope = FALSE,
+    beta_force = NULL,
     gammaP_method = GAMMAP_METHOD, trend_type = TREND_TYPE,
     path_prev_dta = PATH_PREV_DTA,
     prev_micro_df = NULL,
@@ -30,14 +31,15 @@ run_pipeline_sex <- function(
     inc_hist_tbl  = NULL,
     cause_id_override = NA_character_,
     rr_inc = NA_real_,
-    rr_mort = NA_real_
+    rr_mort = NA_real_,
+    sd_theta_IP = SD_THETA_IP
 ){
   if (is.null(prev_cfg)) prev_cfg <- make_prev_config()
   if (!"cause" %in% names(mort_hist_tbl)) {
-    rlang::abort("run_pipeline_sex(): 'mort_hist_tbl' debe tener columna `cause`. Cargá historia con loaders por causa.")
+    rlang::abort("run_pipeline_sex(): 'mort_hist_tbl' must contain a `cause` column. Load cause-specific histories.")
   }
   sex_sel             <- match.arg(sex_sel)
-  beta_mode           <- match.arg(beta_mode, c("estimate","prior_ols","offset","fixed_rr_offset"))
+  beta_mode           <- "fixed_rr_offset"
   gammaP_method       <- match.arg(gammaP_method, c("freeze","arima","trend","damped_trend"))
   mort_trend_scenario <- match.arg(tech_scenario, c("freeze","continue","delta"))
   mort_bapc_trend_scenario <- match.arg(mort_bapc_trend_scenario, c("freeze","continue","delta"))
@@ -67,17 +69,17 @@ run_pipeline_sex <- function(
   prev_agg <- if (!is.null(prev_micro_df)) {
     build_prev_from_micro_df(
       micro_df = prev_micro_df, sex_sel = sex_sel,
-      period_min = 1998, period_max = 2022,
+      period_min = period_min_p, period_max = period_max_p,
       age_min = age_min_p, age_max = age_max_p, min_neff = 3
     )
   } else {
     build_prev_from_micro(
       path_dta = path_prev_dta, sex_sel = sex_sel,
-      period_min = 1998, period_max = 2022,
+      period_min = period_min_p, period_max = period_max_p,
       age_min = age_min_p, age_max = age_max_p, min_neff = 3
     )
   }
-  # diagnóstico liviano de insumos PREV se omite aquí para no ensuciar consola en simulación
+  # light diagnostic of PREV inputs is omitted here to avoid cluttering the console in simulations
   tab_inst <- table(prev_agg$inst); keep_levels <- names(tab_inst)[tab_inst > 2]
   prev_agg <- prev_agg %>% dplyr::filter(inst %in% keep_levels) %>% droplevels()
   
@@ -180,11 +182,13 @@ run_pipeline_sex <- function(
   gammaP_fut <- adjust_gammaP_future(gammaP_hist, gammaP_fut,
                                      scenario = if (!is.null(prev_cfg$backbone) && identical(prev_cfg$backbone, "forecast")) prev_cfg$scenario else "freeze",
                                      annual_rate = prev_cfg$annual_rate,
+                                     annual_rate_up = prev_cfg$annual_rate_up %||% prev_cfg$annual_rate,
+                                     annual_rate_down = prev_cfg$annual_rate_down %||% prev_cfg$annual_rate,
                                      annual_rate_down3 = prev_cfg$annual_rate_down3,
                                      base_year = prev_cfg$base_year)
   gammaP_all <- dplyr::bind_rows(gammaP_hist, gammaP_fut)
   
-  # ---------- 3) INCIDENCIA BAPC puro (primero), para extraer per(·) histórico
+  # ---------- 3) Pure BAPC INCIDENCE (first), to extract historical period effect per(·)
   if (is.null(inc_hist_tbl)) inc_hist_tbl <- load_incidence_lung(PATH_INC_CSV, pop_all_tbl)
   inc_fit_bapc <- fit_apc_incidence(
     inc_hist = inc_hist_tbl %>% dplyr::filter(sex == sex_sel),
@@ -196,19 +200,13 @@ run_pipeline_sex <- function(
     delta_inc   = delta_inc
   )
   
-  # ---------- 3.b) Política operativa única PREV->INC
+  # ---------- 3.b) Unique operational policy PREV->INC
   engine_require_stock_former_policy(
     beta_mode = beta_mode,
     prev_cfg = prev_cfg,
     prev_inc_channel_mode = PREV_INC_CHANNEL_MODE
   )
   use_stock_channel_main <- TRUE
-  cal <- list(
-    A_I = NA_integer_, sign = 1L, table = NULL,
-    A_I_raw = NA_integer_, selection_method = "not_used_stock_former",
-    threshold = NA_real_, max_score = NA_real_, edge_raw = NA, n_admissible = NA_integer_
-  )
-  A_I_star   <- NA_integer_
   prev_sign_ <- 1L
   cause_id_cur <- suppressWarnings(as.character(cause_id_override)[1])
   if (!length(cause_id_cur) || is.na(cause_id_cur) || !nzchar(cause_id_cur)) {
@@ -258,8 +256,6 @@ run_pipeline_sex <- function(
     mort_trend_scenario = mort_trend_scenario,
     mort_bapc_trend_scenario = mort_bapc_trend_scenario,
     beta_mode = beta_mode,
-    A_star = A_star,
-    A_I_star = A_I_star,
     cause_id = cause_id_cur
   )
   method_policy_tbl <- engine_method_policy_table(method_policy)
@@ -273,7 +269,7 @@ run_pipeline_sex <- function(
   }
   .bapc_verbose(sprintf("[%s] PREV->INC channel=stock_former | beta_mode=%s | RR_I=%.3f | prev_base_prob=%.4f", sex_sel, beta_mode, rr_inc_cur, prev_base_prob))
   
-  # ---------- 3.c) INCIDENCIA condicional a PREV
+  # ---------- 3.c) INCIDENCE conditional on PREV
   inc_fit <- tryCatch({
     fit_apc_incidence_cond_prev(
       inc_hist = inc_hist_tbl %>% dplyr::filter(sex == sex_sel),
@@ -283,7 +279,7 @@ run_pipeline_sex <- function(
       period_min_i = 1998, period_max_i = 2022,
       A_I = NA_integer_, w_I = PREV_W_I,                 
       use_weighted_cohort = use_weighted_cohort,
-      sd_theta_IP = SD_THETA_IP,
+      sd_theta_IP = sd_theta_IP,
       gammaP_method = gammaP_method, trend_type = trend_type,
       inc_trend_scenario = if (isTRUE(inc_include_trend)) inc_trend_scenario else "none",
       delta_inc = delta_inc,
@@ -292,6 +288,8 @@ run_pipeline_sex <- function(
       prev_scenario = prev_cfg$scenario,
       prev_scenario_axis = prev_cfg$axis,
       prev_annual_rate = prev_cfg$annual_rate,
+      prev_annual_rate_up = prev_cfg$annual_rate_up,
+      prev_annual_rate_down = prev_cfg$annual_rate_down,
       prev_annual_rate_down3 = prev_cfg$annual_rate_down3,
       prev_base_year = prev_cfg$base_year,
       quit_mode = prev_cfg$quit_mode,
@@ -303,18 +301,17 @@ run_pipeline_sex <- function(
       prev_base_M = prev_cfg$prev_base_M,
       prev_base_F = prev_cfg$prev_base_F,
       prev_base_default = prev_cfg$prev_base_default,
-      beta_mode = beta_mode,
       rr_inc = rr_inc_cur,
       prev_base_prob = prev_base_prob,
       cause_id = cause_id_cur
     )
   }, error = function(e) {
-    message(sprintf("[run_pipeline_sex] ERROR CRÍTICO en incidencia para %s: %s", sex_sel, conditionMessage(e)))
+    message(sprintf("[run_pipeline_sex] CRITICAL ERROR in incidence for %s: %s", sex_sel, conditionMessage(e)))
     NULL
   })
   
   if (is.null(inc_fit) || is.null(inc_fit$rates_all)) {
-    warning(sprintf("[run_pipeline_sex] fit_apc_incidence_cond_prev devolvió NULL para %s. Abortando este sexo de forma segura.", sex_sel))
+    warning(sprintf("[run_pipeline_sex] fit_apc_incidence_cond_prev returned NULL for %s. Aborting this sex safely.", sex_sel))
     return(NULL)
   }
 
@@ -322,7 +319,7 @@ run_pipeline_sex <- function(
   beta_post <- .beta_postfit_transform(betaP_raw, rule = BETA_P_POSTFIT_RULE)
   betaP_eff <- dplyr::coalesce(tryCatch(inc_fit$beta_P_eff, error = function(e) NA_real_), beta_post$eff, 0)
   betaP_zeroed <- dplyr::coalesce(tryCatch(inc_fit$beta_P_zeroed, error = function(e) NA), beta_post$zeroed, FALSE)
-  # MUY IMPORTANTE: NO tocar prev_sign_ acá. Mantener el que viene de la calibración previa (cal$sign).
+  # VERY IMPORTANT: DO NOT modify prev_sign_ here. Retain the sign from the calibration stage (cal$sign).
   if (identical(beta_mode, "fixed_rr_offset")) {
     .bapc_verbose(sprintf("[run_pipeline_sex] beta_mode=fixed_rr_offset | RR_I=%.4f | prev_sign_=%+d", rr_inc_cur, prev_sign_))
   } else {
@@ -332,12 +329,12 @@ run_pipeline_sex <- function(
   
   inc_rates_hist <- inc_fit$rates_all %>% dplyr::filter(period <= last_hist_year)
   
-  # --- Guardar A (P -> I) realmente usado ---
-  A_I_used <- NA_integer_                            # stock_former: A_I no se usa
+  # --- Save actually used A (P -> I) ---
+  A_I_used <- NA_integer_                            # stock_former: A_I is not used
   params$A_I <- A_I_used
   .expose_selected(sex_sel, A_I_used = A_I_used)
   
-  # ---- Unir tasas a exposición para conteos esperados (cond PREV)
+  # ---- Join rates with exposure for expected counts (conditional on PREV)
   inc_withE <- inc_fit$rates_all %>%
     dplyr::left_join(
       pop_all_tbl %>% dplyr::filter(sex == sex_sel) %>%
@@ -351,7 +348,7 @@ run_pipeline_sex <- function(
       cases_upr = dplyr::coalesce(rate_upr, rate_hat) * exposure
     )
   
-  # ---- Anuales (cond PREV)
+  # ---- Annual totals (conditional on PREV)
   inc_annual <- inc_withE %>%
     dplyr::group_by(period) %>%
     dplyr::summarise(
@@ -361,12 +358,12 @@ run_pipeline_sex <- function(
       .groups = "drop"
     )
   
-  # ---- Observados históricos
+  # ---- Observed historical totals
   inc_obs_annual <- inc_hist_tbl %>% dplyr::filter(sex == sex_sel) %>%
     dplyr::group_by(period) %>%
     dplyr::summarise(obs = sum(cases, na.rm = TRUE), .groups = "drop")
   
-  # ---- Helper para BAPC/Cond a anuales (se usa abajo para ambas)
+  # ---- Helper for BAPC/Conditional annual totals (used below for both)
   .as_annual_inc <- function(rates_all, pop_tbl) {
     rates_all %>%
       dplyr::left_join(pop_tbl %>% dplyr::select(age, period, sex, exposure),
@@ -382,15 +379,15 @@ run_pipeline_sex <- function(
                        cases_upr = sum(cases_upr), .groups="drop")
   }
   
-  # === I puro (BAPC sin canal de prevalencia) ===
+  # === Pure I (BAPC without prevalence channel) ===
   inc_annual_bapc <- .as_annual_inc(inc_fit_bapc$rates_all, pop_all_tbl %>% dplyr::filter(sex == sex_sel))
 
-  # === I|P (principal) ===
+  # === I|P (main conditional) ===
   inc_annual_cond <- .as_annual_inc(inc_fit$rates_all, pop_all_tbl %>% dplyr::filter(sex == sex_sel))
   
-  # === Contrafactual I sin P ===
-  # En fixed_rr_offset remover el offset epidemiológico exp(log1p(q_eff*(RR_I-1))).
-  # En los modos viejos remover exp(beta_P * z_prev).
+  # === Counterfactual I without P ===
+  # In fixed_rr_offset, remove the epidemiological offset exp(log1p(q_eff*(RR_I-1))).
+  # In older modes, remove exp(beta_P * z_prev).
   z_grid <- tryCatch({
     dplyr::bind_rows(
       tibble::as_tibble(inc_fit$z_hist %||% tibble::tibble()),
@@ -410,14 +407,14 @@ run_pipeline_sex <- function(
       z_grid <- build_prev_rr_offset_for_inc(
         df_inc_grid = z_grid,
         gammaP_all = gammaP_all,
-        A_I = A_I_star,
+        A_I = NA_integer_,
         rr_inc = rr_inc_cur,
         prev_base_prob = prev_base_prob,
         base_year = prev_cfg$base_year
       ) %>%
         dplyr::select(sex, age, period, q_eff, z_prev)
     } else {
-      # Fallback legacy (sin build_prev_index_for_inc que ya fue eliminado)
+      # Fallback legacy (without build_prev_index_for_inc, which has been removed)
       z_grid <- z_grid %>% dplyr::mutate(z_prev = 0, q_eff = 0)
     }
   }
@@ -439,7 +436,7 @@ run_pipeline_sex <- function(
   
   inc_annual_noP <- .as_annual_inc(inc_rates_noP, pop_all_tbl %>% dplyr::filter(sex == sex_sel))
   
-  # ---------- 4) Grid mortalidad historia+futuro (con exposure)
+  # ---------- 4) Mortality grid historical + future (including exposure)
   future_grid <- pop_future %>%
     dplyr::mutate(
       cohort = period - age,
@@ -470,7 +467,7 @@ run_pipeline_sex <- function(
       logE = log(E)
     )
   
-  # niveles/índices y términos de tendencia
+  # levels/indices and trend terms
   lev_age <- sort(unique(mortH$age))
   lev_per <- sort(unique(mortH$period))
   lev_coh <- sort(unique(mortH$cohort))
@@ -496,7 +493,7 @@ run_pipeline_sex <- function(
     dplyr::bind_cols(make_trend_vars(.$period, mu_perM, MORT_TREND_DEGREE, prefix = "mort_bapc_")) %>%
     dplyr::mutate(mort_bapc_tech_offset = 0)
   
-  # aplicar escenarios de tendencia en futuro
+  # apply trend scenarios in future
   idxF <- which(mort_all$is_future)
   if (length(idxF)) {
     fut_terms_anchor <- apply_trend_scenario_future(
@@ -557,7 +554,7 @@ run_pipeline_sex <- function(
   params$mort_link_mode <- MORT_I_LINK_MODE
   params$mort_bapc_trend_scenario <- mort_bapc_trend_scenario
   params$mort_bapc_future_mode <- "autonomous_apc"
-  .expose_selected(sex_sel, A_I_used = A_I_star, bridge_years = params$bridge_years)
+  .expose_selected(sex_sel, A_I_used = NA_integer_, bridge_years = params$bridge_years)
 
   # Grid base de mortalidad para el BAPC puro (sin enlace impuesto)
   df_all <- mort_all %>%
@@ -1135,7 +1132,6 @@ run_pipeline_sex <- function(
       inc_trend_coef_t  = { inc_fix <- tryCatch(inc_fit$fit_inc$summary.fixed, error = function(e) NULL); if (!is.null(inc_fix) && "inc_trend_t" %in% rownames(inc_fix)) .scalar_num(inc_fix["inc_trend_t", "mean"]) else NA_real_ },
       inc_trend_coef_t2 = { inc_fix <- tryCatch(inc_fit$fit_inc$summary.fixed, error = function(e) NULL); if (!is.null(inc_fix) && "inc_trend_t2" %in% rownames(inc_fix)) .scalar_num(inc_fix["inc_trend_t2", "mean"]) else NA_real_ },
       beta_P_rule     = beta_rule_cur,
-      A_I_star        = as.integer(A_I_star),
       prev_sign       = suppressWarnings(as.integer(prev_sign_)),
       s_histP         = .scalar_num(tryCatch(inc_fit$s_histP, error = function(e) NA_real_)),
       q_eff_base      = q_base_med,
@@ -1162,7 +1158,6 @@ run_pipeline_sex <- function(
       inc_trend_coef_t  = NA_real_,
       inc_trend_coef_t2 = NA_real_,
       beta_P_rule     = beta_rule_cur %||% NA_character_,
-      A_I_star        = as.integer(A_I_star),
       prev_sign       = suppressWarnings(as.integer(prev_sign_))[1] %||% NA_integer_,
       s_histP         = NA_real_,
       q_eff_base      = NA_real_,
@@ -1331,15 +1326,7 @@ run_pipeline_sex <- function(
       mort_kernel = kernel_tbl,
       mort_kernel_summary_cond = kernel_summary_cond,
       mort_kernel_summary_noP = kernel_summary_noP,
-      A_I_star = A_I_star,
-      A_I_star_raw = cal$A_I_raw %||% A_I_star,
-      A_I_selection_method = cal$selection_method %||% NA_character_,
-      A_I_threshold = cal$threshold %||% NA_real_,
-      A_I_max_score = cal$max_score %||% NA_real_,
-      A_I_edge_raw = cal$edge_raw %||% NA,
-      A_I_n_admissible = cal$n_admissible %||% NA_integer_,
       prev_sign = prev_sign_,
-      cal_AI_table = cal$table,
       mort_trend_scenario = mort_trend_scenario,
       mort_bapc_trend_scenario = mort_bapc_trend_scenario,
       mort_bapc_future_mode = "autonomous_apc",

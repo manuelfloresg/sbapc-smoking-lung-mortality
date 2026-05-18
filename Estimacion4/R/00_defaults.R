@@ -1,4 +1,5 @@
 BAPC_VERBOSE <- FALSE                         # verbose engine logging
+BAPC_FIG_FORMAT <- "svg"                      # "svg", "png", or "both"
 # =============================================================
 # 0A) PERILLAS GENERALES
 # =============================================================
@@ -13,7 +14,7 @@ BAPC_DATA_ROOT    <- normalizePath(file.path(BAPC_PROJECT_ROOT, ".."), winslash 
   if (length(hits)) normalizePath(hits[[1]], winslash = "/", mustWork = FALSE) else NA_character_
 }
 
-.resolve_input_path <- function(option_name, env_name, candidates, required = TRUE) {
+.resolve_input_path <- function(option_name, env_name, candidates, required = FALSE) {
   opt <- tryCatch(getOption(option_name), error = function(e) NULL)
   env <- Sys.getenv(env_name, unset = "")
   cand <- c(opt, if (nzchar(env)) env else NULL, candidates)
@@ -32,7 +33,8 @@ PATH_MORT_CSV <- .resolve_input_path(
   env_name = "BAPC_PATH_MORT_CSV",
   candidates = c(
     file.path(BAPC_DATA_ROOT, "Mortalidad", "muertes_suavizadas_cancer.csv")
-  )
+  ),
+  required = FALSE
 )                                # csv de muertes suavizadas por causa
 PATH_POP_DTA  <- .resolve_input_path(
   option_name = "BAPC_PATH_POP_DTA",
@@ -47,7 +49,8 @@ PATH_PREV_DTA <- .resolve_input_path(
   env_name = "BAPC_PATH_PREV_DTA",
   candidates = c(
     file.path(BAPC_DATA_ROOT, "Base de datos", "base_completa.dta")
-  )
+  ),
+  required = FALSE
 )                                         # base de prevalencia
 PATH_INC_CSV  <- .resolve_input_path(
   option_name = "BAPC_PATH_INC_CSV",
@@ -110,19 +113,17 @@ norm_txt <- function(x) {
 }
 
 # === Escenarios: niveles, etiquetas y colores (fuente única de verdad) ===
-scenario_levels <- c("freeze","up1pc","down1pc","down3pc","quit")
+scenario_levels <- c("freeze","up1pc","down1pc","quit")
 scenario_labels <- c(
   quit    = "Full cessation",
   up1pc   = "Up 1% per year",
   down1pc = "Down 1% per year",
-  freeze  = "Frozen at 2022",
-  down3pc = "Down 3% per year"
+  freeze  = "Frozen at 2022"
 )
 scenario_colors <- c(
   "Frozen at 2022" = "#d62728",  # red
   "Up 1% per year" = "#9467bd",   # purple
-  "Down 1% per year" = "#ff7f0e",   # orange
-  "Down 3% per year" = "#2ca02c",   # green
+  "Down 1% per year" = "#2ca02c",   # green
   "Full cessation" = "#1f77b4"   # blue
 )
 # Orden deseado de la leyenda (nombres mostrados)
@@ -135,15 +136,14 @@ scenario_labels_en <- scenario_labels
 scenario_hex_by_code <- c(
   freeze  = "#d62728",  # red
   up1pc   = "#9467bd",  # purple
-  down1pc = "#ff7f0e",  # orange
-  down3pc = "#2ca02c",  # green
+  down1pc = "#2ca02c",  # green
   quit    = "#1f77b4"   # blue
 )
 
 ESC_LEVELS_EN    <- unname(scenario_labels_en[scenario_levels])
 scenario_colors_en <- setNames(unname(scenario_hex_by_code[names(scenario_labels_en)]), unname(scenario_labels_en[names(scenario_labels_en)]))
 
-SCENARIOS_REAL_9SITES <- c("freeze","down1pc","down3pc","quit")
+SCENARIOS_REAL_9SITES <- c("freeze","up1pc","down1pc","quit")
 SCENARIOS_METHOD_LUNG <- c("freeze","up1pc","down1pc","quit")
 
 normalize_prev_scenario_name <- function(x) {
@@ -156,7 +156,9 @@ normalize_prev_scenario_name <- function(x) {
 make_prev_config <- function(
   scenario = NULL,
   axis = NULL,
-  annual_rate = PREV_ANNUAL_RATE,
+  annual_rate_up = PREV_ANNUAL_RATE_UP,
+  annual_rate_down = PREV_ANNUAL_RATE_DOWN,
+  annual_rate = annual_rate_up,
   annual_rate_down3 = PREV_ANNUAL_RATE_DOWN3,
   base_year = PREV_BASE_YEAR,
   backbone = PREV_BACKBONE,
@@ -176,6 +178,8 @@ make_prev_config <- function(
     scenario = normalize_prev_scenario_name(as.character(scenario)[1]),
     axis = match.arg(as.character(axis)[1], c("period", "cohort_expo")),
     annual_rate = annual_rate,
+    annual_rate_up = annual_rate_up,
+    annual_rate_down = annual_rate_down,
     annual_rate_down3 = annual_rate_down3,
     base_year = base_year,
     backbone = match.arg(backbone, c("freeze", "forecast")),
@@ -345,9 +349,11 @@ PREV_TREND_DEGREE <- 1                         # 0: sin tendencia explícita en 
 PREV_TREND_PRIOR_SD <- 1                       # sd del prior para coef(s) de tendencia en P
 
 # --- Escenarios de PREVALENCIA a futuro (aplican desde 2023) ---
-PREV_SCENARIO      <- "freeze"                  # opciones: "down1pc","freeze","down3pc","quit"
-PREV_ANNUAL_RATE   <- 0.01                      # 1% anual 
-PREV_ANNUAL_RATE_DOWN3 <- 0.03                   # 3% anual — escenario "down3pc"
+PREV_SCENARIO      <- "freeze"                  # opciones: "up1pc","down1pc","freeze","quit"
+PREV_ANNUAL_RATE_UP <- 0.01                     # tasa anual del escenario "up1pc"
+PREV_ANNUAL_RATE_DOWN <- 0.01                   # tasa anual del escenario "down1pc"
+PREV_ANNUAL_RATE   <- PREV_ANNUAL_RATE_UP       # alias legado
+PREV_ANNUAL_RATE_DOWN3 <- 0.03                  # legado: escenario exploratorio "down3pc"
 PREV_BASE_YEAR     <- 2022                      # a partir de periodo > 2022 aplica el escenario
 PREV_SCENARIO_AXIS <- "period"                  # opciones: "period" o "cohort_expo"
 
@@ -368,17 +374,17 @@ QUIT_RAMP_YEARS <- 3         # solo si QUIT_MODE="ramp": años hasta llegar al p
 W_I  <- 0.7                                      # peso del índice en I (↑ = canal P→I más fuerte)
 PREV_W_I    <- W_I                             # alias para consistencia con código previo
 
-# ---- Nuevo canal PREV -> INC (v1; infraestructura, sin activar aún el rewire del motor)
-PREV_INC_CHANNEL_MODE <- "stock_former"          # ruta principal nueva PREV -> INC
-PREV_INC_MAX_QUIT_YEARS <- NA_integer_           # si NA, usar máximo disponible de la risk-reversion schedule
-PREV_BACKCAST_MODE <- "freeze_first_period"     # backcast del efecto de período en PREV
-PREV_BACKCAST_COHORT_MODE <- "freeze_oldest"    # cohortes PREV no observadas hacia atrás
-PREV_POST65_MODE <- "carry_states"              # edades > AGE_P_MAX: transportar estados por cohorte
-BETA_MODE <- "fixed_rr_offset"                 # "estimate","prior_ols","offset","fixed_rr_offset"
+# ---- New PREV -> INC channel
+PREV_INC_CHANNEL_MODE <- "stock_former"          # main PREV -> INC channel
+PREV_INC_MAX_QUIT_YEARS <- NA_integer_           # if NA, use maximum available from the risk-reversal schedule
+PREV_BACKCAST_MODE <- "freeze_first_period"     # period effect backcast for PREV
+PREV_BACKCAST_COHORT_MODE <- "freeze_oldest"    # unobserved cohorts backcast for PREV
+PREV_POST65_MODE <- "carry_states"              # ages > AGE_P_MAX: carry cohort states forward
+BETA_MODE <- "fixed_rr_offset"                 # fixed relative risk offset is the only supported mechanism
 
-# --- Riesgos relativos de incidencia atribuibles a tabaquismo ---
-# Fuente preferida para la rama fixed_rr_offset: Pichon-Riviere et al. (2013),
-# con valores diferenciados por sexo para los 9 sitios actualmente modelados.
+# --- Relative risks of incidence attributable to smoking ---
+# Preferred source for fixed_rr_offset branch: Pichon-Riviere et al. (2013),
+# with sex-stratified values for the 9 modeled cancer sites.
 INC_RR_DEFAULT <- 4.0
 INC_RR_BY_CAUSE <- c(
   oralphar = 4.5,

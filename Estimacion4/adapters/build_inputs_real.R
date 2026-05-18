@@ -4,7 +4,10 @@
 # ---------------------------
 # 3A) Mortalidad y población
 # ---------------------------
-mort_hist <- readr::read_csv(PATH_MORT_CSV, show_col_types = FALSE) %>%
+# Real-data globals are optional. Simulation replication should source this file
+# without requiring private Uruguay inputs to exist.
+if (all(file.exists(c(PATH_MORT_CSV, PATH_POP_DTA)))) {
+  mort_hist <- readr::read_csv(PATH_MORT_CSV, show_col_types = FALSE) %>%
   mutate(
     causa2_norm = norm_txt(causa2),       # <= normalizado para regex robusto
     period = as.integer(año),
@@ -57,9 +60,14 @@ if (!"exposure.pop" %in% names(pop_all)) {
   pop_all <- dplyr::mutate(pop_all, exposure.pop = exposure)
 }
 
-pop_future <- pop_all %>%
-  dplyr::filter(period >= PERIOD_M_MAX + 1L) %>%
-  dplyr::select(age, period, sex, exposure)
+  pop_future <- pop_all %>%
+    dplyr::filter(period >= PERIOD_M_MAX + 1L) %>%
+    dplyr::select(age, period, sex, exposure)
+} else {
+  mort_hist <- tibble::tibble()
+  pop_all <- tibble::tibble()
+  pop_future <- tibble::tibble()
+}
 
 
 # Loader general de mortalidad por causa (usa regex normalizado)

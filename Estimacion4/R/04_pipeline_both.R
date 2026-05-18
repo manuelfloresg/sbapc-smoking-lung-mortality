@@ -1,9 +1,10 @@
-# 6) Wrapper para ambos sexos y suma total
+# 6) Wrapper for both sexes and total summation
 # =============================================================
 source("R/04b_rebuilder_helpers.R")
 
 run_pipeline_both <- function(
     anchor_pseudo_w = ANCHOR_PSEUDO_W, sd_cohfix = SD_COHORT_RESID, sd_beta = SD_BETA_FIXED,
+    period_min_p = PERIOD_M_MIN, period_max_p = PERIOD_M_MAX,
     age_min_m = AGE_M_MIN, age_max_m = AGE_M_MAX,
     age_min_p = AGE_P_MIN, age_max_p = AGE_P_MAX,
     age_min_i = AGE_I_MIN, age_max_i = AGE_I_MAX,
@@ -14,7 +15,7 @@ run_pipeline_both <- function(
     delta_inc = DELTA_INC,
     sd_beta_I = SD_BETA_I,
     use_weighted_cohort = USE_WEIGHTED_COHORT,
-    A_star = NA_real_, beta_mode = c("estimate","prior_ols","offset","fixed_rr_offset"), beta_force = NULL,
+    beta_force = NULL,
     gammaP_method = GAMMAP_METHOD, trend_type = TREND_TYPE, use_age_slope = FALSE,
     path_prev_dta = PATH_PREV_DTA,
     prev_micro_df = NULL,
@@ -32,19 +33,20 @@ run_pipeline_both <- function(
     cause_id_override = NA_character_,
     prev_inc_channel_mode = PREV_INC_CHANNEL_MODE,
     rr_inc = NA_real_,
-    rr_mort = NA_real_
+    rr_mort = NA_real_,
+    sd_theta_IP = SD_THETA_IP
 ){
   if (is.null(prev_cfg)) prev_cfg <- make_prev_config()
-  beta_mode <- match.arg(beta_mode, c("estimate","prior_ols","offset","fixed_rr_offset"))
+  beta_mode <- "fixed_rr_offset"
   gammaP_method <- match.arg(gammaP_method)
   mort_trend_scenario <- match.arg(mort_trend_scenario)
   prev_inc_channel_mode <- "stock_former"
   
-  # ---------- Estimación por sexo ----------
-  # ---------- Estimación por sexo ----------
+  # ---------- Sex-specific Estimation ----------
   resM <- run_pipeline_sex(
       sex_sel = "M",
       period_min_m = PERIOD_M_MIN, period_max_m = PERIOD_M_MAX,
+      period_min_p = period_min_p, period_max_p = period_max_p,
       age_min_m = age_min_m, age_max_m = age_max_m,
       age_min_p = age_min_p, age_max_p = age_max_p,
       age_min_i = age_min_i, age_max_i = age_max_i,
@@ -56,8 +58,8 @@ run_pipeline_both <- function(
       use_weighted_cohort = use_weighted_cohort,
       anchor_pseudo_w = anchor_pseudo_w,
       sd_cohort_resid = sd_cohfix, sd_beta_fixed = sd_beta,
-      use_age_slope = use_age_slope, A_star = A_star,
-      beta_mode = beta_mode, beta_force = beta_force,
+      use_age_slope = use_age_slope,
+      beta_force = beta_force,
       gammaP_method = gammaP_method, trend_type = trend_type,
       path_prev_dta = path_prev_dta,
       prev_micro_df = prev_micro_df,
@@ -69,12 +71,14 @@ run_pipeline_both <- function(
       mort_hist_tbl = mort_hist_tbl, pop_all_tbl = pop_all_tbl, inc_hist_tbl = inc_hist_tbl,
       cause_id_override = cause_id_override,
       rr_inc = rr_inc,
-      rr_mort = rr_mort
+      rr_mort = rr_mort,
+      sd_theta_IP = sd_theta_IP
     )
   
   resF <- run_pipeline_sex(
       sex_sel = "F",
       period_min_m = PERIOD_M_MIN, period_max_m = PERIOD_M_MAX,
+      period_min_p = period_min_p, period_max_p = period_max_p,
       age_min_m = age_min_m, age_max_m = age_max_m,
       age_min_p = age_min_p, age_max_p = age_max_p,
       age_min_i = age_min_i, age_max_i = age_max_i,
@@ -86,8 +90,8 @@ run_pipeline_both <- function(
       use_weighted_cohort = use_weighted_cohort,
       anchor_pseudo_w = anchor_pseudo_w,
       sd_cohort_resid = sd_cohfix, sd_beta_fixed = sd_beta,
-      use_age_slope = use_age_slope, A_star = A_star,
-      beta_mode = beta_mode, beta_force = beta_force,
+      use_age_slope = use_age_slope,
+      beta_force = beta_force,
       gammaP_method = gammaP_method, trend_type = trend_type,
       path_prev_dta = path_prev_dta,
       prev_micro_df = prev_micro_df,
@@ -99,18 +103,19 @@ run_pipeline_both <- function(
       mort_hist_tbl = mort_hist_tbl, pop_all_tbl = pop_all_tbl, inc_hist_tbl = inc_hist_tbl,
       cause_id_override = cause_id_override,
       rr_inc = rr_inc,
-      rr_mort = rr_mort
+      rr_mort = rr_mort,
+      sd_theta_IP = sd_theta_IP
     )
   
   if (is.null(resM) && is.null(resF)) stop("run_pipeline_both: no se pudo estimar ni M ni F.")
-  # ---------- Helpers para joins seguros ----------
+  # ---------- Helpers for safe joins ----------
   add_missing_cols <- function(df, cols) {
     if (is.null(df)) return(NULL)
     for (nm in cols) if (!nm %in% names(df)) df[[nm]] <- NA_real_
     df
   }
   
-  # ---------- annual_bapc (comb) ----------
+  # ---------- annual_bapc (combined) ----------
   ab_m <- if (!is.null(resM) && !is.null(resM$annual_bapc) && nrow(resM$annual_bapc) > 0)
     dplyr::rename(resM$annual_bapc,
                   deaths_hat_M = deaths_hat, deaths_lwr_M = deaths_lwr, deaths_upr_M = deaths_upr) else NULL
@@ -137,7 +142,7 @@ run_pipeline_both <- function(
     dplyr::select(period, deaths_hat, deaths_lwr, deaths_upr) %>%
     dplyr::arrange(period)
   
-  # ---------- annual_anchor (comb_anchor) ----------
+  # ---------- annual_anchor (combined anchor) ----------
   aa_m <- if (!is.null(resM) && !is.null(resM$annual_anchor) && nrow(resM$annual_anchor) > 0)
     dplyr::rename(resM$annual_anchor,
                   deaths_hat_M = deaths_hat, deaths_lwr_M = deaths_lwr, deaths_upr_M = deaths_upr) else NULL
@@ -164,7 +169,7 @@ run_pipeline_both <- function(
     dplyr::select(period, deaths_hat, deaths_lwr, deaths_upr) %>%
     dplyr::arrange(period)
   
-  # ---------- annual_anchor_noP (comb_noP) ----------
+  # ---------- annual_anchor_noP (combined no-P counterfactual) ----------
   an_m <- if (!is.null(resM) && !is.null(resM$annual_anchor_noP) && nrow(resM$annual_anchor_noP) > 0)
     dplyr::rename(resM$annual_anchor_noP,
                   deaths_hat_M = deaths_hat, deaths_lwr_M = deaths_lwr, deaths_upr_M = deaths_upr) else NULL
@@ -191,7 +196,7 @@ run_pipeline_both <- function(
     dplyr::select(period, deaths_hat, deaths_lwr, deaths_upr) %>%
     dplyr::arrange(period)
 
-  # ---------- obs_annual (obs_tot) ----------
+  # ---------- obs_annual (observed total) ----------
   obs_m <- if (!is.null(resM) && !is.null(resM$obs_annual) && nrow(resM$obs_annual) > 0) resM$obs_annual else NULL
   obs_f <- if (!is.null(resF) && !is.null(resF$obs_annual) && nrow(resF$obs_annual) > 0) resF$obs_annual else NULL
   
@@ -229,7 +234,7 @@ run_pipeline_both <- function(
       mort_trend_scenario = mort_trend_scenario, delta_tech = delta_tech,
       inc_include_trend = inc_include_trend, inc_trend_scenario = inc_trend_scenario,
       delta_inc = delta_inc, sd_beta_I = sd_beta_I, use_weighted_cohort = use_weighted_cohort,
-      A_star = A_star, beta_mode = beta_mode, gammaP_method = gammaP_method, trend_type = trend_type,
+      beta_mode = beta_mode, gammaP_method = gammaP_method, trend_type = trend_type,
       method_policy_by_sex = list(
         M = tryCatch(resM$params$method_policy, error = function(e) NULL),
         F = tryCatch(resF$params$method_policy, error = function(e) NULL)
@@ -271,7 +276,6 @@ run_pipeline_both <- function(
 run_pipeline_both_from_inputs <- function(inputs,
                                           cfg_row,
                                           prev_cfg = NULL,
-                                          beta_mode = BETA_MODE,
                                           gammaP_method = GAMMAP_METHOD,
                                           trend_type = TREND_TYPE,
                                           emit_prev_diag_console = EMIT_PREV_DIAG_CONSOLE,
@@ -282,6 +286,8 @@ run_pipeline_both_from_inputs <- function(inputs,
   stopifnot(nrow(cfg_row) == 1)
   .bapc_verbose("inputs$mort_hist_tbl is NULL? ", is.null(inputs$mort_hist_tbl))
   run_pipeline_both(
+    period_min_p = if ("PERIOD_P_MIN" %in% names(cfg_row)) cfg_row$PERIOD_P_MIN[[1]] else PERIOD_M_MIN,
+    period_max_p = if ("PERIOD_P_MAX" %in% names(cfg_row)) cfg_row$PERIOD_P_MAX[[1]] else PERIOD_M_MAX,
     age_min_m = cfg_row$AGE_M_MIN[[1]], age_max_m = cfg_row$AGE_M_MAX[[1]],
     age_min_p = cfg_row$AGE_P_MIN[[1]], age_max_p = cfg_row$AGE_P_MAX[[1]],
     age_min_i = cfg_row$AGE_I_MIN[[1]], age_max_i = cfg_row$AGE_I_MAX[[1]],
@@ -297,8 +303,6 @@ run_pipeline_both_from_inputs <- function(inputs,
     inc_hist_tbl  = inputs$inc_hist_tbl,
     path_prev_dta = if (!is.null(inputs$prev_path)) inputs$prev_path else PATH_PREV_DTA,
     prev_micro_df = if (is.data.frame(inputs$prev_data)) inputs$prev_data else NULL,
-    A_star = NA_real_, 
-    beta_mode = beta_mode,
     gammaP_method = gammaP_method, 
     trend_type = trend_type, 
     use_age_slope = FALSE,
@@ -316,7 +320,7 @@ run_pipeline_both_from_inputs <- function(inputs,
 # The benchmark residual comes from the base/freeze branch, and the scenario-specific
 # mortality anchor is rebuilt by combining that residual with the scenario-specific offset.
 
-.rebuild_anchor_freeze_benchmark <- function(res_base, res_scen, overwrite_main = TRUE) {
+.rebuild_anchor_freeze_benchmark <- function(res_base, res_scen, overwrite_main = TRUE, ...) {
   `%||%` <- function(x, y) if (is.null(x)) y else x
 
   .rebuild_one_sex <- function(base_sex, scen_sex) {
@@ -443,7 +447,7 @@ run_pipeline_both_from_inputs <- function(inputs,
                                                 inputs,
                                                 cfg_row,
                                                 prev_cfg_scen,
-                                                overwrite_main = TRUE) {
+                                                overwrite_main = TRUE, ...) {
   `%||%` <- function(x, y) if (is.null(x)) y else x
 
 
@@ -545,8 +549,8 @@ run_pipeline_both_from_inputs <- function(inputs,
       gammaP_method = GAMMAP_METHOD,
       trend_type = TREND_TYPE,
       prev_cfg = prev_cfg_scen,
-      age_min_p = AGE_P_MIN,
-      age_max_p = AGE_P_MAX,
+      age_min_p = if ("AGE_P_MIN" %in% names(cfg_row)) cfg_row$AGE_P_MIN[[1]] else AGE_P_MIN,
+      age_max_p = if ("AGE_P_MAX" %in% names(cfg_row)) cfg_row$AGE_P_MAX[[1]] else AGE_P_MAX,
       backcast_period_mode = PREV_BACKCAST_MODE,
       backcast_cohort_mode = PREV_BACKCAST_COHORT_MODE,
       post65_mode = PREV_POST65_MODE,
@@ -605,7 +609,7 @@ run_pipeline_both_from_inputs <- function(inputs,
       )
     
     # --- DIAGNOSTIC PRINT ---
-    if (isTRUE(BAPC_VERBOSE) || TRUE) {
+    if (isTRUE(BAPC_VERBOSE)) {
       avg_ratio <- mean(fut$rate_scen / fut$rate_hat, na.rm=TRUE)
       message(sprintf(">>> [REBUILD] Scenario: %s | Avg Inc Multiplier: %.4f", prev_cfg_scen$scenario, avg_ratio))
     }
@@ -651,7 +655,7 @@ run_pipeline_both_from_inputs <- function(inputs,
     eta_total_scen <- ifelse(is.finite(eta_apc_base), eta_apc_base + eta_offset_scen, log(pmax(rate_scen, 1e-12)))
 
     # --- DIAGNOSTIC PRINT MORTALITY ---
-    if (isTRUE(BAPC_VERBOSE) || TRUE) {
+    if (isTRUE(BAPC_VERBOSE)) {
       avg_mort_mult <- mean(exp(eta_total_scen) / exp(eta_apc_base + dplyr::coalesce(.safe_num(fut$inc_tech_offset),0) + .safe_num(fut$coef_fc_offset_I)), na.rm=TRUE)
       message(sprintf(">>> [REBUILD] Scenario: %s | Avg Mort Multiplier: %.4f", prev_cfg_scen$scenario, avg_mort_mult))
     }
@@ -897,18 +901,18 @@ run_pipeline_both_from_inputs <- function(inputs,
                                                inputs,
                                                cfg_row,
                                                prev_cfg_scen,
-                                               overwrite_main = TRUE) {
+                                               overwrite_main = TRUE, ...) {
   out <- .rebuild_incidence_freeze_benchmark(
     res_base = res_base,
     inputs = inputs,
     cfg_row = cfg_row,
     prev_cfg_scen = prev_cfg_scen,
-    overwrite_main = overwrite_main
+    overwrite_main = overwrite_main, ...
   )
   .rebuild_anchor_freeze_benchmark(
     res_base = out$res_base,
     res_scen = out$res_scen,
-    overwrite_main = overwrite_main
+    overwrite_main = overwrite_main, ...
   )
 }
 

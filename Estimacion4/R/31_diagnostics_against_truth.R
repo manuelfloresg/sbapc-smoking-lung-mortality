@@ -269,27 +269,38 @@ export_latex_bias_summary <- function(metrics_df, file_out) {
   # Simple LaTeX tabular generator for paper bias summary
   if (!requireNamespace("tidyr", quietly = TRUE)) stop("tidyr required")
   
+  LATEX_SCEN_LABELS <- c(
+    "up1pc"   = "$\\uparrow$ 1\\% p.a.",
+    "freeze"  = "Freeze (2022)",
+    "down1pc" = "$\\downarrow$ 1\\% p.a.",
+    "quit"    = "Quit"
+  )
+  
   # Agregamos por DGP y Escenario para el main text
   summary_tab <- metrics_df %>%
-    dplyr::group_by(dgp, scenario, sex) %>%
+    dplyr::mutate(
+      scenario_f = factor(scenario, levels = c("up1pc", "freeze", "down1pc", "quit"), labels = LATEX_SCEN_LABELS)
+    ) %>%
+    dplyr::group_by(dgp, scenario_f, sex) %>%
     dplyr::summarise(
       Mean_Hist_Bias = mean(hist_bias, na.rm = TRUE),
       Mean_Proj_Bias = mean(proj_bias, na.rm = TRUE),
       .groups = "drop"
-    )
+    ) %>%
+    dplyr::arrange(dgp, sex, scenario_f)
   
-  # Formatear como tabla LaTeX básica
+  # Formatear como tabla LaTeX elegante
   lines <- c(
     "\\begin{tabular}{lllcc}",
     "\\hline",
-    "DGP & Scenario & Sex & Hist Bias (%) & Proj Bias (%) \\\\",
+    "DGP & Scenario & Sex & Hist Bias (\\%) & Proj Bias (\\%) \\\\",
     "\\hline"
   )
   
   for (i in 1:nrow(summary_tab)) {
     row <- summary_tab[i, ]
-    lines <- c(lines, sprintf("%s & %s & %s & %.2f & %.2f \\\\", 
-                              row$dgp, row$scenario, row$sex, row$Mean_Hist_Bias, row$Mean_Proj_Bias))
+    lines <- c(lines, sprintf("%s & %s & %s & %.2f\\%% & %.2f\\%% \\\\", 
+                              row$dgp, as.character(row$scenario_f), row$sex, row$Mean_Hist_Bias, row$Mean_Proj_Bias))
   }
   
   lines <- c(lines, "\\hline", "\\end{tabular}")
