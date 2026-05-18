@@ -420,7 +420,7 @@ run_pipeline_both_from_inputs <- function(inputs,
         dplyr::arrange(period)
     }
 
-    # Update Informed SBAPC (always changes)
+    # Update SBAPC (always changes)
     res_both$combined$annual_anchor <- .agg_sexes(res_both$resM$annual_anchor, res_both$resF$annual_anchor)
     
     # Update Benchmarks (should be identical if sex-specifics are identical)
@@ -717,7 +717,7 @@ run_pipeline_both_from_inputs <- function(inputs,
     }
     
     # Rebuild logic:
-    # 1. We take the Pure BAPC Incidence from the base object (inertial trend, no scenarios)
+    # 1. We take the BAPC benchmark incidence from the base object (inertial trend, no scenarios)
     # 2. We take the Scenario Incidence from the current fit (includes prevalence impact)
     # 3. We rebuild mortality using these two distinct info levels.
     
@@ -726,7 +726,7 @@ run_pipeline_both_from_inputs <- function(inputs,
     
     # Validation: Ensure BAPC incidence is available
     if (is.null(inc_bapc_rates_all) || nrow(inc_bapc_rates_all) == 0) {
-      .bapc_verbose("[.rebuild_one_sex] Warning: Pure BAPC incidence not found. Falling back to freeze incidence for Orange line.")
+      .bapc_verbose("[.rebuild_one_sex] Warning: BAPC benchmark incidence not found. Falling back to freeze incidence for decomposition line.")
       inc_bapc_rates_all <- base_full %>% dplyr::select(sex, age, period, rate_hat)
     }
 
@@ -794,7 +794,7 @@ run_pipeline_both_from_inputs <- function(inputs,
     # 2. Get scenario offsets (Full and NoP)
     # Mortality Offset Calculation
     # mort_data_cond: Uses Scenario Incidence (I|P) + Scenario Prevalence (P_scen)
-    # mort_data_noP: Uses Pure BAPC Incidence (I) + Base Prevalence (P_base)
+    # mort_data_noP: Uses BAPC benchmark incidence (I) + base prevalence (P_base)
     
     # Setup join keys for mortality
     key_candidates_m <- c("sex", "age", "period", "cohort")

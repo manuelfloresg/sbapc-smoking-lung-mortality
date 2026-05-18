@@ -188,7 +188,7 @@ run_pipeline_sex <- function(
                                      base_year = prev_cfg$base_year)
   gammaP_all <- dplyr::bind_rows(gammaP_hist, gammaP_fut)
   
-  # ---------- 3) Pure BAPC INCIDENCE (first), to extract historical period effect per(·)
+  # ---------- 3) BAPC benchmark incidence (first), to extract historical period effect per(.)
   if (is.null(inc_hist_tbl)) inc_hist_tbl <- load_incidence_lung(PATH_INC_CSV, pop_all_tbl)
   inc_fit_bapc <- fit_apc_incidence(
     inc_hist = inc_hist_tbl %>% dplyr::filter(sex == sex_sel),

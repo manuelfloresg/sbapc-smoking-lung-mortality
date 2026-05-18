@@ -43,7 +43,7 @@ SCEN_LABELS <- c(
 MODEL_LABELS <- c(
   truth = "Truth",
   sbapc = "SBAPC",
-  sbapc_no_prev = "SBAPC without prevalence channel",
+  sbapc_no_prev = "Incidence-anchored SBAPC",
   bapc = "BAPC benchmark"
 )
 
