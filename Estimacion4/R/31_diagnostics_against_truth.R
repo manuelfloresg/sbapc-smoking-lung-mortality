@@ -107,11 +107,11 @@ compare_pipeline_to_truth <- function(res_both, sim, out_dir = NULL, prefix = ""
       
     p_inc <- ggplot(df_plot_inc, aes(x = period)) +
       geom_line(aes(y = rate_true, color = "Truth"), linetype = "dashed", linewidth = 1.1) +
-      geom_line(aes(y = rate_hat, color = "Informed (SBAPC)"), linewidth = 1.3) +
-      geom_line(aes(y = rate_bapc, color = "Benchmark (BAPC)"), linetype = "dotted", linewidth = 1.0) +
+      geom_line(aes(y = rate_hat, color = "SBAPC"), linewidth = 1.3) +
+      geom_line(aes(y = rate_bapc, color = "BAPC benchmark"), linetype = "dotted", linewidth = 1.0) +
       geom_vline(xintercept = last_hist, linetype = "dotted", color = "gray40") +
       facet_wrap(~sex, scales = "free_y") +
-      scale_color_manual(values = c("Truth" = "black", "Informed (SBAPC)" = "#CD5C5C", "Benchmark (BAPC)" = "#4682B4")) +
+      scale_color_manual(values = c("Truth" = "black", "SBAPC" = "#CD5C5C", "BAPC benchmark" = "#4682B4")) +
       labs(title = "Incidence Rate: Estimate vs Truth",
            subtitle = paste("Cause:", res_both$meta$cause_id %||% "simulated", "| Scale: per 100,000"),
            y = "Weighted Rate", color = "Source", x = "Year") +
@@ -163,12 +163,12 @@ compare_pipeline_to_truth <- function(res_both, sim, out_dir = NULL, prefix = ""
     df_mort$sex <- factor(df_mort$sex, levels = c("M", "F"))
     p_mort <- ggplot(df_mort, aes(x = period)) +
       geom_line(aes(y = deaths_true, color = "Truth"), linetype = "dashed", linewidth = 1.1) +
-      geom_line(aes(y = deaths_hat, color = "Informed (SBAPC)"), linewidth = 1.3) +
-      geom_line(aes(y = deaths_noP, color = "Informed (No Prev)"), linetype = "dotdash", linewidth = 1.0) +
-      geom_line(aes(y = deaths_bapc, color = "Benchmark (BAPC)"), linetype = "dotted", linewidth = 1.0) +
+      geom_line(aes(y = deaths_hat, color = "SBAPC"), linewidth = 1.3) +
+      geom_line(aes(y = deaths_noP, color = "Incidence-anchored SBAPC"), linetype = "dotdash", linewidth = 1.0) +
+      geom_line(aes(y = deaths_bapc, color = "BAPC benchmark"), linetype = "dotted", linewidth = 1.0) +
       geom_vline(xintercept = last_hist, linetype = "dotted", color = "gray40") +
       facet_wrap(~sex, scales = "free_y") +
-      scale_color_manual(values = c("Truth" = "black", "Informed (SBAPC)" = "#CD5C5C", "Informed (No Prev)" = "#ff7f0e", "Benchmark (BAPC)" = "#4682B4")) +
+      scale_color_manual(values = c("Truth" = "black", "SBAPC" = "#CD5C5C", "Incidence-anchored SBAPC" = "#ff7f0e", "BAPC benchmark" = "#4682B4")) +
       labs(title = "Mortality: Estimate vs Truth (Full Period)",
            subtitle = paste("Cause:", res_both$meta$cause_id %||% "simulated", "| Vertical line at", last_hist),
            y = "Total Deaths", color = "Source", x = "Year") +

@@ -40,6 +40,23 @@ SCEN_LABELS <- c(
   "quit"    = "Quit"
 )
 
+MODEL_LABELS <- c(
+  truth = "Truth",
+  sbapc = "SBAPC",
+  sbapc_no_prev = "SBAPC without prevalence channel",
+  bapc = "BAPC benchmark"
+)
+
+MODEL_COLORS <- stats::setNames(
+  c("black", "#D32F2F", "#EF6C00", "#1976D2"),
+  unname(MODEL_LABELS[c("truth", "sbapc", "sbapc_no_prev", "bapc")])
+)
+
+MODEL_LINETYPES <- stats::setNames(
+  c("dashed", "solid", "longdash", "dotted"),
+  unname(MODEL_LABELS[c("truth", "sbapc", "sbapc_no_prev", "bapc")])
+)
+
 # Output Directories
 .out_base_env <- Sys.getenv("BAPC_OUT_BASE", unset = "")
 OUT_BASE    <- if (nzchar(.out_base_env)) .out_base_env else file.path(BAPC_PATHS$results, "20260515_FINAL_PROD")
@@ -401,17 +418,18 @@ plot_deconstruction_figure <- function(seed = 4, dgp = "spec_linear", scen = "qu
   plot_df <- df_mort %>%
     dplyr::select(
       period, sex, 
-      Truth = deaths_true, 
-      `Informed SBAPC (M | I | P)` = deaths_hat, 
-      `Uninformed SBAPC (M | I)` = deaths_noP, 
-      `Pure BAPC (M)` = deaths_bapc
+      `Truth` = deaths_true, 
+      `SBAPC` = deaths_hat, 
+      `Incidence-anchored SBAPC` = deaths_noP, 
+      `BAPC benchmark` = deaths_bapc
     ) %>%
     tidyr::pivot_longer(
-      cols = c(Truth, `Informed SBAPC (M | I | P)`, `Uninformed SBAPC (M | I)`, `Pure BAPC (M)`), 
+      cols = c(`Truth`, `SBAPC`, `Incidence-anchored SBAPC`, `BAPC benchmark`), 
       names_to = "Series", values_to = "Deaths"
     )
   
-  plot_df$Series <- factor(plot_df$Series, levels = c("Truth", "Informed SBAPC (M | I | P)", "Uninformed SBAPC (M | I)", "Pure BAPC (M)"))
+  decomp_levels <- unname(MODEL_LABELS[c("truth", "sbapc", "sbapc_no_prev", "bapc")])
+  plot_df$Series <- factor(plot_df$Series, levels = decomp_levels)
   
   last_hist <- rb$meta$last_hist %||% 2022
   
@@ -419,18 +437,8 @@ plot_deconstruction_figure <- function(seed = 4, dgp = "spec_linear", scen = "qu
     geom_line(linewidth = 1) +
     geom_vline(xintercept = last_hist, linetype = "dotted", color = "gray50") +
     facet_wrap(~sex, scales = "free_y") +
-    scale_color_manual(values = c(
-      "Truth" = "black", 
-      "Informed SBAPC (M | I | P)" = "#CD5C5C", 
-      "Uninformed SBAPC (M | I)" = "#ff7f0e", 
-      "Pure BAPC (M)" = "#4682B4"
-    )) +
-    scale_linetype_manual(values = c(
-      "Truth" = "dashed", 
-      "Informed SBAPC (M | I | P)" = "solid", 
-      "Uninformed SBAPC (M | I)" = "dotdash", 
-      "Pure BAPC (M)" = "dotted"
-    )) +
+    scale_color_manual(values = MODEL_COLORS, breaks = decomp_levels) +
+    scale_linetype_manual(values = MODEL_LINETYPES, breaks = decomp_levels) +
     labs(title = "Information Gain Deconstruction",
          subtitle = sprintf("Seed %d | DGP: %s | Scenario: %s", seed, dgp, scen),
          y = "Annual Deaths", x = "Year") +
@@ -458,14 +466,14 @@ plot_scenario_atlas_by_sex <- function(seed = 4, sex_lab = "M") {
     colnames(df_truth)[2] <- "deaths"
     df_truth$model <- "Truth"
     
-    # 2. Informed SBAPC
-    df_inf <- data.frame(period = sex_res$annual_anchor$period, deaths = sex_res$annual_anchor$deaths_hat, model = "Informed SBAPC")
+    # 2. SBAPC
+    df_inf <- data.frame(period = sex_res$annual_anchor$period, deaths = sex_res$annual_anchor$deaths_hat, model = MODEL_LABELS[["sbapc"]])
     
-    # 3. Uninformed SBAPC (No-Prev)
-    df_uninf <- data.frame(period = sex_res$annual_anchor_noP$period, deaths = sex_res$annual_anchor_noP$deaths_hat, model = "Uninformed SBAPC")
+    # 3. Incidence-anchored SBAPC
+    df_uninf <- data.frame(period = sex_res$annual_anchor_noP$period, deaths = sex_res$annual_anchor_noP$deaths_hat, model = MODEL_LABELS[["sbapc_no_prev"]])
     
-    # 4. Pure BAPC
-    df_bapc <- data.frame(period = sex_res$annual_bapc$period, deaths = sex_res$annual_bapc$deaths_hat, model = "Pure BAPC")
+    # 4. BAPC benchmark
+    df_bapc <- data.frame(period = sex_res$annual_bapc$period, deaths = sex_res$annual_bapc$deaths_hat, model = MODEL_LABELS[["bapc"]])
     
     combined <- bind_rows(df_truth, df_inf, df_uninf, df_bapc) %>%
       mutate(scenario = SCEN_LABELS[[scen]])
@@ -475,12 +483,12 @@ plot_scenario_atlas_by_sex <- function(seed = 4, sex_lab = "M") {
   
   df_final <- bind_rows(all_data) %>% filter(period > 1995)
   df_final$scenario <- factor(df_final$scenario, levels = SCEN_LABELS[scens])
-  model_levels <- c("Truth", "Informed SBAPC", "Uninformed SBAPC", "Pure BAPC")
+  model_levels <- unname(MODEL_LABELS[c("truth", "sbapc", "sbapc_no_prev", "bapc")])
   df_final$model <- factor(df_final$model, levels = model_levels)
   
   # Colors and Types
-  pal <- c("Truth" = "black", "Informed SBAPC" = "#D32F2F", "Uninformed SBAPC" = "#EF6C00", "Pure BAPC" = "#1976D2")
-  types <- c("Truth" = "dashed", "Informed SBAPC" = "solid", "Uninformed SBAPC" = "longdash", "Pure BAPC" = "dotted")
+  pal <- MODEL_COLORS[model_levels]
+  types <- MODEL_LINETYPES[model_levels]
   
   g <- ggplot(df_final, aes(x = period, y = deaths, color = model, linetype = model)) +
     facet_wrap(~scenario, nrow = 1, scales = "fixed") +
@@ -625,7 +633,7 @@ plot_transmission_map <- function(seed = 4,
                                   raw_dir = OUT_RAW,
                                   title_suffix = NULL) {
   sex_lab <- match.arg(as.character(sex_lab)[1], c("M", "F"))
-  series_levels <- c("Truth", "Informed SBAPC")
+  series_levels <- unname(MODEL_LABELS[c("truth", "sbapc")])
   metric_levels <- c(
     "Current smoking prevalence",
     "Effective smoking exposure",
@@ -665,7 +673,7 @@ plot_transmission_map <- function(seed = 4,
         .groups = "drop"
       ) %>%
       tidyr::pivot_longer(-period, names_to = "metric", values_to = "value") %>%
-      dplyr::mutate(series = "Truth")
+      dplyr::mutate(series = MODEL_LABELS[["truth"]])
 
     est_stock <- dplyr::bind_rows(
       tibble::as_tibble(sex_res$diag$z_prev_hist %||% tibble::tibble()),
@@ -679,7 +687,7 @@ plot_transmission_map <- function(seed = 4,
         .groups = "drop"
       ) %>%
       tidyr::pivot_longer(-period, names_to = "metric", values_to = "value") %>%
-      dplyr::mutate(series = "Informed SBAPC")
+      dplyr::mutate(series = MODEL_LABELS[["sbapc"]])
 
     exposure <- suppressWarnings(as.numeric(rb$meta$args$exposure %||% sim_truth$meta$exposure %||% 100000))[1]
     if (!is.finite(exposure) || exposure <= 0) exposure <- 100000
@@ -688,11 +696,11 @@ plot_transmission_map <- function(seed = 4,
       dplyr::filter(as.character(sex) == sex_lab) %>%
       dplyr::group_by(period) %>%
       dplyr::summarise(value = sum(as.numeric(rateI_scen_true) * exposure, na.rm = TRUE), .groups = "drop") %>%
-      dplyr::mutate(metric = "Annual incident cases", series = "Truth")
+      dplyr::mutate(metric = "Annual incident cases", series = MODEL_LABELS[["truth"]])
 
     est_inc <- sex_res$inc_annual_cond %>%
       dplyr::transmute(period = as.integer(period), value = as.numeric(cases_hat),
-                       metric = "Annual incident cases", series = "Informed SBAPC")
+                       metric = "Annual incident cases", series = MODEL_LABELS[["sbapc"]])
     if (!any(est_inc$period <= 2022, na.rm = TRUE) && !identical(scen, "freeze")) {
       if (is.null(freeze_hist_inc_by_seed)) {
         freeze_file <- file.path(raw_dir, sprintf("res_%s_s%d_freeze.rds", dgp, seed))
@@ -702,7 +710,7 @@ plot_transmission_map <- function(seed = 4,
           freeze_hist_inc_by_seed <- sex_freeze$inc_annual_cond %>%
             dplyr::filter(as.integer(period) <= 2022) %>%
             dplyr::transmute(period = as.integer(period), value = as.numeric(cases_hat),
-                             metric = "Annual incident cases", series = "Informed SBAPC")
+                             metric = "Annual incident cases", series = MODEL_LABELS[["sbapc"]])
         } else {
           freeze_hist_inc_by_seed <- tibble::tibble()
         }
@@ -715,11 +723,11 @@ plot_transmission_map <- function(seed = 4,
       dplyr::filter(as.character(sex) == sex_lab) %>%
       dplyr::group_by(period) %>%
       dplyr::summarise(value = sum(as.numeric(mort_deaths_scen_true), na.rm = TRUE), .groups = "drop") %>%
-      dplyr::mutate(metric = "Annual deaths", series = "Truth")
+      dplyr::mutate(metric = "Annual deaths", series = MODEL_LABELS[["truth"]])
 
     est_mort <- sex_res$annual_anchor %>%
       dplyr::transmute(period = as.integer(period), value = as.numeric(deaths_hat),
-                       metric = "Annual deaths", series = "Informed SBAPC")
+                       metric = "Annual deaths", series = MODEL_LABELS[["sbapc"]])
 
     data_list[[scen]] <- dplyr::bind_rows(truth_stock, est_stock, truth_inc, est_inc, truth_mort, est_mort) %>%
       dplyr::mutate(
@@ -737,8 +745,8 @@ plot_transmission_map <- function(seed = 4,
     facet_grid(metric ~ scenario, scales = "free_y") +
     geom_vline(xintercept = 2022, linetype = "dotted", color = "gray60", linewidth = 0.35) +
     geom_line(linewidth = 0.85, na.rm = TRUE) +
-    scale_color_manual(values = c("Truth" = "black", "Informed SBAPC" = "#D32F2F"), breaks = series_levels) +
-    scale_linetype_manual(values = c("Truth" = "dashed", "Informed SBAPC" = "solid"), breaks = series_levels) +
+    scale_color_manual(values = MODEL_COLORS[series_levels], breaks = series_levels) +
+    scale_linetype_manual(values = MODEL_LINETYPES[series_levels], breaks = series_levels) +
     labs(
       title = paste0(
         sprintf("Smoking-to-Mortality Transmission Map: %s (Seed %d)",
@@ -762,7 +770,7 @@ plot_transmission_map_support_compare <- function(seed = 4,
                                                   scens = c("up1pc", "freeze", "down1pc", "quit"),
                                                   realistic_raw_dir = OUT_RAW,
                                                   oracle_raw_dir = OUT_RAW_ORACLE,
-                                                  realistic_label = "Window-limited SBAPC",
+                                                  realistic_label = "Observed-window SBAPC",
                                                   oracle_label = "Full-support SBAPC") {
   sex_lab <- match.arg(as.character(sex_lab)[1], c("M", "F"))
   metric_levels <- c(
@@ -786,13 +794,13 @@ plot_transmission_map_support_compare <- function(seed = 4,
   df_oracle <- tibble::as_tibble(g_oracle$data)
 
   truth_df <- df_oracle %>%
-    dplyr::filter(as.character(series) == "Truth") %>%
-    dplyr::mutate(series = "Truth")
+    dplyr::filter(as.character(series) == MODEL_LABELS[["truth"]]) %>%
+    dplyr::mutate(series = MODEL_LABELS[["truth"]])
   real_df <- df_real %>%
-    dplyr::filter(as.character(series) == "Informed SBAPC") %>%
+    dplyr::filter(as.character(series) == MODEL_LABELS[["sbapc"]]) %>%
     dplyr::mutate(series = realistic_label)
   oracle_df <- df_oracle %>%
-    dplyr::filter(as.character(series) == "Informed SBAPC") %>%
+    dplyr::filter(as.character(series) == MODEL_LABELS[["sbapc"]]) %>%
     dplyr::mutate(series = oracle_label)
 
   df <- dplyr::bind_rows(truth_df, real_df, oracle_df) %>%
@@ -863,7 +871,7 @@ generate_support_transmission_maps <- function(seed = 4,
       scens = scens,
       realistic_raw_dir = realistic_raw_dir,
       oracle_raw_dir = oracle_raw_dir,
-      realistic_label = "Window-limited SBAPC",
+      realistic_label = "Observed-window SBAPC",
       oracle_label = "Full-support SBAPC"
     )
     save_paper_plot(
@@ -876,6 +884,296 @@ generate_support_transmission_maps <- function(seed = 4,
   }
 
   invisible(TRUE)
+}
+
+build_mortality_scenario_effects <- function(data = NULL,
+                                             sex_scope = c("total", "by_sex"),
+                                             scens = setdiff(CANONICAL_SCENS, "freeze"),
+                                             last_hist = 2022L) {
+  sex_scope <- match.arg(sex_scope)
+  if (is.null(data)) data <- extract_all_metrics()
+  if (is.null(data$mort) || !nrow(data$mort)) {
+    stop("No mortality diagnostics available. Run/extract simulation metrics first.")
+  }
+
+  mort <- tibble::as_tibble(data$mort) %>%
+    dplyr::filter(period > last_hist) %>%
+    dplyr::select(seed, dgp, scenario, sex, period,
+                  deaths_true, deaths_hat, deaths_noP, deaths_bapc)
+
+  support <- tibble::as_tibble(data$inc %||% tibble::tibble()) %>%
+    dplyr::filter(period > last_hist) %>%
+    dplyr::select(seed, dgp, scenario, sex, period, support_frac)
+
+  if (identical(sex_scope, "total")) {
+    mort <- mort %>%
+      dplyr::group_by(seed, dgp, scenario, period) %>%
+      dplyr::summarise(
+        deaths_true = sum(deaths_true, na.rm = TRUE),
+        deaths_hat = sum(deaths_hat, na.rm = TRUE),
+        deaths_noP = sum(deaths_noP, na.rm = TRUE),
+        deaths_bapc = sum(deaths_bapc, na.rm = TRUE),
+        .groups = "drop"
+      ) %>%
+      dplyr::mutate(sex = "Total", .before = period)
+
+    if (nrow(support)) {
+      support <- support %>%
+        dplyr::group_by(seed, dgp, scenario, period) %>%
+        dplyr::summarise(support_frac = mean(as.numeric(support_frac), na.rm = TRUE), .groups = "drop") %>%
+        dplyr::mutate(sex = "Total", .before = period)
+    }
+  }
+
+  freeze <- mort %>%
+    dplyr::filter(scenario == "freeze") %>%
+    dplyr::select(seed, dgp, sex, period,
+                  deaths_true_freeze = deaths_true,
+                  deaths_hat_freeze = deaths_hat,
+                  deaths_noP_freeze = deaths_noP,
+                  deaths_bapc_freeze = deaths_bapc)
+
+  wide <- mort %>%
+    dplyr::filter(scenario %in% scens) %>%
+    dplyr::left_join(freeze, by = c("seed", "dgp", "sex", "period")) %>%
+    dplyr::left_join(support, by = c("seed", "dgp", "scenario", "sex", "period")) %>%
+    dplyr::mutate(
+      delta_truth = deaths_true - deaths_true_freeze,
+      delta_sbapc = deaths_hat - deaths_hat_freeze,
+      delta_incidence_anchored = deaths_noP - deaths_noP_freeze,
+      delta_bapc = deaths_bapc - deaths_bapc_freeze,
+      truth_effect_pct = 100 * delta_truth / pmax(abs(deaths_true_freeze), 1e-9),
+      horizon = as.integer(period - last_hist),
+      horizon_region = dplyr::case_when(
+        is.na(support_frac) ~ NA_character_,
+        support_frac >= 0.50 ~ "Credible",
+        support_frac >= 0.33 ~ "Caution",
+        TRUE ~ "Risky"
+      ),
+      scenario_label = unname(SCEN_LABELS[as.character(scenario)])
+    )
+
+  out <- dplyr::bind_rows(
+    wide %>%
+      dplyr::transmute(seed, dgp, scenario, scenario_label, sex, period, horizon, horizon_region,
+                       model = MODEL_LABELS[["sbapc"]],
+                       delta_truth, delta_hat = delta_sbapc,
+                       freeze_truth = deaths_true_freeze, support_frac),
+    wide %>%
+      dplyr::transmute(seed, dgp, scenario, scenario_label, sex, period, horizon, horizon_region,
+                       model = MODEL_LABELS[["sbapc_no_prev"]],
+                       delta_truth, delta_hat = delta_incidence_anchored,
+                       freeze_truth = deaths_true_freeze, support_frac),
+    wide %>%
+      dplyr::transmute(seed, dgp, scenario, scenario_label, sex, period, horizon, horizon_region,
+                       model = MODEL_LABELS[["bapc"]],
+                       delta_truth, delta_hat = delta_bapc,
+                       freeze_truth = deaths_true_freeze, support_frac)
+  ) %>%
+    dplyr::mutate(
+      scenario = factor(as.character(scenario), levels = scens),
+      scenario_label = factor(as.character(scenario_label), levels = unname(SCEN_LABELS[scens])),
+      model = factor(as.character(model), levels = unname(MODEL_LABELS[c("sbapc", "sbapc_no_prev", "bapc")])),
+      horizon_region = factor(horizon_region, levels = c("Credible", "Caution", "Risky")),
+      delta_error = delta_hat - delta_truth,
+      effect_hat_pct = 100 * delta_hat / pmax(abs(freeze_truth), 1e-9),
+      effect_true_pct = 100 * delta_truth / pmax(abs(freeze_truth), 1e-9)
+    )
+
+  out
+}
+
+summarise_scenario_effect_recovery <- function(effect_df) {
+  seed_level <- effect_df %>%
+    dplyr::group_by(model, scenario, scenario_label, seed, dgp, sex) %>%
+    dplyr::summarise(
+      annual_mare_pct = 100 * sum(abs(delta_error), na.rm = TRUE) / pmax(sum(abs(delta_truth), na.rm = TRUE), 1e-9),
+      signed_error_pct = 100 * sum(delta_error, na.rm = TRUE) / pmax(sum(abs(delta_truth), na.rm = TRUE), 1e-9),
+      cumulative_recovery_pct = 100 * sum(delta_hat, na.rm = TRUE) / pmax(abs(sum(delta_truth, na.rm = TRUE)), 1e-9) *
+        sign(sum(delta_truth, na.rm = TRUE)),
+      sign_agreement_pct = {
+        keep <- is.finite(delta_truth) & abs(delta_truth) > 1e-6 & is.finite(delta_hat)
+        if (any(keep)) mean(sign(delta_hat[keep]) == sign(delta_truth[keep])) * 100 else NA_real_
+      },
+      .groups = "drop"
+    )
+
+  seed_level %>%
+    dplyr::group_by(model, scenario, scenario_label, sex) %>%
+    dplyr::summarise(
+      seeds = dplyr::n_distinct(seed),
+      annual_mare_pct = mean(annual_mare_pct, na.rm = TRUE),
+      signed_error_pct = mean(signed_error_pct, na.rm = TRUE),
+      cumulative_recovery_pct = stats::median(cumulative_recovery_pct, na.rm = TRUE),
+      cumulative_recovery_p10 = as.numeric(stats::quantile(cumulative_recovery_pct, 0.10, na.rm = TRUE)),
+      cumulative_recovery_p90 = as.numeric(stats::quantile(cumulative_recovery_pct, 0.90, na.rm = TRUE)),
+      sign_agreement_pct = mean(sign_agreement_pct, na.rm = TRUE),
+      .groups = "drop"
+    ) %>%
+    dplyr::arrange(scenario, model, sex)
+}
+
+plot_scenario_effect_recovery <- function(effect_df,
+                                          include_models = unname(MODEL_LABELS[c("sbapc", "bapc")]),
+                                          title = "Mortality Scenario-Effect Recovery",
+                                          subtitle = "Scenario effects are annual deaths relative to the frozen-prevalence baseline") {
+  truth_df <- effect_df %>%
+    dplyr::distinct(seed, dgp, scenario, scenario_label, sex, period, effect_true_pct) %>%
+    dplyr::mutate(model = MODEL_LABELS[["truth"]], effect_pct = effect_true_pct)
+
+  model_df <- effect_df %>%
+    dplyr::filter(as.character(model) %in% include_models) %>%
+    dplyr::mutate(effect_pct = effect_hat_pct)
+
+  plot_df <- dplyr::bind_rows(
+    truth_df %>% dplyr::select(seed, dgp, scenario, scenario_label, sex, period, model, effect_pct),
+    model_df %>% dplyr::select(seed, dgp, scenario, scenario_label, sex, period, model, effect_pct)
+  ) %>%
+    dplyr::mutate(
+      model = factor(as.character(model), levels = c(MODEL_LABELS[["truth"]], include_models)),
+      scenario_label = factor(as.character(scenario_label), levels = unname(SCEN_LABELS[setdiff(CANONICAL_SCENS, "freeze")]))
+    )
+
+  sum_df <- plot_df %>%
+    dplyr::group_by(scenario_label, sex, period, model) %>%
+    dplyr::summarise(
+      p10 = as.numeric(stats::quantile(effect_pct, 0.10, na.rm = TRUE)),
+      med = stats::median(effect_pct, na.rm = TRUE),
+      p90 = as.numeric(stats::quantile(effect_pct, 0.90, na.rm = TRUE)),
+      .groups = "drop"
+    )
+
+  ribbon_df <- sum_df %>%
+    dplyr::filter(as.character(model) %in% c(MODEL_LABELS[["truth"]], MODEL_LABELS[["sbapc"]]))
+
+  support_lines <- effect_df %>%
+    dplyr::group_by(period) %>%
+    dplyr::summarise(support_frac = mean(support_frac, na.rm = TRUE), .groups = "drop") %>%
+    dplyr::summarise(
+      caution_start = suppressWarnings(min(period[support_frac < 0.50], na.rm = TRUE)),
+      risky_start = suppressWarnings(min(period[support_frac < 0.33], na.rm = TRUE))
+    ) %>%
+    tidyr::pivot_longer(dplyr::everything(), names_to = "threshold", values_to = "period") %>%
+    dplyr::filter(is.finite(period))
+
+  color_values <- MODEL_COLORS[levels(plot_df$model)]
+  fill_values <- c(
+    stats::setNames("#BDBDBD", MODEL_LABELS[["truth"]]),
+    stats::setNames("#D32F2F", MODEL_LABELS[["sbapc"]])
+  )
+
+  ggplot2::ggplot(sum_df, ggplot2::aes(x = period, y = med, color = model, linetype = model)) +
+    ggplot2::geom_ribbon(
+      data = ribbon_df,
+      ggplot2::aes(ymin = p10, ymax = p90, fill = model),
+      alpha = 0.12,
+      color = NA,
+      show.legend = FALSE
+    ) +
+    ggplot2::geom_hline(yintercept = 0, linewidth = 0.35, color = "gray60") +
+    ggplot2::geom_vline(
+      data = support_lines,
+      ggplot2::aes(xintercept = period),
+      inherit.aes = FALSE,
+      linetype = "dotted",
+      color = "gray45",
+      linewidth = 0.35
+    ) +
+    ggplot2::geom_line(linewidth = 0.9, na.rm = TRUE) +
+    ggplot2::facet_grid(sex ~ scenario_label, scales = "free_y") +
+    ggplot2::scale_color_manual(values = color_values, breaks = levels(plot_df$model)) +
+    ggplot2::scale_linetype_manual(values = MODEL_LINETYPES[levels(plot_df$model)], breaks = levels(plot_df$model)) +
+    ggplot2::scale_fill_manual(values = fill_values) +
+    ggplot2::labs(
+      title = title,
+      subtitle = subtitle,
+      x = "Year",
+      y = "Scenario effect (% of freeze deaths)",
+      color = "Series",
+      linetype = "Series"
+    ) +
+    theme_paper_main(base_size = 10) +
+    ggplot2::theme(
+      legend.position = "bottom",
+      strip.background = ggplot2::element_rect(fill = "gray95"),
+      panel.spacing = grid::unit(0.7, "lines")
+    )
+}
+
+export_scenario_effect_recovery_table <- function(summary_df,
+                                                  file_out,
+                                                  models = unname(MODEL_LABELS[c("sbapc", "bapc")]),
+                                                  sex = "Total") {
+  LATEX_SCEN_LABELS <- c(
+    "up1pc" = "$\\uparrow$ 1\\% p.a.",
+    "down1pc" = "$\\downarrow$ 1\\% p.a.",
+    "quit" = "Quit"
+  )
+
+  tab <- summary_df %>%
+    dplyr::filter(as.character(model) %in% models, as.character(sex) == !!sex) %>%
+    dplyr::mutate(
+      scenario_tex = unname(LATEX_SCEN_LABELS[as.character(scenario)]),
+      model = as.character(model),
+      recovery = sprintf("%.0f [%.0f, %.0f]", cumulative_recovery_pct, cumulative_recovery_p10, cumulative_recovery_p90)
+    ) %>%
+    dplyr::arrange(factor(as.character(scenario), levels = names(LATEX_SCEN_LABELS)),
+                   factor(model, levels = models))
+
+  lines <- c(
+    "\\begin{tabular}{llccc}",
+    "\\hline",
+    "Scenario & Model & Annual MARE (\\%) & Cumulative recovery (\\%) & Sign agreement (\\%) \\\\",
+    "\\hline"
+  )
+  for (i in seq_len(nrow(tab))) {
+    row <- tab[i, ]
+    lines <- c(lines, sprintf(
+      "%s & %s & %.1f & %s & %.1f \\\\",
+      row$scenario_tex, row$model, row$annual_mare_pct, row$recovery, row$sign_agreement_pct
+    ))
+  }
+  lines <- c(lines, "\\hline", "\\end{tabular}")
+  writeLines(lines, file_out)
+  invisible(tab)
+}
+
+generate_scenario_effect_products <- function(data = NULL) {
+  if (is.null(data)) data <- extract_all_metrics()
+
+  effect_total <- build_mortality_scenario_effects(data = data, sex_scope = "total")
+  effect_bysex <- build_mortality_scenario_effects(data = data, sex_scope = "by_sex")
+  summary_total <- summarise_scenario_effect_recovery(effect_total)
+  summary_bysex <- summarise_scenario_effect_recovery(effect_bysex)
+
+  readr::write_csv(effect_total, file.path(OUT_SEC4, "scenario_effect_recovery_detail_total.csv"))
+  readr::write_csv(summary_total, file.path(OUT_SEC4, "scenario_effect_recovery_summary.csv"))
+  readr::write_csv(effect_bysex, file.path(OUT_APPENDIX, "scenario_effect_recovery_detail_bysex.csv"))
+  readr::write_csv(summary_bysex, file.path(OUT_APPENDIX, "scenario_effect_recovery_summary_bysex.csv"))
+
+  export_scenario_effect_recovery_table(
+    summary_total,
+    file.path(OUT_SEC4, "tab_scenario_effect_recovery.tex")
+  )
+
+  g_main <- plot_scenario_effect_recovery(
+    effect_total,
+    include_models = unname(MODEL_LABELS[c("sbapc", "bapc")]),
+    title = "Mortality Scenario-Effect Recovery",
+    subtitle = "Median annual effect across seeds; ribbons show the 10th-90th percentile range for Truth and SBAPC"
+  )
+  save_paper_plot(g_main, file.path(OUT_SEC4, "fig_scenario_effect_recovery"), width = 12, height = 5.8, bg = "white")
+
+  g_bysex <- plot_scenario_effect_recovery(
+    effect_bysex,
+    include_models = unname(MODEL_LABELS[c("sbapc", "sbapc_no_prev", "bapc")]),
+    title = "Mortality Scenario-Effect Recovery by Sex",
+    subtitle = "Extended diagnostic including the incidence-anchored SBAPC variant"
+  )
+  save_paper_plot(g_bysex, file.path(OUT_APPENDIX, "fig_scenario_effect_recovery_bysex"), width = 12, height = 7.5, bg = "white")
+
+  invisible(list(effect_total = effect_total, effect_bysex = effect_bysex,
+                 summary_total = summary_total, summary_bysex = summary_bysex))
 }
 
 plot_reliability_calibration <- function(data) {
@@ -958,6 +1256,7 @@ replicate_main_paper <- function() {
 
   # 5. Bias Table
   data <- extract_all_metrics()
+  generate_scenario_effect_products(data)
   export_latex_bias_summary(data$metrics, file.path(OUT_SEC4, "tab_bias_summary.tex"))
   write_csv(data$metrics, file.path(OUT_RAW, "all_metrics.csv"))
   

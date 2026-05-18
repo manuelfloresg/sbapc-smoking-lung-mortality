@@ -29,6 +29,13 @@ Alternative sensitivity modes remain available:
 The default was changed after multi-seed diagnostics showed that unconstrained
 APC posterior extrapolation was too aggressive at the observation-window edges.
 
+Model labels used in paper-facing outputs are:
+
+- `SBAPC`: the full sequential smoking-informed estimator.
+- `BAPC benchmark`: an autonomous APC benchmark without the smoking-transmission channel.
+- `Incidence-anchored SBAPC`: a decomposition variant used mainly in diagnostics; mortality remains anchored to projected incidence, but the prevalence-channel scenario contribution is disabled.
+- `Full-support SBAPC`: an oracle-support diagnostic used to separate support-window effects from other sources of error.
+
 ## Directory Structure
 
 ```text
@@ -125,6 +132,8 @@ The main diagnostic products currently used for the simulation section include:
 
 - scenario atlas by sex;
 - transmission map comparing truth, window-limited SBAPC, and full-support SBAPC;
+- mortality scenario-effect recovery figure;
+- mortality scenario-effect recovery table;
 - edge-completion sensitivity diagnostics;
 - bias and reliability summaries across seeds.
 
