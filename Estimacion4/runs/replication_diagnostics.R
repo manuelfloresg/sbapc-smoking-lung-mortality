@@ -828,6 +828,56 @@ plot_transmission_map_support_compare <- function(seed = 4,
     )
 }
 
+generate_support_transmission_maps <- function(seed = 4,
+                                               dgp = "spec_linear",
+                                               scens = CANONICAL_SCENS,
+                                               realistic_raw_dir = OUT_RAW,
+                                               oracle_raw_dir = OUT_RAW_ORACLE,
+                                               force_oracle = FALSE) {
+  real_files_ok <- all(vapply(scens, function(sc) {
+    file.exists(file.path(realistic_raw_dir, sprintf("res_%s_s%d_%s.rds", dgp, seed, sc)))
+  }, logical(1)))
+  if (!real_files_ok) {
+    stop("Missing window-limited RDS files for support transmission map in: ", realistic_raw_dir)
+  }
+
+  oracle_files_ok <- all(vapply(scens, function(sc) {
+    file.exists(file.path(oracle_raw_dir, sprintf("res_%s_s%d_%s.rds", dgp, seed, sc)))
+  }, logical(1)))
+  if (!oracle_files_ok || isTRUE(force_oracle)) {
+    run_single_seed_replication(
+      seed = seed,
+      dgp = dgp,
+      scens = scens,
+      force_rerun = force_oracle,
+      information_set = "oracle",
+      raw_dir = oracle_raw_dir
+    )
+  }
+
+  for (sx in c("M", "F")) {
+    g <- plot_transmission_map_support_compare(
+      seed = seed,
+      dgp = dgp,
+      sex_lab = sx,
+      scens = scens,
+      realistic_raw_dir = realistic_raw_dir,
+      oracle_raw_dir = oracle_raw_dir,
+      realistic_label = "Window-limited SBAPC",
+      oracle_label = "Full-support SBAPC"
+    )
+    save_paper_plot(
+      g,
+      file.path(OUT_SEC4, sprintf("fig_transmission_map_support_compare_seed%d_%s", seed, sx)),
+      width = 13,
+      height = 8,
+      bg = "white"
+    )
+  }
+
+  invisible(TRUE)
+}
+
 plot_reliability_calibration <- function(data) {
   # data$inc contains the errors per period/sex/seed/dgp
   
@@ -904,6 +954,7 @@ replicate_main_paper <- function() {
   # 4. Transmission map
   g_map <- plot_transmission_map(seed = 4, dgp = "spec_linear", sex_lab = "M")
   save_paper_plot(g_map, file.path(OUT_SEC4, "fig_transmission_map_seed4_M"), width = 13, height = 9, bg = "white")
+  generate_support_transmission_maps(seed = 4, dgp = "spec_linear", force_oracle = FALSE)
 
   # 5. Bias Table
   data <- extract_all_metrics()
@@ -967,12 +1018,12 @@ generate_appendix_c <- function() {
 # 6. ORCHESTRATOR
 # =============================================================
 
-replicate_all_simulations <- function() {
+replicate_all_simulations <- function(n_cores = 6, force_rerun = TRUE) {
   message("STARTING FULL REPLICATION WORKFLOW...")
   
   # 1. Run Simulations (FORCE RERUN to overwrite old files)
   # Using 6 cores to avoid memory allocation errors (INLA is memory intensive)
-  run_simulation_replication(n_cores = 6, force_rerun = TRUE)
+  run_simulation_replication(n_cores = n_cores, force_rerun = force_rerun)
   
   # 2. Section 4
   replicate_main_paper()

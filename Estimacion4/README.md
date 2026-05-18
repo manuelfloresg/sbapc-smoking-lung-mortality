@@ -93,7 +93,7 @@ From `Estimacion4/`:
 
 ```r
 source("runs/replication_diagnostics.R")
-replicate_all_simulations()
+replicate_all_simulations(n_cores = 6, force_rerun = TRUE)
 ```
 
 The default full run is configured for 50 seeds through:
@@ -115,6 +115,9 @@ source("runs/replication_diagnostics.R")
 run_simulation_replication(seeds = 1:50, n_cores = 6, force_rerun = TRUE)
 replicate_main_paper()
 ```
+
+`replicate_main_paper()` also generates the seed-4 full-support/oracle run needed
+for the support-window transmission map when it is not already present.
 
 ## Important Outputs
 
