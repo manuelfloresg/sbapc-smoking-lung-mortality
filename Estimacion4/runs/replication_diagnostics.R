@@ -805,11 +805,11 @@ plot_transmission_map_support_compare <- function(seed = 4,
     geom_vline(xintercept = 2022, linetype = "dotted", color = "gray60", linewidth = 0.35) +
     geom_line(linewidth = 0.85, na.rm = TRUE) +
     scale_color_manual(
-      values = c("Truth" = "black", realistic_label = "#D32F2F", oracle_label = "#1565C0"),
+      values = stats::setNames(c("black", "#D32F2F", "#1565C0"), series_levels),
       breaks = series_levels
     ) +
     scale_linetype_manual(
-      values = c("Truth" = "dashed", realistic_label = "solid", oracle_label = "longdash"),
+      values = stats::setNames(c("dashed", "solid", "longdash"), series_levels),
       breaks = series_levels
     ) +
     labs(
