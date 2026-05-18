@@ -279,28 +279,45 @@ export_latex_bias_summary <- function(metrics_df, file_out) {
   # Agregamos por DGP y Escenario para el main text
   summary_tab <- metrics_df %>%
     dplyr::mutate(
-      scenario_f = factor(scenario, levels = c("up1pc", "freeze", "down1pc", "quit"), labels = LATEX_SCEN_LABELS)
+      scenario_f = factor(scenario, levels = c("up1pc", "freeze", "down1pc", "quit"), labels = LATEX_SCEN_LABELS),
+      sex_label = dplyr::recode(as.character(sex), "M" = "Male", "F" = "Female", "T" = "Total", .default = as.character(sex)),
+      dgp_label = dplyr::recode(as.character(dgp), "spec_linear" = "Baseline DGP", .default = as.character(dgp))
     ) %>%
-    dplyr::group_by(dgp, scenario_f, sex) %>%
+    dplyr::group_by(dgp_label, scenario_f, sex_label) %>%
     dplyr::summarise(
       Mean_Hist_Bias = mean(hist_bias, na.rm = TRUE),
       Mean_Proj_Bias = mean(proj_bias, na.rm = TRUE),
       .groups = "drop"
     ) %>%
-    dplyr::arrange(dgp, sex, scenario_f)
+    dplyr::arrange(dgp_label, sex_label, scenario_f)
+  include_dgp <- dplyr::n_distinct(metrics_df$dgp) > 1
   
   # Formatear como tabla LaTeX elegante
-  lines <- c(
-    "\\begin{tabular}{lllcc}",
-    "\\hline",
-    "DGP & Scenario & Sex & Hist Bias (\\%) & Proj Bias (\\%) \\\\",
-    "\\hline"
-  )
+  if (include_dgp) {
+    lines <- c(
+      "\\begin{tabular}{lllcc}",
+      "\\hline",
+      "DGP & Scenario & Sex & Hist Bias (\\%) & Proj Bias (\\%) \\\\",
+      "\\hline"
+    )
+  } else {
+    lines <- c(
+      "\\begin{tabular}{llcc}",
+      "\\hline",
+      "Scenario & Sex & Hist Bias (\\%) & Proj Bias (\\%) \\\\",
+      "\\hline"
+    )
+  }
   
   for (i in 1:nrow(summary_tab)) {
     row <- summary_tab[i, ]
-    lines <- c(lines, sprintf("%s & %s & %s & %.2f\\%% & %.2f\\%% \\\\", 
-                              row$dgp, as.character(row$scenario_f), row$sex, row$Mean_Hist_Bias, row$Mean_Proj_Bias))
+    if (include_dgp) {
+      lines <- c(lines, sprintf("%s & %s & %s & %.2f\\%% & %.2f\\%% \\\\",
+                                row$dgp_label, as.character(row$scenario_f), row$sex_label, row$Mean_Hist_Bias, row$Mean_Proj_Bias))
+    } else {
+      lines <- c(lines, sprintf("%s & %s & %.2f\\%% & %.2f\\%% \\\\",
+                                as.character(row$scenario_f), row$sex_label, row$Mean_Hist_Bias, row$Mean_Proj_Bias))
+    }
   }
   
   lines <- c(lines, "\\hline", "\\end{tabular}")

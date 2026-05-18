@@ -40,6 +40,36 @@ SCEN_LABELS <- c(
   "quit"    = "Quit"
 )
 
+SEX_LABELS <- c(
+  "M" = "Male",
+  "F" = "Female",
+  "T" = "Total",
+  "Total" = "Total"
+)
+
+SEX_COLORS <- c(
+  "Male" = "#1F77B4",
+  "Female" = "#D32F2F"
+)
+
+DGP_LABELS <- c(
+  "spec_linear" = "Baseline DGP"
+)
+
+sex_public_label <- function(x) {
+  x_chr <- as.character(x)
+  out <- unname(SEX_LABELS[x_chr])
+  out[is.na(out)] <- x_chr[is.na(out)]
+  out
+}
+
+dgp_public_label <- function(x) {
+  x_chr <- as.character(x)
+  out <- unname(DGP_LABELS[x_chr])
+  out[is.na(out)] <- x_chr[is.na(out)]
+  out
+}
+
 MODEL_LABELS <- c(
   truth = "Truth",
   sbapc = "SBAPC",
@@ -93,6 +123,112 @@ save_paper_plot <- function(plot, path_no_ext, width, height, bg = "white", form
     )
   }
   invisible(path_no_ext)
+}
+
+figure_file_names <- function(stem, format = FIG_FORMAT) {
+  paste0(stem, ".", figure_exts(format))
+}
+
+write_figure_titles_notes <- function(section = c("section4", "appendixC"), case_seeds = NULL) {
+  section <- match.arg(section)
+  out_dir <- if (identical(section, "section4")) OUT_SEC4 else OUT_APPENDIX
+
+  entry <- function(stem, title, note) {
+    c(
+      paste0("## ", stem),
+      paste0("Files: ", paste(figure_file_names(stem), collapse = ", ")),
+      paste0("Title: ", title),
+      paste0("Note: ", note),
+      ""
+    )
+  }
+
+  if (identical(section, "section4")) {
+    lines <- c(
+      "# Figure Titles and Notes: Section 4",
+      "",
+      "Use these titles and notes in the LaTeX manuscript. The graphics themselves intentionally omit global titles, subtitles, and notes.",
+      "",
+      entry(
+        "fig_scenario_atlas_seed4_M",
+        "Scenario atlas for male mortality projections",
+        "Seed 4. Panels show smoking-prevalence scenarios. The vertical dotted line marks the last historical year, 2022. Lines compare simulated truth, SBAPC, incidence-anchored SBAPC, and the BAPC benchmark."
+      ),
+      entry(
+        "fig_scenario_atlas_seed4_F",
+        "Scenario atlas for female mortality projections",
+        "Seed 4. Panels show smoking-prevalence scenarios. The vertical dotted line marks the last historical year, 2022. Lines compare simulated truth, SBAPC, incidence-anchored SBAPC, and the BAPC benchmark."
+      ),
+      entry(
+        "fig_waterfall_seed4",
+        "Transmission pathway under the quit scenario",
+        "Seed 4. Solid lines show the quit scenario and dotted lines show the frozen-prevalence baseline. Panels trace current smoking prevalence, effective smoking exposure, incidence rates, and annual deaths by sex."
+      ),
+      entry(
+        "fig_sensitivity_seed4",
+        "Projected mortality sensitivity to smoking-prevalence scenarios",
+        "Seed 4. Total annual deaths under the four prevalence scenarios. The vertical dotted line marks 2022."
+      ),
+      entry(
+        "fig_transmission_map_seed4_M",
+        "Smoking-to-mortality transmission map for male projections",
+        "Seed 4. Rows trace prevalence, effective exposure, annual incident cases, and annual deaths. Columns show prevalence scenarios. The vertical dotted line marks 2022."
+      ),
+      entry(
+        "fig_transmission_map_support_compare_seed4_M",
+        "Observed-window and full-support transmission map for male projections",
+        "Seed 4. The figure compares simulated truth, the observed-window SBAPC estimator, and the full-support SBAPC diagnostic across the smoking-to-mortality pathway."
+      ),
+      entry(
+        "fig_transmission_map_support_compare_seed4_F",
+        "Observed-window and full-support transmission map for female projections",
+        "Seed 4. The figure compares simulated truth, the observed-window SBAPC estimator, and the full-support SBAPC diagnostic across the smoking-to-mortality pathway."
+      ),
+      entry(
+        "fig_scenario_effect_recovery",
+        "Mortality scenario-effect recovery",
+        "Scenario effects are annual deaths relative to the frozen-prevalence baseline. Lines show median effects across seeds; ribbons show the 10th-90th percentile range for simulated truth and SBAPC."
+      ),
+      entry(
+        "fig_reliability_calibration",
+        "Projection reliability calibration by support horizon",
+        "The line shows mean absolute relative error by projection horizon. Shading indicates credibility regions defined by support fractions; dashed vertical lines mark the first year entering lower-support regions."
+      )
+    )
+  } else {
+    lines <- c(
+      "# Figure Titles and Notes: Appendix C",
+      "",
+      "Use these titles and notes in the LaTeX supplement. The graphics themselves intentionally omit global titles, subtitles, and notes.",
+      "",
+      entry(
+        "fig_bias_distributions",
+        "Distribution of projection bias across simulation seeds",
+        "Boxplots summarize projection bias by scenario and sex across the simulation seeds."
+      ),
+      entry(
+        "fig_scenario_effect_recovery_bysex",
+        "Mortality scenario-effect recovery by sex",
+        "Extended diagnostic by sex including the incidence-anchored SBAPC decomposition variant."
+      )
+    )
+
+    if (!is.null(case_seeds) && nrow(case_seeds)) {
+      for (i in seq_len(nrow(case_seeds))) {
+        lbl <- as.character(case_seeds$label[i])
+        seed_i <- as.integer(case_seeds$seed[i])
+        stem <- sprintf("fig_case_study_%s_s%d", tolower(lbl), seed_i)
+        lines <- c(lines, entry(
+          stem,
+          sprintf("%s quit-scenario case study", lbl),
+          sprintf("Quit-scenario trajectory diagnostic for seed %d, selected by absolute projection bias among male simulations.", seed_i)
+        ))
+      }
+    }
+  }
+
+  writeLines(enc2utf8(lines), file.path(out_dir, "figure_titles_notes.md"), useBytes = TRUE)
+  invisible(file.path(out_dir, "figure_titles_notes.md"))
 }
 
 # =============================================================
@@ -426,7 +562,8 @@ plot_deconstruction_figure <- function(seed = 4, dgp = "spec_linear", scen = "qu
     tidyr::pivot_longer(
       cols = c(`Truth`, `SBAPC`, `Incidence-anchored SBAPC`, `BAPC benchmark`), 
       names_to = "Series", values_to = "Deaths"
-    )
+    ) %>%
+    dplyr::mutate(sex = factor(sex_public_label(sex), levels = c("Male", "Female")))
   
   decomp_levels <- unname(MODEL_LABELS[c("truth", "sbapc", "sbapc_no_prev", "bapc")])
   plot_df$Series <- factor(plot_df$Series, levels = decomp_levels)
@@ -439,9 +576,7 @@ plot_deconstruction_figure <- function(seed = 4, dgp = "spec_linear", scen = "qu
     facet_wrap(~sex, scales = "free_y") +
     scale_color_manual(values = MODEL_COLORS, breaks = decomp_levels) +
     scale_linetype_manual(values = MODEL_LINETYPES, breaks = decomp_levels) +
-    labs(title = "Information Gain Deconstruction",
-         subtitle = sprintf("Seed %d | DGP: %s | Scenario: %s", seed, dgp, scen),
-         y = "Annual Deaths", x = "Year") +
+    labs(y = "Annual deaths", x = "Year", color = "Series", linetype = "Series") +
     theme_paper_main(base_size = 11) +
     theme(legend.position = "bottom")
   
@@ -496,9 +631,7 @@ plot_scenario_atlas_by_sex <- function(seed = 4, sex_lab = "M") {
     geom_line(linewidth = 0.9) +
     scale_color_manual(values = pal, breaks = model_levels) +
     scale_linetype_manual(values = types, breaks = model_levels) +
-    labs(title = sprintf("SBAPC Performance Atlas: %s (Seed %d)", ifelse(sex_lab=="M", "Males", "Females"), seed),
-         subtitle = "Comparison across scenarios with shared Y-axis",
-         y = "Annual Deaths", x = "Year", color = "Model", linetype = "Model") +
+    labs(y = "Annual deaths", x = "Year", color = "Model", linetype = "Model") +
     theme_paper_main(base_size = 12) +
     theme(legend.position = "bottom", strip.background = element_rect(fill = "gray95"))
   
@@ -537,9 +670,7 @@ plot_scenario_sensitivity_informed <- function(seed = 4, dgp = "spec_linear") {
     geom_vline(xintercept = last_hist, linetype = "dotted") +
     geom_line(linewidth = 1.2) +
     scale_color_manual(values = SCEN_COLORS, labels = SCEN_LABELS) +
-    labs(title = "Policy Sensitivity: Projected Deaths by Scenario",
-         subtitle = sprintf("Seed %d | DGP: %s | (Total Population)", seed, dgp),
-         y = "Total Annual Deaths", x = "Year", color = "Scenario") +
+    labs(y = "Total annual deaths", x = "Year", color = "Scenario") +
     theme_paper_main()
 }
 
@@ -563,7 +694,7 @@ plot_transmission_waterfall <- function(seed = 4, dgp = "spec_linear", scen = "q
     data_list <- list()
     for (sx in c("M", "F")) {
       sex_res <- if (sx == "M") rb$resM else rb$resF
-      r_all <- sex_res$inc_fit$rates_all %>% mutate(sex = sx)
+      r_all <- sex_res$inc_fit$rates_all %>% mutate(sex = sex_public_label(sx))
       
       # Prevalence stock (from diag)
       z_h <- sex_res$diag$z_prev_hist
@@ -575,11 +706,11 @@ plot_transmission_waterfall <- function(seed = 4, dgp = "spec_linear", scen = "q
           current_q_eff = mean(as.numeric(q_eff), na.rm = TRUE), 
           .groups = "drop"
         ) %>%
-        mutate(sex = sx)
+        mutate(sex = sex_public_label(sx))
       
       res_sx <- sex_res$annual_anchor %>% 
         select(period, deaths_hat) %>%
-        mutate(sex = sx) %>%
+        mutate(sex = sex_public_label(sx)) %>%
         left_join(
           r_all %>% group_by(period, sex) %>% summarise(inc_rate = mean(rate_hat, na.rm = TRUE), .groups = "drop"),
           by = c("period", "sex")
@@ -593,37 +724,45 @@ plot_transmission_waterfall <- function(seed = 4, dgp = "spec_linear", scen = "q
   
   stock_scen <- get_stock(rb_scen)
   stock_frz  <- get_stock(rb_frz)
+  stock_scen$sex <- factor(stock_scen$sex, levels = c("Male", "Female"))
+  stock_frz$sex <- factor(stock_frz$sex, levels = c("Male", "Female"))
   
   # Panel A: Current Prevalence Level
   pA <- ggplot(stock_scen, aes(x = period, y = current_prev * 100, color = sex)) +
     geom_line(linewidth = 1) +
     geom_line(data = stock_frz, aes(y = current_prev * 100), linetype = "dotted", alpha = 0.7) +
-    labs(title = "Smoking Prevalence Level (p_curr)", y = "Rate (%)", x = NULL) +
+    scale_color_manual(values = SEX_COLORS, drop = FALSE) +
+    labs(title = "Smoking prevalence", y = "Percent", x = NULL, color = "Sex") +
     theme_paper_main(base_size = 9)
     
   # Panel B: Effective Exposure
   pB <- ggplot(stock_scen, aes(x = period, y = current_q_eff * 100, color = sex)) +
     geom_line(linewidth = 1) +
     geom_line(data = stock_frz, aes(y = current_q_eff * 100), linetype = "dotted", alpha = 0.7) +
-    labs(title = "Effective Exposure Level (q_eff)", y = "Stock (%)", x = NULL) +
+    scale_color_manual(values = SEX_COLORS, drop = FALSE) +
+    labs(title = "Effective smoking exposure", y = "Percent", x = NULL, color = "Sex") +
     theme_paper_main(base_size = 9)
   
   # Panel C: Incidence Rate Levels
   pC <- ggplot(stock_scen, aes(x = period, y = inc_rate * 100000, color = sex)) +
     geom_line(linewidth = 1) +
     geom_line(data = stock_frz, aes(y = inc_rate * 100000), linetype = "dotted", alpha = 0.7) +
-    labs(title = "Incidence Rate Levels", y = "Rate per 100k", x = NULL) +
-    theme_paper_main(base_size = 9) + theme(legend.position = "none")
+    scale_color_manual(values = SEX_COLORS, drop = FALSE) +
+    labs(title = "Incidence rate", y = "Rate per 100,000", x = NULL, color = "Sex") +
+    theme_paper_main(base_size = 9)
   
   # Panel D: Total Deaths Levels
   pD <- ggplot(stock_scen, aes(x = period, y = deaths_hat, color = sex)) +
     geom_line(linewidth = 1) +
     geom_line(data = stock_frz, aes(y = deaths_hat), linetype = "dotted", alpha = 0.7) +
-    labs(title = "Total Deaths Levels", y = "Total Deaths", x = "Year") +
-    theme_paper_main(base_size = 9) + theme(legend.position = "none")
+    scale_color_manual(values = SEX_COLORS, drop = FALSE) +
+    labs(title = "Annual deaths", y = "Annual deaths", x = "Year", color = "Sex") +
+    theme_paper_main(base_size = 9)
   
-  (pA | pB) / (pC | pD) + plot_annotation(title = sprintf("Transmission Waterfall: %s Scenario (Seed %d)", scen, seed)) &
-    theme_paper_main(base_size = 10)
+  ((pA | pB) / (pC | pD)) +
+    patchwork::plot_layout(guides = "collect") &
+    theme_paper_main(base_size = 10) &
+    theme(legend.position = "bottom")
 }
 
 plot_transmission_map <- function(seed = 4,
@@ -747,15 +886,7 @@ plot_transmission_map <- function(seed = 4,
     geom_line(linewidth = 0.85, na.rm = TRUE) +
     scale_color_manual(values = MODEL_COLORS[series_levels], breaks = series_levels) +
     scale_linetype_manual(values = MODEL_LINETYPES[series_levels], breaks = series_levels) +
-    labs(
-      title = paste0(
-        sprintf("Smoking-to-Mortality Transmission Map: %s (Seed %d)",
-                ifelse(sex_lab == "M", "Males", "Females"), seed),
-        if (!is.null(title_suffix) && nzchar(title_suffix)) paste0(" - ", title_suffix) else ""
-      ),
-      subtitle = "Data-based pathway comparison from prevalence state to projected deaths",
-      x = "Year", y = NULL, color = "Series", linetype = "Series"
-    ) +
+    labs(x = "Year", y = NULL, color = "Series", linetype = "Series") +
     theme_paper_main(base_size = 10) +
     theme(
       legend.position = "bottom",
@@ -822,12 +953,7 @@ plot_transmission_map_support_compare <- function(seed = 4,
       values = stats::setNames(c("dashed", "solid", "longdash"), series_levels),
       breaks = series_levels
     ) +
-    labs(
-      title = sprintf("Smoking-to-Mortality Transmission Map: %s (Seed %d)",
-                      ifelse(sex_lab == "M", "Males", "Females"), seed),
-      subtitle = "Truth versus full-support and window-limited estimators",
-      x = "Year", y = NULL, color = "Series", linetype = "Series"
-    ) +
+    labs(x = "Year", y = NULL, color = "Series", linetype = "Series") +
     theme_paper_main(base_size = 10) +
     theme(
       legend.position = "bottom",
@@ -1015,8 +1141,8 @@ summarise_scenario_effect_recovery <- function(effect_df) {
 
 plot_scenario_effect_recovery <- function(effect_df,
                                           include_models = unname(MODEL_LABELS[c("sbapc", "bapc")]),
-                                          title = "Mortality Scenario-Effect Recovery",
-                                          subtitle = "Scenario effects are annual deaths relative to the frozen-prevalence baseline") {
+                                          title = NULL,
+                                          subtitle = NULL) {
   truth_df <- effect_df %>%
     dplyr::distinct(seed, dgp, scenario, scenario_label, sex, period, effect_true_pct) %>%
     dplyr::mutate(model = MODEL_LABELS[["truth"]], effect_pct = effect_true_pct)
@@ -1031,6 +1157,7 @@ plot_scenario_effect_recovery <- function(effect_df,
   ) %>%
     dplyr::mutate(
       model = factor(as.character(model), levels = c(MODEL_LABELS[["truth"]], include_models)),
+      sex = factor(sex_public_label(sex), levels = c("Total", "Male", "Female")),
       scenario_label = factor(as.character(scenario_label), levels = unname(SCEN_LABELS[setdiff(CANONICAL_SCENS, "freeze")]))
     )
 
@@ -1158,17 +1285,13 @@ generate_scenario_effect_products <- function(data = NULL) {
 
   g_main <- plot_scenario_effect_recovery(
     effect_total,
-    include_models = unname(MODEL_LABELS[c("sbapc", "bapc")]),
-    title = "Mortality Scenario-Effect Recovery",
-    subtitle = "Median annual effect across seeds; ribbons show the 10th-90th percentile range for Truth and SBAPC"
+    include_models = unname(MODEL_LABELS[c("sbapc", "bapc")])
   )
   save_paper_plot(g_main, file.path(OUT_SEC4, "fig_scenario_effect_recovery"), width = 12, height = 5.8, bg = "white")
 
   g_bysex <- plot_scenario_effect_recovery(
     effect_bysex,
-    include_models = unname(MODEL_LABELS[c("sbapc", "sbapc_no_prev", "bapc")]),
-    title = "Mortality Scenario-Effect Recovery by Sex",
-    subtitle = "Extended diagnostic including the incidence-anchored SBAPC variant"
+    include_models = unname(MODEL_LABELS[c("sbapc", "sbapc_no_prev", "bapc")])
   )
   save_paper_plot(g_bysex, file.path(OUT_APPENDIX, "fig_scenario_effect_recovery_bysex"), width = 12, height = 7.5, bg = "white")
 
@@ -1181,7 +1304,10 @@ plot_reliability_calibration <- function(data) {
   
   df <- data$inc %>%
     dplyr::filter(period > 2022) %>%
-    dplyr::mutate(horizon = period - 2022)
+    dplyr::mutate(
+      horizon = period - 2022,
+      abs_rel_error_pct = abs(rel_error) * 100
+    )
   
   # Calculate endogenous horizons from support_frac thresholds (0.5 and 0.33)
   horizons_info <- df %>%
@@ -1203,11 +1329,15 @@ plot_reliability_calibration <- function(data) {
     fill = c("#D1E5D1", "#FFF9C4", "#FFCDD2"), # Green, Yellow, Red light
     label = c("Credible", "Caution", "Risky")
   ) %>% filter(is.finite(xmin), is.finite(xmax))
+  max_y <- suppressWarnings(max(df$abs_rel_error_pct, na.rm = TRUE))
+  if (!is.finite(max_y)) max_y <- 1
+  year_label_y <- max_y * 0.04
 
   g <- ggplot() +
     geom_rect(data = rects, aes(xmin = xmin, xmax = xmax, ymin = -Inf, ymax = Inf, fill = fill), alpha = 0.5) +
-    stat_summary(data = df, aes(x = horizon, y = abs(rel_error) * 100), fun.data = "mean_cl_boot", geom = "ribbon", alpha = 0.2, fill = "blue") +
-    stat_summary(data = df, aes(x = horizon, y = abs(rel_error) * 100), fun = "mean", geom = "line", linewidth = 1, color = "blue") +
+    stat_summary(data = df, aes(x = horizon, y = abs_rel_error_pct), fun.data = "mean_cl_boot", geom = "ribbon", alpha = 0.2, fill = "blue") +
+    stat_summary(data = df, aes(x = horizon, y = abs_rel_error_pct), fun = "mean", geom = "line", linewidth = 1, color = "blue") +
+    expand_limits(y = 0) +
     scale_fill_identity()
     
   if (length(vlines) > 0) {
@@ -1216,14 +1346,25 @@ plot_reliability_calibration <- function(data) {
     for(i in seq_along(rects$label)) {
       g <- g + annotate("text", x = (rects$xmin[i] + rects$xmax[i])/2, y = Inf, label = rects$label[i], vjust = 2, size = 3.5, fontface = "italic", color = "gray30")
     }
-    # Add year labels on top of vlines
     for(hv in vlines) {
-       g <- g + annotate("label", x = hv, y = Inf, label = sprintf("Year %d", hv + 2022), vjust = 0.8, size = 3)
+       g <- g + annotate(
+         "text",
+         x = hv,
+         y = year_label_y,
+         label = as.character(hv + 2022),
+         angle = 90,
+         hjust = 0,
+         vjust = -0.35,
+         size = 3,
+         color = "gray25"
+       )
     }
   }
 
-  g <- g + labs(title = "Reliability Calibration: Error vs. Horizon",
-         y = "Mean Absolute Relative Error (%)", x = "Projection Horizon (Years)") +
+  g <- g + labs(
+         y = "Mean absolute relative error (%)",
+         x = "Projection horizon (years)"
+       ) +
     theme_paper_main(base_size = 11)
   
   return(g)
@@ -1266,6 +1407,7 @@ replicate_main_paper <- function() {
   
   # 7. Support Summary
   write_csv(data$support, file.path(OUT_SEC4, "support_summary.csv"))
+  write_figure_titles_notes("section4")
   
   message("\nMain paper replication files generated in: ", OUT_SEC4)
 }
@@ -1279,16 +1421,24 @@ generate_appendix_c <- function() {
   
   # 1. Distribution of Bias (Boxplots)
   plot_df <- data$metrics %>%
-    dplyr::mutate(scenario_f = factor(scenario, levels = c("up1pc", "freeze", "down1pc", "quit"), labels = SCEN_LABELS))
+    dplyr::mutate(
+      scenario_f = factor(scenario, levels = c("up1pc", "freeze", "down1pc", "quit"), labels = SCEN_LABELS),
+      sex_label = factor(sex_public_label(sex), levels = c("Male", "Female")),
+      dgp_label = dgp_public_label(dgp)
+    )
   scen_colors_by_label <- stats::setNames(unname(SCEN_COLORS[names(SCEN_LABELS)]), unname(SCEN_LABELS))
+  facet_vars <- if (dplyr::n_distinct(plot_df$dgp) > 1) {
+    ggplot2::vars(dgp_label, sex_label)
+  } else {
+    ggplot2::vars(sex_label)
+  }
   
   g_bias <- ggplot(plot_df, aes(x = scenario_f, y = proj_bias, fill = scenario_f)) +
     geom_boxplot(alpha = 0.7) +
-    facet_wrap(~dgp + sex) +
+    facet_wrap(facet_vars) +
     scale_fill_manual(values = scen_colors_by_label) +
-    labs(title = "Appendix C: Distribution of Projection Bias across Seeds",
-         y = "Projection Bias (%)", x = "Scenario") +
-    theme_minimal() + theme(legend.position = "none")
+    labs(y = "Projection bias (%)", x = "Scenario") +
+    theme_paper_main(base_size = 10) + theme(legend.position = "none")
   save_paper_plot(g_bias, file.path(OUT_APPENDIX, "fig_bias_distributions"), width = 10, height = 7, bg = "white")
   
   # 2. Case Studies Selection (Based on Projection Bias in 'quit' scenario)
@@ -1302,13 +1452,13 @@ generate_appendix_c <- function() {
   for (i in 1:nrow(case_seeds)) {
     s <- case_seeds$seed[i]
     lbl <- case_seeds$label[i]
-    g_case <- plot_deconstruction_figure(seed = s, dgp = "spec_linear", scen = "quit") +
-      labs(title = sprintf("Appendix C Case Study: %s Performance (Seed %d)", lbl, s))
+    g_case <- plot_deconstruction_figure(seed = s, dgp = "spec_linear", scen = "quit")
     save_paper_plot(g_case, file.path(OUT_APPENDIX, sprintf("fig_case_study_%s_s%d", tolower(lbl), s)), width = 10, height = 6, bg = "white")
   }
   
   # 3. Full Detailed Table (CSV)
   write_csv(data$metrics, file.path(OUT_APPENDIX, "full_simulation_matrix.csv"))
+  write_figure_titles_notes("appendixC", case_seeds = case_seeds)
   
   message("\nAppendix C replication files generated in: ", OUT_APPENDIX)
 }
