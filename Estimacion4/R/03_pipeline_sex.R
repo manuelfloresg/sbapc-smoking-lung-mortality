@@ -276,6 +276,7 @@ run_pipeline_sex <- function(
       pop_all  = pop_all_tbl %>% dplyr::filter(sex == sex_sel),
       fit_prev = fit_prev,
       age_min_i = age_min_i, age_max_i = age_max_i,       
+      age_min_p = age_min_p, age_max_p = age_max_p,
       period_min_i = 1998, period_max_i = 2022,
       A_I = NA_integer_, w_I = PREV_W_I,                 
       use_weighted_cohort = use_weighted_cohort,
