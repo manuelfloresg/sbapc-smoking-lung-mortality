@@ -678,6 +678,56 @@ backcast_gammaP <- function(gammaP_hist_df, cohorts_past, method = c('freeze_old
   tibble::tibble(cohort = cohorts_past) %>% dplyr::left_join(rev_fc, by = 'cohort')
 }
 
+.prev_extend_effect <- function(effect_df,
+                                value_name,
+                                eff_name,
+                                needed_values,
+                                mode = c("apc_posterior", "constant_boundary"),
+                                trend_type = c("level", "trend")) {
+  mode <- match.arg(mode)
+  trend_type <- match.arg(trend_type)
+  needed_values <- sort(unique(suppressWarnings(as.integer(needed_values))))
+  needed_values <- needed_values[is.finite(needed_values)]
+  if (!length(needed_values)) {
+    return(tibble::tibble(value = integer(0), eff = numeric(0)))
+  }
+  hist <- tibble::as_tibble(effect_df) %>%
+    dplyr::transmute(
+      value = suppressWarnings(as.integer(.data[[value_name]])),
+      eff = suppressWarnings(as.numeric(.data[[eff_name]]))
+    ) %>%
+    dplyr::filter(is.finite(value), is.finite(eff)) %>%
+    dplyr::arrange(value) %>%
+    dplyr::distinct(value, .keep_all = TRUE)
+  if (!nrow(hist)) {
+    return(tibble::tibble(value = needed_values, eff = rep(0, length(needed_values))))
+  }
+  if (identical(mode, "constant_boundary")) {
+    return(tibble::tibble(
+      value = needed_values,
+      eff = stats::approx(x = hist$value, y = hist$eff, xout = needed_values,
+                          method = "constant", rule = 2, f = 0, ties = "ordered")$y
+    ))
+  }
+  past <- needed_values[needed_values < min(hist$value, na.rm = TRUE)]
+  future <- needed_values[needed_values > max(hist$value, na.rm = TRUE)]
+  past_df <- backcast_gammaP(
+    hist %>% dplyr::transmute(cohort = value, gammaP = eff),
+    past,
+    method = "trend",
+    trend_type = trend_type
+  ) %>% dplyr::transmute(value = as.integer(cohort), eff = gammaP)
+  future_df <- forecast_gammaP(
+    hist %>% dplyr::transmute(cohort = value, gammaP = eff),
+    future,
+    method = "trend",
+    trend_type = trend_type
+  ) %>% dplyr::transmute(value = as.integer(cohort), eff = gammaP)
+  dplyr::bind_rows(hist, past_df, future_df) %>%
+    dplyr::filter(value %in% needed_values) %>%
+    dplyr::arrange(value)
+}
+
 build_prev_current_surface_for_inc <- function(target_grid,
                                                fit_prev,
                                                prev_inla = NULL,
@@ -806,6 +856,60 @@ build_prev_current_surface_for_inc <- function(target_grid,
                                    prev_scenario_name, prev_scenario_applied),
     by = '.row_id_prev_current'
   )
+
+  completion_mode <- if (post65_mode %in% c("apc_posterior", "constant_boundary")) post65_mode else "legacy"
+  if (!identical(completion_mode, "legacy")) {
+    age_ext <- .prev_extend_effect(age_re, "age", "age_eff", out$age,
+                                   mode = completion_mode, trend_type = trend_type) %>%
+      dplyr::rename(age = value, age_eff_completion = eff)
+    per_ext <- .prev_extend_effect(per_re_hist, "period", "period_eff", out$period,
+                                   mode = completion_mode, trend_type = trend_type) %>%
+      dplyr::rename(period = value, period_eff_completion = eff)
+    coh_ext <- .prev_extend_effect(coh_hist, "cohort", "cohort_eff", out$cohort,
+                                   mode = completion_mode, trend_type = trend_type) %>%
+      dplyr::rename(cohort = value, cohort_eff_completion = eff)
+    completion_df <- out %>%
+      dplyr::select(.row_id_prev_current, age, period, cohort) %>%
+      dplyr::left_join(age_ext, by = "age") %>%
+      dplyr::left_join(per_ext, by = "period") %>%
+      dplyr::left_join(coh_ext, by = "cohort") %>%
+      dplyr::mutate(
+        age_eff_completion = dplyr::coalesce(age_eff_completion, 0),
+        period_eff_completion = dplyr::coalesce(period_eff_completion, 0),
+        cohort_eff_completion = dplyr::coalesce(cohort_eff_completion, 0),
+        prev_trend_component = .prev_trend_component(period, fit_prev, prev_inla),
+        p_cur_completion = plogis(fix_anchor + prev_trend_component +
+                                    age_eff_completion + period_eff_completion + cohort_eff_completion)
+      ) %>%
+      dplyr::select(.row_id_prev_current, p_cur_completion)
+    out <- out %>%
+      dplyr::left_join(completion_df, by = ".row_id_prev_current") %>%
+      dplyr::mutate(
+        .needs_completion = is.na(p_cur) |
+          age < age_min_obs | age > age_max_obs |
+          period < per_min_obs | period > per_max_obs |
+          cohort < min(lev_coh, na.rm = TRUE) | cohort > max(lev_coh, na.rm = TRUE),
+        p_cur = dplyr::if_else(.needs_completion & is.finite(p_cur_completion), p_cur_completion, p_cur),
+        prev_source = dplyr::if_else(
+          .needs_completion & is.finite(p_cur_completion),
+          ifelse(identical(completion_mode, "apc_posterior"), "apc_completion", "constant_boundary_completion"),
+          prev_source
+        ),
+        within_prev_age_support = dplyr::if_else(.needs_completion & is.finite(p_cur_completion),
+                                                 age >= age_min_obs & age <= age_max_obs,
+                                                 within_prev_age_support),
+        within_prev_period_support = dplyr::if_else(.needs_completion & is.finite(p_cur_completion),
+                                                    period >= per_min_obs & period <= per_max_obs,
+                                                    within_prev_period_support),
+        within_prev_observed_support = dplyr::if_else(.needs_completion & is.finite(p_cur_completion),
+                                                      FALSE,
+                                                      within_prev_observed_support),
+        within_prev_support = dplyr::if_else(.needs_completion & is.finite(p_cur_completion),
+                                             FALSE,
+                                             within_prev_support)
+      ) %>%
+      dplyr::select(-p_cur_completion, -.needs_completion)
+  }
 
   if (identical(post65_mode, 'carry_states')) {
     over_idx <- which(out$age > age_max_p)

@@ -379,7 +379,7 @@ PREV_INC_CHANNEL_MODE <- "stock_former"          # main PREV -> INC channel
 PREV_INC_MAX_QUIT_YEARS <- NA_integer_           # if NA, use maximum available from the risk-reversal schedule
 PREV_BACKCAST_MODE <- "freeze_first_period"     # period effect backcast for PREV
 PREV_BACKCAST_COHORT_MODE <- "freeze_oldest"    # unobserved cohorts backcast for PREV
-PREV_POST65_MODE <- "carry_states"              # ages > AGE_P_MAX: carry cohort states forward
+PREV_POST65_MODE <- "apc_posterior"             # edge completion: "apc_posterior", "constant_boundary", or legacy "carry_states"
 BETA_MODE <- "fixed_rr_offset"                 # fixed relative risk offset is the only supported mechanism
 
 # --- Relative risks of incidence attributable to smoking ---
