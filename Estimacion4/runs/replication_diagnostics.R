@@ -53,7 +53,8 @@ SEX_COLORS <- c(
 )
 
 DGP_LABELS <- c(
-  "spec_linear" = "Baseline DGP"
+  "spec_linear" = "Well-specified design",
+  "misspec_tanh" = "Misspecified transmission design"
 )
 
 sex_public_label <- function(x) {
@@ -140,6 +141,8 @@ PAPER_FIG_SPECS <- list(
     transmission_support = list(width = 7.2, height = 5.3, base_size = 8.8),
     scenario_effect = list(width = 7.2, height = 3.8, base_size = 9.6),
     scenario_effect_bysex = list(width = 7.2, height = 5.6, base_size = 8.9),
+    support_window = list(width = 7.2, height = 3.8, base_size = 9.4),
+    misspecification = list(width = 7.2, height = 5.2, base_size = 8.8),
     reliability = list(width = 6.8, height = 4.1, base_size = 10.0),
     bias_distribution = list(width = 6.8, height = 4.8, base_size = 9.8),
     case_study = list(width = 6.8, height = 4.2, base_size = 9.8)
@@ -152,6 +155,8 @@ PAPER_FIG_SPECS <- list(
     transmission_support = list(width = 13, height = 8, base_size = 10),
     scenario_effect = list(width = 12, height = 5.8, base_size = 10),
     scenario_effect_bysex = list(width = 12, height = 7.5, base_size = 10),
+    support_window = list(width = 12, height = 5.8, base_size = 10),
+    misspecification = list(width = 12, height = 7.2, base_size = 10),
     reliability = list(width = 10, height = 6, base_size = 11),
     bias_distribution = list(width = 10, height = 7, base_size = 10),
     case_study = list(width = 10, height = 6, base_size = 11)
@@ -240,12 +245,12 @@ write_figure_titles_notes <- function(section = c("section4", "appendixC"), case
       entry(
         "fig_scenario_effect_recovery",
         "Mortality scenario-effect recovery",
-        "Scenario effects are annual deaths relative to the frozen-prevalence baseline. Lines show median effects across seeds; ribbons show the 10th-90th percentile range for simulated truth and SBAPC."
+        "Scenario effects are annual deaths relative to the frozen-prevalence baseline, aggregated across sexes and simulation seeds. Lines show median effects across seeds; ribbons show the 10th-90th percentile range for simulated truth and SBAPC. The BAPC benchmark is scenario-blind and therefore has zero scenario response by construction. Background shading is used only because the horizon-boundary audit found common support-region boundaries for the plotted aggregation."
       ),
       entry(
         "fig_reliability_calibration",
         "Projection reliability calibration by support horizon",
-        "The line shows mean absolute relative error by projection horizon. Shading indicates credibility regions defined by support fractions; dashed vertical lines mark the first year entering lower-support regions."
+        "Diagnostic retained for Appendix C rather than the main text. The line shows mean absolute relative error by projection horizon. Shading indicates credibility regions defined by support fractions; dashed vertical lines mark the first year entering lower-support regions."
       )
     )
   } else {
@@ -263,6 +268,21 @@ write_figure_titles_notes <- function(section = c("section4", "appendixC"), case
         "fig_scenario_effect_recovery_bysex",
         "Mortality scenario-effect recovery by sex",
         "Extended diagnostic by sex including the incidence-anchored SBAPC decomposition variant."
+      ),
+      entry(
+        "fig_support_window_comparison",
+        "Observed-window and full-support scenario-effect recovery",
+        "Appendix diagnostic comparing simulated truth, observed-window SBAPC, and full-support SBAPC for annual mortality scenario effects relative to the frozen-prevalence baseline. Full-support SBAPC is an oracle-style diagnostic, not a feasible empirical estimator."
+      ),
+      entry(
+        "fig_misspecification_scenario_recovery",
+        "Scenario-effect recovery under transmission-rule misspecification",
+        "Appendix robustness diagnostic comparing the well-specified design with a misspecified monotone transmission design. Panels show annual mortality scenario effects relative to the frozen-prevalence baseline."
+      ),
+      entry(
+        "fig_reliability_calibration",
+        "Projection reliability calibration by support horizon",
+        "Calibration is treated as an uncertainty-summary diagnostic. The central validation target for Section 4 is recovery of mortality scenario effects, not calibration of predictive summaries."
       )
     )
 
@@ -502,17 +522,46 @@ compact_replication_rds <- function(raw_dir = OUT_RAW,
   out
 }
 
-extract_all_metrics <- function(seeds = CANONICAL_SEEDS, dgps = CANONICAL_DGPS, scens = CANONICAL_SCENS, force_refresh = FALSE) {
-  cache_file <- file.path(OUT_RAW, "all_extracted_data.rds")
+metrics_cache_file <- function(raw_dir = OUT_RAW,
+                               dgps = CANONICAL_DGPS,
+                               scens = CANONICAL_SCENS,
+                               suffix = NULL) {
+  if (!is.null(suffix) && nzchar(as.character(suffix)[1])) {
+    return(file.path(raw_dir, paste0("all_extracted_data_", suffix, ".rds")))
+  }
+  is_default <- identical(normalizePath(raw_dir, winslash = "/", mustWork = FALSE),
+                          normalizePath(OUT_RAW, winslash = "/", mustWork = FALSE)) &&
+    identical(sort(as.character(dgps)), sort(as.character(CANONICAL_DGPS))) &&
+    identical(sort(as.character(scens)), sort(as.character(CANONICAL_SCENS)))
+  if (is_default) return(file.path(raw_dir, "all_extracted_data.rds"))
+  safe <- paste(c(sort(as.character(dgps)), sort(as.character(scens))), collapse = "_")
+  safe <- gsub("[^A-Za-z0-9]+", "_", safe)
+  file.path(raw_dir, paste0("all_extracted_data_", safe, ".rds"))
+}
+
+extract_all_metrics <- function(seeds = CANONICAL_SEEDS,
+                                dgps = CANONICAL_DGPS,
+                                scens = CANONICAL_SCENS,
+                                force_refresh = FALSE,
+                                raw_dir = OUT_RAW,
+                                cache_file = NULL,
+                                cache_suffix = NULL) {
+  if (is.null(cache_file)) cache_file <- metrics_cache_file(raw_dir, dgps, scens, cache_suffix)
   if (file.exists(cache_file) && !isTRUE(force_refresh)) {
     message("Loading cached metrics from: ", cache_file)
     cached <- readRDS(cache_file)
     cached_scens <- sort(unique(as.character(cached$metrics$scenario %||% character(0))))
     requested_scens <- sort(unique(as.character(scens)))
-    if (identical(cached_scens, requested_scens)) {
+    cached_dgps <- sort(unique(as.character(cached$metrics$dgp %||% character(0))))
+    requested_dgps <- sort(unique(as.character(dgps)))
+    cached_seeds <- sort(unique(as.integer(cached$metrics$seed %||% integer(0))))
+    requested_seeds <- sort(unique(as.integer(seeds)))
+    if (identical(cached_scens, requested_scens) &&
+        identical(cached_dgps, requested_dgps) &&
+        identical(cached_seeds, requested_seeds)) {
       return(cached)
     }
-    message("Cached metrics use a different scenario set; rebuilding extraction cache.")
+    message("Cached metrics use a different seed/scenario/DGP set; rebuilding extraction cache.")
   }
   
   metrics_list <- list()
@@ -524,7 +573,7 @@ extract_all_metrics <- function(seeds = CANONICAL_SEEDS, dgps = CANONICAL_DGPS, 
   for (seed in seeds) {
     for (dgp in dgps) {
       # First, get freeze mort for deltas
-      freeze_rds <- file.path(OUT_RAW, sprintf("res_%s_s%d_freeze.rds", dgp, seed))
+      freeze_rds <- file.path(raw_dir, sprintf("res_%s_s%d_freeze.rds", dgp, seed))
       if (!file.exists(freeze_rds)) next
       rb_freeze <- readRDS(freeze_rds)
       if (is.null(rb_freeze$inc_truth_grid)) {
@@ -538,7 +587,7 @@ extract_all_metrics <- function(seeds = CANONICAL_SEEDS, dgps = CANONICAL_DGPS, 
       freeze_mort <- diag_freeze$mort %>% dplyr::select(period, sex, deaths_freeze = deaths_hat)
       
       for (scen in scens) {
-        rds_file <- file.path(OUT_RAW, sprintf("res_%s_s%d_%s.rds", dgp, seed, scen))
+        rds_file <- file.path(raw_dir, sprintf("res_%s_s%d_%s.rds", dgp, seed, scen))
         if (!file.exists(rds_file)) next
         # Read and process with robustness
         rb <- read_rds_safe(rds_file)
@@ -1204,19 +1253,38 @@ plot_scenario_effect_recovery <- function(effect_df,
                                           include_models = unname(MODEL_LABELS[c("sbapc", "bapc")]),
                                           title = NULL,
                                           subtitle = NULL,
-                                          base_size = paper_fig_base_size("scenario_effect")) {
+                                          base_size = paper_fig_base_size("scenario_effect"),
+                                          effect_scale = c("counts", "percent"),
+                                          show_band = TRUE,
+                                          show_horizon_overlay = TRUE) {
+  effect_scale <- match.arg(effect_scale)
+  value_col <- if (identical(effect_scale, "counts")) "effect_count" else "effect_pct"
+  y_lab <- if (identical(effect_scale, "counts")) {
+    "Annual mortality effect (deaths relative to freeze)"
+  } else {
+    "Scenario effect (% of freeze deaths)"
+  }
+
   truth_df <- effect_df %>%
-    dplyr::distinct(seed, dgp, scenario, scenario_label, sex, period, effect_true_pct) %>%
-    dplyr::mutate(model = MODEL_LABELS[["truth"]], effect_pct = effect_true_pct)
+    dplyr::distinct(seed, dgp, scenario, scenario_label, sex, period, delta_truth, effect_true_pct) %>%
+    dplyr::mutate(
+      model = MODEL_LABELS[["truth"]],
+      effect_count = delta_truth,
+      effect_pct = effect_true_pct
+    )
 
   model_df <- effect_df %>%
     dplyr::filter(as.character(model) %in% include_models) %>%
-    dplyr::mutate(effect_pct = effect_hat_pct)
+    dplyr::mutate(
+      effect_count = delta_hat,
+      effect_pct = effect_hat_pct
+    )
 
   plot_df <- dplyr::bind_rows(
-    truth_df %>% dplyr::select(seed, dgp, scenario, scenario_label, sex, period, model, effect_pct),
-    model_df %>% dplyr::select(seed, dgp, scenario, scenario_label, sex, period, model, effect_pct)
+    truth_df %>% dplyr::select(seed, dgp, scenario, scenario_label, sex, period, model, dplyr::all_of(value_col)),
+    model_df %>% dplyr::select(seed, dgp, scenario, scenario_label, sex, period, model, dplyr::all_of(value_col))
   ) %>%
+    dplyr::rename(effect_value = dplyr::all_of(value_col)) %>%
     dplyr::mutate(
       model = factor(as.character(model), levels = c(MODEL_LABELS[["truth"]], include_models)),
       sex = factor(sex_public_label(sex), levels = c("Total", "Male", "Female")),
@@ -1226,39 +1294,81 @@ plot_scenario_effect_recovery <- function(effect_df,
   sum_df <- plot_df %>%
     dplyr::group_by(scenario_label, sex, period, model) %>%
     dplyr::summarise(
-      p10 = as.numeric(stats::quantile(effect_pct, 0.10, na.rm = TRUE)),
-      med = stats::median(effect_pct, na.rm = TRUE),
-      p90 = as.numeric(stats::quantile(effect_pct, 0.90, na.rm = TRUE)),
+      p10 = as.numeric(stats::quantile(effect_value, 0.10, na.rm = TRUE)),
+      med = stats::median(effect_value, na.rm = TRUE),
+      p90 = as.numeric(stats::quantile(effect_value, 0.90, na.rm = TRUE)),
       .groups = "drop"
     )
 
   ribbon_df <- sum_df %>%
     dplyr::filter(as.character(model) %in% c(MODEL_LABELS[["truth"]], MODEL_LABELS[["sbapc"]]))
 
-  support_lines <- effect_df %>%
-    dplyr::group_by(period) %>%
-    dplyr::summarise(support_frac = mean(support_frac, na.rm = TRUE), .groups = "drop") %>%
+  boundaries <- effect_df %>%
+    dplyr::group_by(seed, dgp, scenario, sex) %>%
     dplyr::summarise(
       caution_start = suppressWarnings(min(period[support_frac < 0.50], na.rm = TRUE)),
-      risky_start = suppressWarnings(min(period[support_frac < 0.33], na.rm = TRUE))
+      risky_start = suppressWarnings(min(period[support_frac < 0.33], na.rm = TRUE)),
+      .groups = "drop"
     ) %>%
-    tidyr::pivot_longer(dplyr::everything(), names_to = "threshold", values_to = "period") %>%
-    dplyr::filter(is.finite(period))
+    dplyr::mutate(
+      caution_start = dplyr::if_else(is.finite(caution_start), as.integer(caution_start), NA_integer_),
+      risky_start = dplyr::if_else(is.finite(risky_start), as.integer(risky_start), NA_integer_)
+    )
+  identical_boundaries <- nrow(boundaries) > 0 &&
+    dplyr::n_distinct(boundaries$caution_start, na.rm = TRUE) <= 1 &&
+    dplyr::n_distinct(boundaries$risky_start, na.rm = TRUE) <= 1
+  support_lines <- tibble::tibble()
+  support_rects <- tibble::tibble()
+  if (isTRUE(show_horizon_overlay) && identical_boundaries) {
+    x_min <- min(sum_df$period, na.rm = TRUE)
+    x_max <- max(sum_df$period, na.rm = TRUE)
+    caution_start <- unique(stats::na.omit(boundaries$caution_start))[1]
+    risky_start <- unique(stats::na.omit(boundaries$risky_start))[1]
+    support_lines <- tibble::tibble(period = c(caution_start, risky_start)) %>%
+      dplyr::filter(is.finite(period))
+    support_rects <- tibble::tibble(
+      xmin = c(x_min, caution_start, risky_start),
+      xmax = c(caution_start, risky_start, x_max),
+      fill = c("#E8F3EA", "#FFF8D9", "#FBE4E6")
+    ) %>%
+      dplyr::filter(is.finite(xmin), is.finite(xmax), xmax > xmin)
+  }
 
   color_values <- MODEL_COLORS[levels(plot_df$model)]
   fill_values <- c(
     stats::setNames("#BDBDBD", MODEL_LABELS[["truth"]]),
     stats::setNames("#D32F2F", MODEL_LABELS[["sbapc"]])
   )
+  facet_layer <- if (dplyr::n_distinct(plot_df$sex) <= 1) {
+    ggplot2::facet_wrap(~scenario_label, nrow = 1, scales = "free_y")
+  } else {
+    ggplot2::facet_grid(sex ~ scenario_label, scales = "free_y")
+  }
 
-  ggplot2::ggplot(sum_df, ggplot2::aes(x = period, y = med, color = model, linetype = model)) +
+  g <- ggplot2::ggplot(sum_df, ggplot2::aes(x = period, y = med, color = model, linetype = model))
+  if (nrow(support_rects)) {
+    for (i in seq_len(nrow(support_rects))) {
+      g <- g + ggplot2::geom_rect(
+        data = support_rects[i, ],
+        ggplot2::aes(xmin = xmin, xmax = xmax, ymin = -Inf, ymax = Inf),
+        inherit.aes = FALSE,
+        fill = support_rects$fill[i],
+        alpha = 0.45,
+        color = NA
+      )
+    }
+  }
+  if (isTRUE(show_band) && nrow(ribbon_df)) {
+    g <- g +
     ggplot2::geom_ribbon(
       data = ribbon_df,
       ggplot2::aes(ymin = p10, ymax = p90, fill = model),
       alpha = 0.12,
       color = NA,
       show.legend = FALSE
-    ) +
+    )
+  }
+  g +
     ggplot2::geom_hline(yintercept = 0, linewidth = 0.35, color = "gray60") +
     ggplot2::geom_vline(
       data = support_lines,
@@ -1269,7 +1379,7 @@ plot_scenario_effect_recovery <- function(effect_df,
       linewidth = 0.35
     ) +
     ggplot2::geom_line(linewidth = 0.9, na.rm = TRUE) +
-    ggplot2::facet_grid(sex ~ scenario_label, scales = "free_y") +
+    facet_layer +
     ggplot2::scale_color_manual(values = color_values, breaks = levels(plot_df$model)) +
     ggplot2::scale_linetype_manual(values = MODEL_LINETYPES[levels(plot_df$model)], breaks = levels(plot_df$model)) +
     ggplot2::scale_fill_manual(values = fill_values) +
@@ -1277,7 +1387,7 @@ plot_scenario_effect_recovery <- function(effect_df,
       title = title,
       subtitle = subtitle,
       x = "Year",
-      y = "Scenario effect (% of freeze deaths)",
+      y = y_lab,
       color = "Series",
       linetype = "Series"
     ) +
@@ -1327,6 +1437,962 @@ export_scenario_effect_recovery_table <- function(summary_df,
   invisible(tab)
 }
 
+latex_scenario_labels <- function() {
+  c(
+    "up1pc" = "$\\uparrow$ 1\\% p.a.",
+    "freeze" = "Freeze (2022)",
+    "down1pc" = "$\\downarrow$ 1\\% p.a.",
+    "quit" = "Quit"
+  )
+}
+
+fmt_int <- function(x) {
+  ifelse(is.finite(x), formatC(round(x), format = "f", digits = 0, big.mark = ","), "")
+}
+
+fmt_num <- function(x, digits = 2) {
+  ifelse(is.finite(x), formatC(x, format = "f", digits = digits), "")
+}
+
+fmt_interval <- function(mid, lo, hi, digits = 2) {
+  sprintf("%s [%s, %s]", fmt_num(mid, digits), fmt_num(lo, digits), fmt_num(hi, digits))
+}
+
+fmt_int_interval <- function(mid, lo, hi) {
+  sprintf("%s [%s, %s]", fmt_int(mid), fmt_int(lo), fmt_int(hi))
+}
+
+horizon_boundary_audit <- function(data = NULL,
+                                   file_out = file.path(OUT_SEC4, "horizon_boundary_audit.csv"),
+                                   outcomes = c("Incidence", "Mortality")) {
+  if (is.null(data)) data <- extract_all_metrics()
+  audit_base <- tibble::as_tibble(data$inc %||% tibble::tibble()) %>%
+    dplyr::filter(period > 2022) %>%
+    dplyr::group_by(seed, dgp, scenario, sex) %>%
+    dplyr::summarise(
+      first_caution_year = suppressWarnings(min(period[support_frac < 0.50], na.rm = TRUE)),
+      first_risky_year = suppressWarnings(min(period[support_frac < 0.33], na.rm = TRUE)),
+      min_support_frac = min(support_frac, na.rm = TRUE),
+      mean_support_frac = mean(support_frac, na.rm = TRUE),
+      max_projection_year = max(period, na.rm = TRUE),
+      .groups = "drop"
+    ) %>%
+    dplyr::mutate(
+      first_caution_year = dplyr::if_else(is.finite(first_caution_year), as.integer(first_caution_year), NA_integer_),
+      first_risky_year = dplyr::if_else(is.finite(first_risky_year), as.integer(first_risky_year), NA_integer_),
+      sex = sex_public_label(sex),
+      design = dgp_public_label(dgp),
+      support_source = "Incidence support fraction"
+    )
+
+  audit <- tidyr::crossing(outcome = outcomes, audit_base) %>%
+    dplyr::select(design, dgp, seed, scenario, sex, outcome, support_source,
+                  first_caution_year, first_risky_year, min_support_frac,
+                  mean_support_frac, max_projection_year)
+  readr::write_csv(audit, file_out)
+  audit
+}
+
+add_horizon_region_rows <- function(df,
+                                    period_col = "period",
+                                    support_col = "support_frac",
+                                    include_full = FALSE) {
+  out <- df %>%
+    dplyr::mutate(
+      horizon_region = dplyr::case_when(
+        is.na(.data[[support_col]]) ~ NA_character_,
+        .data[[support_col]] >= 0.50 ~ "Credible",
+        .data[[support_col]] >= 0.33 ~ "Caution",
+        TRUE ~ "Risky"
+      ),
+      horizon_region = factor(horizon_region, levels = c("Credible", "Caution", "Risky"))
+    )
+  if (isTRUE(include_full)) {
+    out <- dplyr::bind_rows(
+      out,
+      out %>% dplyr::mutate(horizon_region = factor("Full horizon", levels = c("Credible", "Caution", "Risky", "Full horizon")))
+    )
+  }
+  out %>%
+    dplyr::mutate(
+      horizon_region = factor(as.character(horizon_region),
+                              levels = c("Credible", "Caution", "Risky", "Full horizon"))
+    )
+}
+
+summarise_cumulative_scenario_recovery <- function(effect_df,
+                                                   model_label = MODEL_LABELS[["sbapc"]],
+                                                   sex = "Total",
+                                                   include_full = TRUE) {
+  region_df <- effect_df %>%
+    dplyr::filter(as.character(model) == model_label, as.character(sex) == !!sex) %>%
+    add_horizon_region_rows(include_full = include_full) %>%
+    dplyr::filter(!is.na(horizon_region))
+
+  seed_level <- region_df %>%
+    dplyr::group_by(scenario, scenario_label, horizon_region, seed, dgp, sex) %>%
+    dplyr::summarise(
+      true_cumulative = sum(delta_truth, na.rm = TRUE),
+      estimated_cumulative = sum(delta_hat, na.rm = TRUE),
+      recovery_ratio = estimated_cumulative / dplyr::if_else(abs(true_cumulative) > 1e-9, true_cumulative, NA_real_),
+      annual_mare_pct = 100 * sum(abs(delta_hat - delta_truth), na.rm = TRUE) /
+        pmax(sum(abs(delta_truth), na.rm = TRUE), 1e-9),
+      sign_agreement_pct = {
+        keep <- is.finite(delta_truth) & abs(delta_truth) > 1e-6 & is.finite(delta_hat)
+        if (any(keep)) mean(sign(delta_hat[keep]) == sign(delta_truth[keep])) * 100 else NA_real_
+      },
+      .groups = "drop"
+    )
+
+  seed_level %>%
+    dplyr::group_by(scenario, scenario_label, horizon_region, sex) %>%
+    dplyr::summarise(
+      seeds = dplyr::n_distinct(seed),
+      true_cumulative_median = stats::median(true_cumulative, na.rm = TRUE),
+      true_cumulative_q25 = as.numeric(stats::quantile(true_cumulative, 0.25, na.rm = TRUE)),
+      true_cumulative_q75 = as.numeric(stats::quantile(true_cumulative, 0.75, na.rm = TRUE)),
+      estimated_cumulative_median = stats::median(estimated_cumulative, na.rm = TRUE),
+      estimated_cumulative_q25 = as.numeric(stats::quantile(estimated_cumulative, 0.25, na.rm = TRUE)),
+      estimated_cumulative_q75 = as.numeric(stats::quantile(estimated_cumulative, 0.75, na.rm = TRUE)),
+      recovery_ratio_median = stats::median(recovery_ratio, na.rm = TRUE),
+      recovery_ratio_q25 = as.numeric(stats::quantile(recovery_ratio, 0.25, na.rm = TRUE)),
+      recovery_ratio_q75 = as.numeric(stats::quantile(recovery_ratio, 0.75, na.rm = TRUE)),
+      annual_mare_pct_mean = mean(annual_mare_pct, na.rm = TRUE),
+      annual_mare_pct_sd = stats::sd(annual_mare_pct, na.rm = TRUE),
+      sign_agreement_pct_mean = mean(sign_agreement_pct, na.rm = TRUE),
+      .groups = "drop"
+    ) %>%
+    dplyr::arrange(factor(as.character(scenario), levels = c("up1pc", "down1pc", "quit")),
+                   factor(as.character(horizon_region), levels = c("Credible", "Caution", "Risky", "Full horizon")))
+}
+
+export_cumulative_scenario_recovery_table <- function(summary_df,
+                                                      csv_out = file.path(OUT_SEC4, "tab_cumulative_scenario_recovery.csv"),
+                                                      tex_out = file.path(OUT_SEC4, "tab_cumulative_scenario_recovery.tex")) {
+  readr::write_csv(summary_df, csv_out)
+  scen_tex <- latex_scenario_labels()
+  tab <- summary_df %>%
+    dplyr::mutate(
+      scenario_tex = unname(scen_tex[as.character(scenario)]),
+      horizon = as.character(horizon_region),
+      true_display = fmt_int_interval(true_cumulative_median, true_cumulative_q25, true_cumulative_q75),
+      est_display = fmt_int_interval(estimated_cumulative_median, estimated_cumulative_q25, estimated_cumulative_q75),
+      recovery_display = fmt_interval(recovery_ratio_median, recovery_ratio_q25, recovery_ratio_q75, digits = 2)
+    )
+
+  lines <- c(
+    "\\begin{tabular}{llccccc}",
+    "\\hline",
+    "Scenario & Horizon & Truth & SBAPC & Recovery & Annual MARE (\\%) & Sign agreement (\\%) \\\\",
+    "\\hline"
+  )
+  for (i in seq_len(nrow(tab))) {
+    row <- tab[i, ]
+    lines <- c(lines, sprintf(
+      "%s & %s & %s & %s & %s & %.1f & %.1f \\\\",
+      row$scenario_tex, row$horizon, row$true_display, row$est_display,
+      row$recovery_display, row$annual_mare_pct_mean, row$sign_agreement_pct_mean
+    ))
+  }
+  lines <- c(lines, "\\hline", "\\end{tabular}")
+  writeLines(lines, tex_out, useBytes = TRUE)
+  invisible(tab)
+}
+
+build_chain_recovery_data <- function(seeds = CANONICAL_SEEDS,
+                                      dgp = "spec_linear",
+                                      raw_dir = OUT_RAW,
+                                      last_hist = 2022L) {
+  rows <- list()
+  for (seed in seeds) {
+    rds_file <- file.path(raw_dir, sprintf("res_%s_s%d_freeze.rds", dgp, seed))
+    if (!file.exists(rds_file)) next
+    rb <- read_rds_safe(rds_file)
+    if (inherits(rb, "try-error") || is.null(rb$inc_truth_grid) || is.null(rb$mort_truth_grid)) next
+
+    sim <- simulate_PIM_data(cause_id = CAUSE_ID, seed = seed, dgp = dgp, scenario_name = "freeze")
+    pop <- tibble::as_tibble(sim$pop_all) %>%
+      dplyr::mutate(sex = as.character(sex), age = as.integer(age), period = as.integer(period))
+
+    truth_eff <- tibble::as_tibble(sim$z_scen_true) %>%
+      dplyr::mutate(sex = as.character(sex), age = as.integer(age), period = as.integer(period)) %>%
+      dplyr::left_join(pop, by = c("sex", "age", "period")) %>%
+      dplyr::filter(period > last_hist) %>%
+      dplyr::group_by(period) %>%
+      dplyr::summarise(truth = stats::weighted.mean(as.numeric(q_eff), exposure, na.rm = TRUE) * 100,
+                       .groups = "drop")
+
+    est_eff <- dplyr::bind_rows(
+      tibble::as_tibble(rb$resM$diag$z_prev_hist %||% tibble::tibble()),
+      tibble::as_tibble(rb$resM$diag$z_prev_future %||% tibble::tibble()),
+      tibble::as_tibble(rb$resF$diag$z_prev_hist %||% tibble::tibble()),
+      tibble::as_tibble(rb$resF$diag$z_prev_future %||% tibble::tibble())
+    ) %>%
+      dplyr::mutate(sex = as.character(sex), age = as.integer(age), period = as.integer(period)) %>%
+      dplyr::left_join(pop, by = c("sex", "age", "period")) %>%
+      dplyr::filter(period > last_hist) %>%
+      dplyr::group_by(period) %>%
+      dplyr::summarise(estimate = stats::weighted.mean(as.numeric(q_eff), exposure, na.rm = TRUE) * 100,
+                       support_frac = mean(as.numeric(support_frac), na.rm = TRUE),
+                       .groups = "drop")
+
+    effective_exposure <- truth_eff %>%
+      dplyr::left_join(est_eff, by = "period") %>%
+      dplyr::mutate(object = "Effective exposure")
+
+    incidence <- dplyr::bind_rows(
+      rb$resM$inc_annual_cond %>% dplyr::mutate(sex = "M"),
+      rb$resF$inc_annual_cond %>% dplyr::mutate(sex = "F")
+    ) %>%
+      dplyr::filter(period > last_hist) %>%
+      dplyr::group_by(period) %>%
+      dplyr::summarise(estimate = sum(as.numeric(cases_hat), na.rm = TRUE), .groups = "drop") %>%
+      dplyr::left_join(
+        tibble::as_tibble(rb$inc_truth_grid) %>%
+          dplyr::mutate(sex = as.character(sex), age = as.integer(age), period = as.integer(period)) %>%
+          dplyr::left_join(pop %>% dplyr::select(sex, age, period, exposure),
+                           by = c("sex", "age", "period")) %>%
+          dplyr::filter(period > last_hist) %>%
+          dplyr::group_by(period) %>%
+          dplyr::summarise(truth = sum(as.numeric(rateI_scen_true) * as.numeric(exposure), na.rm = TRUE),
+                           .groups = "drop"),
+        by = "period"
+      ) %>%
+      dplyr::left_join(est_eff %>% dplyr::select(period, support_frac), by = "period") %>%
+      dplyr::mutate(object = "Incident cases")
+
+    expected_deaths <- dplyr::bind_rows(
+      rb$resM$annual_external_cond,
+      rb$resF$annual_external_cond
+    ) %>%
+      dplyr::filter(period > last_hist) %>%
+      dplyr::group_by(period) %>%
+      dplyr::summarise(estimate = sum(as.numeric(deaths_ext), na.rm = TRUE), .groups = "drop") %>%
+      dplyr::left_join(
+        tibble::as_tibble(rb$mort_truth_grid) %>%
+          dplyr::filter(period > last_hist) %>%
+          dplyr::group_by(period) %>%
+          dplyr::summarise(truth = sum(as.numeric(mort_deaths_scen_true), na.rm = TRUE), .groups = "drop"),
+        by = "period"
+      ) %>%
+      dplyr::left_join(est_eff %>% dplyr::select(period, support_frac), by = "period") %>%
+      dplyr::mutate(object = "Incidence-linked expected deaths")
+
+    mortality <- dplyr::bind_rows(rb$resM$annual_anchor, rb$resF$annual_anchor) %>%
+      dplyr::filter(period > last_hist) %>%
+      dplyr::group_by(period) %>%
+      dplyr::summarise(estimate = sum(as.numeric(deaths_hat), na.rm = TRUE), .groups = "drop") %>%
+      dplyr::left_join(
+        tibble::as_tibble(rb$mort_truth_grid) %>%
+          dplyr::filter(period > last_hist) %>%
+          dplyr::group_by(period) %>%
+          dplyr::summarise(truth = sum(as.numeric(mort_deaths_scen_true), na.rm = TRUE), .groups = "drop"),
+        by = "period"
+      ) %>%
+      dplyr::left_join(est_eff %>% dplyr::select(period, support_frac), by = "period") %>%
+      dplyr::mutate(object = "Mortality deaths")
+
+    rows[[as.character(seed)]] <- dplyr::bind_rows(effective_exposure, incidence, expected_deaths, mortality) %>%
+      dplyr::mutate(seed = seed, dgp = dgp, scenario = "freeze", .before = 1)
+  }
+
+  dplyr::bind_rows(rows) %>%
+    add_horizon_region_rows(include_full = TRUE) %>%
+    dplyr::mutate(
+      design = dgp_public_label(dgp),
+      object = factor(object, levels = c("Effective exposure", "Incident cases",
+                                         "Incidence-linked expected deaths", "Mortality deaths"))
+    )
+}
+
+summarise_chain_recovery <- function(chain_df) {
+  seed_level <- chain_df %>%
+    dplyr::filter(!is.na(horizon_region)) %>%
+    dplyr::group_by(object, horizon_region, seed, dgp) %>%
+    dplyr::summarise(
+      true_cumulative = sum(truth, na.rm = TRUE),
+      estimated_cumulative = sum(estimate, na.rm = TRUE),
+      recovery_ratio = estimated_cumulative / dplyr::if_else(abs(true_cumulative) > 1e-9, true_cumulative, NA_real_),
+      annual_mare_pct = 100 * sum(abs(estimate - truth), na.rm = TRUE) / pmax(sum(abs(truth), na.rm = TRUE), 1e-9),
+      annual_bias_pct = 100 * sum(estimate - truth, na.rm = TRUE) / pmax(sum(abs(truth), na.rm = TRUE), 1e-9),
+      .groups = "drop"
+    )
+
+  seed_level %>%
+    dplyr::group_by(object, horizon_region) %>%
+    dplyr::summarise(
+      seeds = dplyr::n_distinct(seed),
+      recovery_ratio_median = stats::median(recovery_ratio, na.rm = TRUE),
+      recovery_ratio_q25 = as.numeric(stats::quantile(recovery_ratio, 0.25, na.rm = TRUE)),
+      recovery_ratio_q75 = as.numeric(stats::quantile(recovery_ratio, 0.75, na.rm = TRUE)),
+      annual_mare_pct_mean = mean(annual_mare_pct, na.rm = TRUE),
+      annual_bias_pct_mean = mean(annual_bias_pct, na.rm = TRUE),
+      .groups = "drop"
+    ) %>%
+    dplyr::arrange(object, factor(as.character(horizon_region), levels = c("Credible", "Caution", "Risky", "Full horizon")))
+}
+
+export_chain_recovery_table <- function(summary_df,
+                                        csv_out = file.path(OUT_SEC4, "tab_chain_recovery.csv"),
+                                        tex_out = file.path(OUT_SEC4, "tab_chain_recovery.tex")) {
+  readr::write_csv(summary_df, csv_out)
+  tab <- summary_df %>%
+    dplyr::mutate(recovery_display = fmt_interval(recovery_ratio_median, recovery_ratio_q25, recovery_ratio_q75, digits = 2))
+  lines <- c(
+    "\\begin{tabular}{llccc}",
+    "\\hline",
+    "Object & Horizon & Recovery & Annual MARE (\\%) & Annual bias (\\%) \\\\",
+    "\\hline"
+  )
+  for (i in seq_len(nrow(tab))) {
+    row <- tab[i, ]
+    lines <- c(lines, sprintf(
+      "%s & %s & %s & %.1f & %.1f \\\\",
+      as.character(row$object), as.character(row$horizon_region), row$recovery_display,
+      row$annual_mare_pct_mean, row$annual_bias_pct_mean
+    ))
+  }
+  lines <- c(lines, "\\hline", "\\end{tabular}")
+  writeLines(lines, tex_out, useBytes = TRUE)
+  invisible(tab)
+}
+
+available_result_seeds <- function(raw_dir, dgp = "spec_linear", scens = CANONICAL_SCENS) {
+  seeds <- integer(0)
+  files <- list.files(raw_dir, pattern = paste0("^res_", dgp, "_s[0-9]+_.*\\.rds$"), full.names = FALSE)
+  if (!length(files)) return(seeds)
+  candidates <- sort(unique(as.integer(sub(paste0("^res_", dgp, "_s([0-9]+)_.*$"), "\\1", files))))
+  candidates[vapply(candidates, function(seed) {
+    all(vapply(scens, function(sc) file.exists(file.path(raw_dir, sprintf("res_%s_s%d_%s.rds", dgp, seed, sc))), logical(1)))
+  }, logical(1))]
+}
+
+plot_support_window_comparison <- function(realistic_effect,
+                                           oracle_effect,
+                                           include_band = TRUE,
+                                           base_size = paper_fig_base_size("scenario_effect_bysex")) {
+  common_keys <- realistic_effect %>%
+    dplyr::distinct(seed, dgp, scenario, sex, period)
+  oracle_effect <- oracle_effect %>%
+    dplyr::semi_join(common_keys, by = c("seed", "dgp", "scenario", "sex", "period"))
+  realistic_effect <- realistic_effect %>%
+    dplyr::semi_join(oracle_effect %>% dplyr::distinct(seed, dgp, scenario, sex, period),
+                     by = c("seed", "dgp", "scenario", "sex", "period"))
+
+  series_levels <- c("Truth", "Full-support SBAPC", "Observed-window SBAPC")
+  plot_df <- dplyr::bind_rows(
+    realistic_effect %>%
+      dplyr::distinct(seed, dgp, scenario, scenario_label, sex, period, delta_truth) %>%
+      dplyr::mutate(series = "Truth", value = delta_truth),
+    oracle_effect %>%
+      dplyr::filter(as.character(model) == MODEL_LABELS[["sbapc"]]) %>%
+      dplyr::mutate(series = "Full-support SBAPC", value = delta_hat),
+    realistic_effect %>%
+      dplyr::filter(as.character(model) == MODEL_LABELS[["sbapc"]]) %>%
+      dplyr::mutate(series = "Observed-window SBAPC", value = delta_hat)
+  ) %>%
+    dplyr::mutate(
+      series = factor(series, levels = series_levels),
+      scenario_label = factor(as.character(scenario_label), levels = unname(SCEN_LABELS[setdiff(CANONICAL_SCENS, "freeze")]))
+    )
+
+  sum_df <- plot_df %>%
+    dplyr::group_by(scenario_label, period, series) %>%
+    dplyr::summarise(
+      p10 = as.numeric(stats::quantile(value, 0.10, na.rm = TRUE)),
+      med = stats::median(value, na.rm = TRUE),
+      p90 = as.numeric(stats::quantile(value, 0.90, na.rm = TRUE)),
+      .groups = "drop"
+    )
+
+  bounds <- realistic_effect %>%
+    dplyr::group_by(seed, dgp, scenario, sex) %>%
+    dplyr::summarise(
+      caution_start = suppressWarnings(min(period[support_frac < 0.50], na.rm = TRUE)),
+      risky_start = suppressWarnings(min(period[support_frac < 0.33], na.rm = TRUE)),
+      .groups = "drop"
+    )
+  identical_boundaries <- nrow(bounds) > 0 &&
+    dplyr::n_distinct(bounds$caution_start, na.rm = TRUE) <= 1 &&
+    dplyr::n_distinct(bounds$risky_start, na.rm = TRUE) <= 1
+  rects <- tibble::tibble()
+  vlines <- tibble::tibble()
+  if (identical_boundaries) {
+    x_min <- min(sum_df$period, na.rm = TRUE)
+    x_max <- max(sum_df$period, na.rm = TRUE)
+    caution_start <- unique(stats::na.omit(bounds$caution_start))[1]
+    risky_start <- unique(stats::na.omit(bounds$risky_start))[1]
+    rects <- tibble::tibble(
+      xmin = c(x_min, caution_start, risky_start),
+      xmax = c(caution_start, risky_start, x_max),
+      fill = c("#E8F3EA", "#FFF8D9", "#FBE4E6")
+    ) %>% dplyr::filter(is.finite(xmin), is.finite(xmax), xmax > xmin)
+    vlines <- tibble::tibble(period = c(caution_start, risky_start)) %>% dplyr::filter(is.finite(period))
+  }
+
+  pal <- c("Truth" = "black", "Full-support SBAPC" = "#1565C0", "Observed-window SBAPC" = "#D32F2F")
+  ltys <- c("Truth" = "dashed", "Full-support SBAPC" = "longdash", "Observed-window SBAPC" = "solid")
+  g <- ggplot2::ggplot(sum_df, ggplot2::aes(x = period, y = med, color = series, linetype = series))
+  if (nrow(rects)) {
+    for (i in seq_len(nrow(rects))) {
+      g <- g + ggplot2::geom_rect(
+        data = rects[i, ],
+        ggplot2::aes(xmin = xmin, xmax = xmax, ymin = -Inf, ymax = Inf),
+        inherit.aes = FALSE,
+        fill = rects$fill[i],
+        alpha = 0.45,
+        color = NA
+      )
+    }
+  }
+  if (isTRUE(include_band)) {
+    g <- g + ggplot2::geom_ribbon(
+      data = sum_df %>% dplyr::filter(as.character(series) %in% c("Truth", "Observed-window SBAPC", "Full-support SBAPC")),
+      ggplot2::aes(ymin = p10, ymax = p90, fill = series),
+      alpha = 0.08,
+      color = NA,
+      show.legend = FALSE
+    )
+  }
+  g +
+    ggplot2::geom_hline(yintercept = 0, linewidth = 0.35, color = "gray60") +
+    ggplot2::geom_vline(
+      data = vlines,
+      ggplot2::aes(xintercept = period),
+      inherit.aes = FALSE,
+      linetype = "dotted",
+      color = "gray45",
+      linewidth = 0.35
+    ) +
+    ggplot2::geom_line(linewidth = 0.9, na.rm = TRUE) +
+    ggplot2::facet_wrap(~scenario_label, nrow = 1, scales = "free_y") +
+    ggplot2::scale_color_manual(values = pal, breaks = series_levels) +
+    ggplot2::scale_linetype_manual(values = ltys, breaks = series_levels) +
+    ggplot2::scale_fill_manual(values = pal, breaks = series_levels) +
+    ggplot2::labs(x = "Year", y = "Annual mortality effect (deaths relative to freeze)",
+                  color = "Series", linetype = "Series") +
+    theme_paper_main(base_size = base_size) +
+    ggplot2::theme(
+      legend.position = "bottom",
+      strip.background = ggplot2::element_rect(fill = "gray95"),
+      panel.spacing = grid::unit(0.7, "lines")
+    )
+}
+
+summarise_support_window_comparison <- function(realistic_effect,
+                                                oracle_effect,
+                                                include_full = TRUE) {
+  real <- realistic_effect %>%
+    dplyr::filter(as.character(model) == MODEL_LABELS[["sbapc"]]) %>%
+    dplyr::select(seed, dgp, scenario, scenario_label, sex, period, delta_truth,
+                  delta_observed = delta_hat, support_frac)
+  full <- oracle_effect %>%
+    dplyr::filter(as.character(model) == MODEL_LABELS[["sbapc"]]) %>%
+    dplyr::select(seed, dgp, scenario, sex, period, delta_full = delta_hat)
+
+  joined <- real %>%
+    dplyr::inner_join(full, by = c("seed", "dgp", "scenario", "sex", "period")) %>%
+    add_horizon_region_rows(include_full = include_full) %>%
+    dplyr::filter(!is.na(horizon_region))
+
+  seed_level <- joined %>%
+    dplyr::group_by(scenario, scenario_label, horizon_region, seed, dgp, sex) %>%
+    dplyr::summarise(
+      true_cumulative = sum(delta_truth, na.rm = TRUE),
+      full_cumulative = sum(delta_full, na.rm = TRUE),
+      observed_cumulative = sum(delta_observed, na.rm = TRUE),
+      full_annual_mare_pct = 100 * sum(abs(delta_full - delta_truth), na.rm = TRUE) / pmax(sum(abs(delta_truth), na.rm = TRUE), 1e-9),
+      observed_annual_mare_pct = 100 * sum(abs(delta_observed - delta_truth), na.rm = TRUE) / pmax(sum(abs(delta_truth), na.rm = TRUE), 1e-9),
+      full_recovery_ratio = full_cumulative / dplyr::if_else(abs(true_cumulative) > 1e-9, true_cumulative, NA_real_),
+      observed_recovery_ratio = observed_cumulative / dplyr::if_else(abs(true_cumulative) > 1e-9, true_cumulative, NA_real_),
+      .groups = "drop"
+    ) %>%
+    dplyr::mutate(
+      mare_difference_pct = observed_annual_mare_pct - full_annual_mare_pct,
+      recovery_difference = observed_recovery_ratio - full_recovery_ratio
+    )
+
+  seed_level %>%
+    dplyr::group_by(scenario, scenario_label, horizon_region, sex) %>%
+    dplyr::summarise(
+      seeds = dplyr::n_distinct(seed),
+      full_annual_mare_pct = mean(full_annual_mare_pct, na.rm = TRUE),
+      observed_annual_mare_pct = mean(observed_annual_mare_pct, na.rm = TRUE),
+      mare_difference_pct = mean(mare_difference_pct, na.rm = TRUE),
+      full_recovery_ratio = stats::median(full_recovery_ratio, na.rm = TRUE),
+      observed_recovery_ratio = stats::median(observed_recovery_ratio, na.rm = TRUE),
+      recovery_difference = stats::median(recovery_difference, na.rm = TRUE),
+      .groups = "drop"
+    ) %>%
+    dplyr::arrange(factor(as.character(scenario), levels = c("up1pc", "down1pc", "quit")),
+                   factor(as.character(horizon_region), levels = c("Credible", "Caution", "Risky", "Full horizon")),
+                   sex)
+}
+
+export_support_window_table <- function(summary_df,
+                                        csv_out = file.path(OUT_APPENDIX, "tab_support_window_comparison.csv"),
+                                        tex_out = file.path(OUT_APPENDIX, "tab_support_window_comparison.tex")) {
+  readr::write_csv(summary_df, csv_out)
+  scen_tex <- latex_scenario_labels()
+  tab <- summary_df %>%
+    dplyr::filter(as.character(sex) == "Total") %>%
+    dplyr::mutate(scenario_tex = unname(scen_tex[as.character(scenario)]))
+  lines <- c(
+    "\\begin{tabular}{llrrrrrr}",
+    "\\hline",
+    "Scenario & Horizon & Full MARE & Observed MARE & Difference & Full recovery & Observed recovery & Difference \\\\",
+    "\\hline"
+  )
+  for (i in seq_len(nrow(tab))) {
+    row <- tab[i, ]
+    lines <- c(lines, sprintf(
+      "%s & %s & %.1f & %.1f & %.1f & %.2f & %.2f & %.2f \\\\",
+      row$scenario_tex, as.character(row$horizon_region),
+      row$full_annual_mare_pct, row$observed_annual_mare_pct, row$mare_difference_pct,
+      row$full_recovery_ratio, row$observed_recovery_ratio, row$recovery_difference
+    ))
+  }
+  lines <- c(lines, "\\hline", "\\end{tabular}")
+  writeLines(lines, tex_out, useBytes = TRUE)
+  invisible(tab)
+}
+
+filter_extracted_data <- function(data, seeds = NULL, dgps = NULL, scens = NULL) {
+  out <- data
+  for (nm in names(out)) {
+    if (!is.data.frame(out[[nm]])) next
+    df <- out[[nm]]
+    if (!is.null(seeds) && "seed" %in% names(df)) {
+      df <- df %>% dplyr::filter(seed %in% !!seeds)
+    }
+    if (!is.null(dgps) && "dgp" %in% names(df)) {
+      df <- df %>% dplyr::filter(as.character(dgp) %in% !!as.character(dgps))
+    }
+    if (!is.null(scens) && "scenario" %in% names(df)) {
+      df <- df %>% dplyr::filter(as.character(scenario) %in% !!as.character(scens))
+    }
+    out[[nm]] <- df
+  }
+  out
+}
+
+bind_extracted_data <- function(...) {
+  inputs <- list(...)
+  keys <- unique(unlist(lapply(inputs, names), use.names = FALSE))
+  stats::setNames(lapply(keys, function(key) {
+    vals <- lapply(inputs, function(x) x[[key]])
+    vals <- vals[vapply(vals, is.data.frame, logical(1))]
+    if (!length(vals)) return(tibble::tibble())
+    dplyr::bind_rows(vals)
+  }), keys)
+}
+
+write_support_window_interpretation_notes <- function(summary_df,
+                                                      common_seeds,
+                                                      file_out = file.path(OUT_APPENDIX, "support_window_interpretation_notes.md")) {
+  if (!nrow(summary_df)) {
+    lines <- c(
+      "# Support-Window Interpretation Notes",
+      "",
+      "The support-window comparison was not generated because no common complete seed set was available for the observed-window and full-support estimators."
+    )
+    writeLines(lines, file_out, useBytes = TRUE)
+    return(invisible(file_out))
+  }
+
+  total <- summary_df %>% dplyr::filter(as.character(sex) == "Total")
+  mean_diff <- mean(total$mare_difference_pct, na.rm = TRUE)
+  by_region <- total %>%
+    dplyr::mutate(
+      horizon_region = factor(as.character(horizon_region),
+                              levels = c("Credible", "Caution", "Risky", "Full horizon"))
+    ) %>%
+    dplyr::group_by(horizon_region) %>%
+    dplyr::summarise(mare_diff = mean(mare_difference_pct, na.rm = TRUE), .groups = "drop")
+  region_txt <- paste(
+    sprintf("%s: %.1f percentage points", as.character(by_region$horizon_region), by_region$mare_diff),
+    collapse = "; "
+  )
+  sex_gap <- summary_df %>%
+    dplyr::filter(as.character(sex) %in% c("M", "F", "Male", "Female")) %>%
+    dplyr::group_by(sex) %>%
+    dplyr::summarise(mare_diff = mean(mare_difference_pct, na.rm = TRUE), .groups = "drop")
+  sex_txt <- if (nrow(sex_gap)) {
+    paste(sprintf("%s: %.1f percentage points", sex_public_label(sex_gap$sex), sex_gap$mare_diff), collapse = "; ")
+  } else {
+    "Sex-specific support-window summaries were not included in the compact table."
+  }
+
+  lines <- c(
+    "# Support-Window Interpretation Notes",
+    "",
+    sprintf("This diagnostic uses %d common complete simulation seed(s) available in both the observed-window and full-support result directories.", length(common_seeds)),
+    "",
+    "1. Full-support SBAPC is compared with observed-window SBAPC as an oracle-style diagnostic, not as a feasible empirical estimator.",
+    sprintf("2. On average, the full-support estimator changes annual MARE by %.1f percentage points relative to observed-window SBAPC, where positive values mean lower error under full support.", mean_diff),
+    sprintf("3. By horizon region, the observed-window MARE minus full-support MARE is: %s.", region_txt),
+    "4. The comparison should be interpreted as evidence about support truncation only. It does not isolate every remaining source of discrepancy from Truth, including smoothing, APC extrapolation, and the sequential mortality mapping.",
+    sprintf("5. Sex-specific differences: %s", if (grepl("[.!?]$", sex_txt)) sex_txt else paste0(sex_txt, "."))
+  )
+  writeLines(lines, file_out, useBytes = TRUE)
+  invisible(file_out)
+}
+
+generate_support_window_products <- function(realistic_data = NULL,
+                                             oracle_data = NULL,
+                                             dgp = "spec_linear") {
+  realistic_seeds <- available_result_seeds(OUT_RAW, dgp = dgp)
+  oracle_seeds <- available_result_seeds(OUT_RAW_ORACLE, dgp = dgp)
+  common_seeds <- sort(intersect(realistic_seeds, oracle_seeds))
+
+  if (!length(common_seeds)) {
+    write_support_window_interpretation_notes(tibble::tibble(), integer(0))
+    return(invisible(list(status = "missing_common_seeds", seeds = integer(0))))
+  }
+
+  if (is.null(realistic_data)) {
+    realistic_data <- extract_all_metrics(seeds = common_seeds, dgps = dgp, raw_dir = OUT_RAW,
+                                          cache_suffix = paste0("support_realistic_", dgp))
+  }
+  if (is.null(oracle_data)) {
+    oracle_data <- extract_all_metrics(seeds = common_seeds, dgps = dgp, raw_dir = OUT_RAW_ORACLE,
+                                       cache_suffix = paste0("support_oracle_", dgp))
+  }
+  realistic_data <- filter_extracted_data(realistic_data, seeds = common_seeds, dgps = dgp)
+  oracle_data <- filter_extracted_data(oracle_data, seeds = common_seeds, dgps = dgp)
+
+  realistic_effect <- build_mortality_scenario_effects(data = realistic_data, sex_scope = "total")
+  oracle_effect <- build_mortality_scenario_effects(data = oracle_data, sex_scope = "total")
+
+  g <- plot_support_window_comparison(
+    realistic_effect = realistic_effect,
+    oracle_effect = oracle_effect,
+    include_band = length(common_seeds) >= 5,
+    base_size = paper_fig_base_size("support_window")
+  )
+  save_profiled_plot(g, file.path(OUT_APPENDIX, "fig_support_window_comparison"),
+                     key = "support_window", bg = "white")
+
+  support_summary <- summarise_support_window_comparison(realistic_effect, oracle_effect)
+  export_support_window_table(support_summary)
+  write_support_window_interpretation_notes(support_summary, common_seeds)
+
+  invisible(list(status = "generated", seeds = common_seeds, summary = support_summary))
+}
+
+plot_misspecification_scenario_recovery <- function(effect_df,
+                                                    show_band = TRUE,
+                                                    show_horizon_overlay = TRUE,
+                                                    base_size = paper_fig_base_size("misspecification")) {
+  truth_df <- effect_df %>%
+    dplyr::distinct(seed, dgp, scenario, scenario_label, sex, period, delta_truth, support_frac) %>%
+    dplyr::mutate(series = MODEL_LABELS[["truth"]], value = delta_truth)
+  sbapc_df <- effect_df %>%
+    dplyr::filter(as.character(model) == MODEL_LABELS[["sbapc"]]) %>%
+    dplyr::mutate(series = MODEL_LABELS[["sbapc"]], value = delta_hat)
+  plot_df <- dplyr::bind_rows(
+    truth_df %>% dplyr::select(seed, dgp, scenario, scenario_label, sex, period, support_frac, series, value),
+    sbapc_df %>% dplyr::select(seed, dgp, scenario, scenario_label, sex, period, support_frac, series, value)
+  ) %>%
+    dplyr::mutate(
+      design = factor(dgp_public_label(dgp), levels = unname(DGP_LABELS[c("spec_linear", "misspec_tanh")])),
+      scenario_label = factor(as.character(scenario_label), levels = unname(SCEN_LABELS[setdiff(CANONICAL_SCENS, "freeze")])),
+      series = factor(series, levels = c(MODEL_LABELS[["truth"]], MODEL_LABELS[["sbapc"]]))
+    )
+
+  sum_df <- plot_df %>%
+    dplyr::group_by(design, scenario_label, period, series) %>%
+    dplyr::summarise(
+      p10 = as.numeric(stats::quantile(value, 0.10, na.rm = TRUE)),
+      med = stats::median(value, na.rm = TRUE),
+      p90 = as.numeric(stats::quantile(value, 0.90, na.rm = TRUE)),
+      .groups = "drop"
+    )
+
+  bounds <- plot_df %>%
+    dplyr::group_by(seed, dgp, scenario, sex) %>%
+    dplyr::summarise(
+      caution_start = suppressWarnings(min(period[support_frac < 0.50], na.rm = TRUE)),
+      risky_start = suppressWarnings(min(period[support_frac < 0.33], na.rm = TRUE)),
+      .groups = "drop"
+    ) %>%
+    dplyr::mutate(
+      caution_start = dplyr::if_else(is.finite(caution_start), as.integer(caution_start), NA_integer_),
+      risky_start = dplyr::if_else(is.finite(risky_start), as.integer(risky_start), NA_integer_)
+    )
+  identical_boundaries <- nrow(bounds) > 0 &&
+    dplyr::n_distinct(bounds$caution_start, na.rm = TRUE) <= 1 &&
+    dplyr::n_distinct(bounds$risky_start, na.rm = TRUE) <= 1
+  rects <- tibble::tibble()
+  vlines <- tibble::tibble()
+  if (isTRUE(show_horizon_overlay) && identical_boundaries) {
+    x_min <- min(sum_df$period, na.rm = TRUE)
+    x_max <- max(sum_df$period, na.rm = TRUE)
+    caution_start <- unique(stats::na.omit(bounds$caution_start))[1]
+    risky_start <- unique(stats::na.omit(bounds$risky_start))[1]
+    rects <- tibble::tibble(
+      xmin = c(x_min, caution_start, risky_start),
+      xmax = c(caution_start, risky_start, x_max),
+      fill = c("#E8F3EA", "#FFF8D9", "#FBE4E6")
+    ) %>% dplyr::filter(is.finite(xmin), is.finite(xmax), xmax > xmin)
+    vlines <- tibble::tibble(period = c(caution_start, risky_start)) %>% dplyr::filter(is.finite(period))
+  }
+
+  pal <- MODEL_COLORS[c(MODEL_LABELS[["truth"]], MODEL_LABELS[["sbapc"]])]
+  ltys <- MODEL_LINETYPES[c(MODEL_LABELS[["truth"]], MODEL_LABELS[["sbapc"]])]
+  g <- ggplot2::ggplot(sum_df, ggplot2::aes(x = period, y = med, color = series, linetype = series))
+  if (nrow(rects)) {
+    for (i in seq_len(nrow(rects))) {
+      g <- g + ggplot2::geom_rect(
+        data = rects[i, ],
+        ggplot2::aes(xmin = xmin, xmax = xmax, ymin = -Inf, ymax = Inf),
+        inherit.aes = FALSE,
+        fill = rects$fill[i],
+        alpha = 0.45,
+        color = NA
+      )
+    }
+  }
+  if (isTRUE(show_band)) {
+    g <- g + ggplot2::geom_ribbon(
+      ggplot2::aes(ymin = p10, ymax = p90, fill = series),
+      alpha = 0.10,
+      color = NA,
+      show.legend = FALSE
+    )
+  }
+  g +
+    ggplot2::geom_hline(yintercept = 0, linewidth = 0.35, color = "gray60") +
+    ggplot2::geom_vline(
+      data = vlines,
+      ggplot2::aes(xintercept = period),
+      inherit.aes = FALSE,
+      linetype = "dotted",
+      color = "gray45",
+      linewidth = 0.35
+    ) +
+    ggplot2::geom_line(linewidth = 0.85, na.rm = TRUE) +
+    ggplot2::facet_grid(design ~ scenario_label, scales = "free_y") +
+    ggplot2::scale_color_manual(values = pal, breaks = names(pal)) +
+    ggplot2::scale_linetype_manual(values = ltys, breaks = names(ltys)) +
+    ggplot2::scale_fill_manual(values = pal, breaks = names(pal)) +
+    ggplot2::labs(x = "Year", y = "Annual mortality effect (deaths relative to freeze)",
+                  color = "Series", linetype = "Series") +
+    theme_paper_main(base_size = base_size) +
+    ggplot2::theme(
+      legend.position = "bottom",
+      strip.background = ggplot2::element_rect(fill = "gray95"),
+      panel.spacing = grid::unit(0.65, "lines")
+    )
+}
+
+summarise_misspecification_summary <- function(effect_df, include_full = TRUE) {
+  region_df <- effect_df %>%
+    dplyr::filter(as.character(model) == MODEL_LABELS[["sbapc"]]) %>%
+    add_horizon_region_rows(include_full = include_full) %>%
+    dplyr::filter(!is.na(horizon_region))
+
+  seed_level <- region_df %>%
+    dplyr::group_by(dgp, scenario, scenario_label, horizon_region, seed) %>%
+    dplyr::summarise(
+      true_cumulative = sum(delta_truth, na.rm = TRUE),
+      estimated_cumulative = sum(delta_hat, na.rm = TRUE),
+      recovery_ratio = estimated_cumulative / dplyr::if_else(abs(true_cumulative) > 1e-9, true_cumulative, NA_real_),
+      annual_mare_pct = 100 * sum(abs(delta_hat - delta_truth), na.rm = TRUE) /
+        pmax(sum(abs(delta_truth), na.rm = TRUE), 1e-9),
+      sign_agreement_pct = {
+        keep <- is.finite(delta_truth) & abs(delta_truth) > 1e-6 & is.finite(delta_hat)
+        if (any(keep)) mean(sign(delta_hat[keep]) == sign(delta_truth[keep])) * 100 else NA_real_
+      },
+      .groups = "drop"
+    )
+
+  seed_level %>%
+    dplyr::group_by(dgp, scenario, scenario_label, horizon_region) %>%
+    dplyr::summarise(
+      design = dgp_public_label(dgp[1]),
+      seeds = dplyr::n_distinct(seed),
+      annual_mare_pct_mean = mean(annual_mare_pct, na.rm = TRUE),
+      recovery_ratio_median = stats::median(recovery_ratio, na.rm = TRUE),
+      sign_agreement_pct_mean = mean(sign_agreement_pct, na.rm = TRUE),
+      .groups = "drop"
+    ) %>%
+    dplyr::arrange(factor(as.character(dgp), levels = c("spec_linear", "misspec_tanh")),
+                   factor(as.character(scenario), levels = c("up1pc", "down1pc", "quit")),
+                   factor(as.character(horizon_region), levels = c("Credible", "Caution", "Risky", "Full horizon")))
+}
+
+export_misspecification_summary_table <- function(summary_df,
+                                                  csv_out = file.path(OUT_APPENDIX, "tab_misspecification_summary.csv"),
+                                                  tex_out = file.path(OUT_APPENDIX, "tab_misspecification_summary.tex")) {
+  readr::write_csv(summary_df, csv_out)
+  scen_tex <- latex_scenario_labels()
+  tab <- summary_df %>%
+    dplyr::mutate(scenario_tex = unname(scen_tex[as.character(scenario)]))
+  lines <- c(
+    "\\begin{tabular}{lllrrr}",
+    "\\hline",
+    "Design & Scenario & Horizon & Annual MARE (\\%) & Recovery & Sign agreement (\\%) \\\\",
+    "\\hline"
+  )
+  for (i in seq_len(nrow(tab))) {
+    row <- tab[i, ]
+    lines <- c(lines, sprintf(
+      "%s & %s & %s & %.1f & %.2f & %.1f \\\\",
+      row$design, row$scenario_tex, as.character(row$horizon_region),
+      row$annual_mare_pct_mean, row$recovery_ratio_median, row$sign_agreement_pct_mean
+    ))
+  }
+  lines <- c(lines, "\\hline", "\\end{tabular}")
+  writeLines(lines, tex_out, useBytes = TRUE)
+  invisible(tab)
+}
+
+write_misspecification_interpretation_notes <- function(summary_df = tibble::tibble(),
+                                                        file_out = file.path(OUT_APPENDIX, "misspecification_interpretation_notes.md")) {
+  if (!nrow(summary_df)) {
+    lines <- c(
+      "# Misspecification Interpretation Notes",
+      "",
+      "The misspecification robustness outputs were not generated because the `misspec_tanh` simulation results were not available in the current result directory.",
+      "",
+      "To generate them, run the misspecified design with the same seed set and then rerun `generate_appendix_c()`."
+    )
+    writeLines(lines, file_out, useBytes = TRUE)
+    return(invisible(file_out))
+  }
+  full_horizon <- summary_df %>%
+    dplyr::filter(as.character(horizon_region) == "Full horizon") %>%
+    dplyr::group_by(design) %>%
+    dplyr::summarise(
+      annual_mare_pct = mean(annual_mare_pct_mean, na.rm = TRUE),
+      recovery_ratio = mean(recovery_ratio_median, na.rm = TRUE),
+      sign_agreement_pct = mean(sign_agreement_pct_mean, na.rm = TRUE),
+      .groups = "drop"
+    ) %>%
+    dplyr::mutate(
+      design = factor(design, levels = unname(DGP_LABELS[c("spec_linear", "misspec_tanh")]))
+    ) %>%
+    dplyr::arrange(design)
+  design_txt <- paste(
+    sprintf("%s: MARE %.1f%%, recovery %.2f, sign agreement %.1f%%",
+            full_horizon$design, full_horizon$annual_mare_pct,
+            full_horizon$recovery_ratio, full_horizon$sign_agreement_pct),
+    collapse = "; "
+  )
+  lines <- c(
+    "# Misspecification Interpretation Notes",
+    "",
+    "The robustness exercise compares SBAPC recovery of mortality scenario effects under the well-specified design and under a monotone but misspecified transmission rule.",
+    sprintf("Full-horizon averages across scenarios are: %s.", design_txt),
+    "Interpretation should focus on degradation relative to the well-specified design, preservation of scenario ordering and signs, and whether the largest discrepancies are concentrated in the lower-support projection horizons."
+  )
+  writeLines(lines, file_out, useBytes = TRUE)
+  invisible(file_out)
+}
+
+generate_misspecification_products <- function(seeds = CANONICAL_SEEDS) {
+  spec_seeds <- available_result_seeds(OUT_RAW, dgp = "spec_linear")
+  misspec_seeds <- available_result_seeds(OUT_RAW, dgp = "misspec_tanh")
+  common_seeds <- sort(Reduce(intersect, list(seeds, spec_seeds, misspec_seeds)))
+  if (!length(common_seeds)) {
+    write_misspecification_interpretation_notes()
+    return(invisible(list(status = "missing_misspecification_results", seeds = integer(0))))
+  }
+
+  spec_data <- extract_all_metrics(
+    seeds = common_seeds,
+    dgps = "spec_linear",
+    raw_dir = OUT_RAW,
+    cache_suffix = NULL
+  )
+  spec_data <- filter_extracted_data(spec_data, seeds = common_seeds, dgps = "spec_linear")
+  misspec_data <- extract_all_metrics(
+    seeds = common_seeds,
+    dgps = "misspec_tanh",
+    raw_dir = OUT_RAW,
+    cache_suffix = "misspec_tanh"
+  )
+  data <- bind_extracted_data(spec_data, misspec_data)
+  data <- filter_extracted_data(data, seeds = common_seeds, dgps = c("spec_linear", "misspec_tanh"))
+  effect_total <- build_mortality_scenario_effects(data = data, sex_scope = "total")
+
+  g <- plot_misspecification_scenario_recovery(
+    effect_total,
+    show_band = length(common_seeds) >= 5,
+    base_size = paper_fig_base_size("misspecification")
+  )
+  save_profiled_plot(g, file.path(OUT_APPENDIX, "fig_misspecification_scenario_recovery"),
+                     key = "misspecification", bg = "white")
+
+  misspec_summary <- summarise_misspecification_summary(effect_total)
+  export_misspecification_summary_table(misspec_summary)
+  write_misspecification_interpretation_notes(misspec_summary)
+
+  invisible(list(status = "generated", seeds = common_seeds, summary = misspec_summary))
+}
+
+write_seed_level_figure_recommendation <- function(file_out = file.path(OUT_APPENDIX, "seed_level_figure_recommendation.md")) {
+  lines <- c(
+    "# Seed-Level Figure Recommendation",
+    "",
+    "Recommendation: retain no more than two seed-level figures in Appendix C. Keep them explicitly illustrative and do not use them as evidence for average performance.",
+    "",
+    "## Retain",
+    "",
+    "### `fig_transmission_map_support_compare_seed4_M.svg`",
+    "Shows the prevalence-to-effective-exposure-to-incidence-to-mortality chain for one male seed, including Truth, Observed-window SBAPC, and Full-support SBAPC. It is useful because it makes the support-window issue visible along the sequential mechanism. It is technical, so it belongs in Appendix C rather than the main text.",
+    "",
+    "### `fig_case_study_median_s9.svg`",
+    "Shows a representative single-seed trajectory diagnostic for the quit scenario. It is useful as a concrete visual complement to aggregate recovery figures. It should remain in Appendix C only.",
+    "",
+    "## Drop Or Keep As Internal Diagnostics",
+    "",
+    "- `fig_scenario_atlas_seed4_M.svg` and `fig_scenario_atlas_seed4_F.svg`: visually rich but redundant with the aggregate scenario-effect recovery figure.",
+    "- `fig_waterfall_seed4.svg`: useful for internal explanation, but the transmission-map figure is a more direct chain diagnostic.",
+    "- `fig_sensitivity_seed4.svg`: single-seed scenario sensitivity is redundant once scenario-effect recovery is aggregated across seeds.",
+    "- `fig_transmission_map_seed4_M.svg`: superseded by the support-comparison transmission map if that diagnostic is retained.",
+    "- `fig_transmission_map_support_compare_seed4_F.svg`: useful only if sex-specific support-window differences need visual documentation.",
+    "- `fig_case_study_best_s26.svg` and `fig_case_study_worst_s41.svg`: useful internally for stress-testing, but too anecdotal for the supplement unless the text explicitly discusses heterogeneity across seeds."
+  )
+  writeLines(lines, file_out, useBytes = TRUE)
+  invisible(file_out)
+}
+
+write_float_inventories <- function() {
+  section4 <- c(
+    "# Section 4 Float Inventory",
+    "",
+    "Recommended main-text set: one central scenario-effect recovery figure and one compact cumulative recovery table. The chain-recovery table is useful if the text explicitly discusses the sequential mechanism; otherwise it can move to Appendix C.",
+    "",
+    "| Filename | Placement | Purpose | Document | Priority |",
+    "|---|---|---|---|---|",
+    "| `fig_scenario_effect_recovery.svg` | Section 4 main results | Shows aggregate recovery of mortality scenario effects relative to freeze for Truth, SBAPC, and the scenario-blind BAPC benchmark. | Main text | Essential |",
+    "| `tab_cumulative_scenario_recovery.tex` | After the central figure | Summarizes cumulative mortality-effect recovery by scenario and endogenous horizon region. | Main text | Essential |",
+    "| `tab_chain_recovery.tex` | Later in Section 4 or Appendix C | Checks whether the freeze-baseline sequential chain is recovered at intermediate and mortality levels. | Main text or Appendix C | Useful |",
+    "| `fig_reliability_calibration.svg` | Appendix C reference only | Calibration diagnostic for uncertainty summaries, not the central validation target. | Appendix C | Optional |",
+    "| Support-window diagnostic | Mention in text, refer to Appendix C | Documents how observed support restrictions affect recovery relative to a full-support diagnostic estimator. | Appendix C | Useful |"
+  )
+  appendix <- c(
+    "# Appendix C Float Inventory",
+    "",
+    "| Filename | Placement | Purpose | Document | Priority |",
+    "|---|---|---|---|---|",
+    "| `fig_scenario_effect_recovery_bysex.svg` | Extended scenario-effect recovery | Shows by-sex scenario-effect recovery, including the incidence-anchored diagnostic variant. | Appendix C | Essential |",
+    "| `fig_support_window_comparison.svg` | Support-window diagnostics | Compares Truth, Full-support SBAPC, and Observed-window SBAPC for mortality scenario effects. | Appendix C | Useful |",
+    "| `tab_support_window_comparison.tex` | Support-window diagnostics | Quantifies the observed-window penalty by horizon region. | Appendix C | Useful |",
+    "| `fig_misspecification_scenario_recovery.svg` | Robustness | Assesses degradation under the misspecified monotone transmission design once those simulations are available. | Appendix C | Useful |",
+    "| `tab_misspecification_summary.tex` | Robustness | Compact numerical summary of misspecification performance. | Appendix C | Useful |",
+    "| `fig_reliability_calibration.svg` | Uncertainty diagnostics | Calibration diagnostic for predictive summaries; secondary to scenario-effect recovery. | Appendix C | Useful |",
+    "| `fig_transmission_map_support_compare_seed4_M.svg` | Seed-level illustration | Visualizes the sequential chain and support-window comparison for one illustrative seed. | Appendix C | Useful |",
+    "| `fig_case_study_median_s9.svg` | Seed-level illustration | Shows a representative trajectory case study. | Appendix C | Optional |",
+    "| `fig_bias_distributions.svg` | Extended performance diagnostics | Shows bias dispersion across simulations. | Appendix C | Optional |"
+  )
+  writeLines(section4, file.path(OUT_SEC4, "section4_float_inventory.md"), useBytes = TRUE)
+  writeLines(appendix, file.path(OUT_APPENDIX, "appendixC_float_inventory.md"), useBytes = TRUE)
+  invisible(TRUE)
+}
+
 generate_scenario_effect_products <- function(data = NULL) {
   if (is.null(data)) data <- extract_all_metrics()
 
@@ -1334,6 +2400,7 @@ generate_scenario_effect_products <- function(data = NULL) {
   effect_bysex <- build_mortality_scenario_effects(data = data, sex_scope = "by_sex")
   summary_total <- summarise_scenario_effect_recovery(effect_total)
   summary_bysex <- summarise_scenario_effect_recovery(effect_bysex)
+  horizon_boundary_audit(data)
 
   readr::write_csv(effect_total, file.path(OUT_SEC4, "scenario_effect_recovery_detail_total.csv"))
   readr::write_csv(summary_total, file.path(OUT_SEC4, "scenario_effect_recovery_summary.csv"))
@@ -1344,6 +2411,12 @@ generate_scenario_effect_products <- function(data = NULL) {
     summary_total,
     file.path(OUT_SEC4, "tab_scenario_effect_recovery.tex")
   )
+  cumulative_summary <- summarise_cumulative_scenario_recovery(effect_total)
+  export_cumulative_scenario_recovery_table(cumulative_summary)
+
+  chain_df <- build_chain_recovery_data()
+  chain_summary <- summarise_chain_recovery(chain_df)
+  export_chain_recovery_table(chain_summary)
 
   g_main <- plot_scenario_effect_recovery(
     effect_total,
@@ -1360,7 +2433,8 @@ generate_scenario_effect_products <- function(data = NULL) {
   save_profiled_plot(g_bysex, file.path(OUT_APPENDIX, "fig_scenario_effect_recovery_bysex"), key = "scenario_effect_bysex", bg = "white")
 
   invisible(list(effect_total = effect_total, effect_bysex = effect_bysex,
-                 summary_total = summary_total, summary_bysex = summary_bysex))
+                 summary_total = summary_total, summary_bysex = summary_bysex,
+                 cumulative_summary = cumulative_summary, chain_summary = chain_summary))
 }
 
 plot_reliability_calibration <- function(data, base_size = paper_fig_base_size("reliability")) {
@@ -1465,13 +2539,10 @@ replicate_main_paper <- function() {
   export_latex_bias_summary(data$metrics, file.path(OUT_SEC4, "tab_bias_summary.tex"))
   write_csv(data$metrics, file.path(OUT_RAW, "all_metrics.csv"))
   
-  # 6. Reliability Plot
-  g3 <- plot_reliability_calibration(data)
-  save_profiled_plot(g3, file.path(OUT_SEC4, "fig_reliability_calibration"), key = "reliability", bg = "white")
-  
-  # 7. Support Summary
+  # 6. Support Summary
   write_csv(data$support, file.path(OUT_SEC4, "support_summary.csv"))
   write_figure_titles_notes("section4")
+  write_float_inventories()
   
   message("\nMain paper replication files generated in: ", OUT_SEC4)
 }
@@ -1520,9 +2591,20 @@ generate_appendix_c <- function() {
     save_profiled_plot(g_case, file.path(OUT_APPENDIX, sprintf("fig_case_study_%s_s%d", tolower(lbl), s)), key = "case_study", bg = "white")
   }
   
-  # 3. Full Detailed Table (CSV)
+  # 3. Reliability calibration is an appendix diagnostic, not a main-text result.
+  g_reliability <- plot_reliability_calibration(data)
+  save_profiled_plot(g_reliability, file.path(OUT_APPENDIX, "fig_reliability_calibration"),
+                     key = "reliability", bg = "white")
+
+  # 4. Support-window and misspecification diagnostics.
+  generate_support_window_products(realistic_data = data)
+  generate_misspecification_products()
+
+  # 5. Recommendations and full detailed table (CSV)
+  write_seed_level_figure_recommendation()
   write_csv(data$metrics, file.path(OUT_APPENDIX, "full_simulation_matrix.csv"))
   write_figure_titles_notes("appendixC", case_seeds = case_seeds)
+  write_float_inventories()
   
   message("\nAppendix C replication files generated in: ", OUT_APPENDIX)
 }
