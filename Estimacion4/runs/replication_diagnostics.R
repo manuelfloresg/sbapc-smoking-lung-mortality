@@ -1519,8 +1519,8 @@ latex_table_open <- function(colspec) {
   )
 }
 
-latex_table_close <- function(note) {
-  c("\\bottomrule", "\\end{tabular}", latex_note_block(note))
+latex_table_close <- function(note = NULL) {
+  c("\\bottomrule", "\\end{tabular}", "\\endgroup")
 }
 
 compact_scenario_label <- function(x) {
@@ -1642,8 +1642,10 @@ summarise_cumulative_scenario_recovery <- function(effect_df,
 export_cumulative_scenario_recovery_table <- function(summary_df,
                                                       csv_out = file.path(OUT_SEC4, "tab_cumulative_scenario_recovery.csv"),
                                                       tex_out = file.path(OUT_SEC4, "tab_cumulative_scenario_recovery.tex")) {
-  readr::write_csv(summary_df, csv_out)
-  tab <- summary_df %>%
+  table_df <- summary_df %>%
+    dplyr::filter(as.character(horizon_region) %in% c("Credible", "Caution", "Risky"))
+  readr::write_csv(table_df, csv_out)
+  tab <- table_df %>%
     dplyr::mutate(
       scenario_tex = compact_scenario_label(scenario),
       horizon = as.character(horizon_region),
@@ -2013,8 +2015,10 @@ summarise_support_window_comparison <- function(realistic_effect,
 export_support_window_table <- function(summary_df,
                                         csv_out = file.path(OUT_APPENDIX, "tab_support_window_comparison.csv"),
                                         tex_out = file.path(OUT_APPENDIX, "tab_support_window_comparison.tex")) {
-  readr::write_csv(summary_df, csv_out)
-  tab <- summary_df %>%
+  table_df <- summary_df %>%
+    dplyr::filter(as.character(horizon_region) %in% c("Credible", "Caution", "Risky"))
+  readr::write_csv(table_df, csv_out)
+  tab <- table_df %>%
     dplyr::filter(as.character(sex) == "Total") %>%
     dplyr::mutate(scenario_tex = compact_scenario_label(scenario))
   lines <- c(latex_table_open("llrrrr"),
@@ -2308,8 +2312,10 @@ summarise_misspecification_summary <- function(effect_df, include_full = TRUE) {
 export_misspecification_summary_table <- function(summary_df,
                                                   csv_out = file.path(OUT_APPENDIX, "tab_misspecification_summary.csv"),
                                                   tex_out = file.path(OUT_APPENDIX, "tab_misspecification_summary.tex")) {
-  readr::write_csv(summary_df, csv_out)
-  tab <- summary_df %>%
+  table_df <- summary_df %>%
+    dplyr::filter(as.character(horizon_region) %in% c("Credible", "Caution", "Risky"))
+  readr::write_csv(table_df, csv_out)
+  tab <- table_df %>%
     dplyr::mutate(scenario_tex = compact_scenario_label(scenario))
   lines <- c(latex_table_open("lllrrr"),
              "Design & Scenario & Horizon & MARE (\\%) & Recovery & Sign (\\%) \\\\",
