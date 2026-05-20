@@ -94,14 +94,6 @@ sex_public <- function(x) dplyr::recode(as.character(x), M = "Male", F = "Female
 
 metric_public <- function(x) dplyr::recode(as.character(x), incidence = "Incidence", mortality = "Mortality", .default = as.character(x))
 
-main_series_for_metric <- function(metric) {
-  if (identical(metric, "incidence")) "I|P" else "M|I|P"
-}
-
-benchmark_series_for_metric <- function(metric) {
-  if (identical(metric, "incidence")) "I" else "BAPC benchmark"
-}
-
 extract_mortality_bapc <- function(run_out, scenario_name) {
   rows <- list()
   for (sx in c("M", "F")) {
@@ -119,7 +111,43 @@ extract_mortality_bapc <- function(run_out, scenario_name) {
         upr = as.numeric(deaths_upr)
       )
   }
-  dplyr::bind_rows(rows)
+  out <- dplyr::bind_rows(rows)
+  horizon_year <- tryCatch(
+    projection_common_max_year_from_res_both(run_out$res, policy = "endogenous_max"),
+    error = function(e) NA_integer_
+  )
+  if (is.finite(horizon_year)) {
+    out <- clip_to_year(out, max_year = horizon_year, year_var = "period")
+  }
+
+  horizon_zone <- dplyr::bind_rows(
+    tryCatch(run_out$res$resM$diag$projection_horizon_year, error = function(e) NULL),
+    tryCatch(run_out$res$resF$diag$projection_horizon_year, error = function(e) NULL)
+  )
+  if (is.data.frame(horizon_zone) && nrow(horizon_zone)) {
+    horizon_zone <- horizon_zone |>
+      dplyr::transmute(
+        sex = as.character(sex),
+        period = suppressWarnings(as.integer(period)),
+        projection_zone = as.character(projection_zone)
+      )
+    out <- out |> dplyr::left_join(horizon_zone, by = c("sex", "period"))
+  } else {
+    out$projection_zone <- NA_character_
+  }
+
+  hist_cutoff <- tryCatch(suppressWarnings(as.integer(run_out$res$combined$last_hist_year)[1]), error = function(e) NA_integer_)
+  if (is.finite(hist_cutoff)) {
+    out <- out |>
+      dplyr::mutate(
+        projection_zone = dplyr::case_when(
+          period <= hist_cutoff ~ "historical",
+          TRUE ~ dplyr::coalesce(projection_zone, "beyond_max")
+        ),
+        projection_zone = factor(projection_zone, levels = c("historical", "credible", "caution", "risky", "beyond_max"))
+      )
+  }
+  out
 }
 
 combined_projection_tables <- function(run_list, scenarios = names(run_list)) {
@@ -245,7 +273,11 @@ run_uruguay_lung_rebuilt_all_scenarios <- function(run_cfg = get("run_cfg", envi
 
 plot_uruguay_projection_panel <- function(run_list, show_ci = FALSE) {
   proj <- combined_projection_tables(run_list) |>
-    dplyr::filter(series == main_series_for_metric(metric), period >= 2022) |>
+    dplyr::filter(
+      period >= 2022,
+      (metric == "incidence" & series == "I|P") |
+        (metric == "mortality" & series == "M|I|P")
+    ) |>
     prepare_segmented_lines()
   obs <- observed_projection_tables(run_list) |>
     dplyr::filter(period >= 1998, period <= 2022)
@@ -289,6 +321,51 @@ plot_uruguay_projection_panel <- function(run_list, show_ci = FALSE) {
     g <- g + ggplot2::scale_fill_manual(values = URUGUAY_COLORS, name = "Scenario")
   }
   g
+}
+
+build_uruguay_mortality_effects <- function(run_list) {
+  proj <- combined_projection_tables(run_list) |>
+    dplyr::filter(period > 2022, sex %in% c("M", "F"), metric == "mortality", series == "M|I|P") |>
+    dplyr::group_by(scenario, scenario_label, period) |>
+    dplyr::summarise(mean = sum(mean, na.rm = TRUE), .groups = "drop")
+  freeze <- proj |>
+    dplyr::filter(as.character(scenario) == "freeze") |>
+    dplyr::select(period, freeze_mean = mean)
+  total_h <- get_total_horizon(run_list)
+  proj |>
+    dplyr::filter(as.character(scenario) != "freeze") |>
+    dplyr::left_join(freeze, by = "period") |>
+    dplyr::mutate(
+      effect = mean - freeze_mean,
+      horizon = horizon_region_from_year(period, total_h),
+      projection_zone = factor(tolower(horizon), levels = c("credible", "caution", "risky", "beyond_max")),
+      metric = "mortality_effect",
+      sex = "T",
+      series = "SBAPC"
+    ) |>
+    dplyr::filter(!is.na(horizon)) |>
+    prepare_segmented_lines()
+}
+
+plot_uruguay_mortality_effects <- function(run_list) {
+  df <- build_uruguay_mortality_effects(run_list)
+  ggplot2::ggplot(df, ggplot2::aes(period, effect, color = scenario_label, linetype = projection_zone,
+                                   group = interaction(scenario_label, zone_group))) +
+    ggplot2::geom_hline(yintercept = 0, color = "grey50", linewidth = 0.35) +
+    ggplot2::geom_line(linewidth = 0.82, na.rm = TRUE) +
+    ggplot2::scale_color_manual(values = URUGUAY_COLORS, name = "Scenario") +
+    ggplot2::scale_linetype_manual(
+      values = URUGUAY_ZONE_LINETYPES,
+      breaks = c("credible", "caution", "risky"),
+      labels = c("Credible", "Caution", "Risky"),
+      name = "Horizon"
+    ) +
+    ggplot2::labs(x = "Year", y = "Annual deaths relative to frozen prevalence") +
+    theme_paper_main(base_size = 11.2) +
+    ggplot2::theme(
+      legend.position = "bottom",
+      legend.box = "vertical"
+    )
 }
 
 extract_smoking_exposure <- function(run_list) {
@@ -630,15 +707,15 @@ write_uruguay_notes_and_inventories <- function() {
   section5_fig <- c(
     "# Figure Titles and Notes: Section 5",
     "",
-    "## fig_uruguay_smoking_exposure",
-    "Files: fig_uruguay_smoking_exposure.svg, fig_uruguay_smoking_exposure.pdf",
-    "Title: Estimated smoking exposure under prevalence scenarios",
-    "Note: Panels report model-implied current smoking prevalence and effective smoking exposure for the lung-cancer incidence layer, aggregated over the incidence age range using exposure weights. Source: Own elaboration.",
-    "",
     "## fig_uruguay_projection_panel",
     "Files: fig_uruguay_projection_panel.svg, fig_uruguay_projection_panel.pdf",
     "Title: Lung-cancer incidence and mortality projections in Uruguay",
-    "Note: Black lines show historical preprocessed inputs. Colored lines show SBAPC projections under smoking-prevalence scenarios; line type indicates the endogenous horizon region. Source: Own elaboration."
+    "Note: Black lines show historical preprocessed inputs. Colored lines show SBAPC projections under smoking-prevalence scenarios; line type indicates the endogenous horizon region. Source: Own elaboration.",
+    "",
+    "## fig_uruguay_mortality_effects",
+    "Files: fig_uruguay_mortality_effects.svg, fig_uruguay_mortality_effects.pdf",
+    "Title: Annual mortality effects of smoking-prevalence scenarios in Uruguay",
+    "Note: Lines report projected annual deaths relative to the frozen-prevalence scenario, summed over sexes. Line type indicates the endogenous horizon region. Source: Own elaboration."
   )
   writeLines(section5_fig, file.path(OUT_SECTION5, "figure_titles_notes.md"), useBytes = TRUE)
 
@@ -666,7 +743,7 @@ write_uruguay_notes_and_inventories <- function() {
     "## fig_uruguay_benchmark_comparison",
     "Files: fig_uruguay_benchmark_comparison.svg, fig_uruguay_benchmark_comparison.pdf",
     "Title: SBAPC and BAPC benchmark projections",
-    "Note: The display contrasts scenario-responsive SBAPC projections with the scenario-blind BAPC benchmark. Source: Own elaboration.",
+    "Note: The display contrasts scenario-responsive SBAPC projections with the scenario-blind BAPC benchmark over the common endogenous projection horizon. Source: Own elaboration.",
     "",
     "## fig_uruguay_horizon_support",
     "Files: fig_uruguay_horizon_support.svg, fig_uruguay_horizon_support.pdf",
@@ -693,8 +770,8 @@ write_uruguay_notes_and_inventories <- function() {
     "",
     "| Filename | Document | Priority | Aggregation | SVG+PDF | Source note | Purpose |",
     "|---|---|---|---|---|---|---|",
-    "| `fig_uruguay_smoking_exposure` | Main text | Useful | Sex-specific annual aggregates | Yes | Yes | Shows the upstream smoking signal and effective exposure entering the incidence layer. |",
     "| `fig_uruguay_projection_panel` | Main text | Essential | Sex-specific annual counts | Yes | Yes | Main empirical projection figure for incidence and mortality under the four smoking scenarios. |",
+    "| `fig_uruguay_mortality_effects` | Main text | Essential | Both-sex annual effects | Yes | Yes | Shows mortality scenario effects relative to frozen prevalence, the main empirical estimand. |",
     "| `tab_uruguay_cumulative_effects` | Main text | Useful | Both-sex cumulative effects | Not applicable | Yes | Compact numerical summary of scenario contrasts relative to frozen prevalence. |",
     "| `tab_uruguay_transmission_inputs` | Main text or Appendix D | Optional | Sex-specific inputs | Not applicable | Yes | Documents the fixed external inputs used by the lung-cancer transmission block. |"
   )
@@ -722,13 +799,15 @@ export_uruguay_products <- function(run_list, inputs = NULL) {
   readr::write_csv(combined_projection_tables(run_list), file.path(URUGUAY_OUT_BASE, "uruguay_projection_long.csv"))
   readr::write_csv(observed_projection_tables(run_list), file.path(URUGUAY_OUT_BASE, "uruguay_observed_long.csv"))
   readr::write_csv(extract_smoking_exposure(run_list), file.path(URUGUAY_OUT_BASE, "uruguay_smoking_exposure_long.csv"))
+  readr::write_csv(build_uruguay_mortality_effects(run_list), file.path(URUGUAY_OUT_BASE, "uruguay_mortality_effects_long.csv"))
 
-  save_uruguay_plot(plot_uruguay_smoking_exposure(run_list),
-                    file.path(OUT_SECTION5, "fig_uruguay_smoking_exposure"),
-                    width = 8.9, height = 6.0)
+  unlink(file.path(OUT_SECTION5, paste0("fig_uruguay_smoking_exposure.", c("svg", "pdf"))))
   save_uruguay_plot(plot_uruguay_projection_panel(run_list, show_ci = FALSE),
                     file.path(OUT_SECTION5, "fig_uruguay_projection_panel"),
                     width = 9.2, height = 6.8)
+  save_uruguay_plot(plot_uruguay_mortality_effects(run_list),
+                    file.path(OUT_SECTION5, "fig_uruguay_mortality_effects"),
+                    width = 7.4, height = 4.6)
 
   export_uruguay_cumulative_effects(run_list)
   export_uruguay_transmission_inputs(run_list)
