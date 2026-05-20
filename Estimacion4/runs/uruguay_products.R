@@ -32,7 +32,7 @@ OUT_RAW_URUGUAY <- file.path(URUGUAY_OUT_BASE, "raw")
 invisible(lapply(c(URUGUAY_OUT_BASE, OUT_SECTION5, OUT_APPENDIXD, OUT_RAW_URUGUAY),
                  dir.create, recursive = TRUE, showWarnings = FALSE))
 
-URUGUAY_SCENARIOS <- c("freeze", "up1pc", "down1pc", "quit")
+URUGUAY_SCENARIOS <- c("up1pc", "freeze", "down1pc", "quit")
 URUGUAY_SCEN_LABELS <- c(
   freeze = "Frozen at 2022",
   up1pc = "Up 1% p.a.",
@@ -63,7 +63,7 @@ URUGUAY_SITE_COLORS <- c(
   "Stomach" = "#F28E2B",
   "Pancreas" = "#E15759",
   "Bladder" = "#76B7B2",
-  "Oral cavity and pharynx" = "#59A14F",
+  "Oropharynx" = "#59A14F",
   "Esophagus" = "#EDC948",
   "Kidney" = "#B07AA1",
   "Larynx" = "#FF9DA7",
@@ -78,6 +78,13 @@ fmt_int <- function(x) {
 fmt_num <- function(x, digits = 1) {
   x <- suppressWarnings(as.numeric(x))
   ifelse(is.finite(x), formatC(x, digits = digits, format = "f"), "")
+}
+
+latex_escape <- function(x) {
+  x <- as.character(x)
+  x <- gsub("\\\\", "\\\\textbackslash{}", x)
+  x <- gsub("([%&_#])", "\\\\\\1", x, perl = TRUE)
+  x
 }
 
 latex_open <- function(colspec) {
@@ -108,7 +115,8 @@ metric_public <- function(x) dplyr::recode(as.character(x), incidence = "Inciden
 site_public <- function(cause_id, fallback = NULL) {
   cause_id <- as.character(cause_id)
   fallback_chr <- if (is.null(fallback)) cause_id else rep_len(as.character(fallback), length(cause_id))
-  vapply(seq_along(cause_id), function(i) get_cause_label_en(cause_id[[i]], fallback = fallback_chr[[i]] %||% cause_id[[i]]), character(1))
+  out <- vapply(seq_along(cause_id), function(i) get_cause_label_en(cause_id[[i]], fallback = fallback_chr[[i]] %||% cause_id[[i]]), character(1))
+  dplyr::recode(out, "Oral cavity and pharynx" = "Oropharynx", .default = out)
 }
 
 extract_mortality_bapc <- function(run_out, scenario_name) {
@@ -413,7 +421,7 @@ plot_uruguay_lung_mortality_by_sex <- function(run_list) {
       data = proj,
       ggplot2::aes(period, ymin = lwr, ymax = upr, fill = scenario_label,
                    group = interaction(scenario_label, zone_group)),
-      alpha = 0.10,
+      alpha = 0.18,
       color = NA,
       show.legend = FALSE
     ) +
@@ -483,7 +491,7 @@ export_uruguay_lung_mortality_selected_years <- function(
     if (!is.null(last_sex) && !identical(last_sex, sx)) lines <- c(lines, "\\midrule")
     sex_cell <- if (!identical(last_sex, sx)) row$sex_label else ""
     vals <- vapply(year_cols, function(cc) fmt_int(row[[cc]]), character(1))
-    lines <- c(lines, paste(c(sex_cell, row$scenario_label, vals), collapse = " & ") |> paste0(" \\\\"))
+    lines <- c(lines, paste(c(latex_escape(sex_cell), latex_escape(row$scenario_label), vals), collapse = " & ") |> paste0(" \\\\"))
     last_sex <- sx
   }
   writeLines(c(lines, latex_close()), tex_out, useBytes = TRUE)
@@ -835,7 +843,7 @@ export_uruguay_cumulative_effects <- function(run_list,
     if (!is.null(last_scenario) && !identical(last_scenario, as.character(row$scenario))) lines <- c(lines, "\\midrule")
     lines <- c(lines, sprintf(
       "%s & %s & %s & %s & %s & %s \\\\",
-      scen, row$horizon,
+      scen, latex_escape(row$horizon),
       fmt_int(row$cumulative_effect_incidence),
       fmt_int(row$cumulative_effect_mortality),
       fmt_num(row$pct_of_freeze_incidence, 1),
@@ -861,7 +869,7 @@ export_uruguay_horizon_boundaries <- function(run_list,
   for (i in seq_len(nrow(h))) {
     row <- h[i, ]
     lines <- c(lines, sprintf("%s & %s & %s & %s & %s \\\\",
-                              row$sex_label,
+                              latex_escape(row$sex_label),
                               fmt_int(row$end_year_credible),
                               fmt_int(row$end_year_caution),
                               fmt_int(row$end_year_risky),
@@ -899,7 +907,7 @@ export_uruguay_fit_scores <- function(run_list,
     sx <- if (!identical(last_sex, as.character(row$sex_label))) row$sex_label else ""
     if (!is.null(last_sex) && !identical(last_sex, as.character(row$sex_label))) lines <- c(lines, "\\midrule")
     lines <- c(lines, sprintf("%s & %s & %s & %s & %s & %s \\\\",
-                              sx, row$model_label,
+                              latex_escape(sx), latex_escape(row$model_label),
                               fmt_num(row$WAIC, 1), fmt_num(row$DIC, 1),
                               fmt_num(row$LCPO, 1), fmt_num(row$dLCPO, 1)))
     last_sex <- as.character(row$sex_label)
@@ -962,7 +970,7 @@ export_uruguay_fit_diagnostics_compact <- function(
     sex_cell <- if (!identical(last_sex, sx)) row$sex_label else ""
     lines <- c(lines, sprintf(
       "%s & %s & %s & %s & %s & %s & %s \\\\",
-      sex_cell, row$model_family, row$estimator,
+      latex_escape(sex_cell), latex_escape(row$model_family), latex_escape(row$estimator),
       fmt_num(row$delta_WAIC, 1), fmt_num(row$delta_DIC, 1),
       fmt_num(row$dLCPO, 1), fmt_num(row$BT_RMSE, 1)
     ))
@@ -1219,12 +1227,15 @@ plot_multisite_mortality_stack <- function(multisite_runs, scenarios = URUGUAY_S
     ggplot2::geom_vline(xintercept = 2022.5, color = "grey45", linewidth = 0.35) +
     ggplot2::facet_wrap(~ scenario_label, ncol = if (length(scenarios) > 2) 2 else length(scenarios)) +
     ggplot2::scale_fill_manual(values = URUGUAY_SITE_COLORS, name = "Cancer site", drop = TRUE) +
+    ggplot2::guides(fill = ggplot2::guide_legend(nrow = 2, byrow = TRUE)) +
     ggplot2::scale_y_continuous(limits = c(0, NA), expand = ggplot2::expansion(mult = c(0, 0.03))) +
     ggplot2::labs(x = "Year", y = "Annual cancer deaths") +
     theme_paper_main(base_size = if (length(scenarios) > 2) 9.7 else 10.7) +
     ggplot2::theme(
       legend.position = "bottom",
       legend.box = "vertical",
+      legend.key.width = grid::unit(1.0, "lines"),
+      legend.spacing.x = grid::unit(0.45, "lines"),
       strip.background = ggplot2::element_rect(fill = "gray95"),
       panel.spacing = grid::unit(0.8, "lines")
     )
@@ -1286,7 +1297,7 @@ export_uruguay_transmission_inputs <- function(run_list,
   for (i in seq_len(nrow(params))) {
     row <- params[i, ]
     lines <- c(lines, sprintf("%s & %s & %s & %s \\\\",
-                              row$sex_label, fmt_num(row$rr_inc, 2),
+                              latex_escape(row$sex_label), fmt_num(row$rr_inc, 2),
                               fmt_int(row$mort_kernel_max_lag),
                               fmt_num(row$mort_kernel_total_mass, 3)))
   }
