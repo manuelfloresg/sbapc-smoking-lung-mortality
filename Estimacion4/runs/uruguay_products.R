@@ -409,6 +409,14 @@ plot_uruguay_lung_mortality_by_sex <- function(run_list) {
   ggplot2::ggplot() +
     ggplot2::geom_line(data = obs, ggplot2::aes(period, deaths), color = "black", linewidth = 0.65) +
     ggplot2::geom_vline(xintercept = 2022.5, color = "grey45", linewidth = 0.35) +
+    ggplot2::geom_ribbon(
+      data = proj,
+      ggplot2::aes(period, ymin = lwr, ymax = upr, fill = scenario_label,
+                   group = interaction(scenario_label, zone_group)),
+      alpha = 0.10,
+      color = NA,
+      show.legend = FALSE
+    ) +
     ggplot2::geom_line(
       data = proj,
       ggplot2::aes(period, deaths, color = scenario_label, linetype = projection_zone,
@@ -417,6 +425,7 @@ plot_uruguay_lung_mortality_by_sex <- function(run_list) {
     ) +
     ggplot2::facet_wrap(~ sex_label, ncol = 2, scales = "free_y") +
     ggplot2::scale_color_manual(values = URUGUAY_COLORS, name = "Scenario") +
+    ggplot2::scale_fill_manual(values = URUGUAY_COLORS, guide = "none") +
     ggplot2::scale_linetype_manual(
       values = URUGUAY_ZONE_LINETYPES,
       breaks = c("credible", "caution", "risky"),
@@ -1228,11 +1237,8 @@ export_multisite_stack_products <- function(multisite_result) {
     failures <- tibble::tibble(cause_id = character(), label = character(), error = character())
   }
   readr::write_csv(failures, file.path(OUT_SECTION5, "multisite_stack_failures.csv"))
-  data_all <- build_multisite_stack_data(runs, scenarios = URUGUAY_SCENARIOS)
-  readr::write_csv(data_all, file.path(OUT_SECTION5, "fig_uruguay_multisite_mortality_stack_data.csv"))
-  save_uruguay_plot(plot_multisite_mortality_stack(runs, scenarios = URUGUAY_SCENARIOS),
-                    file.path(OUT_SECTION5, "fig_uruguay_multisite_mortality_stack"),
-                    width = 8.8, height = 6.6)
+  unlink(file.path(OUT_SECTION5, paste0("fig_uruguay_multisite_mortality_stack.", c("svg", "pdf"))))
+  unlink(file.path(OUT_SECTION5, "fig_uruguay_multisite_mortality_stack_data.csv"))
 
   data_fq <- build_multisite_stack_data(runs, scenarios = c("freeze", "quit"))
   readr::write_csv(data_fq, file.path(OUT_SECTION5, "fig_uruguay_multisite_mortality_stack_freeze_quit_data.csv"))
@@ -1245,9 +1251,9 @@ export_multisite_stack_products <- function(multisite_result) {
   recommendation <- c(
     "# Multisite Stack Recommendation",
     "",
-    "Recommended main-text candidate: `fig_uruguay_multisite_mortality_stack_freeze_quit` if space is tight, and `fig_uruguay_multisite_mortality_stack` if the manuscript can accommodate four panels.",
+    "Recommended main-text candidate: `fig_uruguay_multisite_mortality_stack_freeze_quit`.",
     "",
-    "The four-panel version shows the projected composition of total smoking-attributable cancer mortality under all four prevalence scenarios. The two-panel version gives a cleaner baseline-versus-cessation contrast and is easier to read as a main-text figure.",
+    "The two-panel version gives a cleaner baseline-versus-cessation contrast. The moderate-change scenarios are visually close to Frozen at 2022 in the stacked composition, so the four-panel version is not recommended for the main text.",
     "",
     sprintf("Both variants are clipped to the common endogenous projection year across included cancer sites: %s.", fmt_int(common_max)),
     "",
@@ -1313,17 +1319,12 @@ write_uruguay_notes_and_inventories <- function() {
     "## fig_uruguay_lung_mortality_by_sex",
     "Files: fig_uruguay_lung_mortality_by_sex.svg, fig_uruguay_lung_mortality_by_sex.pdf",
     "Title: Projected lung-cancer mortality in Uruguay",
-    "Note: Black lines show observed annual lung-cancer deaths through 2022. Colored lines show SBAPC projected annual deaths under smoking-prevalence scenarios, separately for Male and Female. Line type indicates the endogenous horizon region; projections are clipped to the common endogenous horizon. Source: Own elaboration.",
-    "",
-    "## fig_uruguay_multisite_mortality_stack",
-    "Files: fig_uruguay_multisite_mortality_stack.svg, fig_uruguay_multisite_mortality_stack.pdf",
-    "Title: Projected smoking-attributable cancer mortality by site",
-    "Note: Stacked areas report annual deaths summed over sexes for the nine smoking-attributable cancer sites. Site colors are constant across scenario panels; projections are clipped to the common endogenous horizon across included sites. Source: Own elaboration.",
+    "Note: Black lines show observed annual lung-cancer deaths through 2022. Colored lines and ribbons show SBAPC projected annual deaths and interval summaries under smoking-prevalence scenarios, separately for Male and Female. Line type indicates the endogenous horizon region; projections are clipped to the common endogenous horizon. Source: Own elaboration.",
     "",
     "## fig_uruguay_multisite_mortality_stack_freeze_quit",
     "Files: fig_uruguay_multisite_mortality_stack_freeze_quit.svg, fig_uruguay_multisite_mortality_stack_freeze_quit.pdf",
     "Title: Projected smoking-attributable cancer mortality under baseline and cessation",
-    "Note: Stacked areas report annual deaths summed over sexes for the nine smoking-attributable cancer sites under Frozen at 2022 and Quit. This variant is a cleaner main-text candidate if four scenario panels are too dense. Source: Own elaboration."
+    "Note: Stacked areas report annual deaths summed over sexes for the nine smoking-attributable cancer sites under Frozen at 2022 and Quit. Site colors are constant across panels; projections are clipped to the common endogenous horizon across included sites. Source: Own elaboration."
   )
   writeLines(section5_fig, file.path(OUT_SECTION5, "figure_titles_notes.md"), useBytes = TRUE)
 
@@ -1338,11 +1339,6 @@ write_uruguay_notes_and_inventories <- function() {
 
   appendix_fig <- c(
     "# Figure Titles and Notes: Appendix D",
-    "",
-    "## fig_uruguay_projection_panel",
-    "Files: fig_uruguay_projection_panel.svg, fig_uruguay_projection_panel.pdf",
-    "Title: Lung-cancer incidence and mortality projections in Uruguay",
-    "Note: Black lines show historical preprocessed inputs. Colored lines show SBAPC projections under smoking-prevalence scenarios for incidence and mortality; line type indicates the endogenous horizon region. Source: Own elaboration.",
     "",
     "## fig_uruguay_mortality_effects",
     "Files: fig_uruguay_mortality_effects.svg, fig_uruguay_mortality_effects.pdf",
@@ -1362,12 +1358,7 @@ write_uruguay_notes_and_inventories <- function() {
     "## fig_uruguay_horizon_support",
     "Files: fig_uruguay_horizon_support.svg, fig_uruguay_horizon_support.pdf",
     "Title: Endogenous support diagnostics for Uruguay",
-    "Note: Lines report the exposure-weighted mean support fraction by projection year and sex. Thresholds mark the support levels used to classify credible, caution, risky, and beyond-maximum projection regions. Source: Own elaboration.",
-    "",
-    "## fig_uruguay_lung_mortality_uncertainty",
-    "Files: fig_uruguay_lung_mortality_uncertainty.svg, fig_uruguay_lung_mortality_uncertainty.pdf",
-    "Title: Predictive intervals for lung-cancer mortality projections",
-    "Note: Ribbons show available interval summaries for SBAPC annual mortality projections under Frozen at 2022 and Quit, separately for Male and Female. Source: Own elaboration."
+    "Note: Lines report the exposure-weighted mean support fraction by projection year and sex. Thresholds mark the support levels used to classify credible, caution, risky, and beyond-maximum projection regions. Source: Own elaboration."
   )
   writeLines(appendix_fig, file.path(OUT_APPENDIXD, "figure_titles_notes.md"), useBytes = TRUE)
 
@@ -1403,8 +1394,7 @@ write_uruguay_notes_and_inventories <- function() {
     "|---|---|---|---|---|---|---|---|---|",
     "| `fig_uruguay_lung_mortality_by_sex` | Main text | Essential | Substantive | Sex-specific annual mortality counts | Yes | Yes | Yes | Main empirical lung-cancer mortality projection by sex and scenario. |",
     "| `tab_uruguay_lung_mortality_selected_years` | Main text | Useful | Substantive | Sex-specific selected-year annual deaths | Not applicable | Yes | Yes | Compact numerical companion to the main lung-cancer mortality figure. |",
-    "| `fig_uruguay_multisite_mortality_stack` | Main text | Essential if readable | Substantive | Both-sex annual deaths by cancer site | Yes | Yes | Yes | Shows the broader nine-site potential of the framework and total burden composition. |",
-    "| `fig_uruguay_multisite_mortality_stack_freeze_quit` | Main text | Useful alternative | Substantive | Both-sex annual deaths by cancer site | Yes | Yes | Yes | Cleaner baseline-versus-cessation variant for limited main-text space. |"
+    "| `fig_uruguay_multisite_mortality_stack_freeze_quit` | Main text | Essential | Substantive | Both-sex annual deaths by cancer site | Yes | Yes | Yes | Shows the broader nine-site potential of the framework and total burden composition under baseline and cessation. |"
   )
   writeLines(section5_inv, file.path(OUT_SECTION5, "section5_float_inventory.md"), useBytes = TRUE)
 
@@ -1413,12 +1403,10 @@ write_uruguay_notes_and_inventories <- function() {
     "",
     "| Filename | Location | Priority | Type | Aggregation | SVG/PDF | Data CSV | Source note | Purpose |",
     "|---|---|---|---|---|---|---|---|---|",
-    "| `fig_uruguay_projection_panel` | Appendix D | Useful | Diagnostic | Sex-specific incidence and mortality counts | Yes | Yes | Yes | Extended projection display including incidence. |",
     "| `fig_uruguay_mortality_effects` | Appendix D | Useful | Diagnostic | Both-sex annual effects | Yes | Yes | Yes | Shows mortality effects relative to Frozen at 2022. |",
     "| `fig_uruguay_data_overview` | Appendix D | Essential | Descriptive | Historical sex-specific annual aggregates | Yes | Yes | Yes | Describes the empirical inputs entering the Uruguay application. |",
     "| `fig_uruguay_horizon_support` | Appendix D | Useful | Diagnostic | Sex-specific support diagnostics | Yes | Yes | Yes | Displays support deterioration underlying the horizon categories. |",
     "| `fig_uruguay_benchmark_comparison` | Appendix D | Useful | Diagnostic | Sex-specific annual counts | Yes | Yes | Yes | Contrasts scenario-responsive SBAPC with the scenario-blind BAPC benchmark. |",
-    "| `fig_uruguay_lung_mortality_uncertainty` | Appendix D | Optional | Diagnostic | Sex-specific annual mortality counts | Yes | Yes | Yes | Shows available predictive interval summaries for selected scenarios. |",
     "| `tab_uruguay_horizon_boundaries` | Appendix D | Useful | Diagnostic | Sex-specific and total frontier rows | Not applicable | Yes | Yes | Reports projection horizon boundary years. |",
     "| `tab_uruguay_fit_scores` | Appendix D | Optional | Diagnostic | Freeze-baseline fit statistics | Not applicable | Yes | Yes | Full historical fit/backtesting diagnostic. |",
     "| `tab_uruguay_fit_diagnostics_compact` | Appendix D | Useful | Diagnostic | Freeze-baseline fit statistics | Not applicable | Yes | Yes | Compact diagnostic comparison of SBAPC layers and BAPC benchmarks. |",
@@ -1438,12 +1426,10 @@ export_uruguay_products <- function(run_list, inputs = NULL) {
   readr::write_csv(extract_smoking_exposure(run_list), file.path(URUGUAY_OUT_BASE, "uruguay_smoking_exposure_long.csv"))
   readr::write_csv(build_uruguay_mortality_effects(run_list), file.path(URUGUAY_OUT_BASE, "uruguay_mortality_effects_long.csv"))
   readr::write_csv(build_uruguay_lung_mortality_by_sex_data(run_list), file.path(OUT_SECTION5, "fig_uruguay_lung_mortality_by_sex_data.csv"))
-  readr::write_csv(build_uruguay_projection_panel_data(run_list), file.path(OUT_APPENDIXD, "fig_uruguay_projection_panel_data.csv"))
   readr::write_csv(build_uruguay_mortality_effects(run_list), file.path(OUT_APPENDIXD, "fig_uruguay_mortality_effects_data.csv"))
   readr::write_csv(build_uruguay_data_overview(inputs), file.path(OUT_APPENDIXD, "fig_uruguay_data_overview_data.csv"))
   readr::write_csv(build_uruguay_benchmark_comparison_data(run_list), file.path(OUT_APPENDIXD, "fig_uruguay_benchmark_comparison_data.csv"))
   readr::write_csv(build_uruguay_horizon_support_data(run_list), file.path(OUT_APPENDIXD, "fig_uruguay_horizon_support_data.csv"))
-  readr::write_csv(build_uruguay_lung_mortality_uncertainty_data(run_list), file.path(OUT_APPENDIXD, "fig_uruguay_lung_mortality_uncertainty_data.csv"))
 
   unlink(file.path(OUT_SECTION5, paste0(c(
     "fig_uruguay_smoking_exposure",
@@ -1456,15 +1442,18 @@ export_uruguay_products <- function(run_list, inputs = NULL) {
     "tab_uruguay_transmission_inputs.csv",
     "tab_uruguay_transmission_inputs.tex"
   )))
+  unlink(file.path(OUT_APPENDIXD, c(
+    paste0("fig_uruguay_projection_panel.", c("svg", "pdf")),
+    "fig_uruguay_projection_panel_data.csv",
+    paste0("fig_uruguay_lung_mortality_uncertainty.", c("svg", "pdf")),
+    "fig_uruguay_lung_mortality_uncertainty_data.csv"
+  )))
 
   save_uruguay_plot(plot_uruguay_lung_mortality_by_sex(run_list),
                     file.path(OUT_SECTION5, "fig_uruguay_lung_mortality_by_sex"),
                     width = 7.4, height = 4.6)
   export_uruguay_lung_mortality_selected_years(run_list)
 
-  save_uruguay_plot(plot_uruguay_projection_panel(run_list, show_ci = FALSE),
-                    file.path(OUT_APPENDIXD, "fig_uruguay_projection_panel"),
-                    width = 9.2, height = 6.8)
   save_uruguay_plot(plot_uruguay_mortality_effects(run_list),
                     file.path(OUT_APPENDIXD, "fig_uruguay_mortality_effects"),
                     width = 7.4, height = 4.6)
@@ -1478,9 +1467,6 @@ export_uruguay_products <- function(run_list, inputs = NULL) {
   save_uruguay_plot(plot_uruguay_horizon_support(run_list),
                     file.path(OUT_APPENDIXD, "fig_uruguay_horizon_support"),
                     width = 7.4, height = 5.4)
-  save_uruguay_plot(plot_uruguay_lung_mortality_uncertainty(run_list),
-                    file.path(OUT_APPENDIXD, "fig_uruguay_lung_mortality_uncertainty"),
-                    width = 7.6, height = 4.8)
 
   export_uruguay_cumulative_effects(run_list)
   export_uruguay_transmission_inputs(run_list)
