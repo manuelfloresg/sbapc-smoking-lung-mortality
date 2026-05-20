@@ -104,17 +104,17 @@ dir.create(OUT_RAW_ORACLE, recursive = TRUE, showWarnings = FALSE)
 
 FIG_FORMAT <- {
   val <- Sys.getenv("BAPC_FIG_FORMAT", unset = "")
-  if (!nzchar(val)) val <- getOption("BAPC_FIG_FORMAT", BAPC_FIG_FORMAT %||% "svg")
-  match.arg(as.character(val)[1], c("svg", "png", "both"))
+  if (!nzchar(val)) val <- getOption("BAPC_FIG_FORMAT", BAPC_FIG_FORMAT %||% "both")
+  match.arg(as.character(val)[1], c("svg", "pdf", "png", "both"))
 }
 
 figure_exts <- function(format = FIG_FORMAT) {
-  if (identical(format, "both")) c("svg", "png") else format
+  if (identical(format, "both")) c("svg", "pdf") else format
 }
 
 save_paper_plot <- function(plot, path_no_ext, width, height, bg = "white", format = FIG_FORMAT, ...) {
   for (ext in figure_exts(format)) {
-    ggplot2::ggsave(
+    args <- list(
       filename = paste0(path_no_ext, ".", ext),
       plot = plot,
       width = width,
@@ -122,6 +122,8 @@ save_paper_plot <- function(plot, path_no_ext, width, height, bg = "white", form
       bg = bg,
       ...
     )
+    if (identical(ext, "pdf")) args$device <- grDevices::cairo_pdf
+    do.call(ggplot2::ggsave, args)
   }
   invisible(path_no_ext)
 }
@@ -196,7 +198,7 @@ write_figure_titles_notes <- function(section = c("section4", "appendixC"), case
       paste0("## ", stem),
       paste0("Files: ", paste(figure_file_names(stem), collapse = ", ")),
       paste0("Title: ", title),
-      paste0("Note: ", note),
+      paste0("Note: ", note, " Source: Own elaboration."),
       ""
     )
   }
@@ -210,47 +212,37 @@ write_figure_titles_notes <- function(section = c("section4", "appendixC"), case
       entry(
         "fig_scenario_atlas_seed4_M",
         "Scenario atlas for male mortality projections",
-        "Seed 4. Panels show smoking-prevalence scenarios. The vertical dotted line marks the last historical year, 2022. Lines compare simulated truth, SBAPC, incidence-anchored SBAPC, and the BAPC benchmark."
+        "Illustrative simulation draw. Panels show smoking-prevalence scenarios. The vertical reference line marks the last historical year, 2022. Lines compare simulated truth, SBAPC, incidence-anchored SBAPC, and the BAPC benchmark."
       ),
       entry(
         "fig_scenario_atlas_seed4_F",
         "Scenario atlas for female mortality projections",
-        "Seed 4. Panels show smoking-prevalence scenarios. The vertical dotted line marks the last historical year, 2022. Lines compare simulated truth, SBAPC, incidence-anchored SBAPC, and the BAPC benchmark."
+        "Illustrative simulation draw. Panels show smoking-prevalence scenarios. The vertical reference line marks the last historical year, 2022. Lines compare simulated truth, SBAPC, incidence-anchored SBAPC, and the BAPC benchmark."
       ),
       entry(
         "fig_waterfall_seed4",
         "Transmission pathway under the quit scenario",
-        "Seed 4. Solid lines show the quit scenario and dotted lines show the frozen-prevalence baseline. Panels trace current smoking prevalence, effective smoking exposure, incidence rates, and annual deaths by sex."
+        "Illustrative simulation draw. Solid lines show the quit scenario and dotted lines show the frozen-prevalence baseline. Panels trace current smoking prevalence, effective smoking exposure, incidence rates, and annual deaths by sex."
       ),
       entry(
         "fig_sensitivity_seed4",
         "Projected mortality sensitivity to smoking-prevalence scenarios",
-        "Seed 4. Total annual deaths under the four prevalence scenarios. The vertical dotted line marks 2022."
+        "Illustrative simulation draw. Total annual deaths are shown under the four prevalence scenarios. The vertical reference line marks 2022."
       ),
       entry(
         "fig_transmission_map_seed4_M",
         "Smoking-to-mortality transmission map for male projections",
-        "Seed 4. Rows trace prevalence, effective exposure, annual incident cases, and annual deaths. Columns show prevalence scenarios. The vertical dotted line marks 2022."
+        "Illustrative male simulation draw. Rows trace prevalence, effective exposure, annual incident cases, and annual deaths. Columns show prevalence scenarios. The vertical reference line marks 2022."
       ),
       entry(
         "fig_transmission_map_support_compare_seed4_M",
         "Observed-window and full-support transmission map for male projections",
-        "Seed 4. The figure compares simulated truth, the observed-window SBAPC estimator, and the full-support SBAPC diagnostic across the smoking-to-mortality pathway."
-      ),
-      entry(
-        "fig_transmission_map_support_compare_seed4_F",
-        "Observed-window and full-support transmission map for female projections",
-        "Seed 4. The figure compares simulated truth, the observed-window SBAPC estimator, and the full-support SBAPC diagnostic across the smoking-to-mortality pathway."
+        "Illustrative male simulation draw. The figure compares simulated truth, Observed-window SBAPC, and Full-support SBAPC across the smoking-to-mortality pathway."
       ),
       entry(
         "fig_scenario_effect_recovery",
         "Mortality scenario-effect recovery",
         "Scenario effects are annual deaths relative to the frozen-prevalence baseline, aggregated across sexes and simulation seeds. Lines show median effects across seeds; ribbons show the 10th-90th percentile range for simulated truth and SBAPC. The BAPC benchmark is scenario-blind and therefore has zero scenario response by construction. Background shading is used only because the horizon-boundary audit found common support-region boundaries for the plotted aggregation."
-      ),
-      entry(
-        "fig_reliability_calibration",
-        "Projection reliability calibration by support horizon",
-        "Diagnostic retained for Appendix C rather than the main text. The line shows mean absolute relative error by projection horizon. Shading indicates credibility regions defined by support fractions; dashed vertical lines mark the first year entering lower-support regions."
       )
     )
   } else {
@@ -262,7 +254,7 @@ write_figure_titles_notes <- function(section = c("section4", "appendixC"), case
       entry(
         "fig_bias_distributions",
         "Distribution of projection bias across simulation seeds",
-        "Boxplots summarize projection bias by scenario and sex across the simulation seeds."
+        "Boxplots summarize projection bias by scenario and sex across simulation seeds."
       ),
       entry(
         "fig_scenario_effect_recovery_bysex",
@@ -294,7 +286,7 @@ write_figure_titles_notes <- function(section = c("section4", "appendixC"), case
         lines <- c(lines, entry(
           stem,
           sprintf("%s quit-scenario case study", lbl),
-          sprintf("Quit-scenario trajectory diagnostic for seed %d, selected by absolute projection bias among male simulations.", seed_i)
+          "Illustrative quit-scenario trajectory diagnostic selected by absolute projection bias among male simulations."
         ))
       }
     }
@@ -1077,7 +1069,8 @@ generate_support_transmission_maps <- function(seed = 4,
                                                scens = CANONICAL_SCENS,
                                                realistic_raw_dir = OUT_RAW,
                                                oracle_raw_dir = OUT_RAW_ORACLE,
-                                               force_oracle = FALSE) {
+                                               force_oracle = FALSE,
+                                               sexes = "M") {
   real_files_ok <- all(vapply(scens, function(sc) {
     file.exists(file.path(realistic_raw_dir, sprintf("res_%s_s%d_%s.rds", dgp, seed, sc)))
   }, logical(1)))
@@ -1099,7 +1092,7 @@ generate_support_transmission_maps <- function(seed = 4,
     )
   }
 
-  for (sx in c("M", "F")) {
+  for (sx in sexes) {
     g <- plot_transmission_map_support_compare(
       seed = seed,
       dgp = dgp,
@@ -1403,37 +1396,81 @@ export_scenario_effect_recovery_table <- function(summary_df,
                                                   file_out,
                                                   models = unname(MODEL_LABELS[c("sbapc", "bapc")]),
                                                   sex = "Total") {
-  LATEX_SCEN_LABELS <- c(
-    "up1pc" = "$\\uparrow$ 1\\% p.a.",
-    "down1pc" = "$\\downarrow$ 1\\% p.a.",
-    "quit" = "Quit"
-  )
-
+  csv_out <- sub("\\.tex$", ".csv", file_out)
   tab <- summary_df %>%
     dplyr::filter(as.character(model) %in% models, as.character(sex) == !!sex) %>%
     dplyr::mutate(
-      scenario_tex = unname(LATEX_SCEN_LABELS[as.character(scenario)]),
+      scenario_tex = compact_scenario_label(scenario),
       model = as.character(model),
-      recovery = sprintf("%.0f [%.0f, %.0f]", cumulative_recovery_pct, cumulative_recovery_p10, cumulative_recovery_p90)
+      recovery = cumulative_recovery_pct / 100
     ) %>%
-    dplyr::arrange(factor(as.character(scenario), levels = names(LATEX_SCEN_LABELS)),
+    dplyr::arrange(factor(as.character(scenario), levels = c("up1pc", "down1pc", "quit")),
                    factor(model, levels = models))
+  readr::write_csv(tab, csv_out)
 
-  lines <- c(
-    "\\begin{tabular}{llccc}",
-    "\\hline",
-    "Scenario & Model & Annual MARE (\\%) & Cumulative recovery (\\%) & Sign agreement (\\%) \\\\",
-    "\\hline"
-  )
+  lines <- c(latex_table_open("llrrr"),
+             "Scenario & Series & MARE (\\%) & Recovery & Sign (\\%) \\\\",
+             "\\midrule")
+  last_scenario <- NULL
   for (i in seq_len(nrow(tab))) {
     row <- tab[i, ]
+    scen <- if (!identical(last_scenario, as.character(row$scenario))) row$scenario_tex else ""
+    if (!is.null(last_scenario) && !identical(last_scenario, as.character(row$scenario))) lines <- c(lines, "\\midrule")
     lines <- c(lines, sprintf(
-      "%s & %s & %.1f & %s & %.1f \\\\",
-      row$scenario_tex, row$model, row$annual_mare_pct, row$recovery, row$sign_agreement_pct
+      "%s & %s & %.1f & %.2f & %.0f \\\\",
+      scen, row$model, row$annual_mare_pct, row$recovery, row$sign_agreement_pct
+    ))
+    last_scenario <- as.character(row$scenario)
+  }
+  lines <- c(lines, latex_table_close(
+    "Annual MARE and cumulative recovery summarize mortality scenario effects relative to the frozen-prevalence baseline. The BAPC benchmark is scenario-blind and has zero scenario response by construction."
+  ))
+  writeLines(lines, file_out)
+  invisible(tab)
+}
+
+export_bias_summary_table <- function(metrics_df,
+                                      csv_out = file.path(OUT_SEC4, "tab_bias_summary.csv"),
+                                      tex_out = file.path(OUT_SEC4, "tab_bias_summary.tex")) {
+  tab <- metrics_df %>%
+    dplyr::filter(as.character(dgp) == "spec_linear", as.character(sex) %in% c("M", "F")) %>%
+    dplyr::mutate(
+      scenario_label = compact_scenario_label(scenario),
+      sex_label = sex_public_label(sex)
+    ) %>%
+    dplyr::group_by(scenario, scenario_label, sex_label) %>%
+    dplyr::summarise(
+      hist_bias_pct = mean(hist_bias, na.rm = TRUE),
+      proj_bias_pct = mean(proj_bias, na.rm = TRUE),
+      .groups = "drop"
+    ) %>%
+    dplyr::arrange(factor(as.character(scenario), levels = CANONICAL_SCENS), sex_label)
+  readr::write_csv(tab, csv_out)
+
+  wide <- tab %>%
+    dplyr::select(scenario, scenario_label, sex_label, hist_bias_pct, proj_bias_pct) %>%
+    tidyr::pivot_wider(
+      names_from = sex_label,
+      values_from = c(hist_bias_pct, proj_bias_pct)
+    ) %>%
+    dplyr::arrange(factor(as.character(scenario), levels = CANONICAL_SCENS))
+
+  lines <- c(latex_table_open("lrrrr"),
+             "Scenario & Male hist. & Male proj. & Female hist. & Female proj. \\\\",
+             "\\midrule")
+  for (i in seq_len(nrow(wide))) {
+    row <- wide[i, ]
+    lines <- c(lines, sprintf(
+      "%s & %.1f & %.1f & %.1f & %.1f \\\\",
+      row$scenario_label,
+      row$hist_bias_pct_Male, row$proj_bias_pct_Male,
+      row$hist_bias_pct_Female, row$proj_bias_pct_Female
     ))
   }
-  lines <- c(lines, "\\hline", "\\end{tabular}")
-  writeLines(lines, file_out)
+  lines <- c(lines, latex_table_close(
+    "Entries are mean percentage bias across simulation seeds for the well-specified design. Historical and projected periods are summarized separately by sex."
+  ))
+  writeLines(lines, tex_out, useBytes = TRUE)
   invisible(tab)
 }
 
@@ -1460,6 +1497,42 @@ fmt_interval <- function(mid, lo, hi, digits = 2) {
 
 fmt_int_interval <- function(mid, lo, hi) {
   sprintf("%s [%s, %s]", fmt_int(mid), fmt_int(lo), fmt_int(hi))
+}
+
+latex_note_block <- function(note, width = "0.98\\textwidth") {
+  c(
+    "\\par\\smallskip",
+    sprintf("\\begin{minipage}{%s}", width),
+    paste0("\\footnotesize\\emph{Note:} ", note, " \\emph{Source:} Own elaboration."),
+    "\\end{minipage}",
+    "\\endgroup"
+  )
+}
+
+latex_table_open <- function(colspec) {
+  c(
+    "\\begingroup",
+    "\\renewcommand{\\arraystretch}{1.08}",
+    "\\setlength{\\tabcolsep}{4pt}",
+    sprintf("\\begin{tabular}{%s}", colspec),
+    "\\toprule"
+  )
+}
+
+latex_table_close <- function(note) {
+  c("\\bottomrule", "\\end{tabular}", latex_note_block(note))
+}
+
+compact_scenario_label <- function(x) {
+  labs <- c(
+    "up1pc" = "$\\uparrow$1\\%",
+    "freeze" = "Freeze",
+    "down1pc" = "$\\downarrow$1\\%",
+    "quit" = "Quit"
+  )
+  out <- unname(labs[as.character(x)])
+  out[is.na(out)] <- as.character(x)[is.na(out)]
+  out
 }
 
 horizon_boundary_audit <- function(data = NULL,
@@ -1570,31 +1643,33 @@ export_cumulative_scenario_recovery_table <- function(summary_df,
                                                       csv_out = file.path(OUT_SEC4, "tab_cumulative_scenario_recovery.csv"),
                                                       tex_out = file.path(OUT_SEC4, "tab_cumulative_scenario_recovery.tex")) {
   readr::write_csv(summary_df, csv_out)
-  scen_tex <- latex_scenario_labels()
   tab <- summary_df %>%
     dplyr::mutate(
-      scenario_tex = unname(scen_tex[as.character(scenario)]),
+      scenario_tex = compact_scenario_label(scenario),
       horizon = as.character(horizon_region),
-      true_display = fmt_int_interval(true_cumulative_median, true_cumulative_q25, true_cumulative_q75),
-      est_display = fmt_int_interval(estimated_cumulative_median, estimated_cumulative_q25, estimated_cumulative_q75),
-      recovery_display = fmt_interval(recovery_ratio_median, recovery_ratio_q25, recovery_ratio_q75, digits = 2)
+      true_display = fmt_int(true_cumulative_median),
+      est_display = fmt_int(estimated_cumulative_median),
+      recovery_display = fmt_num(recovery_ratio_median, digits = 2)
     )
 
-  lines <- c(
-    "\\begin{tabular}{llccccc}",
-    "\\hline",
-    "Scenario & Horizon & Truth & SBAPC & Recovery & Annual MARE (\\%) & Sign agreement (\\%) \\\\",
-    "\\hline"
-  )
+  lines <- c(latex_table_open("llrrrr"),
+             "Scenario & Horizon & Truth & SBAPC & Recovery & MARE (\\%) \\\\",
+             "\\midrule")
+  last_scenario <- NULL
   for (i in seq_len(nrow(tab))) {
     row <- tab[i, ]
+    scen <- if (!identical(last_scenario, as.character(row$scenario))) row$scenario_tex else ""
+    if (!is.null(last_scenario) && !identical(last_scenario, as.character(row$scenario))) lines <- c(lines, "\\midrule")
     lines <- c(lines, sprintf(
-      "%s & %s & %s & %s & %s & %.1f & %.1f \\\\",
-      row$scenario_tex, row$horizon, row$true_display, row$est_display,
-      row$recovery_display, row$annual_mare_pct_mean, row$sign_agreement_pct_mean
+      "%s & %s & %s & %s & %s & %.1f \\\\",
+      scen, row$horizon, row$true_display, row$est_display,
+      row$recovery_display, row$annual_mare_pct_mean
     ))
+    last_scenario <- as.character(row$scenario)
   }
-  lines <- c(lines, "\\hline", "\\end{tabular}")
+  lines <- c(lines, latex_table_close(
+    "Entries are medians across simulation seeds for cumulative annual mortality effects relative to the frozen-prevalence baseline; MARE is averaged across seeds within each horizon region."
+  ))
   writeLines(lines, tex_out, useBytes = TRUE)
   invisible(tab)
 }
@@ -1735,24 +1810,30 @@ summarise_chain_recovery <- function(chain_df) {
 export_chain_recovery_table <- function(summary_df,
                                         csv_out = file.path(OUT_SEC4, "tab_chain_recovery.csv"),
                                         tex_out = file.path(OUT_SEC4, "tab_chain_recovery.tex")) {
-  readr::write_csv(summary_df, csv_out)
+  out_csv <- summary_df %>%
+    dplyr::filter(as.character(horizon_region) %in% c("Credible", "Caution", "Risky"))
+  readr::write_csv(out_csv, csv_out)
   tab <- summary_df %>%
+    dplyr::filter(as.character(horizon_region) %in% c("Credible", "Caution", "Risky")) %>%
     dplyr::mutate(recovery_display = fmt_interval(recovery_ratio_median, recovery_ratio_q25, recovery_ratio_q75, digits = 2))
-  lines <- c(
-    "\\begin{tabular}{llccc}",
-    "\\hline",
-    "Object & Horizon & Recovery & Annual MARE (\\%) & Annual bias (\\%) \\\\",
-    "\\hline"
-  )
+  lines <- c(latex_table_open("llrrr"),
+             "Object & Horizon & Recovery & MARE (\\%) & Bias (\\%) \\\\",
+             "\\midrule")
+  last_object <- NULL
   for (i in seq_len(nrow(tab))) {
     row <- tab[i, ]
+    obj <- if (!identical(last_object, as.character(row$object))) as.character(row$object) else ""
+    if (!is.null(last_object) && !identical(last_object, as.character(row$object))) lines <- c(lines, "\\midrule")
     lines <- c(lines, sprintf(
       "%s & %s & %s & %.1f & %.1f \\\\",
-      as.character(row$object), as.character(row$horizon_region), row$recovery_display,
+      obj, as.character(row$horizon_region), row$recovery_display,
       row$annual_mare_pct_mean, row$annual_bias_pct_mean
     ))
+    last_object <- as.character(row$object)
   }
-  lines <- c(lines, "\\hline", "\\end{tabular}")
+  lines <- c(lines, latex_table_close(
+    "Effective exposure is aggregated as an exposure-weighted annual mean across sex-age cells. Incident cases, incidence-linked expected deaths, and mortality deaths are aggregated as annual counts across sex-age cells. Rows report endogenous horizon regions only."
+  ))
   writeLines(lines, tex_out, useBytes = TRUE)
   invisible(tab)
 }
@@ -1779,7 +1860,7 @@ plot_support_window_comparison <- function(realistic_effect,
     dplyr::semi_join(oracle_effect %>% dplyr::distinct(seed, dgp, scenario, sex, period),
                      by = c("seed", "dgp", "scenario", "sex", "period"))
 
-  series_levels <- c("Truth", "Full-support SBAPC", "Observed-window SBAPC")
+  series_levels <- c("Truth", "Observed-window SBAPC", "Full-support SBAPC")
   plot_df <- dplyr::bind_rows(
     realistic_effect %>%
       dplyr::distinct(seed, dgp, scenario, scenario_label, sex, period, delta_truth) %>%
@@ -1830,8 +1911,8 @@ plot_support_window_comparison <- function(realistic_effect,
     vlines <- tibble::tibble(period = c(caution_start, risky_start)) %>% dplyr::filter(is.finite(period))
   }
 
-  pal <- c("Truth" = "black", "Full-support SBAPC" = "#1565C0", "Observed-window SBAPC" = "#D32F2F")
-  ltys <- c("Truth" = "dashed", "Full-support SBAPC" = "longdash", "Observed-window SBAPC" = "solid")
+  pal <- c("Truth" = "black", "Observed-window SBAPC" = "#B71C1C", "Full-support SBAPC" = "#6FA8DC")
+  ltys <- c("Truth" = "dashed", "Observed-window SBAPC" = "solid", "Full-support SBAPC" = "solid")
   g <- ggplot2::ggplot(sum_df, ggplot2::aes(x = period, y = med, color = series, linetype = series))
   if (nrow(rects)) {
     for (i in seq_len(nrow(rects))) {
@@ -1860,11 +1941,11 @@ plot_support_window_comparison <- function(realistic_effect,
       data = vlines,
       ggplot2::aes(xintercept = period),
       inherit.aes = FALSE,
-      linetype = "dotted",
-      color = "gray45",
-      linewidth = 0.35
+      linetype = "solid",
+      color = "gray65",
+      linewidth = 0.25
     ) +
-    ggplot2::geom_line(linewidth = 0.9, na.rm = TRUE) +
+    ggplot2::geom_line(linewidth = 0.72, na.rm = TRUE) +
     ggplot2::facet_wrap(~scenario_label, nrow = 1, scales = "free_y") +
     ggplot2::scale_color_manual(values = pal, breaks = series_levels) +
     ggplot2::scale_linetype_manual(values = ltys, breaks = series_levels) +
@@ -1933,26 +2014,28 @@ export_support_window_table <- function(summary_df,
                                         csv_out = file.path(OUT_APPENDIX, "tab_support_window_comparison.csv"),
                                         tex_out = file.path(OUT_APPENDIX, "tab_support_window_comparison.tex")) {
   readr::write_csv(summary_df, csv_out)
-  scen_tex <- latex_scenario_labels()
   tab <- summary_df %>%
     dplyr::filter(as.character(sex) == "Total") %>%
-    dplyr::mutate(scenario_tex = unname(scen_tex[as.character(scenario)]))
-  lines <- c(
-    "\\begin{tabular}{llrrrrrr}",
-    "\\hline",
-    "Scenario & Horizon & Full MARE & Observed MARE & Difference & Full recovery & Observed recovery & Difference \\\\",
-    "\\hline"
-  )
+    dplyr::mutate(scenario_tex = compact_scenario_label(scenario))
+  lines <- c(latex_table_open("llrrrr"),
+             "Scenario & Horizon & Obs. MARE & Full MARE & Obs. rec. & Full rec. \\\\",
+             "\\midrule")
+  last_scenario <- NULL
   for (i in seq_len(nrow(tab))) {
     row <- tab[i, ]
+    scen <- if (!identical(last_scenario, as.character(row$scenario))) row$scenario_tex else ""
+    if (!is.null(last_scenario) && !identical(last_scenario, as.character(row$scenario))) lines <- c(lines, "\\midrule")
     lines <- c(lines, sprintf(
-      "%s & %s & %.1f & %.1f & %.1f & %.2f & %.2f & %.2f \\\\",
-      row$scenario_tex, as.character(row$horizon_region),
-      row$full_annual_mare_pct, row$observed_annual_mare_pct, row$mare_difference_pct,
-      row$full_recovery_ratio, row$observed_recovery_ratio, row$recovery_difference
+      "%s & %s & %.1f & %.1f & %.2f & %.2f \\\\",
+      scen, as.character(row$horizon_region),
+      row$observed_annual_mare_pct, row$full_annual_mare_pct,
+      row$observed_recovery_ratio, row$full_recovery_ratio
     ))
+    last_scenario <- as.character(row$scenario)
   }
-  lines <- c(lines, "\\hline", "\\end{tabular}")
+  lines <- c(lines, latex_table_close(
+    "Observed-window SBAPC is the realistic estimator; Full-support SBAPC is an oracle-style diagnostic using the broader latent support available in the simulation truth. MARE is annual absolute relative error for mortality scenario effects."
+  ))
   writeLines(lines, tex_out, useBytes = TRUE)
   invisible(tab)
 }
@@ -2226,24 +2309,32 @@ export_misspecification_summary_table <- function(summary_df,
                                                   csv_out = file.path(OUT_APPENDIX, "tab_misspecification_summary.csv"),
                                                   tex_out = file.path(OUT_APPENDIX, "tab_misspecification_summary.tex")) {
   readr::write_csv(summary_df, csv_out)
-  scen_tex <- latex_scenario_labels()
   tab <- summary_df %>%
-    dplyr::mutate(scenario_tex = unname(scen_tex[as.character(scenario)]))
-  lines <- c(
-    "\\begin{tabular}{lllrrr}",
-    "\\hline",
-    "Design & Scenario & Horizon & Annual MARE (\\%) & Recovery & Sign agreement (\\%) \\\\",
-    "\\hline"
-  )
+    dplyr::mutate(scenario_tex = compact_scenario_label(scenario))
+  lines <- c(latex_table_open("lllrrr"),
+             "Design & Scenario & Horizon & MARE (\\%) & Recovery & Sign (\\%) \\\\",
+             "\\midrule")
+  last_design <- NULL
+  last_scenario <- NULL
   for (i in seq_len(nrow(tab))) {
     row <- tab[i, ]
+    design <- if (!identical(last_design, as.character(row$design))) row$design else ""
+    scenario <- if (!identical(last_design, as.character(row$design)) ||
+                    !identical(last_scenario, as.character(row$scenario))) row$scenario_tex else ""
+    if (!is.null(last_design) && !identical(last_design, as.character(row$design))) {
+      lines <- c(lines, "\\midrule")
+    }
     lines <- c(lines, sprintf(
       "%s & %s & %s & %.1f & %.2f & %.1f \\\\",
-      row$design, row$scenario_tex, as.character(row$horizon_region),
+      design, scenario, as.character(row$horizon_region),
       row$annual_mare_pct_mean, row$recovery_ratio_median, row$sign_agreement_pct_mean
     ))
+    last_design <- as.character(row$design)
+    last_scenario <- as.character(row$scenario)
   }
-  lines <- c(lines, "\\hline", "\\end{tabular}")
+  lines <- c(lines, latex_table_close(
+    "The table summarizes recovery of mortality scenario effects under the well-specified and misspecified transmission designs. MARE is averaged across seeds; recovery and sign agreement are computed for cumulative scenario effects."
+  ))
   writeLines(lines, tex_out, useBytes = TRUE)
   invisible(tab)
 }
@@ -2340,11 +2431,12 @@ write_seed_level_figure_recommendation <- function(file_out = file.path(OUT_APPE
     "",
     "## Retain",
     "",
-    "### `fig_transmission_map_support_compare_seed4_M.svg`",
-    "Shows the prevalence-to-effective-exposure-to-incidence-to-mortality chain for one male seed, including Truth, Observed-window SBAPC, and Full-support SBAPC. It is useful because it makes the support-window issue visible along the sequential mechanism. It is technical, so it belongs in Appendix C rather than the main text.",
-    "",
     "### `fig_case_study_median_s9.svg`",
     "Shows a representative single-seed trajectory diagnostic for the quit scenario. It is useful as a concrete visual complement to aggregate recovery figures. It should remain in Appendix C only.",
+    "",
+    "## Main Text, Not Duplicated In Appendix C",
+    "",
+    "- `fig_transmission_map_support_compare_seed4_M.svg`: shows the prevalence-to-effective-exposure-to-incidence-to-mortality chain for one male seed, including Truth, Observed-window SBAPC, and Full-support SBAPC. It is useful enough for the main text support-window discussion and should not be duplicated in Appendix C.",
     "",
     "## Drop Or Keep As Internal Diagnostics",
     "",
@@ -2352,7 +2444,7 @@ write_seed_level_figure_recommendation <- function(file_out = file.path(OUT_APPE
     "- `fig_waterfall_seed4.svg`: useful for internal explanation, but the transmission-map figure is a more direct chain diagnostic.",
     "- `fig_sensitivity_seed4.svg`: single-seed scenario sensitivity is redundant once scenario-effect recovery is aggregated across seeds.",
     "- `fig_transmission_map_seed4_M.svg`: superseded by the support-comparison transmission map if that diagnostic is retained.",
-    "- `fig_transmission_map_support_compare_seed4_F.svg`: useful only if sex-specific support-window differences need visual documentation.",
+    "- `fig_transmission_map_support_compare_seed4_F.svg`: substantively redundant with the male pathway illustration for the current narrative; do not include it in Appendix C unless the text later makes sex-specific pathway differences central.",
     "- `fig_case_study_best_s26.svg` and `fig_case_study_worst_s41.svg`: useful internally for stress-testing, but too anecdotal for the supplement unless the text explicitly discusses heterogeneity across seeds."
   )
   writeLines(lines, file_out, useBytes = TRUE)
@@ -2365,28 +2457,28 @@ write_float_inventories <- function() {
     "",
     "Recommended main-text set: one central scenario-effect recovery figure and one compact cumulative recovery table. The chain-recovery table is useful if the text explicitly discusses the sequential mechanism; otherwise it can move to Appendix C.",
     "",
-    "| Filename | Placement | Purpose | Document | Priority |",
-    "|---|---|---|---|---|",
-    "| `fig_scenario_effect_recovery.svg` | Section 4 main results | Shows aggregate recovery of mortality scenario effects relative to freeze for Truth, SBAPC, and the scenario-blind BAPC benchmark. | Main text | Essential |",
-    "| `tab_cumulative_scenario_recovery.tex` | After the central figure | Summarizes cumulative mortality-effect recovery by scenario and endogenous horizon region. | Main text | Essential |",
-    "| `tab_chain_recovery.tex` | Later in Section 4 or Appendix C | Checks whether the freeze-baseline sequential chain is recovered at intermediate and mortality levels. | Main text or Appendix C | Useful |",
-    "| `fig_reliability_calibration.svg` | Appendix C reference only | Calibration diagnostic for uncertainty summaries, not the central validation target. | Appendix C | Optional |",
-    "| Support-window diagnostic | Mention in text, refer to Appendix C | Documents how observed support restrictions affect recovery relative to a full-support diagnostic estimator. | Appendix C | Useful |"
+    "| Filename | Document | Priority | Seed aggregation | SVG+PDF | Source note | Purpose |",
+    "|---|---|---|---|---|---|---|",
+    "| `fig_scenario_effect_recovery` | Main text | Essential | Aggregated across 50 seeds | Yes | Yes | Shows recovery of mortality scenario effects relative to freeze for Truth, SBAPC, and the scenario-blind BAPC benchmark. |",
+    "| `tab_cumulative_scenario_recovery` | Main text | Essential | Aggregated across 50 seeds | Not applicable | Yes | Summarizes cumulative mortality-effect recovery by scenario and endogenous horizon region. |",
+    "| `fig_transmission_map_support_compare_seed4_M` | Main text | Useful | Illustrative one-seed diagnostic | Yes | Yes | Visualizes the smoking-to-mortality pathway and the observed-window/full-support contrast for Male. |",
+    "| `tab_chain_recovery` | Main text or Appendix C | Useful | Aggregated across 50 seeds | Not applicable | Yes | Checks whether the freeze-baseline sequential chain is recovered at intermediate and mortality levels. |",
+    "| `tab_bias_summary` | Appendix C or omit | Optional | Aggregated across 50 seeds | Not applicable | Yes | Compact historical/projection bias summary by scenario and sex. |"
   )
   appendix <- c(
     "# Appendix C Float Inventory",
     "",
-    "| Filename | Placement | Purpose | Document | Priority |",
-    "|---|---|---|---|---|",
-    "| `fig_scenario_effect_recovery_bysex.svg` | Extended scenario-effect recovery | Shows by-sex scenario-effect recovery, including the incidence-anchored diagnostic variant. | Appendix C | Essential |",
-    "| `fig_support_window_comparison.svg` | Support-window diagnostics | Compares Truth, Full-support SBAPC, and Observed-window SBAPC for mortality scenario effects. | Appendix C | Useful |",
-    "| `tab_support_window_comparison.tex` | Support-window diagnostics | Quantifies the observed-window penalty by horizon region. | Appendix C | Useful |",
-    "| `fig_misspecification_scenario_recovery.svg` | Robustness | Assesses degradation under the misspecified monotone transmission design once those simulations are available. | Appendix C | Useful |",
-    "| `tab_misspecification_summary.tex` | Robustness | Compact numerical summary of misspecification performance. | Appendix C | Useful |",
-    "| `fig_reliability_calibration.svg` | Uncertainty diagnostics | Calibration diagnostic for predictive summaries; secondary to scenario-effect recovery. | Appendix C | Useful |",
-    "| `fig_transmission_map_support_compare_seed4_M.svg` | Seed-level illustration | Visualizes the sequential chain and support-window comparison for one illustrative seed. | Appendix C | Useful |",
-    "| `fig_case_study_median_s9.svg` | Seed-level illustration | Shows a representative trajectory case study. | Appendix C | Optional |",
-    "| `fig_bias_distributions.svg` | Extended performance diagnostics | Shows bias dispersion across simulations. | Appendix C | Optional |"
+    "| Filename | Document | Priority | Seed aggregation | SVG+PDF | Source note | Purpose |",
+    "|---|---|---|---|---|---|---|",
+    "| `fig_scenario_effect_recovery_bysex` | Appendix C | Essential | Aggregated across 50 seeds | Yes | Yes | Shows by-sex scenario-effect recovery, including the incidence-anchored diagnostic variant. |",
+    "| `fig_support_window_comparison` | Appendix C | Useful | Aggregated across 50 seeds | Yes | Yes | Compares Truth, Full-support SBAPC, and Observed-window SBAPC for mortality scenario effects. |",
+    "| `tab_support_window_comparison` | Appendix C | Useful | Aggregated across 50 seeds | Not applicable | Yes | Quantifies the observed-window penalty by horizon region. |",
+    "| `fig_misspecification_scenario_recovery` | Appendix C | Useful | Aggregated across 50 seeds | Yes | Yes | Assesses degradation under the Misspecified transmission design. |",
+    "| `tab_misspecification_summary` | Appendix C | Useful | Aggregated across 50 seeds | Not applicable | Yes | Compact numerical summary of misspecification performance. |",
+    "| `fig_reliability_calibration` | Appendix C | Useful | Aggregated across 50 seeds | Yes | Yes | Calibration diagnostic for predictive summaries; secondary to scenario-effect recovery. |",
+    "| `fig_case_study_median_s9` | Appendix C | Optional | Illustrative one-seed diagnostic | Yes | Yes | Shows a representative trajectory case study. |",
+    "| `fig_bias_distributions` | Appendix C | Optional | Aggregated across 50 seeds | Yes | Yes | Shows bias dispersion across simulations. |",
+    "| `fig_transmission_map_support_compare_seed4_F` | Not recommended | Optional | Illustrative one-seed diagnostic | Yes if retained | No current Appendix C note | Female counterpart reviewed as substantively redundant for the current supplement narrative. |"
   )
   writeLines(section4, file.path(OUT_SEC4, "section4_float_inventory.md"), useBytes = TRUE)
   writeLines(appendix, file.path(OUT_APPENDIX, "appendixC_float_inventory.md"), useBytes = TRUE)
@@ -2536,7 +2628,7 @@ replicate_main_paper <- function() {
   # 5. Bias Table
   data <- extract_all_metrics()
   generate_scenario_effect_products(data)
-  export_latex_bias_summary(data$metrics, file.path(OUT_SEC4, "tab_bias_summary.tex"))
+  export_bias_summary_table(data$metrics)
   write_csv(data$metrics, file.path(OUT_RAW, "all_metrics.csv"))
   
   # 6. Support Summary
