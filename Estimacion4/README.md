@@ -103,24 +103,34 @@ source("runs/replication_diagnostics.R")
 replicate_all_simulations(n_cores = 6, force_rerun = TRUE)
 ```
 
-The default full run is configured for 50 seeds through:
+The default full run is configured through the `BAPC_N_SEEDS` environment
+variable. If it is not set, the simulation hub uses 50 seeds:
 
 ```r
-CANONICAL_SEEDS <- 1:50
+Sys.setenv(BAPC_N_SEEDS = "50")
 ```
 
-For an exploratory production run, call `run_simulation_replication()` directly
-with an explicit seed set and worker count, then generate figures through
-`replicate_main_paper()`.
+For the final 200-seed simulation run used for manuscript and supplement
+products:
+
+```r
+setwd("D:/Git/Bloomberg_2025/Estimacion4")
+Sys.setenv(BAPC_FINAL_N_CORES = "4")  # increase to 6 only if memory is stable
+source("runs/run_final_simulation_200.R")
+```
+
+This runs the well-specified observed-window design, the full-support diagnostic
+design, and the misspecified transmission design, then regenerates all Section 4
+and Appendix C products.
 
 To write a production candidate to a fresh folder, set `BAPC_OUT_BASE` before
 loading the replication hub:
 
 ```r
-Sys.setenv(BAPC_OUT_BASE = "results/20260518_PROD_CANDIDATE")
+Sys.setenv(BAPC_OUT_BASE = "results/20260521_FINAL_200SEEDS")
+Sys.setenv(BAPC_N_SEEDS = "200")
 source("runs/replication_diagnostics.R")
-run_simulation_replication(seeds = 1:50, n_cores = 6, force_rerun = TRUE)
-replicate_main_paper()
+replicate_final_simulations(seeds = 1:200, n_cores = 4, force_rerun = FALSE)
 ```
 
 `replicate_main_paper()` also generates the seed-4 full-support/oracle run needed
@@ -137,7 +147,7 @@ The main diagnostic products currently used for the simulation section include:
 - edge-completion sensitivity diagnostics;
 - bias and reliability summaries across seeds.
 
-Figures are exported as SVG by default through `BAPC_FIG_FORMAT`.
+Figures are exported as both SVG and PDF by default through `BAPC_FIG_FORMAT`.
 
 ## Replication Packaging Rule
 

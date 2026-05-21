@@ -3,7 +3,7 @@
 # This script intentionally keeps INLA parallelism moderate. It is meant for
 # topping up an existing production-candidate run, not for force-overwriting it.
 
-Sys.setenv(BAPC_OUT_BASE = Sys.getenv("BAPC_OUT_BASE", "results/20260518_PROD_CANDIDATE"))
+Sys.setenv(BAPC_OUT_BASE = Sys.getenv("BAPC_OUT_BASE", "results/20260521_FINAL_200SEEDS"))
 source("runs/replication_diagnostics.R")
 
 message("Output base: ", OUT_BASE)

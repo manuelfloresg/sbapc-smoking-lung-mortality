@@ -15,7 +15,7 @@ get_opt <- function(name, default = "") {
   if (name %in% names(opts) && nzchar(opts[[name]])) opts[[name]] else default
 }
 
-Sys.setenv(BAPC_OUT_BASE = get_opt("out_base", Sys.getenv("BAPC_OUT_BASE", "results/20260518_PROD_CANDIDATE")))
+Sys.setenv(BAPC_OUT_BASE = get_opt("out_base", Sys.getenv("BAPC_OUT_BASE", "results/20260521_FINAL_200SEEDS")))
 source("runs/replication_diagnostics.R")
 
 parse_seed_spec <- function(x) {

@@ -20,7 +20,9 @@ library(future.apply)
 # ------------------------------------------------------------
 # PROJECT PARAMETERS
 # ------------------------------------------------------------
-CANONICAL_SEEDS <- 1:50
+.n_seeds_env <- suppressWarnings(as.integer(Sys.getenv("BAPC_N_SEEDS", "50")))
+if (!is.finite(.n_seeds_env) || .n_seeds_env < 1L) .n_seeds_env <- 50L
+CANONICAL_SEEDS <- seq_len(.n_seeds_env)
 CANONICAL_DGPS  <- c("spec_linear")
 CANONICAL_SCENS <- c("freeze", "up1pc", "down1pc", "quit")
 CAUSE_ID        <- "lung"
@@ -110,6 +112,21 @@ FIG_FORMAT <- {
 
 figure_exts <- function(format = FIG_FORMAT) {
   if (identical(format, "both")) c("svg", "pdf") else format
+}
+
+seed_count_label <- function(seeds = CANONICAL_SEEDS) {
+  sprintf("%d seed%s", length(unique(seeds)), if (length(unique(seeds)) == 1L) "" else "s")
+}
+
+cleanup_inla_temp <- function(tmpdir = BAPC_PATHS$inla_tmp) {
+  tmpdir <- normalizePath(tmpdir, winslash = "/", mustWork = FALSE)
+  if (!grepl("(^|/)tmp_inla$", tmpdir, ignore.case = TRUE)) {
+    stop("Refusing to clean unexpected INLA temp directory: ", tmpdir)
+  }
+  targets <- list.files(tmpdir, pattern = "^inla\\.model-", full.names = TRUE, recursive = FALSE)
+  targets <- targets[dir.exists(targets)]
+  if (length(targets)) unlink(targets, recursive = TRUE, force = TRUE)
+  invisible(length(targets))
 }
 
 save_paper_plot <- function(plot, path_no_ext, width, height, bg = "white", format = FIG_FORMAT, ...) {
@@ -2458,6 +2475,7 @@ write_seed_level_figure_recommendation <- function(file_out = file.path(OUT_APPE
 }
 
 write_float_inventories <- function() {
+  seed_label <- seed_count_label()
   section4 <- c(
     "# Section 4 Float Inventory",
     "",
@@ -2465,25 +2483,25 @@ write_float_inventories <- function() {
     "",
     "| Filename | Document | Priority | Seed aggregation | SVG+PDF | Source note | Purpose |",
     "|---|---|---|---|---|---|---|",
-    "| `fig_scenario_effect_recovery` | Main text | Essential | Aggregated across 50 seeds | Yes | Yes | Shows recovery of mortality scenario effects relative to freeze for Truth, SBAPC, and the scenario-blind BAPC benchmark. |",
-    "| `tab_cumulative_scenario_recovery` | Main text | Essential | Aggregated across 50 seeds | Not applicable | Yes | Summarizes cumulative mortality-effect recovery by scenario and endogenous horizon region. |",
+    sprintf("| `fig_scenario_effect_recovery` | Main text | Essential | Aggregated across %s | Yes | Yes | Shows recovery of mortality scenario effects relative to freeze for Truth, SBAPC, and the scenario-blind BAPC benchmark. |", seed_label),
+    sprintf("| `tab_cumulative_scenario_recovery` | Main text | Essential | Aggregated across %s | Not applicable | Yes | Summarizes cumulative mortality-effect recovery by scenario and endogenous horizon region. |", seed_label),
     "| `fig_transmission_map_support_compare_seed4_M` | Main text | Useful | Illustrative one-seed diagnostic | Yes | Yes | Visualizes the smoking-to-mortality pathway and the observed-window/full-support contrast for Male. |",
-    "| `tab_chain_recovery` | Main text or Appendix C | Useful | Aggregated across 50 seeds | Not applicable | Yes | Checks whether the freeze-baseline sequential chain is recovered at intermediate and mortality levels. |",
-    "| `tab_bias_summary` | Appendix C or omit | Optional | Aggregated across 50 seeds | Not applicable | Yes | Compact historical/projection bias summary by scenario and sex. |"
+    sprintf("| `tab_chain_recovery` | Main text or Appendix C | Useful | Aggregated across %s | Not applicable | Yes | Checks whether the freeze-baseline sequential chain is recovered at intermediate and mortality levels. |", seed_label),
+    sprintf("| `tab_bias_summary` | Appendix C or omit | Optional | Aggregated across %s | Not applicable | Yes | Compact historical/projection bias summary by scenario and sex. |", seed_label)
   )
   appendix <- c(
     "# Appendix C Float Inventory",
     "",
     "| Filename | Document | Priority | Seed aggregation | SVG+PDF | Source note | Purpose |",
     "|---|---|---|---|---|---|---|",
-    "| `fig_scenario_effect_recovery_bysex` | Appendix C | Essential | Aggregated across 50 seeds | Yes | Yes | Shows by-sex scenario-effect recovery, including the incidence-anchored diagnostic variant. |",
-    "| `fig_support_window_comparison` | Appendix C | Useful | Aggregated across 50 seeds | Yes | Yes | Compares Truth, Full-support SBAPC, and Observed-window SBAPC for mortality scenario effects. |",
-    "| `tab_support_window_comparison` | Appendix C | Useful | Aggregated across 50 seeds | Not applicable | Yes | Quantifies the observed-window penalty by horizon region. |",
-    "| `fig_misspecification_scenario_recovery` | Appendix C | Useful | Aggregated across 50 seeds | Yes | Yes | Assesses degradation under the Misspecified transmission design. |",
-    "| `tab_misspecification_summary` | Appendix C | Useful | Aggregated across 50 seeds | Not applicable | Yes | Compact numerical summary of misspecification performance. |",
-    "| `fig_reliability_calibration` | Appendix C | Useful | Aggregated across 50 seeds | Yes | Yes | Calibration diagnostic for predictive summaries; secondary to scenario-effect recovery. |",
+    sprintf("| `fig_scenario_effect_recovery_bysex` | Appendix C | Essential | Aggregated across %s | Yes | Yes | Shows by-sex scenario-effect recovery, including the incidence-anchored diagnostic variant. |", seed_label),
+    sprintf("| `fig_support_window_comparison` | Appendix C | Useful | Aggregated across %s | Yes | Yes | Compares Truth, Full-support SBAPC, and Observed-window SBAPC for mortality scenario effects. |", seed_label),
+    sprintf("| `tab_support_window_comparison` | Appendix C | Useful | Aggregated across %s | Not applicable | Yes | Quantifies the observed-window penalty by horizon region. |", seed_label),
+    sprintf("| `fig_misspecification_scenario_recovery` | Appendix C | Useful | Aggregated across %s | Yes | Yes | Assesses degradation under the Misspecified transmission design. |", seed_label),
+    sprintf("| `tab_misspecification_summary` | Appendix C | Useful | Aggregated across %s | Not applicable | Yes | Compact numerical summary of misspecification performance. |", seed_label),
+    sprintf("| `fig_reliability_calibration` | Appendix C | Useful | Aggregated across %s | Yes | Yes | Calibration diagnostic for predictive summaries; secondary to scenario-effect recovery. |", seed_label),
     "| `fig_case_study_median_s9` | Appendix C | Optional | Illustrative one-seed diagnostic | Yes | Yes | Shows a representative trajectory case study. |",
-    "| `fig_bias_distributions` | Appendix C | Optional | Aggregated across 50 seeds | Yes | Yes | Shows bias dispersion across simulations. |",
+    sprintf("| `fig_bias_distributions` | Appendix C | Optional | Aggregated across %s | Yes | Yes | Shows bias dispersion across simulations. |", seed_label),
     "| `fig_transmission_map_support_compare_seed4_F` | Not recommended | Optional | Illustrative one-seed diagnostic | Yes if retained | No current Appendix C note | Female counterpart reviewed as substantively redundant for the current supplement narrative. |"
   )
   writeLines(section4, file.path(OUT_SEC4, "section4_float_inventory.md"), useBytes = TRUE)
@@ -2711,12 +2729,15 @@ generate_appendix_c <- function() {
 # 6. ORCHESTRATOR
 # =============================================================
 
-replicate_all_simulations <- function(n_cores = 6, force_rerun = TRUE) {
+replicate_all_simulations <- function(seeds = CANONICAL_SEEDS, n_cores = 6, force_rerun = TRUE) {
   message("STARTING FULL REPLICATION WORKFLOW...")
+  old_seeds <- CANONICAL_SEEDS
+  CANONICAL_SEEDS <<- sort(unique(as.integer(seeds)))
+  on.exit({ CANONICAL_SEEDS <<- old_seeds }, add = TRUE)
   
   # 1. Run Simulations (FORCE RERUN to overwrite old files)
   # Using 6 cores to avoid memory allocation errors (INLA is memory intensive)
-  run_simulation_replication(n_cores = n_cores, force_rerun = force_rerun)
+  run_simulation_replication(seeds = CANONICAL_SEEDS, n_cores = n_cores, force_rerun = force_rerun)
   
   # 2. Section 4
   replicate_main_paper()
@@ -2725,4 +2746,61 @@ replicate_all_simulations <- function(n_cores = 6, force_rerun = TRUE) {
   generate_appendix_c()
   
   message("\nALL REPLICATION TASKS COMPLETED SUCCESSFULLY.")
+}
+
+replicate_final_simulations <- function(seeds = CANONICAL_SEEDS,
+                                        n_cores = 4,
+                                        force_rerun = FALSE,
+                                        run_oracle = TRUE,
+                                        run_misspec = TRUE) {
+  message("STARTING FINAL SIMULATION WORKFLOW...")
+  old_seeds <- CANONICAL_SEEDS
+  CANONICAL_SEEDS <<- sort(unique(as.integer(seeds)))
+  on.exit({ CANONICAL_SEEDS <<- old_seeds }, add = TRUE)
+
+  message("Seed set: ", paste(range(CANONICAL_SEEDS), collapse = "-"),
+          " (", length(CANONICAL_SEEDS), " seeds)")
+  message("Output base: ", OUT_BASE)
+  message("Worker count: ", n_cores)
+
+  run_simulation_replication(
+    seeds = CANONICAL_SEEDS,
+    dgps = "spec_linear",
+    scens = CANONICAL_SCENS,
+    force_rerun = force_rerun,
+    n_cores = n_cores,
+    information_set = "realistic",
+    raw_dir = OUT_RAW
+  )
+
+  if (isTRUE(run_oracle)) {
+    run_simulation_replication(
+      seeds = CANONICAL_SEEDS,
+      dgps = "spec_linear",
+      scens = CANONICAL_SCENS,
+      force_rerun = force_rerun,
+      n_cores = n_cores,
+      information_set = "oracle",
+      raw_dir = OUT_RAW_ORACLE
+    )
+  }
+
+  if (isTRUE(run_misspec)) {
+    run_simulation_replication(
+      seeds = CANONICAL_SEEDS,
+      dgps = "misspec_tanh",
+      scens = CANONICAL_SCENS,
+      force_rerun = force_rerun,
+      n_cores = n_cores,
+      information_set = "realistic",
+      raw_dir = OUT_RAW
+    )
+  }
+
+  replicate_main_paper()
+  generate_appendix_c()
+
+  removed <- cleanup_inla_temp()
+  message("Cleaned INLA temporary directories: ", removed)
+  message("\nFINAL SIMULATION WORKFLOW COMPLETED SUCCESSFULLY.")
 }
