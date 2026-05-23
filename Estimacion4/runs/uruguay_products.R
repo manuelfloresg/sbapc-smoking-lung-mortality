@@ -921,15 +921,18 @@ build_uruguay_fit_diagnostics_compact <- function(run_list) {
     dplyr::mutate(
       sex_label = sex_public(sex),
       model_family = dplyr::case_when(
-        grepl("Prevalence", model, ignore.case = TRUE) ~ "Prevalence",
-        grepl("Incidence", model, ignore.case = TRUE) ~ "Incidence",
-        grepl("Mortality", model, ignore.case = TRUE) ~ "Mortality",
+        model %in% c("Incidence benchmark (APC)", "Incidence prevalence-informed") ~ "Incidence",
+        model %in% c("Mortality benchmark (APC)", "Mortality anchored on I|P", "Mortality anchored on I only") ~ "Mortality",
+        model == "Prevalence BAPC" ~ "Prevalence",
         TRUE ~ "Other"
       ),
       estimator = dplyr::case_when(
-        grepl("benchmark", model, ignore.case = TRUE) ~ "BAPC benchmark",
-        grepl("SBAPC|anchor", model, ignore.case = TRUE) ~ "SBAPC",
-        grepl("Prevalence", model, ignore.case = TRUE) ~ "APC",
+        model == "Incidence benchmark (APC)" ~ "BAPC benchmark",
+        model == "Incidence prevalence-informed" ~ "SBAPC incidence layer",
+        model == "Mortality benchmark (APC)" ~ "BAPC benchmark",
+        model == "Mortality anchored on I|P" ~ "SBAPC mortality layer",
+        model == "Mortality anchored on I only" ~ "Incidence-anchored mortality layer",
+        model == "Prevalence BAPC" ~ "Prevalence APC",
         TRUE ~ model
       )
     )
@@ -944,11 +947,13 @@ build_uruguay_fit_diagnostics_compact <- function(run_list) {
       dLCPO = dplyr::coalesce(dLCPO, LCPO - LCPO_benchmark),
       BT_RMSE = suppressWarnings(as.numeric(BT_RMSE))
     ) |>
-    dplyr::filter(model_family %in% c("Prevalence", "Incidence", "Mortality")) |>
+    dplyr::filter(model_family %in% c("Incidence", "Mortality")) |>
     dplyr::select(sex, sex_label, model_family, estimator, delta_WAIC, delta_DIC, dLCPO, BT_RMSE) |>
     dplyr::arrange(factor(sex, levels = c("M", "F")),
-                   factor(model_family, levels = c("Prevalence", "Incidence", "Mortality")),
-                   factor(estimator, levels = c("APC", "BAPC benchmark", "SBAPC")))
+                   factor(model_family, levels = c("Incidence", "Mortality")),
+                   factor(estimator, levels = c("BAPC benchmark", "SBAPC incidence layer",
+                                                "SBAPC mortality layer",
+                                                "Incidence-anchored mortality layer")))
 }
 
 export_uruguay_fit_diagnostics_compact <- function(
@@ -1386,7 +1391,7 @@ write_uruguay_notes_and_inventories <- function() {
     "",
     "## tab_uruguay_fit_diagnostics_compact",
     "Title: Compact historical fit diagnostics",
-    "Note: Delta information criteria compare SBAPC layers with the corresponding BAPC benchmark where such a benchmark is meaningful. Prevalence APC is reported as a standalone diagnostic. Source: Own elaboration.",
+    "Note: Delta information criteria compare SBAPC incidence and mortality layers with the corresponding BAPC benchmark. The incidence-anchored mortality layer is retained as a diagnostic decomposition of the mortality stage. Source: Own elaboration.",
     "",
     "## tab_uruguay_cumulative_effects",
     "Title: Cumulative scenario effects in the Uruguay application",
