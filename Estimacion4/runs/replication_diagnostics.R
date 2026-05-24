@@ -1069,12 +1069,13 @@ plot_transmission_map_support_compare <- function(seed = 4,
       breaks = series_levels
     ) +
     scale_linetype_manual(
-      values = stats::setNames(c("dashed", "solid", "solid"), series_levels),
+      values = stats::setNames(c("solid", "solid", "solid"), series_levels),
       breaks = series_levels
     ) +
     scale_linewidth_manual(
       values = stats::setNames(c(0.80, 0.62, 0.62), series_levels),
-      breaks = series_levels
+      breaks = series_levels,
+      guide = "none"
     ) +
     labs(x = "Year", y = NULL, color = "Series", linetype = "Series") +
     theme_paper_main(base_size = base_size) +
