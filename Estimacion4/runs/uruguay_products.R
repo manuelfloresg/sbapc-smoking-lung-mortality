@@ -790,16 +790,16 @@ plot_uruguay_lung_mortality_uncertainty <- function(run_list) {
 
 external_input_sensitivity_specs <- function() {
   tibble::tibble(
-    variant = c("baseline", "rr_low", "rr_high", "reversal_slow", "reversal_fast", "postdx_low", "postdx_high"),
+    variant = c("baseline", "rr_low", "rr_high", "reversal_slow", "reversal_fast", "postdx_late", "postdx_early"),
     input_block = c("Baseline", "Incidence relative risk", "Incidence relative risk",
                     "Risk reversal", "Risk reversal",
                     "Post-diagnosis mortality", "Post-diagnosis mortality"),
     variant_label = c("Baseline", "RR low", "RR high",
                       "Slower risk reversal", "Faster risk reversal",
-                      "Lower post-diagnosis mortality", "Higher post-diagnosis mortality"),
+                      "Later post-diagnosis mortality", "Earlier post-diagnosis mortality"),
     rr_log_shift = c(0, -0.20, 0.20, 0, 0, 0, 0),
     reversal_time_scale = c(1, 1, 1, 0.75, 1.25, 1, 1),
-    postdx_factor = c(1, 1, 1, 1, 1, 0.90, 1.10)
+    postdx_timing_shift = c(0, 0, 0, 0, 0, -0.10, 0.10)
   )
 }
 
@@ -821,20 +821,36 @@ with_external_input_variant <- function(spec_row, expr) {
   rr_shift <- suppressWarnings(as.numeric(spec_row$rr_log_shift[[1]]))
   if (is.finite(rr_shift) && abs(rr_shift) > 0) {
     rr_new <- old_rr
-    rr_new$lung <- as.numeric(old_rr$lung) * exp(rr_shift)
+    rr_new$lung <- old_rr$lung * exp(rr_shift)
     assign("INC_RR_BY_CAUSE_SEX", rr_new, envir = env)
   }
 
-  postdx_factor <- suppressWarnings(as.numeric(spec_row$postdx_factor[[1]]))
-  if (is.finite(postdx_factor) && abs(postdx_factor - 1) > 1e-12) {
+  postdx_timing_shift <- suppressWarnings(as.numeric(spec_row$postdx_timing_shift[[1]]))
+  if (is.finite(postdx_timing_shift) && abs(postdx_timing_shift) > 1e-12) {
+    shift <- abs(postdx_timing_shift)
     death_new <- old_death |>
       dplyr::mutate(
-        dplyr::across(
-          c("p_0_1", "p_1_3", "p_3_5"),
-          ~ dplyr::if_else(.data$cause_id == "lung", pmin(pmax(.x * postdx_factor, 0), 0.99), .x)
+        p_0_1_base = p_0_1,
+        p_1_3_base = p_1_3,
+        p_3_5_base = p_3_5,
+        p_0_1 = dplyr::case_when(
+          .data$cause_id != "lung" ~ p_0_1,
+          postdx_timing_shift > 0 ~ p_0_1_base + shift * p_1_3_base,
+          TRUE ~ p_0_1_base * (1 - shift)
+        ),
+        p_1_3 = dplyr::case_when(
+          .data$cause_id != "lung" ~ p_1_3,
+          postdx_timing_shift > 0 ~ p_1_3_base * (1 - shift) + shift * p_3_5_base,
+          TRUE ~ p_1_3_base + shift * p_0_1_base - shift * p_1_3_base
+        ),
+        p_3_5 = dplyr::case_when(
+          .data$cause_id != "lung" ~ p_3_5,
+          postdx_timing_shift > 0 ~ p_3_5_base * (1 - shift),
+          TRUE ~ p_3_5_base + shift * p_1_3_base
         ),
         p_le_5 = dplyr::if_else(.data$cause_id == "lung", p_0_1 + p_1_3 + p_3_5, p_le_5)
-      )
+      ) |>
+      dplyr::select(-p_0_1_base, -p_1_3_base, -p_3_5_base)
     assign("MORT_POSTDX_DEATH_TABLE", death_new, envir = env)
   }
 
@@ -955,52 +971,23 @@ plot_uruguay_external_input_sensitivity <- function(sens_df) {
     )
 }
 
-summarise_external_input_sensitivity <- function(sens_df, years = c(2030L, 2040L)) {
+summarise_external_input_sensitivity <- function(sens_df) {
   common_max <- min(tapply(sens_df$period, sens_df$variant, max), na.rm = TRUE)
-  years <- sort(unique(as.integer(c(years, common_max))))
-  years <- years[is.finite(years) & years <= common_max]
   df <- sens_df |>
     dplyr::filter(period <= common_max, scenario %in% c("freeze", "quit"))
 
-  point_summary <- df |>
-    dplyr::filter(period %in% years) |>
-    dplyr::group_by(sex, sex_label, scenario, scenario_label, period) |>
-    dplyr::summarise(
-      baseline = mean[variant == "baseline"][1],
-      low = min(mean[variant != "baseline"], na.rm = TRUE),
-      high = max(mean[variant != "baseline"], na.rm = TRUE),
-      .groups = "drop"
-    ) |>
-    dplyr::mutate(value = sprintf("%s [%s, %s]", fmt_int(baseline), fmt_int(low), fmt_int(high))) |>
-    dplyr::select(sex, sex_label, scenario, scenario_label, period, value) |>
-    tidyr::pivot_wider(names_from = period, values_from = value, names_prefix = "y_")
-
-  cum_summary <- df |>
+  out <- df |>
     dplyr::group_by(sex, sex_label, scenario, scenario_label, variant) |>
     dplyr::summarise(cumulative = sum(mean, na.rm = TRUE), .groups = "drop") |>
-    dplyr::group_by(sex, sex_label, scenario, scenario_label) |>
-    dplyr::summarise(
-      cumulative_baseline = cumulative[variant == "baseline"][1],
-      cumulative_low = min(cumulative[variant != "baseline"], na.rm = TRUE),
-      cumulative_high = max(cumulative[variant != "baseline"], na.rm = TRUE),
-      .groups = "drop"
-    ) |>
     dplyr::mutate(
-      cumulative_display = sprintf(
-        "%s [%s, %s]",
-        fmt_int(cumulative_baseline),
-        fmt_int(cumulative_low),
-        fmt_int(cumulative_high)
+      variant = factor(
+        variant,
+        levels = c("baseline", "rr_low", "rr_high", "reversal_slow", "reversal_fast", "postdx_late", "postdx_early")
       )
-    )
-
-  out <- point_summary |>
-    dplyr::left_join(
-      cum_summary |> dplyr::select(sex, scenario, cumulative_baseline, cumulative_low, cumulative_high, cumulative_display),
-      by = c("sex", "scenario")
     ) |>
+    dplyr::select(sex, sex_label, scenario, scenario_label, variant, cumulative) |>
+    tidyr::pivot_wider(names_from = variant, values_from = cumulative) |>
     dplyr::arrange(factor(sex, levels = c("M", "F")), factor(scenario, levels = c("freeze", "quit")))
-  attr(out, "years") <- years
   attr(out, "common_max") <- common_max
   out
 }
@@ -1010,11 +997,11 @@ export_external_input_sensitivity_table <- function(
     csv_out = file.path(OUT_APPENDIXD, "tab_uruguay_external_input_sensitivity.csv"),
     tex_out = file.path(OUT_APPENDIXD, "tab_uruguay_external_input_sensitivity.tex")) {
   readr::write_csv(summary_df, csv_out)
-  years <- attr(summary_df, "years")
-  year_cols <- paste0("y_", years)
+  common_max <- attr(summary_df, "common_max") %||% NA_integer_
   lines <- c(
-    latex_open(paste0("ll", paste(rep("l", length(years)), collapse = ""), "l")),
-    paste(c("Sex", "Scenario", as.character(years), sprintf("Cumulative 2023--%s", max(years))), collapse = " & ") |> paste0(" \\\\"),
+    latex_open("llrrrrrrr"),
+    "Sex & Scenario & Current & \\multicolumn{2}{c}{RR} & \\multicolumn{2}{c}{Reversal} & \\multicolumn{2}{c}{Postdx timing} \\\\",
+    " &  &  & Low & High & Slow & Fast & Later & Earlier \\\\",
     "\\midrule"
   )
   last_sex <- NULL
@@ -1023,9 +1010,24 @@ export_external_input_sensitivity_table <- function(
     sx <- as.character(row$sex)
     if (!is.null(last_sex) && !identical(last_sex, sx)) lines <- c(lines, "\\midrule")
     sex_cell <- if (!identical(last_sex, sx)) row$sex_label else ""
-    vals <- vapply(year_cols, function(cc) as.character(row[[cc]] %||% ""), character(1))
-    lines <- c(lines, paste(c(latex_escape(sex_cell), latex_escape(row$scenario_label), vals, row$cumulative_display), collapse = " & ") |> paste0(" \\\\"))
+    vals <- c(
+      fmt_int(row$baseline),
+      fmt_int(row$rr_low),
+      fmt_int(row$rr_high),
+      fmt_int(row$reversal_slow),
+      fmt_int(row$reversal_fast),
+      fmt_int(row$postdx_late),
+      fmt_int(row$postdx_early)
+    )
+    lines <- c(lines, paste(c(
+      latex_escape(sex_cell),
+      latex_escape(row$scenario_label),
+      vals
+    ), collapse = " & ") |> paste0(" \\\\"))
     last_sex <- sx
+  }
+  if (is.finite(common_max)) {
+    attr(summary_df, "table_note") <- sprintf("Cumulative deaths over 2023--%s.", as.integer(common_max))
   }
   writeLines(c(lines, latex_close()), tex_out, useBytes = TRUE)
   invisible(summary_df)
@@ -1636,7 +1638,7 @@ write_uruguay_notes_and_inventories <- function() {
     "## fig_uruguay_external_input_sensitivity",
     "Files: fig_uruguay_external_input_sensitivity.svg, fig_uruguay_external_input_sensitivity.pdf",
     "Title: Sensitivity to external transmission inputs",
-    "Note: Solid lines show the baseline SBAPC projection under fixed external inputs. Shaded bands show the deterministic envelope obtained by perturbing incidence relative risks by plus or minus 0.20 on the log scale, risk-reversal speed by time-scale factors 0.75 and 1.25, and post-diagnosis mortality probabilities by factors 0.90 and 1.10. The display is a sensitivity analysis, not a posterior predictive interval. Source: Own elaboration."
+    "Note: Solid lines show the baseline SBAPC projection under fixed external inputs. Shaded bands show the deterministic envelope obtained by perturbing incidence relative risks by plus or minus 0.20 on the log scale, risk-reversal speed by time-scale factors 0.75 and 1.25, and the timing of post-diagnosis mortality by shifting 10 percent of interval mortality mass later or earlier. The display is a sensitivity analysis, not a posterior predictive interval. Source: Own elaboration."
   )
   writeLines(appendix_fig, file.path(OUT_APPENDIXD, "figure_titles_notes.md"), useBytes = TRUE)
 
@@ -1665,7 +1667,7 @@ write_uruguay_notes_and_inventories <- function() {
     "",
     "## tab_uruguay_external_input_sensitivity",
     "Title: Sensitivity to external transmission inputs",
-    "Note: Entries report the baseline projected deaths followed by the deterministic low-high envelope across external-input perturbations in brackets. Perturbations vary incidence relative risks, risk-reversal speed, and post-diagnosis mortality probabilities one block at a time. The cumulative column sums annual deaths over the displayed endogenous projection horizon. Source: Own elaboration."
+    "Note: Entries report cumulative projected deaths over the endogenous projection horizon. The Current column uses the baseline fixed external inputs. The remaining columns report one-at-a-time perturbations of incidence relative risks, risk-reversal speed, and the timing of post-diagnosis mortality. Source: Own elaboration."
   )
   writeLines(appendix_tab, file.path(OUT_APPENDIXD, "table_titles_notes.md"), useBytes = TRUE)
 
@@ -1694,7 +1696,7 @@ write_uruguay_notes_and_inventories <- function() {
     "| `tab_uruguay_fit_scores` | Appendix D | Optional | Diagnostic | Freeze-baseline fit statistics | Not applicable | Yes | Yes | Full historical fit/backtesting diagnostic. |",
     "| `tab_uruguay_fit_diagnostics_compact` | Appendix D | Useful | Diagnostic | Freeze-baseline fit statistics | Not applicable | Yes | Yes | Compact diagnostic comparison of SBAPC layers and BAPC benchmarks. |",
     "| `tab_uruguay_cumulative_effects` | Appendix D | Useful | Diagnostic | Both-sex cumulative effects | Not applicable | Yes | Yes | Scenario effects relative to Frozen at 2022 by endogenous horizon region. |",
-    "| `tab_uruguay_external_input_sensitivity` | Appendix D | Useful | Sensitivity | Sex-specific selected-year and cumulative deaths | Not applicable | Yes | Yes | Summarizes baseline projections and the external-input perturbation envelope. |",
+    "| `tab_uruguay_external_input_sensitivity` | Appendix D | Useful | Sensitivity | Sex-specific cumulative deaths | Not applicable | Yes | Yes | Summarizes baseline projections and one-at-a-time external-input perturbations. |",
     "| `tab_uruguay_transmission_inputs` | Appendix D | Optional | Descriptive | Sex-specific external inputs | Not applicable | Yes | Yes | Documents fixed external lung-cancer transmission inputs. |"
   )
   writeLines(appendix_inv, file.path(OUT_APPENDIXD, "appendixD_float_inventory.md"), useBytes = TRUE)
