@@ -998,7 +998,7 @@ plot_transmission_map <- function(seed = 4,
 
   ggplot(df, aes(x = period, y = value, color = series, linetype = series)) +
     facet_grid(metric ~ scenario, scales = "free_y") +
-    geom_vline(xintercept = 2022, linetype = "dotted", color = "gray60", linewidth = 0.35) +
+    geom_vline(xintercept = 2022, linetype = "dotted", color = "gray45", linewidth = 0.55) +
     geom_line(linewidth = 0.85, na.rm = TRUE) +
     scale_color_manual(values = MODEL_COLORS[series_levels], breaks = series_levels) +
     scale_linetype_manual(values = MODEL_LINETYPES[series_levels], breaks = series_levels) +
@@ -1060,16 +1060,20 @@ plot_transmission_map_support_compare <- function(seed = 4,
       scenario = factor(as.character(scenario), levels = SCEN_LABELS[scens])
     )
 
-  ggplot(df, aes(x = period, y = value, color = series, linetype = series)) +
+  ggplot(df, aes(x = period, y = value, color = series, linetype = series, linewidth = series)) +
     facet_grid(metric ~ scenario, scales = "free_y") +
     geom_vline(xintercept = 2022, linetype = "dotted", color = "gray60", linewidth = 0.35) +
-    geom_line(linewidth = 0.85, na.rm = TRUE) +
+    geom_line(na.rm = TRUE) +
     scale_color_manual(
       values = stats::setNames(c("black", "#D32F2F", "#1565C0"), series_levels),
       breaks = series_levels
     ) +
     scale_linetype_manual(
-      values = stats::setNames(c("dashed", "solid", "longdash"), series_levels),
+      values = stats::setNames(c("dashed", "solid", "solid"), series_levels),
+      breaks = series_levels
+    ) +
+    scale_linewidth_manual(
+      values = stats::setNames(c(0.80, 0.62, 0.62), series_levels),
       breaks = series_levels
     ) +
     labs(x = "Year", y = NULL, color = "Series", linetype = "Series") +
