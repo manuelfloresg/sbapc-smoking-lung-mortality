@@ -3,7 +3,7 @@ repo_root <- normalizePath(file.path(dirname(sys.frame(1)$ofile), ".."), winslas
 defaults <- c(
   BAPC_PATH_MORT_CSV = file.path(repo_root, "data", "analysis_ready", "uruguay_mortality_smooth_cancer.csv"),
   BAPC_PATH_POP_DTA  = file.path(repo_root, "data", "analysis_ready", "uruguay_population_1950_2070.dta"),
-  BAPC_PATH_PREV_DTA = file.path(repo_root, "data", "analysis_ready", "uruguay_smoking_prevalence_harmonized.dta"),
+  BAPC_PATH_PREV_DTA = file.path(repo_root, "data", "analysis_ready", "uruguay_smoking_prevalence_aggregated.csv"),
   BAPC_PATH_INC_CSV  = file.path(repo_root, "data", "analysis_ready", "uruguay_incidence_smooth_1998_2022.csv")
 )
 

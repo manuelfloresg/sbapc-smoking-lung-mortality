@@ -121,7 +121,7 @@ if (is.null(getOption("BAPC_PATH_POP_DTA"))) {
   options(BAPC_PATH_POP_DTA = file.path(.public_data_dir, "uruguay_population_1950_2070.dta"))
 }
 if (is.null(getOption("BAPC_PATH_PREV_DTA"))) {
-  options(BAPC_PATH_PREV_DTA = file.path(.public_data_dir, "uruguay_smoking_prevalence_harmonized.dta"))
+  options(BAPC_PATH_PREV_DTA = file.path(.public_data_dir, "uruguay_smoking_prevalence_aggregated.csv"))
 }
 if (is.null(getOption("BAPC_PATH_INC_CSV"))) {
   options(BAPC_PATH_INC_CSV = file.path(.public_data_dir, "uruguay_incidence_smooth_1998_2022.csv"))

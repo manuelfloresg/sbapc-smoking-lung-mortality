@@ -104,8 +104,7 @@ look for these files under `data/analysis_ready/`:
 
 - `uruguay_mortality_smooth_cancer.csv`
 - `uruguay_population_1950_2070.dta`
-- `uruguay_smoking_prevalence_harmonized.dta` or an aggregated prevalence file
-  with columns `age`, `period`, `cohort`, `sex`, `inst`, `y_eff`, `neff`
+- `uruguay_smoking_prevalence_aggregated.csv`
 - `uruguay_incidence_smooth_1998_2022.csv`
 
 If the files are stored elsewhere, set:
@@ -113,7 +112,7 @@ If the files are stored elsewhere, set:
 ```r
 Sys.setenv(BAPC_PATH_MORT_CSV = "path/to/uruguay_mortality_smooth_cancer.csv")
 Sys.setenv(BAPC_PATH_POP_DTA  = "path/to/uruguay_population_1950_2070.dta")
-Sys.setenv(BAPC_PATH_PREV_DTA = "path/to/uruguay_smoking_prevalence_harmonized.dta")
+Sys.setenv(BAPC_PATH_PREV_DTA = "path/to/uruguay_smoking_prevalence_aggregated.csv")
 Sys.setenv(BAPC_PATH_INC_CSV  = "path/to/uruguay_incidence_smooth_1998_2022.csv")
 ```
 
@@ -152,12 +151,10 @@ not archived in Git.
 
 Some source files used in the Uruguay application were obtained from Uruguayan
 institutions, including the Ministry of Public Health and the National Cancer
-Registry. Those raw source files are not redistributed unless explicitly
-authorized.
-
-The public repository is designed to include only analysis-ready derived inputs
-that are non-identifiable and suitable for redistribution. Provenance and
-redistribution status are documented in `data/metadata/`.
+Registry. Raw source files are not redistributed. The repository includes
+analysis-ready derived inputs that are non-identifiable and suitable for
+redistribution. Provenance and redistribution status are documented in
+`data/metadata/`.
 
 See `DATA_AVAILABILITY.md` for the complete replication data note.
 

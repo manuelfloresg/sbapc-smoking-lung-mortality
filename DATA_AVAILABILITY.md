@@ -2,8 +2,7 @@
 
 ## Included Data
 
-The repository is structured to include analysis-ready, non-identifiable
-datasets under:
+The repository includes analysis-ready, non-identifiable datasets under:
 
 ```text
 data/analysis_ready/
@@ -15,16 +14,15 @@ The required empirical inputs are documented in:
 data/metadata/uruguay_inputs_required.csv
 ```
 
-If analysis-ready inputs are not included in the public repository, the
-simulation study remains fully reproducible and the empirical Uruguay
-application can be reproduced by placing the documented inputs in
-`data/analysis_ready/` or by setting the `BAPC_PATH_*` environment variables.
+These inputs reproduce the empirical Uruguay application. The smoking
+prevalence input is included as aggregate binomial cells rather than individual
+survey records.
 
 ## Non-Redistributed Raw Source Files
 
 Raw source files obtained directly from Uruguayan institutions are not
-redistributed unless explicit permission is available. This includes, as
-applicable, raw tabulations or files received from:
+redistributed. This includes, as applicable, raw tabulations or files received
+from:
 
 - the Ministry of Public Health;
 - the National Cancer Registry;

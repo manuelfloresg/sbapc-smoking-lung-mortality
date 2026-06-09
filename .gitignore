@@ -67,6 +67,10 @@ credentials/
 !data/
 !data/analysis_ready/
 !data/analysis_ready/README.md
+!data/analysis_ready/uruguay_mortality_smooth_cancer.csv
+!data/analysis_ready/uruguay_population_1950_2070.dta
+!data/analysis_ready/uruguay_smoking_prevalence_aggregated.csv
+!data/analysis_ready/uruguay_incidence_smooth_1998_2022.csv
 !data/metadata/
 !data/metadata/**
 !output/
