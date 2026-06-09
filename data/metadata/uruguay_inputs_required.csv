@@ -1,0 +1,5 @@
+input_id,default_public_path,role,expected_format,raw_source,redistribution_status,notes
+mortality,data/analysis_ready/uruguay_mortality_smooth_cancer.csv,Smoothed historical cancer mortality by cause-age-sex-year,csv,Uruguayan Ministry of Public Health mortality tabulations,Decision required before public release,Required for empirical Uruguay application
+population,data/analysis_ready/uruguay_population_1950_2070.dta,Population exposures and projections by age-sex-year,dta,Official Uruguay population projections,Decision required before public release,Required for empirical Uruguay application
+prevalence,data/analysis_ready/uruguay_smoking_prevalence_harmonized.dta,Harmonized smoking prevalence input or aggregated prevalence cells,dta or csv,Harmonized survey microdata or derived prevalence cells,Decision required before public release,Aggregated cells can be used to avoid redistributing microdata
+incidence,data/analysis_ready/uruguay_incidence_smooth_1998_2022.csv,Smoothed historical cancer incidence by cause-age-sex-year,csv,Uruguay National Cancer Registry tabulations,Decision required before public release,Required for empirical Uruguay application

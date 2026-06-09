@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this replication repository, please cite the article and the archived repository."
+title: "From smoking scenarios to lung cancer mortality: Sequential Bayesian APC projections"
+authors:
+  - family-names: "Flores"
+    given-names: "Manuel"
+    affiliation: "TODO: add affiliation before public release"
+type: software
+date-released: 2026-06-09
+license: MIT
+abstract: "Replication code and lightweight outputs for the SBAPC simulation study and Uruguay empirical application."
+# TODO: after public release, add the final GitHub URL and Zenodo DOI, for example:
+# repository-code: "https://github.com/OWNER/REPOSITORY"
+# doi: "10.5281/zenodo.XXXXXXX"

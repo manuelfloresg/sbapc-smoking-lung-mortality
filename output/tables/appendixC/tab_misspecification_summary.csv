@@ -1,0 +1,19 @@
+dgp,scenario,scenario_label,horizon_region,design,seeds,annual_mare_pct_mean,recovery_ratio_median,sign_agreement_pct_mean
+spec_linear,up1pc,↑ 1% p.a.,Credible,Well-specified design,200,7.112724445435234,1.0245664488427133,100
+spec_linear,up1pc,↑ 1% p.a.,Caution,Well-specified design,200,8.554373366615447,1.0077733651017016,100
+spec_linear,up1pc,↑ 1% p.a.,Risky,Well-specified design,200,12.376744301416624,0.9871267727468479,100
+spec_linear,down1pc,↓ 1% p.a.,Credible,Well-specified design,200,6.561033900913973,1.0073175776217993,100
+spec_linear,down1pc,↓ 1% p.a.,Caution,Well-specified design,200,8.346592219512244,0.991147746280533,100
+spec_linear,down1pc,↓ 1% p.a.,Risky,Well-specified design,200,12.151550844937498,0.9736149627878239,100
+spec_linear,quit,Quit,Credible,Well-specified design,200,5.602599162554722,0.9816383408397686,100
+spec_linear,quit,Quit,Caution,Well-specified design,200,8.23109505260647,0.9694844899261447,100
+spec_linear,quit,Quit,Risky,Well-specified design,200,11.858887530075378,0.9645332809778019,100
+misspec_tanh,up1pc,↑ 1% p.a.,Credible,Misspecified transmission design,200,101.72437619714256,1.9413745198686827,100
+misspec_tanh,up1pc,↑ 1% p.a.,Caution,Misspecified transmission design,200,109.75120510078564,2.0332056270015695,100
+misspec_tanh,up1pc,↑ 1% p.a.,Risky,Misspecified transmission design,200,130.5739089199509,2.210509357612543,100
+misspec_tanh,down1pc,↓ 1% p.a.,Credible,Misspecified transmission design,200,84.92429240228005,1.779078594302362,100
+misspec_tanh,down1pc,↓ 1% p.a.,Caution,Misspecified transmission design,200,77.90984990951738,1.748052589291377,100
+misspec_tanh,down1pc,↓ 1% p.a.,Risky,Misspecified transmission design,200,66.1640390503804,1.6140803112742912,100
+misspec_tanh,quit,Quit,Credible,Misspecified transmission design,200,30.609014192794984,1.2723940271953311,100
+misspec_tanh,quit,Quit,Caution,Misspecified transmission design,200,13.95795166394704,1.1017060983884353,100
+misspec_tanh,quit,Quit,Risky,Misspecified transmission design,200,12.746420508250955,1.0160957113589033,100

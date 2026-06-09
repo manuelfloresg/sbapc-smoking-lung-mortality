@@ -74,7 +74,8 @@ Sys.setenv(
 
 required_pkgs <- c(
   "sn","dplyr","tidyr","readr","tibble","purrr","forecast","urca","tseries",
-  "stringr","haven","mgcv","ggplot2","scales","patchwork","memoise","INLA","stringi"
+  "stringr","haven","mgcv","ggplot2","scales","patchwork","memoise","INLA",
+  "stringi","future","future.apply","svglite"
 )
 missing_pkgs <- required_pkgs[!vapply(required_pkgs, requireNamespace, logical(1), quietly = TRUE)]
 if (length(missing_pkgs)) {
@@ -107,19 +108,23 @@ Sys.setenv(OMP_NUM_THREADS = "1")
 
 # 2) Real-data path defaults
 # =============================================================
-# These defaults support the local Uruguay empirical runs. Simulation replication
-# is self-contained and does not require the files to exist.
+# Simulation replication is self-contained and does not require empirical
+# Uruguay files. Empirical replication uses analysis-ready inputs in the public
+# repository by default. Alternatively, set the BAPC_PATH_* environment
+# variables or R options before sourcing this file.
+.repo_root <- normalizePath(file.path(project_root, ".."), winslash = "/", mustWork = FALSE)
+.public_data_dir <- file.path(.repo_root, "data", "analysis_ready")
 if (is.null(getOption("BAPC_PATH_MORT_CSV"))) {
-  options(BAPC_PATH_MORT_CSV = "d:/Dropbox/Investigacion/Bloomberg_2025/Mortalidad/muertes_suavizadas_cancer.csv")
+  options(BAPC_PATH_MORT_CSV = file.path(.public_data_dir, "uruguay_mortality_smooth_cancer.csv"))
 }
 if (is.null(getOption("BAPC_PATH_POP_DTA"))) {
-  options(BAPC_PATH_POP_DTA = "d:/Dropbox/Investigacion/Bloomberg_2025/Base de datos/Proyecciones población/poblacion_1950_2070_empalmada.dta")
+  options(BAPC_PATH_POP_DTA = file.path(.public_data_dir, "uruguay_population_1950_2070.dta"))
 }
 if (is.null(getOption("BAPC_PATH_PREV_DTA"))) {
-  options(BAPC_PATH_PREV_DTA = "d:/Dropbox/Investigacion/Bloomberg_2025/Base de datos/base_completa.dta")
+  options(BAPC_PATH_PREV_DTA = file.path(.public_data_dir, "uruguay_smoking_prevalence_harmonized.dta"))
 }
 if (is.null(getOption("BAPC_PATH_INC_CSV"))) {
-  options(BAPC_PATH_INC_CSV = "d:/Dropbox/Investigacion/Bloomberg_2025/Resultados/incidencia_suavizada_1998_2022.csv")
+  options(BAPC_PATH_INC_CSV = file.path(.public_data_dir, "uruguay_incidence_smooth_1998_2022.csv"))
 }
 
 message("BAPC project_root : ", project_root)

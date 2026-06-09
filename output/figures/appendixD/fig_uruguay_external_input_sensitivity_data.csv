@@ -1,0 +1,729 @@
+variant,input_block,variant_label,scenario,scenario_label,sex,sex_label,period,projection_zone,mean,lwr,upr
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2023,credible,872.1640854861703,796.694186050044,952.446347132113
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2024,credible,870.5481494732271,792.7582066589848,953.7080831799752
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2025,credible,862.2704762913827,782.6438635085223,947.774888386032
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2026,credible,853.055325192269,771.4116994908163,941.1231598433367
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2027,credible,843.6298748205638,759.7429214040773,934.5207493091428
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2028,credible,835.0748129141728,748.5845141784691,929.2033522257194
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2029,credible,826.8927935154712,737.5241058728683,924.5824450022758
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2030,credible,818.7302356476899,726.3152896934221,920.1831920310673
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2031,caution,811.0170613564001,715.3741448633031,916.4599765948382
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2032,caution,804.2637172831262,705.1527666770103,914.0078135655414
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2033,caution,798.3403898375909,695.5837986513442,912.6345158422512
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2034,caution,792.5919725290591,686.1537818451142,911.5289291443117
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2035,caution,787.0352723230613,676.9139577507466,910.6695932423572
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2036,caution,782.295303387641,668.4109008493955,910.7776368127873
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2037,caution,778.5773976902314,660.8237097839143,912.0917175885126
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2038,caution,775.5657468602108,653.9085815377334,914.2037476792046
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2039,caution,773.2556913567036,647.673729784926,917.0940797724564
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2040,risky,771.7719020109248,642.2277385641852,920.9103957570386
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2041,risky,770.9406668973959,637.4270705725993,925.4521078544317
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2042,risky,770.5861310428481,633.1285720687457,930.5125930962689
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2043,risky,770.8929443126448,629.485448002394,936.3188888420639
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2044,risky,771.558804218576,626.2586447310166,942.4957210748479
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2045,risky,772.1220203926769,623.0945792762241,948.4293292392167
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2046,risky,773.0131630881405,620.3419856342084,954.6375402108239
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2047,risky,774.4861296903326,618.1954850029185,961.4468166184575
+baseline,Baseline,Baseline,freeze,Frozen at 2022,M,Male,2048,risky,776.4397142659013,616.5646771938376,968.7329695378141
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2023,credible,422.6506864173297,366.8491278605243,485.53946982377005
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2024,credible,436.46793204813144,377.18065238117856,503.8147968491164
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2025,credible,444.76179109382025,382.84389121562896,515.540060048872
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2026,credible,451.6293496284932,387.28922582208935,525.5967486870215
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2027,credible,457.9022407745212,391.20532885900394,534.9989660250224
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2028,credible,464.51654695129866,395.30812350951334,544.9789100530925
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2029,credible,471.0572068635597,399.2270052989025,555.0869955868916
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2030,credible,477.46512582893934,402.89978025687486,565.273366452941
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2031,credible,483.9292150131924,406.45860637131284,575.7974495544914
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2032,credible,490.3130906003282,409.7695594016119,586.5169703232094
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2033,caution,496.31923215469936,412.59912279900743,597.0429157928322
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2034,caution,501.50177766192127,414.610211314833,606.7807729606119
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2035,caution,505.82689184024474,415.8172262525785,615.6172251356899
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2036,caution,509.94689790316534,416.76618909723805,624.3337143440043
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2037,caution,513.9320095303041,417.5424837252559,632.9826076064361
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2038,caution,517.9453808535231,418.3077266343042,641.7367079149881
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2039,caution,522.5298013477037,419.4948798457839,651.3015459616875
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2040,caution,527.9479998523531,421.305375455787,662.0429981740954
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2041,caution,534.2844726839182,423.7921807398482,674.1074449698533
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2042,caution,541.3140660639378,426.74935018666486,687.2720507420286
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2043,risky,548.538620189742,429.77358268510017,700.9159731185584
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2044,risky,555.694271675011,432.65588859729723,714.6833756583657
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2045,risky,561.9671860544059,434.79395444575255,727.4623802297182
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2046,risky,566.8521893901708,435.8442030476281,738.5109934777145
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2047,risky,570.9512978534168,436.31448975436047,748.5039602882189
+baseline,Baseline,Baseline,freeze,Frozen at 2022,F,Female,2048,risky,574.6409400529857,436.523157349957,757.8695503459497
+baseline,Baseline,Baseline,quit,Quit,M,Male,2023,credible,872.0826453206283,796.6211755234724,952.3554898723353
+baseline,Baseline,Baseline,quit,Quit,M,Male,2024,credible,839.2718095740953,764.3477266806192,919.3545883015317
+baseline,Baseline,Baseline,quit,Quit,M,Male,2025,credible,783.8766309124537,711.6355876282068,861.4237441371334
+baseline,Baseline,Baseline,quit,Quit,M,Male,2026,credible,741.0914346061829,670.369378721477,817.3412255716415
+baseline,Baseline,Baseline,quit,Quit,M,Male,2027,credible,697.7430270569421,628.637947162827,772.5670969561121
+baseline,Baseline,Baseline,quit,Quit,M,Male,2028,credible,656.2534433182964,588.6385136210256,729.7719824273295
+baseline,Baseline,Baseline,quit,Quit,M,Male,2029,credible,618.6759260653383,552.2324432433905,691.2221210819142
+baseline,Baseline,Baseline,quit,Quit,M,Male,2030,credible,586.0487542135522,520.3779238574069,658.0426328995073
+baseline,Baseline,Baseline,quit,Quit,M,Male,2031,caution,554.7844441758615,489.89409401478525,626.2074240677425
+baseline,Baseline,Baseline,quit,Quit,M,Male,2032,caution,524.84281942524,460.7499645472666,595.678413410466
+baseline,Baseline,Baseline,quit,Quit,M,Male,2033,caution,495.6593552082274,432.487717937242,565.7735720146384
+baseline,Baseline,Baseline,quit,Quit,M,Male,2034,caution,470.44396585219215,407.91663379235774,540.1477648464529
+baseline,Baseline,Baseline,quit,Quit,M,Male,2035,caution,449.81609723813864,387.53739538202456,519.5556209745173
+baseline,Baseline,Baseline,quit,Quit,M,Male,2036,caution,430.934994935219,368.85970964599016,500.77136869923606
+baseline,Baseline,Baseline,quit,Quit,M,Male,2037,caution,413.371003126636,351.50403975386644,483.3080463801837
+baseline,Baseline,Baseline,quit,Quit,M,Male,2038,caution,396.4534342703949,334.9038850138304,466.3676292163826
+baseline,Baseline,Baseline,quit,Quit,M,Male,2039,caution,381.23933681387365,319.94186129671897,451.20338977175044
+baseline,Baseline,Baseline,quit,Quit,M,Male,2040,risky,367.8750971181864,306.71157830215606,438.02832897729814
+baseline,Baseline,Baseline,quit,Quit,M,Male,2041,risky,355.1508651547275,294.18738736150624,425.42434136942836
+baseline,Baseline,Baseline,quit,Quit,M,Male,2042,risky,342.8353835333675,282.1709290857111,413.12400749557395
+baseline,Baseline,Baseline,quit,Quit,M,Male,2043,risky,330.87746250166737,270.61285148730906,401.07522152147766
+baseline,Baseline,Baseline,quit,Quit,M,Male,2044,risky,320.64749568919484,260.62224703329406,390.95249110100116
+baseline,Baseline,Baseline,quit,Quit,M,Male,2045,risky,312.20429023117936,252.23062144596972,382.8377066305816
+baseline,Baseline,Baseline,quit,Quit,M,Male,2046,risky,304.41974345232717,244.50222875678708,375.3769788907496
+baseline,Baseline,Baseline,quit,Quit,M,Male,2047,risky,297.1555979796215,237.31298329301032,368.41630202351325
+baseline,Baseline,Baseline,quit,Quit,M,Male,2048,risky,290.16367736874025,230.4532363789146,361.65773862568665
+baseline,Baseline,Baseline,quit,Quit,F,Female,2023,credible,422.4553490578628,366.6809929506133,485.31366649828215
+baseline,Baseline,Baseline,quit,Quit,F,Female,2024,credible,424.16260211085574,366.57884206811553,489.5709747192596
+baseline,Baseline,Baseline,quit,Quit,F,Female,2025,credible,413.5326732134557,356.0298162545829,479.2577223873871
+baseline,Baseline,Baseline,quit,Quit,F,Female,2026,credible,405.48027536179137,347.81840981131006,471.75910289010005
+baseline,Baseline,Baseline,quit,Quit,F,Female,2027,credible,396.0209094273829,338.4919149073837,462.4995085447964
+baseline,Baseline,Baseline,quit,Quit,F,Female,2028,credible,386.644908851104,329.2568912992257,453.3312649696285
+baseline,Baseline,Baseline,quit,Quit,F,Female,2029,credible,378.24702723241256,320.8516568322312,445.3467716404656
+baseline,Baseline,Baseline,quit,Quit,F,Female,2030,credible,371.47982067655676,313.8161404761792,439.33317813367364
+baseline,Baseline,Baseline,quit,Quit,F,Female,2031,credible,364.7986917037571,306.8210358983237,433.49476940498045
+baseline,Baseline,Baseline,quit,Quit,F,Female,2032,credible,357.9424604683712,299.63594028024727,427.5284808683402
+baseline,Baseline,Baseline,quit,Quit,F,Female,2033,caution,350.4793126272299,291.91850129372943,420.8809197708709
+baseline,Baseline,Baseline,quit,Quit,F,Female,2034,caution,343.7742195892603,284.8294825760808,415.1471619341456
+baseline,Baseline,Baseline,quit,Quit,F,Female,2035,caution,338.2374225558735,278.72490263804093,410.79093590768923
+baseline,Baseline,Baseline,quit,Quit,F,Female,2036,caution,332.9867175465046,272.8691700121186,406.7557257393965
+baseline,Baseline,Baseline,quit,Quit,F,Female,2037,caution,327.7901665024817,267.0912350757789,402.7344562975651
+baseline,Baseline,Baseline,quit,Quit,F,Female,2038,caution,322.52546652793075,261.3101483361276,398.55744989111207
+baseline,Baseline,Baseline,quit,Quit,F,Female,2039,caution,318.1183930657252,256.2649396569809,395.39976915463683
+baseline,Baseline,Baseline,quit,Quit,F,Female,2040,caution,314.7710771589308,252.10181922159967,393.5535196116709
+baseline,Baseline,Baseline,quit,Quit,F,Female,2041,caution,311.9851517170115,248.4110101822591,392.4210534205785
+baseline,Baseline,Baseline,quit,Quit,F,Female,2042,caution,309.5282855633259,244.98845259435782,391.74925862822147
+baseline,Baseline,Baseline,quit,Quit,F,Female,2043,risky,307.044881048902,241.54585670005696,391.0918448724642
+baseline,Baseline,Baseline,quit,Quit,F,Female,2044,risky,305.18484027042956,238.585537802559,391.2715146549351
+baseline,Baseline,Baseline,quit,Quit,F,Female,2045,risky,303.4914605302502,235.763431284318,391.6709401787591
+baseline,Baseline,Baseline,quit,Quit,F,Female,2046,risky,301.00327498713574,232.3583364472299,391.00037628024114
+baseline,Baseline,Baseline,quit,Quit,F,Female,2047,risky,298.10268830758076,228.68922533788452,389.6931517256537
+baseline,Baseline,Baseline,quit,Quit,F,Female,2048,risky,294.915108526984,224.86726848506243,387.87820391006437
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2023,credible,872.5795329892125,797.0460052117465,952.9265980292586
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2024,credible,871.316982835751,793.4314543031438,954.5769874217754
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2025,credible,863.2956949477748,783.5524444241235,948.9232173648567
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2026,credible,854.303996669516,772.5252898404133,942.5152846067651
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2027,credible,845.0708516185832,761.0328129222027,936.1229287957387
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2028,credible,836.6849293808914,750.0285202047035,930.9914945717088
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2029,credible,828.6622533607093,739.111911404811,926.5473852178646
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2030,credible,820.6413535644864,728.0297326975127,922.3065861657316
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2031,caution,813.0504822191579,717.1964759997694,918.7217243928312
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2032,caution,806.4095471539141,707.0722391677135,916.3990675119717
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2033,caution,800.58370145076,697.5854845319078,915.1404106293297
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2034,caution,794.9218863588009,688.2267453177334,914.13859785823945
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2035,caution,789.4421003586954,679.0486136872205,913.373204448064
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2036,caution,784.773305553957,670.6012076703006,913.569840995515
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2037,caution,781.1257820794488,663.0676838195499,914.9732101074023
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2038,caution,778.1750472138274,656.1972979344282,917.1645178615996
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2039,caution,775.9207620692723,650.0021636256897,920.1288949358188
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2040,risky,774.4899451592574,644.5929505048509,924.0166529107554
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2041,risky,773.7087700210832,639.826093183182,928.626964375909
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2042,risky,773.4007960853797,635.5580605237075,933.7525167921001
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2043,risky,773.749172905395,631.9409882735998,939.6183649706966
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2044,risky,774.4522293395494,628.7364129242816,945.8499188682845
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2045,risky,775.0415898326694,625.5857157665886,951.8246511870911
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2046,risky,775.9539535478236,622.8428343602429,958.0675548656064
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2047,risky,777.4516335485863,620.7090557736843,964.9155234304425
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,M,Male,2048,risky,779.4337596027385,619.0942049816761,972.244737390663
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2023,credible,422.9705690446362,367.1116878349462,485.9201603317513
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2024,credible,437.168209761159,377.7647831176346,504.64601569829586
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2025,credible,445.7859073244499,383.70228734002,516.7539373450666
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2026,credible,452.97195643804355,388.41641549053173,527.1881087638417
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2027,credible,459.5626136929538,392.59978152629793,536.9680522873606
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2028,credible,466.50021266637543,396.9725940527312,547.3350389172913
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2029,credible,473.37073138729363,401.16519705973013,557.8408974150891
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2030,credible,480.1182518972697,405.11730542835164,568.4409401166901
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2031,credible,486.92441672133407,408.9546565834692,579.3865841252976
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2032,credible,493.65471775616595,412.5444230585216,590.5387281537911
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2033,caution,500.00040066286635,415.6439383496503,601.4944925422238
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2034,caution,505.5251635497306,417.9233427949949,611.6717920718886
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2035,caution,510.1789592633103,419.3841447175747,620.9368209284553
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2036,caution,514.6106846846025,420.5698655365543,630.0661727626983
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2037,caution,518.9017628703511,421.5750831330661,639.1255765852808
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2038,caution,523.2079171675565,422.5561796346737,648.2774244851286
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2039,caution,528.0802521309593,423.95320706346314,658.2372217275946
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2040,caution,533.7910106227054,425.975074722273,669.3833505782748
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2041,caution,540.424796980574,428.6742185512289,681.863834182094
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2042,caution,547.7606485895931,431.84736528586717,695.4627958270089
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2043,risky,555.3021481252242,435.09177210589115,709.5631805712375
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2044,risky,562.7474734306601,438.1689968948937,723.7601292309254
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2045,risky,569.2586667871382,440.45920031550907,736.9080657314585
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2046,risky,574.3554170357837,441.6383097219745,748.2962005201706
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2047,risky,578.6237945742545,442.2033908391842,758.5748625413481
+rr_low,Incidence relative risk,RR low,freeze,Frozen at 2022,F,Female,2048,risky,582.4367715635016,442.47190964621683,768.1636966770488
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2023,credible,872.5003080456721,796.9749865182762,952.838205054487
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2024,credible,840.9202912269785,765.8216941607861,921.1878339797146
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2025,credible,787.1161533650745,714.5536830027185,865.006893632393
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2026,credible,745.5210139687692,674.3584746544354,822.2445619007726
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2027,credible,703.3534489207454,633.6802522724571,778.7918065782234
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2028,credible,663.0057266605234,594.6872692089354,737.2888904444077
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2029,credible,626.4690423737741,559.1853246593181,699.9328164150056
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2030,credible,594.731836691887,528.0892668249422,667.791557971245
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2031,caution,564.3182376480478,498.31801475159995,636.9637143604028
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2032,caution,535.2112742219974,469.86054946356126,607.4384022407601
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2033,caution,506.8542890378881,442.26636632236256,578.5422575235426
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2034,caution,482.34662423375875,418.25017697205533,553.8017885971875
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2035,caution,462.2885020747391,398.2985317743499,533.9466622523498
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2036,caution,443.9446136035745,380.01359896015634,515.8711883892562
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2037,caution,426.90971484008804,363.0369657490829,499.1168013889361
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2038,caution,410.51569723122054,346.80532904020436,482.88723377423423
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2039,caution,395.79150602029324,332.17855111134696,468.40161930253237
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2040,risky,382.8851134846807,319.25265618703173,455.87361523658785
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2041,risky,370.6170702829141,307.0279044899061,443.92087619937496
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2042,risky,358.7563676543412,295.30651655034535,432.27615954914177
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2043,risky,347.2581456066193,284.04480688169826,420.8946577982209
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2044,risky,337.44354315635906,274.3125302568381,411.39016932967604
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2045,risky,329.3492126727834,266.12481753891774,403.8149734236995
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2046,risky,321.9000039715133,258.58955809857827,396.87876472368856
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2047,risky,314.9775820883638,251.59870352548938,390.4521700598328
+rr_low,Incidence relative risk,RR low,quit,Quit,M,Male,2048,risky,308.3381797126277,244.9461568978074,384.24244460054825
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2023,credible,422.7860250902247,366.95285011020576,485.7068298020644
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2024,credible,425.6267439211732,367.8222985313335,491.2848647259344
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2025,credible,416.4993565757732,358.5592539693363,482.7244990675783
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2026,credible,409.68910013448544,351.40188761412077,476.6878693401423
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2027,credible,401.5216623829313,343.1645963291216,468.95893675225295
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2028,credible,393.4578600873145,335.02649584444475,461.35920823123485
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2029,credible,386.31034875470397,327.6565307183723,454.88451185870076
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2030,credible,380.6896422807256,321.5582084003019,450.2740884146094
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2031,credible,375.1535938109655,315.4883220847914,445.8542727542167
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2032,credible,369.44796943364963,309.22138288190274,441.3317790710244
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2033,caution,363.13652868519864,302.4115452625778,436.1473724551723
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2034,caution,357.4837186318671,296.13546559686506,431.77580617275606
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2035,caution,352.85534569687417,290.7146069946547,428.6234725789466
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2036,caution,348.4619356998755,285.4914843152547,425.7436976115417
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2037,caution,344.1044191334742,280.32249474171283,422.86877307380615
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2038,caution,339.6718543663763,275.13748040861896,419.8410664131691
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2039,caution,336.07722011385323,270.66553552976046,417.8200582186044
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2040,caution,333.53751528115123,267.0647371595397,417.11747252139475
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2041,caution,331.589234131686,263.95220729690055,417.18187884757987
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2042,caution,330.0021511507277,261.1243917135833,417.76576950224603
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2043,risky,328.4126264432747,258.28569243676725,418.4144861321798
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2044,risky,327.3741729033659,255.86355752115094,419.8259727524151
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2045,risky,326.3865956502457,253.48259893532867,421.3220636975443
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2046,risky,324.54794730789024,250.46932293453224,421.686916638854
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2047,risky,322.23763563240595,247.1430569945311,421.3436430885814
+rr_low,Incidence relative risk,RR low,quit,Quit,F,Female,2048,risky,319.5911433553424,243.6252838982231,420.4287439399183
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2023,credible,871.799085899377,796.3960782360026,952.011340687965
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2024,credible,869.884859380049,792.1894164372604,952.9438176474605
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2025,credible,861.3907896029862,781.877154856314,946.7734167134856
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2026,credible,851.9869267163044,770.4727696084137,939.9141566571668
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2027,credible,842.3989544996663,758.6561235667964,933.1323023609938
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2028,credible,833.7008543723781,747.3687191966618,927.6554402352547
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2029,credible,825.3839324284847,736.1880603320186,922.882427890372
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2030,credible,817.1012841276712,724.8734896841802,918.3462549295532
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2031,caution,809.2842772414825,713.8424339096182,914.5028594421311
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2032,caution,802.4354267678864,703.5402698204659,911.937825198791
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2033,caution,796.4292227828921,693.9031967116154,910.4641218320085
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2034,caution,790.6070658711504,684.4142876982477,909.2671769685684
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2035,caution,784.9847653717055,675.1236389013405,908.3246867816594
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2036,caution,780.1839724872893,666.574835202225,908.3539443831321
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2037,caution,776.4057525922184,658.9434647882706,909.5883851871071
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2038,caution,773.341685373608,651.9916302106382,911.6290507007899
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2039,caution,770.9834745669801,645.7242589415785,914.4522763760632
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2040,risky,769.4537683421536,640.2481577745705,918.2034646064826
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2041,risky,768.5789152956664,635.4197694187242,922.682201960639
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2042,risky,768.1835410893698,631.0962531137376,927.6824420183447
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2043,risky,768.453582482258,627.4317436695175,933.4329065218234
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2044,risky,769.0861165158741,624.1866044999917,939.557651309653
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2045,risky,769.6251933858734,621.0115547143605,945.450476827672
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2046,risky,770.4963067153033,618.251023311602,951.6232548177738
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2047,risky,771.9462053409229,616.0939852722859,958.3935617210645
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,M,Male,2048,risky,773.8733873937033,614.4498247265107,965.6368952148895
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2023,credible,422.36492526870984,366.6101697491241,485.2042999898745
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2024,credible,435.84558473558315,376.65722998738266,503.08072580259346
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2025,credible,443.85935912141264,382.08334009446787,514.4748330555161
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2026,credible,450.45430673928075,386.29867493116416,524.2082760715349
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2027,credible,456.4568696068999,389.9874373807555,533.2891300215048
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2028,credible,462.7968275949445,393.8610910797128,542.9406423737321
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2029,credible,469.05804400634463,397.5480530778079,552.7118104985766
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2030,credible,475.17825328206897,400.9841509347794,562.54775597901
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2031,credible,481.3526160595059,404.3070713696456,572.7147759762003
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2032,credible,487.4435272745547,407.38225019443195,583.0683720919952
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2033,caution,493.16355977255336,409.98435655225506,593.2320515698718
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2034,caution,498.05805123656387,411.76962107943626,602.5999068575554
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2035,caution,502.10786313322325,412.76411023246277,611.0772387703381
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2036,caution,505.9681618555939,413.5158703383518,619.4495952692253
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2037,caution,509.69850269710133,414.10158223469335,627.756549554471
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2038,caution,513.4688834141358,414.6877162466274,636.180440567553
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2039,caution,517.8145145410103,415.70080000256786,645.4176543208082
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2040,caution,522.9895945302374,417.3355935722365,655.8227900055736
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2041,caution,529.0784165800287,419.64548089973727,667.5405871941473
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2042,caution,535.8521557790968,422.42215012092015,680.3421878855171
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2043,risky,542.8107718429509,425.26151858331804,693.6030419629897
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2044,risky,549.7240329930576,427.98063607267096,707.0108593229938
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2045,risky,555.7983789630805,429.9918770818919,719.4821451602598
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2046,risky,560.5058353094174,430.93386774262996,730.2460680506583
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2047,risky,564.4628865571208,431.3243250990551,739.9993594282249
+rr_high,Incidence relative risk,RR high,freeze,Frozen at 2022,F,Female,2048,risky,568.0495689076585,431.482841465523,749.1785388702176
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2023,credible,871.7157729170941,796.3213820099218,951.9184023051604
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2024,credible,837.8634882916552,763.1002061415853,917.7742390790609
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2025,credible,781.1210006407922,709.1649993269513,858.3613226343408
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2026,credible,737.3272582125073,666.9913335754827,813.1593212434542
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2027,credible,692.9773290295278,624.366922190908,767.2637330945887
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2028,credible,650.5184829972155,583.5135504519883,723.3709136134609
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2029,credible,612.0566551850627,546.339784731012,683.8058691848962
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2030,credible,578.672462422823,513.8406419516176,649.742245146401
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2031,caution,546.683935702323,482.7506917090097,617.048519889524
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2032,caution,516.0314120589286,453.0221620250134,585.663784830358
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2033,caution,486.14368575509894,424.19100133691217,554.8986779262118
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2034,caution,460.3245707628061,399.14690476073486,528.5169072384485
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2035,caution,439.210003894616,378.4027403870149,507.29443448599903
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2036,caution,419.86969817987335,359.3896313671269,487.9036536285036
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2037,caution,401.853192972471,341.71002357356764,469.8334092999433
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2038,caution,384.48757211627805,324.79465246135686,452.2841675440831
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2039,caution,368.85383839751216,309.5455819593629,436.538218351861
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2040,risky,355.09704204107857,296.05440546265004,422.8079817147423
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2041,risky,341.9815100372476,283.2734163690388,409.64504752773666
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2042,risky,329.27584190976694,271.00381824574674,396.78193876202164
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2043,risky,316.9234321399886,259.1914114353649,384.16030495466117
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2044,risky,306.3364788610096,248.9787470765695,373.50605368069495
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2045,risky,297.59262971954263,240.41126977265313,364.9262332258874
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2046,risky,289.51883452315667,232.51613608713023,357.0130738415767
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2047,risky,281.95991863757155,225.1556366390833,349.59165271469413
+rr_high,Incidence relative risk,RR high,quit,Quit,M,Male,2048,risky,274.66396742840567,218.11709357124707,342.35965170738143
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2023,credible,422.1601018546642,366.43386497080166,484.9675324729267
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2024,credible,422.8565793215456,365.4653043770493,488.0469113995918
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2025,credible,410.890686450473,353.7728457320027,476.17509578204397
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2026,credible,401.7383530589518,344.62804860498704,467.3818933857853
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2027,credible,391.1355622405677,334.3374877678734,456.76770793771414
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2028,credible,380.5985249746587,324.1318261912225,446.21177764003846
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2029,credible,371.09577962913755,314.81170129166514,436.8933426782091
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2030,credible,363.31743392725105,306.9495918106441,429.6423116998815
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2031,credible,355.6266414876251,299.1386865168501,422.55305074437155
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2032,credible,347.75683925057626,291.1448400627751,415.3148192013503
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2033,caution,339.28039238452067,282.62895282572816,407.379817693622
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2034,caution,331.65186063145194,274.8267552525464,400.45034390600296
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2035,caution,325.32156477011114,268.12540502769076,395.04190597028406
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2036,caution,319.3236776944879,261.7188370234075,389.99899278035167
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2037,caution,313.3956328647396,255.41049534349466,384.9777158270386
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2038,caution,307.40477720238914,249.1096298473651,379.79737789184816
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2039,caution,302.28795423677406,243.56388952702557,375.646438127528
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2040,caution,298.23375017478656,238.90875100019053,372.7990091607159
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2041,caution,294.7126844704689,234.71049464810298,370.6161079215403
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2042,caution,291.4909770509776,230.76493708410936,368.8402311205095
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2043,risky,288.2201502030379,226.7902507944297,367.0325526877744
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2044,risky,285.63672942080416,223.35597738356626,366.1280352439445
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2045,risky,283.3215502383637,220.1450254452143,365.5619521167665
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2046,risky,280.258477168141,216.3925105407552,363.97636417534585
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2047,risky,276.83295594803957,212.41741793037497,361.81409334566723
+rr_high,Incidence relative risk,RR high,quit,Quit,F,Female,2048,risky,273.1620412915486,208.3222725535912,359.1980141244292
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2023,credible,872.9091941512802,797.2629035944402,953.3780311087793
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2024,credible,872.2717807540214,794.2219079284969,955.7102082187789
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2025,credible,864.7670078632467,784.8283365032175,950.6050806593092
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2026,credible,855.9585359936945,773.9861004603754,944.3770354010385
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2027,credible,846.482438300437,762.2972717162039,937.6892543134911
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2028,credible,837.420859005408,750.7118540886742,931.7771796671034
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2029,credible,828.7717483489342,739.2649059995504,926.5988518616869
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2030,credible,820.1680739186327,727.6987086671079,921.6630296588595
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2031,caution,811.8571901832398,716.266660225393,917.2196276186667
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2032,caution,804.2942903733467,705.3734527641616,913.7998517933712
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2033,caution,797.2623358068861,694.8786346695784,911.1081598004083
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2034,caution,790.4047640841776,684.5332619493203,908.6686439589253
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2035,caution,783.7962429313789,674.4383908047165,906.5266441869388
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2036,caution,778.0653064032089,665.1410900403649,905.4107379384923
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2037,caution,773.4268829170239,656.8290359652102,905.5695219990178
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2038,caution,769.4789467139243,649.1845237125675,906.4947019393934
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2039,caution,766.2207722308415,642.2188969978189,908.1711800736759
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2040,risky,763.7607568500678,636.0271026848253,910.726825973101
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2041,risky,761.8927404230797,630.438241357992,913.9221763466159
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2042,risky,760.4765558104201,625.3393040400298,917.5922660434369
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2043,risky,759.7286423820524,620.9088178804773,922.0034513342544
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2044,risky,759.3550948936268,616.9143708889872,926.7902930187587
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2045,risky,758.9019092295276,613.0082486637599,931.3492190486257
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2046,risky,758.8071864479058,609.5440811669547,936.2095362280899
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2047,risky,759.3337992093284,606.7233179564595,941.7088790146454
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,M,Male,2048,risky,760.4053985539945,604.4743926009056,947.7555002170307
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2023,credible,422.881400310754,367.02310359918175,485.8395190164087
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2024,credible,437.1207036206471,377.7124944609799,504.61295584642517
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2025,credible,445.7792705289407,383.6874089576868,516.7651220100844
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2026,credible,452.86201275518215,388.3158903592481,527.0751637969101
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2027,credible,459.2980959129458,392.3712553222773,536.6691734100086
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2028,credible,466.01250872275824,396.558837475972,546.7682099577701
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2029,credible,472.7009226076124,400.6027456184775,557.0521764852563
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2030,credible,479.23704447424694,404.3849335105757,567.3905811008245
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2031,credible,485.6973372333145,407.94280116093927,577.9097090955274
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2032,credible,492.01287448757336,411.1993373664096,588.5472545188127
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2033,caution,497.90906750928934,413.93916572475854,598.9433915724298
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2034,caution,503.04214224712285,415.91243941466905,608.6227632053422
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2035,caution,507.37265805390416,417.1276972613008,617.4670289759626
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2036,caution,511.4898083969973,418.07624020839773,626.1851472892716
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2037,caution,515.4211778540352,418.8108529553564,634.7732054936615
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2038,caution,519.3022481521335,419.47112661700214,643.3688025083756
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2039,caution,523.6889304429475,420.5000658716702,652.6945418568464
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2040,caution,528.8212877053884,422.0826280120126,663.085220632924
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2041,caution,534.7556738102821,424.25223005476,674.6472527146267
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2042,caution,541.3002233503299,426.82952231440527,687.199724690906
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2043,risky,547.9728917048229,429.42489552672265,700.1399939812067
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2044,risky,554.5870193417832,431.88729591464744,713.2148115382294
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2045,risky,560.2589020799438,433.55945054253806,725.222468039758
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2046,risky,564.378667983204,434.0219753329832,735.2749863626556
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2047,risky,567.6843491446019,433.888347399835,744.2216209849025
+reversal_slow,Risk reversal,Slower risk reversal,freeze,Frozen at 2022,F,Female,2048,risky,570.6094892686655,433.52015979817196,752.5657163871291
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2023,credible,872.8343665371946,797.1958939610545,953.2944532783164
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2024,credible,850.3424060181522,774.3130473613878,931.6095363215903
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2025,credible,804.9026877253959,730.6344923274308,884.6265154111745
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2026,credible,766.7444212721414,693.5153482363312,845.6955090921059
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2027,credible,731.817469788722,659.3003265642454,810.3339029416942
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2028,credible,698.574424378925,626.5773579103578,776.8569361481188
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2029,credible,666.3090390534604,594.7550754103331,744.4336603131266
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2030,credible,635.6235683862047,564.4349950902651,713.6630446341683
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2031,caution,607.9143702392132,536.8690522850007,686.1078803419533
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2032,caution,582.8952141884005,511.78598345421915,661.4813862268871
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2033,caution,558.8411147201659,487.6993025067685,637.7976884355276
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2034,caution,535.1714975531002,464.1479610784345,614.340024391856
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2035,caution,511.71949061904866,441.0113366107255,590.8868728384098
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2036,caution,488.7926802491513,418.55690495792345,567.7932491888308
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2037,caution,468.26956061624537,398.38134375370686,547.2531325890819
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2038,caution,451.19748138927844,381.3550526836192,530.5063190622925
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2039,caution,436.10912654397987,366.20847254035516,515.8616349083418
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2040,risky,422.0833586051303,352.14084757122674,502.2681834949081
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2041,risky,408.62211884268163,338.72659167003195,489.14706678596775
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2042,risky,395.4445050472505,325.7277594855168,476.16967341174507
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2043,risky,382.55469571263956,313.14250522416853,463.3481544529985
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2044,risky,370.6685203394719,301.5517791286509,451.5534170104808
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2045,risky,359.75150576799757,290.9231769542397,440.7353156026214
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2046,risky,349.2664298334994,280.8045396439574,430.25492785144775
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2047,risky,339.1804843912041,271.1578255425885,420.0854936850448
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,M,Male,2048,risky,329.34393273756854,261.8519110728019,410.04986638516533
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2023,credible,422.699393638491,366.8664695160583,485.62909315277057
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2024,credible,428.32830165863925,370.1416502910896,494.42978517098163
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2025,credible,421.64219135176984,362.9753788321092,488.70532470105536
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2026,credible,415.7240857356383,356.5710358600735,483.72434015804345
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2027,credible,410.08345764630025,350.4746276334383,478.973473586255
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2028,credible,404.76620499169076,344.6446504305114,474.6389947499187
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2029,credible,399.3293944356006,338.6893268575884,470.2329146794696
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2030,credible,394.09377947129803,332.87575045235,466.1396124946027
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2031,credible,389.6051365431082,327.63935779590236,463.0368664988328
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2032,credible,385.619145608318,322.75474557695367,460.65539987735815
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2033,caution,381.28304049762363,317.5208621729379,457.94870223171495
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2034,caution,376.13971391029196,311.5951164266916,454.30328157183425
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2035,caution,370.074935110778,304.9206783913616,449.51604549446796
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2036,caution,363.50601089263006,297.84928394390397,444.08263422983566
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2037,caution,357.2869603046098,291.1030424208401,439.01604149474775
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2038,caution,352.25905920966284,285.3784288008466,435.34197341870595
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2039,caution,348.23463674241776,280.50520953033106,432.87331464178425
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2040,caution,344.8934790292666,276.20999217343257,431.253387968601
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2041,caution,342.0525487461314,272.33879592807654,430.27423207345487
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2042,caution,339.4447049998149,268.65855895522475,429.64200996178306
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2043,risky,336.6826422298888,264.8576800517621,428.8664882060464
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2044,risky,334.1284467818303,261.21359331966823,428.40042694464574
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2045,risky,331.1890336532358,257.2823417378577,427.4388827830471
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2046,risky,327.06594249874746,252.48071119550588,424.88098556130177
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2047,risky,322.3337552073944,247.28037646650165,421.3994334975485
+reversal_slow,Risk reversal,Slower risk reversal,quit,Quit,F,Female,2048,risky,317.2396532858193,241.8883829183846,417.27709659706784
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2023,credible,870.6485714483014,795.3642643884684,950.7356747677662
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2024,credible,868.1392005828884,790.6180657619724,951.0113093686412
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2025,credible,859.6234643836766,780.2814844781745,944.8216068057552
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2026,credible,850.4828530323816,769.1082038439661,938.2600906064434
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2027,credible,841.2577794018426,757.6081222031634,931.8917096016211
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2028,credible,832.8581509911129,746.5755216107683,926.7615532318746
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2029,credible,825.3742282933019,736.124582659243,922.9351349319837
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2030,credible,818.1520202582324,725.7340815496617,919.6103650180529
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2031,caution,811.3296800811668,715.5577468720599,916.9181521127715
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2032,caution,805.3759106366894,706.0125077467773,915.404231821329
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2033,caution,800.1062150326323,696.9845783904079,914.8127243700193
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2034,caution,795.1231342916967,688.1857337897076,914.6263899296353
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2035,caution,790.3789508393138,679.6100239256583,914.7512288812311
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2036,caution,786.3994959659248,671.7189475309088,915.7932731330802
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2037,caution,783.4257080787622,664.7220919416434,918.0330210135776
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2038,caution,781.0990503438369,658.3398093453168,921.0118655259131
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2039,caution,779.5707825199512,652.7125066307761,924.8930394624335
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2040,risky,778.8928316742539,647.8870760887412,929.739488352295
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2041,risky,778.8002187916229,643.6443426631654,935.24195544648
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2042,risky,779.103228256793,639.8310746764317,941.1756407485838
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2043,risky,779.9251813037556,636.552098156016,947.6911601342402
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2044,risky,781.0465474759844,633.6377994782504,954.5116183730817
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2045,risky,782.0755050895376,630.7920532268523,961.1071263559205
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2046,risky,783.44282973969,628.364229810318,967.9945816001593
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2047,risky,785.465903373157,626.599542752636,975.5794421238209
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,M,Male,2048,risky,788.0116488219963,625.3814872489028,983.6990852978182
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2023,credible,422.31412107311667,366.56564549664625,485.14081579786347
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2024,credible,435.8865619107233,376.69026383860194,503.1260144483578
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2025,credible,444.15063478207156,382.32936510633226,514.8140521457267
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2026,credible,450.9432082305489,386.71022930310227,524.7833130936899
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2027,credible,457.06024551033596,390.4914724553603,534.0055217004839
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2028,credible,463.47511144405274,394.4223148875012,543.7541086813052
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2029,credible,470.03582273857376,398.356031268409,553.888003102398
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2030,credible,476.52788336713803,402.09608501573507,564.1780996184959
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2031,credible,482.9793480322876,405.6387280303176,574.6934160215362
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2032,credible,489.3692885198212,408.94878111215473,585.4261308092516
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2033,caution,495.3893395357503,411.78512929461886,595.9718124694132
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2034,caution,500.65587413502203,413.8602776933993,605.8142548714881
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2035,caution,505.08300260690834,415.14528259741803,614.7778700013899
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2036,caution,509.2829239780442,416.1544853241459,623.5932566070569
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2037,caution,513.4428467551908,417.06736497630925,632.4589564962313
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2038,caution,517.6746880620442,418.0031682639673,641.4861415265464
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2039,caution,522.5531000688175,419.4213017710151,651.4188713740904
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2040,caution,528.30946020144,421.4965655090254,662.5864598772501
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2041,caution,534.9742810972112,424.2366665645975,675.0710963750971
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2042,caution,542.3379059017202,427.44911968082846,688.667468255473
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2043,risky,549.871392606063,430.7059402721891,702.7167886219385
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2044,risky,557.2732909065395,433.77151978743944,716.8107215189976
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2045,risky,563.8301087465483,436.1230006433553,729.965002362362
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2046,risky,569.1280926925979,437.4840093548073,741.5632078312846
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2047,risky,573.7517047035809,438.34820819887057,752.2591717234216
+reversal_fast,Risk reversal,Faster risk reversal,freeze,Frozen at 2022,F,Female,2048,risky,578.061323903985,439.0210803808677,762.4617119774362
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2023,credible,870.5613265293173,795.2859801875314,950.6384357292889
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2024,credible,832.3477422568402,758.0927456499014,911.7151355791299
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2025,credible,768.0423341460505,697.2954828237146,843.9855510007761
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2026,credible,716.4095517218113,648.0649380254437,790.0958328950012
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2027,credible,663.5664200028061,597.857715300353,734.7119928152803
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2028,credible,616.859700352189,553.2964884407404,685.9718692209979
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2029,credible,576.3342172164894,514.417319912057,643.9364031216703
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2030,credible,538.3983602813354,478.04179998544686,604.5630422932411
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2031,caution,501.5364373146616,442.8480286797139,566.1283834850916
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2032,caution,470.55296176270474,413.0465299931451,534.1060476714766
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2033,caution,446.02849424778657,389.1110417851541,509.2015448056379
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2034,caution,423.28229752637725,366.93853874418164,486.09500241798736
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2035,caution,401.7177474835361,346.0119869073389,464.1001220806588
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2036,caution,382.6855108736855,327.46768116246045,444.81298798335223
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2037,caution,366.2812305961807,311.3598541101475,428.3763013949297
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2038,caution,350.6307296371588,296.08485262163674,412.60273141686866
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2039,caution,335.60337004975213,281.530465472199,397.33771718172943
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2040,risky,323.0962129474712,269.25866170685146,384.8670277885368
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2041,risky,313.2666479263937,259.3651145751523,375.42486004599436
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2042,risky,304.21439014251797,250.24929470630934,366.7709349029898
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2043,risky,295.7544273330707,241.74808583142624,358.6976814411559
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2044,risky,287.4663931572316,233.51446863720855,350.6978225493333
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2045,risky,279.1227431403182,225.3685962232298,342.4752854527693
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2046,risky,270.8443551993112,217.40305012898108,334.18005771547297
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2047,risky,262.7286641565515,209.6902010392806,325.93799668531057
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,M,Male,2048,risky,254.71463688572925,202.1743517481967,317.67703598999805
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2023,credible,422.1074766552289,366.38775741365197,484.9019652212407
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2024,credible,421.9036711066844,364.63819084759166,486.9470322364795
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2025,credible,407.9179590391273,351.206086319507,472.7361330683462
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2026,credible,396.1280956460166,339.80593825554627,460.86478345540405
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2027,credible,382.34900901941876,326.8168749723906,446.5178310587149
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2028,credible,370.21607770089855,315.2754648131771,434.05630555319306
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2029,credible,359.9392951750053,305.3305826118417,423.77869115756005
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2030,credible,350.2473290542156,295.8906419893016,414.20639097182845
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2031,credible,340.33145124623076,286.2566934561671,404.4000770483159
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2032,credible,332.297492883746,278.17683738890383,396.8868545191538
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2033,caution,326.4037131840059,271.8629998455069,391.97330514182784
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2034,caution,320.43144960534175,265.4813144938658,386.96885426164505
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2035,caution,314.09967918832564,258.8266450620354,381.48564065622594
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2036,caution,308.41830324872285,252.72667915402002,376.7571457586144
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2037,caution,303.52737327713203,247.30705063828415,372.9428372514116
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2038,caution,298.67956098844644,241.97192593920335,369.1133650476617
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2039,caution,294.16701887946596,236.95246616190158,365.6522320942115
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2040,caution,291.07159645415516,233.10092381375117,363.94690313717143
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2041,caution,289.58777372783595,230.55297532432039,364.28002507416045
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2042,caution,288.69891050324594,228.47257547216668,365.4240536299892
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2043,risky,288.0115663087672,226.5382701132717,366.89140270753717
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2044,risky,287.1770320372835,224.4735334067641,368.22479923385436
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2045,risky,285.58507147474404,221.82363000033035,368.5948722522135
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2046,risky,282.96237709247566,218.40587505003526,367.5928393185753
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2047,risky,279.76810713769515,214.60125058184278,365.7477953382525
+reversal_fast,Risk reversal,Faster risk reversal,quit,Quit,F,Female,2048,risky,276.2316378990301,210.60345586618152,363.3202545778056
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2023,credible,869.9501196493561,795.5488902375442,948.8948932199398
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2024,credible,865.7305075156935,789.3395107363334,947.1706266545726
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2025,credible,857.0616196357538,778.8619502498303,940.8151691708259
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2026,credible,847.5306755009763,767.3305054027555,933.8294597746411
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2027,credible,837.8238784669273,755.3944542050606,926.9302813886801
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2028,credible,828.9488785206955,743.9449750758479,921.2596618098935
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2029,credible,820.4737431281633,732.6272034328009,916.3029678109635
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2030,credible,812.1405630427693,721.2701563625191,911.705468520473
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2031,caution,804.2857082030403,710.2065008521243,907.8164862819114
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2032,caution,797.2706649704025,699.7676135968924,905.0477262321516
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2033,caution,791.0023670339062,689.9180849202024,903.2492006376943
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2034,caution,784.985478017272,680.2778417451398,901.800204900349
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2035,caution,779.2594948400173,670.9148732712287,900.7098329905737
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2036,caution,774.3100331249691,662.2586837534448,900.5329524215249
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2037,caution,770.2988488926057,654.4546674380385,901.4514266302319
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2038,caution,767.0120906103291,647.3420456917555,903.1827293394504
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2039,caution,764.4582434767375,640.9390987166565,905.7244143846938
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2040,risky,762.7192883352806,635.3191470029157,909.1737329814221
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2041,risky,761.6149064036528,630.3335196408005,913.3219640694681
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2042,risky,760.9785497742298,625.8473024128878,917.9727919732295
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2043,risky,760.9445818441563,621.974022124983,923.2893602343466
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2044,risky,761.2967532979447,618.5444714138251,928.9993295289538
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2045,risky,761.7307904115561,615.3269875942286,934.6919359783701
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2046,risky,762.6000644380717,612.6067171627806,940.7921912494227
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2047,risky,764.0838485201998,610.5188736683812,947.5322792723916
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2048,risky,766.0788729167762,608.9716618192227,954.7875365287441
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2023,credible,421.8031496241309,366.7446380045082,483.58118198948995
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2024,credible,434.00641377715027,375.7864782211381,499.83466998468646
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2025,credible,442.1342627108603,381.32462653396806,511.3423478714382
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2026,credible,448.9182833786482,385.6944109398656,521.3100611374134
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2027,credible,455.10304277586806,389.52194369579445,530.6329041829556
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2028,credible,461.572314999644,393.49212938467133,540.4613420440458
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2029,credible,467.98484943844386,397.2969116464564,550.4305662771361
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2030,credible,474.26985901671037,400.86166751843626,560.4793668945509
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2031,credible,480.5434803951281,404.2585517204879,570.7782530987258
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2032,credible,486.64629818610206,407.3374051897199,581.1527824860518
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2033,caution,492.31466527493603,409.8925779342615,591.2553493374245
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2034,caution,497.19690274066136,411.66324488016676,600.6079378100493
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2035,caution,501.3094633576796,412.70086519922864,609.1665013826149
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2036,caution,505.21187040240426,413.4782872566926,617.5963156587982
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2037,caution,509.0131122161476,414.11094132358255,626.0012611830902
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2038,caution,512.9115920428032,414.785061617923,634.6046791444448
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2039,caution,517.3734502633638,415.8740865687849,644.012739310772
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2040,caution,522.6110187338608,417.54118756645164,654.5229785175045
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2041,caution,528.6466708257467,419.7916211280172,666.198257620023
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2042,caution,535.2288294012537,422.4022447981995,678.7722742939832
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2043,risky,541.9022784216057,425.00447649215664,691.6765578357107
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2044,risky,548.38699217815,427.3807948838523,704.5296742644884
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2045,risky,554.0318340611179,429.05492975249985,716.428914538418
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2046,risky,558.5166310230231,429.8229396825973,726.8760855226054
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2047,risky,562.3552211831171,430.1216000714133,736.4441788203862
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2048,risky,565.8676969792297,430.22348963767035,745.4994687836918
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2023,credible,869.8763830441179,795.4827239278236,948.8127185997315
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2024,credible,837.6626865331149,763.8174291767991,916.37598203447
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2025,credible,785.275057752396,713.7722496477282,861.8299085345219
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2026,credible,742.0835776170218,672.0716051267624,817.3822474407363
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2027,credible,698.2773962229533,629.8577373217603,772.1885080180526
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2028,credible,656.3106635526672,589.3689728215285,728.9392759043528
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2029,credible,618.121807049014,552.3667383071821,689.7689709000897
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2030,credible,585.0454820729738,520.0692117202149,656.1401282590472
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2031,caution,553.5756519437774,489.3618660664771,624.1254704178963
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2032,caution,523.5153910912702,460.07996918833766,593.503008874435
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2033,caution,494.2809266277322,431.74556975944813,563.5730967809413
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2034,caution,468.7355452606505,406.8654201844191,537.5952121016292
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2035,caution,447.5406300652989,385.97954697251765,516.3688664821854
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2036,caution,428.3030785406213,366.98514272056883,497.1822278651958
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2037,caution,410.5263356539257,349.44276119434613,479.47326983106086
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2038,caution,393.53911721336596,332.78009219490065,462.45120656286156
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2039,caution,378.20773809421934,317.7180371008071,447.1457912065313
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2040,risky,364.62125047554565,304.3039715520347,433.69967243052236
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2041,risky,351.75690520896217,291.6675903241061,420.9188673736169
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2042,risky,339.36774064294076,279.5961143359743,408.51901916464374
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2043,risky,327.3528126854418,267.9992738015651,396.3874387787174
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2044,risky,316.9443587109925,257.8739707705831,386.0290963747185
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2045,risky,308.28455222274306,249.31843711779254,377.6300429349211
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2046,risky,300.4302799857213,241.5462711007551,370.06318834917374
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2047,risky,293.1945004649119,234.3925682923887,363.1162023260286
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,M,Male,2048,risky,286.3037498728361,227.62645284511225,356.46239566336027
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2023,credible,421.62511487103205,366.5911734298268,483.37573343147506
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2024,credible,422.8987016022826,366.2003336091075,487.0029202025169
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2025,credible,413.3801033891305,356.59408251068567,478.0014852087596
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2026,credible,405.2915440575129,348.3190195826134,470.5129223247325
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2027,credible,395.70827241280875,338.84461214930695,461.1759840675956
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2028,credible,386.0780898044194,329.355919918199,451.7707538665941
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2029,credible,377.3843557413226,320.6691321137119,443.48801068374854
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2030,credible,370.3751343438431,313.4035843717127,437.22880095616625
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2031,credible,363.4836724786251,306.20895604281276,431.17415431874207
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2032,credible,356.4142818919204,298.82763514972135,424.9774143770684
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2033,caution,348.7522761524124,290.93065137376516,418.10740534075615
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2034,caution,341.73368616395567,283.5710858040031,412.0049899802894
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2035,caution,335.8047874949239,277.13311681104204,407.18112399369056
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2036,caution,330.24912503400907,271.0203146733702,402.7777578797469
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2037,caution,324.8610700081922,265.08006191871635,398.52586513418714
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2038,caution,319.53005580958705,259.2367370908215,394.27748373334214
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2039,caution,315.01756337131076,254.09854058586922,391.00051840551697
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2040,caution,311.4722598481867,249.77075188313398,388.9154470215096
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2041,caution,308.4600229484701,245.89522833670273,387.50308831136374
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2042,caution,305.72614879709715,242.25215733887106,386.47617079945803
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2043,risky,302.91780948047506,238.55576105018403,385.39092526426634
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2044,risky,300.5780940749639,235.22770798112333,384.92986277539615
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2045,risky,298.3810781600476,232.02609223220344,384.64242873084316
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2046,risky,295.5872056331762,228.39953349907077,383.5282839193079
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2047,risky,292.51030181727833,224.6113277227881,381.9414281758658
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,quit,Quit,F,Female,2048,risky,289.2523756045347,220.75244796714276,379.9891266866372
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2023,credible,873.0536430610869,797.1383353081114,953.9011621776298
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2024,credible,872.5625396076103,794.1864176233997,956.4500911535289
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2025,credible,864.4026134006789,784.1887260653289,950.6344261288103
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2026,credible,855.2951094731948,773.065268680393,944.0878859157954
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2027,credible,845.9746478989022,761.5022802719242,937.5885153573354
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2028,credible,837.5404023498149,750.4603888106291,932.3961622202663
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2029,credible,829.4682506742746,739.5035215428469,927.8922135628259
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2030,credible,821.3625592154101,728.3515574521599,923.5497747884401
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2031,caution,813.6938890961519,717.4566399309726,919.8690346947261
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2032,caution,807.0394262944242,707.325112586044,917.5267458648832
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2033,caution,801.2500052149027,697.872590179996,916.3086615264308
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2034,caution,795.6040163540601,688.5300326974138,915.3244214924566
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2035,caution,790.10879849854,679.3416886011422,914.5398166058766
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2036,caution,785.4484331133489,670.9038206481256,914.7462993697283
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2037,caution,781.8470522359856,663.410055877319,916.2070823183876
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2038,caution,778.9420289909361,656.5782816803534,918.4568012669288
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2039,caution,776.7231629181625,650.4124600806891,921.4685840926239
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2040,risky,775.3339521827268,645.0367434407143,925.4122686278124
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2041,risky,774.6064994287325,640.3122305020032,930.0942294057725
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2042,risky,774.3624066727605,636.0934184173047,935.3051353268991
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2043,risky,774.8066923612743,632.5495707485705,941.2978597616766
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2044,risky,775.599676250597,629.4112047786343,947.6526311290193
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2045,risky,776.2089810069375,626.2697895339518,953.6650878337556
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2046,risky,777.098542441559,623.501639670554,959.8930796161433
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2047,risky,778.5556831514517,621.3280658919903,966.7051437947506
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,M,Male,2048,risky,780.4808581142839,619.6598349111847,973.9782467703599
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2023,credible,423.1586818510965,367.0228653007124,486.5366648908058
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2024,credible,437.8053985276471,378.0211456200376,505.8455332442065
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2025,credible,446.15684659820323,383.72830880845777,517.6457452406745
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2026,credible,453.0578492077681,388.20422779031054,527.7379843896592
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2027,credible,459.37347228415445,392.1611677461435,537.1826007945459
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2028,credible,466.0568041598742,396.3250922524695,547.2381940723044
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2029,credible,472.65757541887865,400.295703994725,557.4145183934816
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2030,credible,479.1208739261452,404.0155329479488,567.6655369646327
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2031,credible,485.67121481234483,407.64614805241496,578.294051569301
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2032,credible,492.1856431237485,411.06348360584894,589.1759192375365
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2033,caution,498.3506186131389,414.02079144744124,599.9026891063887
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2034,caution,503.6759823604312,416.1449101825693,609.8254957004237
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2035,caution,508.10257015227467,417.4313166179319,618.7967001690168
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2036,caution,512.3281087978974,418.462027050115,627.6543464693274
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2037,caution,516.4034170124032,419.3073037123702,636.425240859935
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2038,caution,520.4718100641005,420.1144913245626,645.2544426819244
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2039,caution,525.1128443883331,421.34523378519157,654.894795579306
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2040,caution,530.6122025409904,423.2183232024679,665.7433178580496
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2041,caution,537.0845479089967,425.8099033221939,677.9868053843575
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2042,caution,544.3196424155396,428.92415516813475,691.4258744521002
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2043,risky,551.7988484598764,432.1413802860675,705.4144102903573
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2044,risky,559.2705791372802,435.2603786261572,719.6143324508835
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2045,risky,565.842550024207,437.61777806595194,732.8135863616567
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2046,risky,570.9152057605806,438.7983277881886,744.1469583856801
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2047,risky,575.134971133745,439.3457195960994,754.3406873706799
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,freeze,Frozen at 2022,F,Female,2048,risky,578.9078789740089,439.60236060954736,763.8558643408694
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2023,credible,872.9696493863992,797.0630649052971,953.8074142829701
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2024,credible,840.1968940400677,764.7993143256831,920.8828906035596
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2025,credible,783.783056451521,711.1958154765067,861.7895724919376
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2026,credible,741.1978688077345,670.1413478539995,817.8886800868188
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2027,credible,698.0320540690477,628.605229342273,773.2778291438532
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2028,credible,656.6658074253988,588.7436629372213,730.5854641427147
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2029,credible,619.2676665903525,552.5206737023066,692.2071254063725
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2030,credible,586.7770620463003,520.8080481605916,659.154982984659
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2031,caution,555.5578029803039,490.3836623139443,627.3457482783471
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2032,caution,525.6406325312464,461.27695205124843,596.8245145269473
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2033,caution,496.4699379208653,433.03894192675153,566.9179639270203
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2034,caution,471.36202818879104,408.5719052673898,541.4021956572269
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2035,caution,450.9166959358207,388.35872083938926,521.0100543265121
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2036,caution,432.1431312157548,369.7792803402688,502.3434163182934
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2037,caution,414.6419003536271,352.48077614581365,484.9496704398743
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2038,caution,397.74450491593007,335.9004753563523,468.03048781279676
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2039,caution,382.5684692129037,320.97223327097066,452.91007841561276
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2040,risky,369.27708229252033,307.80318113802394,439.82226482206386
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2041,risky,356.5962596918184,295.3143354043235,427.2718846354137
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2042,risky,344.3025193049188,283.31428266709594,415.0001468643079
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2043,risky,332.3670660354262,271.7719834618086,402.98232445784174
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2044,risky,322.2011938877756,261.8298088764866,392.9432312811719
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2045,risky,313.8257095793549,253.4890340467056,384.91713878679076
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2046,risky,306.0513088512913,245.76451373216602,377.47510727712387
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2047,risky,298.76216646067707,238.55078631558115,370.4901322778558
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,M,Male,2048,risky,291.7229425034174,231.6487337104249,363.6792762185353
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2023,credible,422.95638697757335,366.84884642807475,486.3026533004785
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2024,credible,425.0072675417161,367.0026786146139,491.0187263859343
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2025,credible,413.924250616103,356.0724064784509,480.1662808423447
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2026,credible,405.9297193946458,347.92443424653584,472.71343643841027
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2027,credible,396.5426065317356,338.6757271364254,463.51282873395564
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2028,credible,387.24818208512306,329.5238993815961,454.4177062561104
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2029,credible,378.95580498302587,321.21914736118117,446.5393480020659
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2030,credible,372.28341874469334,314.2728283202601,440.62345343885454
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2031,credible,365.68047770579864,307.35143740843796,434.86624502638534
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2032,credible,358.9089623663029,300.2432178407094,428.9933510115359
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2033,caution,351.5345462993531,292.60406506910374,422.4477525748486
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2034,caution,344.9672337114033,285.632118300801,416.8788327534125
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2035,caution,339.594389630336,279.6652475349267,412.7210337761672
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2036,caution,334.4671976588107,273.91205673883474,408.8378186402484
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2037,caution,329.3457330018457,268.19635503662204,404.90969189494297
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2038,caution,324.10692899486355,262.43845147578713,400.7627666601957
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2039,caution,319.7452494967359,257.43189126660434,397.65893543526494
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2040,caution,316.48114995096086,253.33659139137237,395.91549150639514
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2041,caution,313.78913915510367,249.7210123696883,394.9016079289393
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2042,caution,311.45132140831663,246.3916458047291,394.3850992722435
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2043,risky,309.11475904882246,243.06218302113308,393.9234543802406
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2044,risky,307.4751835885997,240.26949199847596,394.39952105665424
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2045,risky,306.01009385965136,237.61796559769817,395.11240483350474
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2046,risky,303.6544256356813,234.3069442119425,394.6378631525626
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2047,risky,300.827071079885,230.68499361983277,393.4518283943896
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,quit,Quit,F,Female,2048,risky,297.6690621881877,226.8764357936877,391.69919687056006

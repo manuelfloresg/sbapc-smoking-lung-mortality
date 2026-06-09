@@ -1,0 +1,33 @@
+sex,sex_label,scenario,scenario_label,period,deaths
+M,Male,up1pc,Up 1% p.a.,2022,865.1182384057373
+M,Male,up1pc,Up 1% p.a.,2030,834.7998752414578
+M,Male,up1pc,Up 1% p.a.,2040,831.4883206406021
+M,Male,up1pc,Up 1% p.a.,2048,886.28488967418
+M,Male,freeze,Frozen at 2022,2022,865.1182384057373
+M,Male,freeze,Frozen at 2022,2030,818.730221417957
+M,Male,freeze,Frozen at 2022,2040,771.7718840770021
+M,Male,freeze,Frozen at 2022,2048,776.4397152488817
+M,Male,down1pc,Down 1% p.a.,2022,865.1182384057373
+M,Male,down1pc,Down 1% p.a.,2030,807.7853243279774
+M,Male,down1pc,Down 1% p.a.,2040,726.9174230326
+M,Male,down1pc,Down 1% p.a.,2048,695.2329712414279
+M,Male,quit,Quit,2022,865.1182384057373
+M,Male,quit,Quit,2030,586.04874901221865
+M,Male,quit,Quit,2040,367.8750913245466
+M,Male,quit,Quit,2048,290.1636791626367
+F,Female,up1pc,Up 1% p.a.,2022,395.7800057384242
+F,Female,up1pc,Up 1% p.a.,2030,484.48159819129484
+F,Female,up1pc,Up 1% p.a.,2040,558.6323952641479
+F,Female,up1pc,Up 1% p.a.,2048,636.3236651467687
+F,Female,freeze,Frozen at 2022,2022,395.7800057384242
+F,Female,freeze,Frozen at 2022,2030,477.4651218397637
+F,Female,freeze,Frozen at 2022,2040,527.947950406099
+F,Female,freeze,Frozen at 2022,2048,574.6408442801179
+F,Female,down1pc,Down 1% p.a.,2022,395.7800057384242
+F,Female,down1pc,Down 1% p.a.,2030,471.6749624890264
+F,Female,down1pc,Down 1% p.a.,2040,503.07203905607906
+F,Female,down1pc,Down 1% p.a.,2048,526.9371050732361
+F,Female,quit,Quit,2022,395.7800057384242
+F,Female,quit,Quit,2030,371.47981467005945
+F,Female,quit,Quit,2040,314.7710338870149
+F,Female,quit,Quit,2048,294.9150438880452

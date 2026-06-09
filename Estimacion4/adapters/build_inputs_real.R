@@ -156,7 +156,40 @@ build_prev_from_micro <- function(path_dta,
                                   age_min = 15, age_max = 65,
                                   min_neff = 5) {
   sex_sel <- match.arg(sex_sel)
-  micro <- read_dta(path_dta) %>%
+  ext <- tolower(tools::file_ext(path_dta))
+  prev_raw <- switch(
+    ext,
+    csv = readr::read_csv(path_dta, show_col_types = FALSE),
+    rds = readRDS(path_dta),
+    dta = haven::read_dta(path_dta),
+    haven::read_dta(path_dta)
+  )
+
+  agg_req <- c("age", "period", "cohort", "sex", "inst", "y_eff", "neff")
+  if (all(agg_req %in% names(prev_raw))) {
+    return(
+      prev_raw %>%
+        dplyr::transmute(
+          age = as.integer(age),
+          period = as.integer(period),
+          cohort = as.integer(cohort),
+          sex = factor(as.character(sex), levels = c("M", "F")),
+          inst = factor(as.character(inst), levels = c("act", "12m", "30d")),
+          y_eff = as.integer(round(as.numeric(y_eff))),
+          neff = as.integer(round(as.numeric(neff)))
+        ) %>%
+        dplyr::filter(
+          period >= period_min, period <= period_max,
+          age >= age_min, age <= age_max,
+          sex == sex_sel,
+          is.finite(y_eff), is.finite(neff),
+          neff >= min_neff, y_eff >= 0L, y_eff <= neff
+        ) %>%
+        dplyr::arrange(period, age, inst)
+    )
+  }
+
+  micro <- prev_raw %>%
     transmute(
       period = as.integer(año),
       age    = as.integer(edad),

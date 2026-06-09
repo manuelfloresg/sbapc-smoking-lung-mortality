@@ -1,0 +1,919 @@
+cause_id,label,site_label,period,deaths,scenario,scenario_label,source,common_endogenous_year
+lung,Lung,Lung,1998,1186.1769066036902,freeze,Frozen at 2022,Observed,2048
+lung,Lung,Lung,1999,1120.8135760759517,freeze,Frozen at 2022,Observed,2048
+lung,Lung,Lung,2000,1162.2729706043456,freeze,Frozen at 2022,Observed,2048
+lung,Lung,Lung,2001,1187.355960258553,freeze,Frozen at 2022,Observed,2048
+lung,Lung,Lung,2002,1185.1147325829343,freeze,Frozen at 2022,Observed,2048
+lung,Lung,Lung,2003,1201.9531312537101,freeze,Frozen at 2022,Observed,2048
+lung,Lung,Lung,2004,1117.731297341154,freeze,Frozen at 2022,Observed,2048
+lung,Lung,Lung,2005,1169.1662453195809,freeze,Frozen at 2022,Observed,2048
+lung,Lung,Lung,2006,1155.9981818147307,freeze,Frozen at 2022,Observed,2048
+lung,Lung,Lung,2007,1179.621409368563,freeze,Frozen at 2022,Observed,2048
+lung,Lung,Lung,2008,1234.0182159288615,freeze,Frozen at 2022,Observed,2048
+lung,Lung,Lung,2009,1230.2231587434328,freeze,Frozen at 2022,Observed,2048
+lung,Lung,Lung,2010,1239.7561295543683,freeze,Frozen at 2022,Observed,2048
+lung,Lung,Lung,2011,1210.0751035419503,freeze,Frozen at 2022,Observed,2048
+lung,Lung,Lung,2012,1180.3323313509018,freeze,Frozen at 2022,Observed,2048
+lung,Lung,Lung,2013,1238.476560304813,freeze,Frozen at 2022,Observed,2048
+lung,Lung,Lung,2014,1323.9605674318336,freeze,Frozen at 2022,Observed,2048
+lung,Lung,Lung,2015,1311.9959704264643,freeze,Frozen at 2022,Observed,2048
+lung,Lung,Lung,2016,1310.5387460341633,freeze,Frozen at 2022,Observed,2048
+lung,Lung,Lung,2017,1263.7434959075172,freeze,Frozen at 2022,Observed,2048
+lung,Lung,Lung,2018,1336.6130911174537,freeze,Frozen at 2022,Observed,2048
+lung,Lung,Lung,2019,1401.6940010852154,freeze,Frozen at 2022,Observed,2048
+lung,Lung,Lung,2020,1321.1832962233575,freeze,Frozen at 2022,Observed,2048
+lung,Lung,Lung,2021,1246.449906903686,freeze,Frozen at 2022,Observed,2048
+lung,Lung,Lung,2022,1260.8982441441615,freeze,Frozen at 2022,Observed,2048
+lung,Lung,Lung,2023,1294.8147628015674,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,2024,1307.0160691481324,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,2025,1307.032256840629,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,2026,1304.6846674430574,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,2027,1301.532111553894,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,2028,1299.5913581191062,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,2029,1297.949999218208,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,2030,1296.1953581688526,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,2031,1294.9462690708624,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,2032,1294.576796099158,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,2033,1294.6596063836892,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,2034,1294.0937328814018,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,2035,1292.8621480850077,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,2036,1292.2421895528475,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,2037,1292.5094025593248,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,2038,1293.5111317161955,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,2039,1295.785505412264,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,2040,1299.7199218464607,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,2041,1305.225164442761,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,2042,1311.9002236987596,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,2043,1319.4315905210487,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,2044,1327.253101015097,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,2045,1334.0892314266562,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,2046,1339.8653785200675,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,2047,1345.4374582804166,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,2048,1351.0806945792474,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,1998,452.0541615587075,freeze,Frozen at 2022,Observed,2048
+stomach,Stomach,Stomach,1999,441.0877724132819,freeze,Frozen at 2022,Observed,2048
+stomach,Stomach,Stomach,2000,421.5497971505747,freeze,Frozen at 2022,Observed,2048
+stomach,Stomach,Stomach,2001,461.22080401957646,freeze,Frozen at 2022,Observed,2048
+stomach,Stomach,Stomach,2002,427.51860886323607,freeze,Frozen at 2022,Observed,2048
+stomach,Stomach,Stomach,2003,392.46122664669883,freeze,Frozen at 2022,Observed,2048
+stomach,Stomach,Stomach,2004,400.1713786576511,freeze,Frozen at 2022,Observed,2048
+stomach,Stomach,Stomach,2005,378.1666631964497,freeze,Frozen at 2022,Observed,2048
+stomach,Stomach,Stomach,2006,384.63064057476186,freeze,Frozen at 2022,Observed,2048
+stomach,Stomach,Stomach,2007,446.78030662554136,freeze,Frozen at 2022,Observed,2048
+stomach,Stomach,Stomach,2008,351.5033188611839,freeze,Frozen at 2022,Observed,2048
+stomach,Stomach,Stomach,2009,378.0869075671628,freeze,Frozen at 2022,Observed,2048
+stomach,Stomach,Stomach,2010,394.84671967936526,freeze,Frozen at 2022,Observed,2048
+stomach,Stomach,Stomach,2011,405.689490663214,freeze,Frozen at 2022,Observed,2048
+stomach,Stomach,Stomach,2012,416.68907540174115,freeze,Frozen at 2022,Observed,2048
+stomach,Stomach,Stomach,2013,419.70581220343206,freeze,Frozen at 2022,Observed,2048
+stomach,Stomach,Stomach,2014,398.8372553238616,freeze,Frozen at 2022,Observed,2048
+stomach,Stomach,Stomach,2015,388.62373120487956,freeze,Frozen at 2022,Observed,2048
+stomach,Stomach,Stomach,2016,389.4365442531363,freeze,Frozen at 2022,Observed,2048
+stomach,Stomach,Stomach,2017,338.12930674058384,freeze,Frozen at 2022,Observed,2048
+stomach,Stomach,Stomach,2018,379.17710910246933,freeze,Frozen at 2022,Observed,2048
+stomach,Stomach,Stomach,2019,360.42616519481936,freeze,Frozen at 2022,Observed,2048
+stomach,Stomach,Stomach,2020,314.6787855462129,freeze,Frozen at 2022,Observed,2048
+stomach,Stomach,Stomach,2021,371.4207776854023,freeze,Frozen at 2022,Observed,2048
+stomach,Stomach,Stomach,2022,332.72945052088966,freeze,Frozen at 2022,Observed,2048
+stomach,Stomach,Stomach,2023,337.46757403659296,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,2024,347.0158533436894,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,2025,352.5820301212068,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,2026,357.4200254827948,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,2027,362.1639304743496,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,2028,367.6489759165105,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,2029,372.93332474874,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,2030,378.1542898878096,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,2031,383.9175562430629,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,2032,390.23652505273526,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,2033,396.98587660869055,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,2034,403.7122459364356,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,2035,410.21783032644936,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,2036,416.86764811858563,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,2037,423.77712832631937,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,2038,430.9951423072951,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,2039,438.3764234904752,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,2040,445.8786537449398,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,2041,453.4941442449075,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,2042,460.9140604112389,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,2043,468.3950575879354,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,2044,475.8786940229948,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,2045,482.8653595196495,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,2046,489.3945542831177,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,2047,495.834763417594,freeze,Frozen at 2022,Projected,2048
+stomach,Stomach,Stomach,2048,502.0475743998451,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,1998,360.4921987022261,freeze,Frozen at 2022,Observed,2048
+pancreas,Pancreas,Pancreas,1999,377.4539957682777,freeze,Frozen at 2022,Observed,2048
+pancreas,Pancreas,Pancreas,2000,391.1544727127121,freeze,Frozen at 2022,Observed,2048
+pancreas,Pancreas,Pancreas,2001,378.7651290320231,freeze,Frozen at 2022,Observed,2048
+pancreas,Pancreas,Pancreas,2002,425.9665053734476,freeze,Frozen at 2022,Observed,2048
+pancreas,Pancreas,Pancreas,2003,402.1702608466778,freeze,Frozen at 2022,Observed,2048
+pancreas,Pancreas,Pancreas,2004,405.67143432472204,freeze,Frozen at 2022,Observed,2048
+pancreas,Pancreas,Pancreas,2005,400.23353259271437,freeze,Frozen at 2022,Observed,2048
+pancreas,Pancreas,Pancreas,2006,407.66870510083197,freeze,Frozen at 2022,Observed,2048
+pancreas,Pancreas,Pancreas,2007,407.77010715625505,freeze,Frozen at 2022,Observed,2048
+pancreas,Pancreas,Pancreas,2008,451.0089681311648,freeze,Frozen at 2022,Observed,2048
+pancreas,Pancreas,Pancreas,2009,465.0271371083376,freeze,Frozen at 2022,Observed,2048
+pancreas,Pancreas,Pancreas,2010,464.4299545203929,freeze,Frozen at 2022,Observed,2048
+pancreas,Pancreas,Pancreas,2011,476.46613325500914,freeze,Frozen at 2022,Observed,2048
+pancreas,Pancreas,Pancreas,2012,488.8858163270693,freeze,Frozen at 2022,Observed,2048
+pancreas,Pancreas,Pancreas,2013,522.4822031113752,freeze,Frozen at 2022,Observed,2048
+pancreas,Pancreas,Pancreas,2014,542.0183088675341,freeze,Frozen at 2022,Observed,2048
+pancreas,Pancreas,Pancreas,2015,566.8630014174189,freeze,Frozen at 2022,Observed,2048
+pancreas,Pancreas,Pancreas,2016,595.2004032685284,freeze,Frozen at 2022,Observed,2048
+pancreas,Pancreas,Pancreas,2017,546.151592480787,freeze,Frozen at 2022,Observed,2048
+pancreas,Pancreas,Pancreas,2018,560.1976113016586,freeze,Frozen at 2022,Observed,2048
+pancreas,Pancreas,Pancreas,2019,601.7297166337637,freeze,Frozen at 2022,Observed,2048
+pancreas,Pancreas,Pancreas,2020,641.0107648945686,freeze,Frozen at 2022,Observed,2048
+pancreas,Pancreas,Pancreas,2021,616.870071565823,freeze,Frozen at 2022,Observed,2048
+pancreas,Pancreas,Pancreas,2022,596.3743074582937,freeze,Frozen at 2022,Observed,2048
+pancreas,Pancreas,Pancreas,2023,628.77228122512,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,2024,651.5408861297512,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,2025,661.4969175820622,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,2026,668.7376669895928,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,2027,674.9517054447163,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,2028,682.6881509566367,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,2029,689.9090147106656,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,2030,696.1926208444502,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,2031,703.2136861553996,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,2032,710.735235284798,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,2033,719.15823248743,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,2034,727.5814252351855,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,2035,735.6035928548531,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,2036,744.2402013527476,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,2037,753.6126261709795,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,2038,763.0733998212991,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,2039,772.922533939156,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,2040,783.2928524734814,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,2041,794.0434031798454,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,2042,804.7280761600349,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,2043,815.4958214527776,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,2044,826.2135514584255,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,2045,835.9937039860158,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,2046,845.1609183267893,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,2047,854.557164255642,freeze,Frozen at 2022,Projected,2048
+pancreas,Pancreas,Pancreas,2048,864.0736289859564,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,1998,207.8826621032545,freeze,Frozen at 2022,Observed,2048
+bladder,Bladder,Bladder,1999,209.05744105701237,freeze,Frozen at 2022,Observed,2048
+bladder,Bladder,Bladder,2000,216.97353023678392,freeze,Frozen at 2022,Observed,2048
+bladder,Bladder,Bladder,2001,204.0893853242672,freeze,Frozen at 2022,Observed,2048
+bladder,Bladder,Bladder,2002,193.363468821268,freeze,Frozen at 2022,Observed,2048
+bladder,Bladder,Bladder,2003,181.0296455324792,freeze,Frozen at 2022,Observed,2048
+bladder,Bladder,Bladder,2004,192.03426827276243,freeze,Frozen at 2022,Observed,2048
+bladder,Bladder,Bladder,2005,189.00932947354244,freeze,Frozen at 2022,Observed,2048
+bladder,Bladder,Bladder,2006,207.08725510913555,freeze,Frozen at 2022,Observed,2048
+bladder,Bladder,Bladder,2007,190.3531260979977,freeze,Frozen at 2022,Observed,2048
+bladder,Bladder,Bladder,2008,215.1023938995396,freeze,Frozen at 2022,Observed,2048
+bladder,Bladder,Bladder,2009,214.83113861048815,freeze,Frozen at 2022,Observed,2048
+bladder,Bladder,Bladder,2010,189.032036894464,freeze,Frozen at 2022,Observed,2048
+bladder,Bladder,Bladder,2011,197.36163002667766,freeze,Frozen at 2022,Observed,2048
+bladder,Bladder,Bladder,2012,205.68368757570204,freeze,Frozen at 2022,Observed,2048
+bladder,Bladder,Bladder,2013,213.80720157947832,freeze,Frozen at 2022,Observed,2048
+bladder,Bladder,Bladder,2014,210.00190786467738,freeze,Frozen at 2022,Observed,2048
+bladder,Bladder,Bladder,2015,190.75938132572173,freeze,Frozen at 2022,Observed,2048
+bladder,Bladder,Bladder,2016,220.09916631914794,freeze,Frozen at 2022,Observed,2048
+bladder,Bladder,Bladder,2017,230.81466551167279,freeze,Frozen at 2022,Observed,2048
+bladder,Bladder,Bladder,2018,220.14266157046157,freeze,Frozen at 2022,Observed,2048
+bladder,Bladder,Bladder,2019,221.0566430039899,freeze,Frozen at 2022,Observed,2048
+bladder,Bladder,Bladder,2020,253.9992277982305,freeze,Frozen at 2022,Observed,2048
+bladder,Bladder,Bladder,2021,237.03343018071976,freeze,Frozen at 2022,Observed,2048
+bladder,Bladder,Bladder,2022,228.0718367609341,freeze,Frozen at 2022,Observed,2048
+bladder,Bladder,Bladder,2023,231.2846626943654,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,2024,236.06565251000671,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,2025,239.91812275455078,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,2026,243.51639406640982,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,2027,247.1222661754099,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,2028,251.31031220666083,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,2029,255.55479885253516,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,2030,259.6762579379486,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,2031,263.98976041512964,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,2032,268.45425020416974,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,2033,272.9758914734805,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,2034,277.428238682973,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,2035,281.88843301674257,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,2036,286.70500766976363,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,2037,291.9818957433322,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,2038,297.6369089789446,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,2039,303.7815083596529,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,2040,310.4082587849432,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,2041,317.3365489999911,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,2042,324.2678844041802,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,2043,330.9635465687983,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,2044,337.25814325835404,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,2045,342.84423845450294,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,2046,347.71884703650335,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,2047,351.9807034675664,freeze,Frozen at 2022,Projected,2048
+bladder,Bladder,Bladder,2048,355.3706897395114,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,1998,130.9226340863249,freeze,Frozen at 2022,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,1999,113.90493030216753,freeze,Frozen at 2022,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2000,133.36078489048253,freeze,Frozen at 2022,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2001,123.34104914329691,freeze,Frozen at 2022,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2002,125.88268581727897,freeze,Frozen at 2022,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2003,135.040382671695,freeze,Frozen at 2022,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2004,150.76353469815734,freeze,Frozen at 2022,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2005,138.8391047897447,freeze,Frozen at 2022,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2006,117.74511748926645,freeze,Frozen at 2022,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2007,137.5538549328497,freeze,Frozen at 2022,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2008,135.75222393813098,freeze,Frozen at 2022,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2009,127.33636882147613,freeze,Frozen at 2022,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2010,109.14004249484734,freeze,Frozen at 2022,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2011,111.00713340376436,freeze,Frozen at 2022,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2012,112.89849725668896,freeze,Frozen at 2022,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2013,123.82452445903124,freeze,Frozen at 2022,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2014,125.09827092773025,freeze,Frozen at 2022,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2015,135.1652304367608,freeze,Frozen at 2022,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2016,144.40917779734727,freeze,Frozen at 2022,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2017,108.01025835843235,freeze,Frozen at 2022,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2018,125.75620720928258,freeze,Frozen at 2022,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2019,131.82269112542997,freeze,Frozen at 2022,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2020,130.01872270284903,freeze,Frozen at 2022,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2021,138.72337742156833,freeze,Frozen at 2022,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2022,127.07658986924679,freeze,Frozen at 2022,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2023,124.37898416569246,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2024,125.65330062486153,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2025,125.97478548187289,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2026,126.08177238540974,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2027,126.03978691227395,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2028,126.20379425944185,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2029,126.44358056323465,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2030,126.7014022757161,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2031,127.10588409183565,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2032,127.81083592539208,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2033,128.71672548297735,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2034,129.69747567561956,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2035,130.78610878770354,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2036,132.14692969060945,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2037,133.7825402115298,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2038,135.54823584621954,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2039,137.42573158437432,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2040,139.391494653093,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2041,141.42314379246451,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2042,143.47640479338986,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2043,145.5763037540021,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2044,147.6692376937255,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2045,149.60741525247036,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2046,151.52717226437642,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2047,153.5443317276655,freeze,Frozen at 2022,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2048,155.6472074679491,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,1998,271.0358589934451,freeze,Frozen at 2022,Observed,2048
+esophagus,Esophagus,Esophagus,1999,296.99855638690906,freeze,Frozen at 2022,Observed,2048
+esophagus,Esophagus,Esophagus,2000,293.9259795443989,freeze,Frozen at 2022,Observed,2048
+esophagus,Esophagus,Esophagus,2001,249.9779377640711,freeze,Frozen at 2022,Observed,2048
+esophagus,Esophagus,Esophagus,2002,262.8818128044037,freeze,Frozen at 2022,Observed,2048
+esophagus,Esophagus,Esophagus,2003,275.64287396591004,freeze,Frozen at 2022,Observed,2048
+esophagus,Esophagus,Esophagus,2004,281.05327847913657,freeze,Frozen at 2022,Observed,2048
+esophagus,Esophagus,Esophagus,2005,258.00937410162794,freeze,Frozen at 2022,Observed,2048
+esophagus,Esophagus,Esophagus,2006,242.99181604241363,freeze,Frozen at 2022,Observed,2048
+esophagus,Esophagus,Esophagus,2007,264.7972819346856,freeze,Frozen at 2022,Observed,2048
+esophagus,Esophagus,Esophagus,2008,226.08014462667734,freeze,Frozen at 2022,Observed,2048
+esophagus,Esophagus,Esophagus,2009,229.48786941089432,freeze,Frozen at 2022,Observed,2048
+esophagus,Esophagus,Esophagus,2010,214.96845022863687,freeze,Frozen at 2022,Observed,2048
+esophagus,Esophagus,Esophagus,2011,233.70557154087808,freeze,Frozen at 2022,Observed,2048
+esophagus,Esophagus,Esophagus,2012,252.3929336382849,freeze,Frozen at 2022,Observed,2048
+esophagus,Esophagus,Esophagus,2013,210.04814618454756,freeze,Frozen at 2022,Observed,2048
+esophagus,Esophagus,Esophagus,2014,191.06067356015012,freeze,Frozen at 2022,Observed,2048
+esophagus,Esophagus,Esophagus,2015,228.96432091099658,freeze,Frozen at 2022,Observed,2048
+esophagus,Esophagus,Esophagus,2016,247.81891538675472,freeze,Frozen at 2022,Observed,2048
+esophagus,Esophagus,Esophagus,2017,190.96734936076453,freeze,Frozen at 2022,Observed,2048
+esophagus,Esophagus,Esophagus,2018,202.81150486706758,freeze,Frozen at 2022,Observed,2048
+esophagus,Esophagus,Esophagus,2019,222.7572545670489,freeze,Frozen at 2022,Observed,2048
+esophagus,Esophagus,Esophagus,2020,205.86212345586318,freeze,Frozen at 2022,Observed,2048
+esophagus,Esophagus,Esophagus,2021,178.99887439118197,freeze,Frozen at 2022,Observed,2048
+esophagus,Esophagus,Esophagus,2022,200.0564894370924,freeze,Frozen at 2022,Observed,2048
+esophagus,Esophagus,Esophagus,2023,196.13243534174418,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,2024,199.31928060824364,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,2025,200.04800458100243,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,2026,200.29272259973553,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,2027,200.2897445407218,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,2028,200.57007575212498,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,2029,200.8427300648411,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,2030,201.09217339395886,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,2031,201.51932871040646,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,2032,202.1551304579815,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,2033,202.8533964402512,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,2034,203.36319302191703,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,2035,203.69304123888978,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,2036,204.20920360135105,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,2037,204.9285597686516,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,2038,205.68853114315033,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,2039,206.5809281588308,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,2040,207.6118780832922,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,2041,208.63327978456073,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,2042,209.4823100735937,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,2043,210.07971220927465,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,2044,210.26878536935115,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,2045,209.75124087178253,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,2046,208.61567620826315,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,2047,207.2221306666943,freeze,Frozen at 2022,Projected,2048
+esophagus,Esophagus,Esophagus,2048,205.6778929657107,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,1998,185.07368598438643,freeze,Frozen at 2022,Observed,2048
+kidney,Kidney,Kidney,1999,188.9891084390058,freeze,Frozen at 2022,Observed,2048
+kidney,Kidney,Kidney,2000,189.6712754263613,freeze,Frozen at 2022,Observed,2048
+kidney,Kidney,Kidney,2001,177.8345967097338,freeze,Frozen at 2022,Observed,2048
+kidney,Kidney,Kidney,2002,186.36262657311403,freeze,Frozen at 2022,Observed,2048
+kidney,Kidney,Kidney,2003,205.99874822176588,freeze,Frozen at 2022,Observed,2048
+kidney,Kidney,Kidney,2004,197.8378772829547,freeze,Frozen at 2022,Observed,2048
+kidney,Kidney,Kidney,2005,212.04610845559694,freeze,Frozen at 2022,Observed,2048
+kidney,Kidney,Kidney,2006,170.30442671798218,freeze,Frozen at 2022,Observed,2048
+kidney,Kidney,Kidney,2007,208.89485039588058,freeze,Frozen at 2022,Observed,2048
+kidney,Kidney,Kidney,2008,188.3501229081458,freeze,Frozen at 2022,Observed,2048
+kidney,Kidney,Kidney,2009,216.35396595043449,freeze,Frozen at 2022,Observed,2048
+kidney,Kidney,Kidney,2010,207.51709971431265,freeze,Frozen at 2022,Observed,2048
+kidney,Kidney,Kidney,2011,206.86150249236508,freeze,Frozen at 2022,Observed,2048
+kidney,Kidney,Kidney,2012,206.16076313702348,freeze,Frozen at 2022,Observed,2048
+kidney,Kidney,Kidney,2013,219.97488551072564,freeze,Frozen at 2022,Observed,2048
+kidney,Kidney,Kidney,2014,235.6496809110273,freeze,Frozen at 2022,Observed,2048
+kidney,Kidney,Kidney,2015,233.80276754429553,freeze,Frozen at 2022,Observed,2048
+kidney,Kidney,Kidney,2016,295.06579403237197,freeze,Frozen at 2022,Observed,2048
+kidney,Kidney,Kidney,2017,216.0294685012274,freeze,Frozen at 2022,Observed,2048
+kidney,Kidney,Kidney,2018,247.91536143923213,freeze,Frozen at 2022,Observed,2048
+kidney,Kidney,Kidney,2019,259.8879933663122,freeze,Frozen at 2022,Observed,2048
+kidney,Kidney,Kidney,2020,264.15194998396146,freeze,Frozen at 2022,Observed,2048
+kidney,Kidney,Kidney,2021,256.0240646990998,freeze,Frozen at 2022,Observed,2048
+kidney,Kidney,Kidney,2022,225.79376768557876,freeze,Frozen at 2022,Observed,2048
+kidney,Kidney,Kidney,2023,247.53661697488695,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,2024,256.9100389108238,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,2025,261.0213912908803,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,2026,263.781692542388,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,2027,265.6663449140938,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,2028,267.78396489242436,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,2029,269.5523279230369,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,2030,271.13144571817196,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,2031,273.0556272303468,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,2032,275.42273477110393,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,2033,277.9851110150163,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,2034,280.4350317463089,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,2035,282.6022684626686,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,2036,284.90701582467443,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,2037,287.39080762272783,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,2038,289.8722842465731,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,2039,292.4231675221305,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,2040,295.147532508521,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,2041,298.1242007389002,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,2042,301.1853383963611,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,2043,304.331677277852,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,2044,307.404077096112,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,2045,309.96949173696123,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,2046,312.1991160906289,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,2047,314.4971107892169,freeze,Frozen at 2022,Projected,2048
+kidney,Kidney,Kidney,2048,316.94934346024843,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,1998,136.4160950438064,freeze,Frozen at 2022,Observed,2048
+larynx,Larynx,Larynx,1999,118.05518177541592,freeze,Frozen at 2022,Observed,2048
+larynx,Larynx,Larynx,2000,103.10940413189955,freeze,Frozen at 2022,Observed,2048
+larynx,Larynx,Larynx,2001,124.12765623026404,freeze,Frozen at 2022,Observed,2048
+larynx,Larynx,Larynx,2002,124.07294333359516,freeze,Frozen at 2022,Observed,2048
+larynx,Larynx,Larynx,2003,119.08424524454149,freeze,Frozen at 2022,Observed,2048
+larynx,Larynx,Larynx,2004,130.0568571872334,freeze,Frozen at 2022,Observed,2048
+larynx,Larynx,Larynx,2005,119.40079754183803,freeze,Frozen at 2022,Observed,2048
+larynx,Larynx,Larynx,2006,121.00701803452765,freeze,Frozen at 2022,Observed,2048
+larynx,Larynx,Larynx,2007,122.86905383469173,freeze,Frozen at 2022,Observed,2048
+larynx,Larynx,Larynx,2008,114.88763009278847,freeze,Frozen at 2022,Observed,2048
+larynx,Larynx,Larynx,2009,101.0908442102504,freeze,Frozen at 2022,Observed,2048
+larynx,Larynx,Larynx,2010,106.85701817229975,freeze,Frozen at 2022,Observed,2048
+larynx,Larynx,Larynx,2011,108.92085458594082,freeze,Frozen at 2022,Observed,2048
+larynx,Larynx,Larynx,2012,111.09589446977405,freeze,Frozen at 2022,Observed,2048
+larynx,Larynx,Larynx,2013,107.09268189203316,freeze,Frozen at 2022,Observed,2048
+larynx,Larynx,Larynx,2014,118.04715643728626,freeze,Frozen at 2022,Observed,2048
+larynx,Larynx,Larynx,2015,99.05828324922192,freeze,Frozen at 2022,Observed,2048
+larynx,Larynx,Larynx,2016,120.07185054908406,freeze,Frozen at 2022,Observed,2048
+larynx,Larynx,Larynx,2017,85.10893192575078,freeze,Frozen at 2022,Observed,2048
+larynx,Larynx,Larynx,2018,110.11184144970899,freeze,Frozen at 2022,Observed,2048
+larynx,Larynx,Larynx,2019,124.00575033906398,freeze,Frozen at 2022,Observed,2048
+larynx,Larynx,Larynx,2020,103.12004148652485,freeze,Frozen at 2022,Observed,2048
+larynx,Larynx,Larynx,2021,88.10668124953096,freeze,Frozen at 2022,Observed,2048
+larynx,Larynx,Larynx,2022,74.87244739243624,freeze,Frozen at 2022,Observed,2048
+larynx,Larynx,Larynx,2023,80.39511769403353,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,2024,80.15464642914709,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,2025,79.63549597387558,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,2026,78.9793736145944,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,2027,78.21729649829248,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,2028,77.74538251375216,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,2029,77.37328027085654,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,2030,77.09767766695575,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,2031,76.90431749631611,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,2032,76.81460611491627,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,2033,76.72763829312036,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,2034,76.51143044560969,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,2035,76.1087803369477,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,2036,75.60706588753744,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,2037,75.06958017521092,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,2038,74.49192118064754,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,2039,73.92305226386733,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,2040,73.38526767096212,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,2041,72.90675632421966,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,2042,72.50598843976728,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,2043,72.19017631165474,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,2044,71.98691406793898,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,2045,71.8489386588952,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,2046,71.85531594377679,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,2047,72.03986381024065,freeze,Frozen at 2022,Projected,2048
+larynx,Larynx,Larynx,2048,72.44271536664593,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,1998,100.28498972922938,freeze,Frozen at 2022,Observed,2048
+cervix,Cervix,Cervix,1999,80.0136847382981,freeze,Frozen at 2022,Observed,2048
+cervix,Cervix,Cervix,2000,86.10802358907794,freeze,Frozen at 2022,Observed,2048
+cervix,Cervix,Cervix,2001,95.28623645843874,freeze,Frozen at 2022,Observed,2048
+cervix,Cervix,Cervix,2002,99.00518608992094,freeze,Frozen at 2022,Observed,2048
+cervix,Cervix,Cervix,2003,99.08272988837045,freeze,Frozen at 2022,Observed,2048
+cervix,Cervix,Cervix,2004,77.75576699206802,freeze,Frozen at 2022,Observed,2048
+cervix,Cervix,Cervix,2005,101.2990203507329,freeze,Frozen at 2022,Observed,2048
+cervix,Cervix,Cervix,2006,96.71035527937713,freeze,Frozen at 2022,Observed,2048
+cervix,Cervix,Cervix,2007,93.86817415259793,freeze,Frozen at 2022,Observed,2048
+cervix,Cervix,Cervix,2008,99.408856588241,freeze,Frozen at 2022,Observed,2048
+cervix,Cervix,Cervix,2009,74.87665416066528,freeze,Frozen at 2022,Observed,2048
+cervix,Cervix,Cervix,2010,77.89286050106985,freeze,Frozen at 2022,Observed,2048
+cervix,Cervix,Cervix,2011,76.80132734587801,freeze,Frozen at 2022,Observed,2048
+cervix,Cervix,Cervix,2012,75.73556170785031,freeze,Frozen at 2022,Observed,2048
+cervix,Cervix,Cervix,2013,90.78256686882604,freeze,Frozen at 2022,Observed,2048
+cervix,Cervix,Cervix,2014,87.00290280984349,freeze,Frozen at 2022,Observed,2048
+cervix,Cervix,Cervix,2015,80.40286644166024,freeze,Frozen at 2022,Observed,2048
+cervix,Cervix,Cervix,2016,78.80082807993381,freeze,Frozen at 2022,Observed,2048
+cervix,Cervix,Cervix,2017,89.76579381381728,freeze,Frozen at 2022,Observed,2048
+cervix,Cervix,Cervix,2018,72.00338260488286,freeze,Frozen at 2022,Observed,2048
+cervix,Cervix,Cervix,2019,93.41073940067135,freeze,Frozen at 2022,Observed,2048
+cervix,Cervix,Cervix,2020,104.19910390584323,freeze,Frozen at 2022,Observed,2048
+cervix,Cervix,Cervix,2021,105.70255647234526,freeze,Frozen at 2022,Observed,2048
+cervix,Cervix,Cervix,2022,93.73108545487872,freeze,Frozen at 2022,Observed,2048
+cervix,Cervix,Cervix,2023,94.35599747200365,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,2024,97.62010938196168,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,2025,99.70967754417747,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,2026,101.04523334296023,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,2027,101.94201099781374,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,2028,102.9639398170994,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,2029,103.92411224953885,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,2030,104.83642411244993,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,2031,105.82505978638545,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,2032,106.87908490826221,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,2033,107.90032028015,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,2034,108.83972244200423,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,2035,109.70309284590297,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,2036,110.62589285389075,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,2037,111.61316042004196,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,2038,112.56541590314035,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,2039,113.52066038864317,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,2040,114.4812850972901,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,2041,115.46516127265541,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,2042,116.49094634034991,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,2043,117.51755653474736,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,2044,118.47197717769181,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,2045,119.21777496744473,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,2046,119.77750966088239,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,2047,120.2797127307574,freeze,Frozen at 2022,Projected,2048
+cervix,Cervix,Cervix,2048,120.81990455497898,freeze,Frozen at 2022,Projected,2048
+lung,Lung,Lung,1998,1186.1769066036902,quit,Quit,Observed,2048
+lung,Lung,Lung,1999,1120.8135760759517,quit,Quit,Observed,2048
+lung,Lung,Lung,2000,1162.2729706043456,quit,Quit,Observed,2048
+lung,Lung,Lung,2001,1187.355960258553,quit,Quit,Observed,2048
+lung,Lung,Lung,2002,1185.1147325829343,quit,Quit,Observed,2048
+lung,Lung,Lung,2003,1201.9531312537101,quit,Quit,Observed,2048
+lung,Lung,Lung,2004,1117.731297341154,quit,Quit,Observed,2048
+lung,Lung,Lung,2005,1169.1662453195809,quit,Quit,Observed,2048
+lung,Lung,Lung,2006,1155.9981818147307,quit,Quit,Observed,2048
+lung,Lung,Lung,2007,1179.621409368563,quit,Quit,Observed,2048
+lung,Lung,Lung,2008,1234.0182159288615,quit,Quit,Observed,2048
+lung,Lung,Lung,2009,1230.2231587434328,quit,Quit,Observed,2048
+lung,Lung,Lung,2010,1239.7561295543683,quit,Quit,Observed,2048
+lung,Lung,Lung,2011,1210.0751035419503,quit,Quit,Observed,2048
+lung,Lung,Lung,2012,1180.3323313509018,quit,Quit,Observed,2048
+lung,Lung,Lung,2013,1238.476560304813,quit,Quit,Observed,2048
+lung,Lung,Lung,2014,1323.9605674318336,quit,Quit,Observed,2048
+lung,Lung,Lung,2015,1311.9959704264643,quit,Quit,Observed,2048
+lung,Lung,Lung,2016,1310.5387460341633,quit,Quit,Observed,2048
+lung,Lung,Lung,2017,1263.7434959075172,quit,Quit,Observed,2048
+lung,Lung,Lung,2018,1336.6130911174537,quit,Quit,Observed,2048
+lung,Lung,Lung,2019,1401.6940010852154,quit,Quit,Observed,2048
+lung,Lung,Lung,2020,1321.1832962233575,quit,Quit,Observed,2048
+lung,Lung,Lung,2021,1246.449906903686,quit,Quit,Observed,2048
+lung,Lung,Lung,2022,1260.8982441441615,quit,Quit,Observed,2048
+lung,Lung,Lung,2023,1294.537985343483,quit,Quit,Projected,2048
+lung,Lung,Lung,2024,1263.4343980445146,quit,Quit,Projected,2048
+lung,Lung,Lung,2025,1197.4092904919457,quit,Quit,Projected,2048
+lung,Lung,Lung,2026,1146.5716980589816,quit,Quit,Projected,2048
+lung,Lung,Lung,2027,1093.7639263647175,quit,Quit,Projected,2048
+lung,Lung,Lung,2028,1042.8983427163284,quit,Quit,Projected,2048
+lung,Lung,Lung,2029,996.922943012886,quit,Quit,Projected,2048
+lung,Lung,Lung,2030,957.528561399412,quit,Quit,Projected,2048
+lung,Lung,Lung,2031,919.5831175127876,quit,Quit,Projected,2048
+lung,Lung,Lung,2032,882.7852560555302,quit,Quit,Projected,2048
+lung,Lung,Lung,2033,846.1386387985469,quit,Quit,Projected,2048
+lung,Lung,Lung,2034,814.2181529702291,quit,Quit,Projected,2048
+lung,Lung,Lung,2035,788.0534860891851,quit,Quit,Projected,2048
+lung,Lung,Lung,2036,763.9216796729468,quit,Quit,Projected,2048
+lung,Lung,Lung,2037,741.1611395633404,quit,Quit,Projected,2048
+lung,Lung,Lung,2038,718.978874400997,quit,Quit,Projected,2048
+lung,Lung,Lung,2039,699.3577071374193,quit,Quit,Projected,2048
+lung,Lung,Lung,2040,682.6461542981285,quit,Quit,Projected,2048
+lung,Lung,Lung,2041,667.1359980303114,quit,Quit,Projected,2048
+lung,Lung,Lung,2042,652.3636492523756,quit,Quit,Projected,2048
+lung,Lung,Lung,2043,637.9223212256916,quit,Quit,Projected,2048
+lung,Lung,Lung,2044,625.8323112407811,quit,Quit,Projected,2048
+lung,Lung,Lung,2045,615.6957245428598,quit,Quit,Projected,2048
+lung,Lung,Lung,2046,605.422991808431,quit,Quit,Projected,2048
+lung,Lung,Lung,2047,595.2582618678168,quit,Quit,Projected,2048
+lung,Lung,Lung,2048,585.0787670400302,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,1998,452.0541615587075,quit,Quit,Observed,2048
+stomach,Stomach,Stomach,1999,441.0877724132819,quit,Quit,Observed,2048
+stomach,Stomach,Stomach,2000,421.5497971505747,quit,Quit,Observed,2048
+stomach,Stomach,Stomach,2001,461.22080401957646,quit,Quit,Observed,2048
+stomach,Stomach,Stomach,2002,427.51860886323607,quit,Quit,Observed,2048
+stomach,Stomach,Stomach,2003,392.46122664669883,quit,Quit,Observed,2048
+stomach,Stomach,Stomach,2004,400.1713786576511,quit,Quit,Observed,2048
+stomach,Stomach,Stomach,2005,378.1666631964497,quit,Quit,Observed,2048
+stomach,Stomach,Stomach,2006,384.63064057476186,quit,Quit,Observed,2048
+stomach,Stomach,Stomach,2007,446.78030662554136,quit,Quit,Observed,2048
+stomach,Stomach,Stomach,2008,351.5033188611839,quit,Quit,Observed,2048
+stomach,Stomach,Stomach,2009,378.0869075671628,quit,Quit,Observed,2048
+stomach,Stomach,Stomach,2010,394.84671967936526,quit,Quit,Observed,2048
+stomach,Stomach,Stomach,2011,405.689490663214,quit,Quit,Observed,2048
+stomach,Stomach,Stomach,2012,416.68907540174115,quit,Quit,Observed,2048
+stomach,Stomach,Stomach,2013,419.70581220343206,quit,Quit,Observed,2048
+stomach,Stomach,Stomach,2014,398.8372553238616,quit,Quit,Observed,2048
+stomach,Stomach,Stomach,2015,388.62373120487956,quit,Quit,Observed,2048
+stomach,Stomach,Stomach,2016,389.4365442531363,quit,Quit,Observed,2048
+stomach,Stomach,Stomach,2017,338.12930674058384,quit,Quit,Observed,2048
+stomach,Stomach,Stomach,2018,379.17710910246933,quit,Quit,Observed,2048
+stomach,Stomach,Stomach,2019,360.42616519481936,quit,Quit,Observed,2048
+stomach,Stomach,Stomach,2020,314.6787855462129,quit,Quit,Observed,2048
+stomach,Stomach,Stomach,2021,371.4207776854023,quit,Quit,Observed,2048
+stomach,Stomach,Stomach,2022,332.72945052088966,quit,Quit,Observed,2048
+stomach,Stomach,Stomach,2023,337.45809008716066,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,2024,346.7323102111678,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,2025,351.69231521901725,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,2026,355.7746688771955,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,2027,359.6446394251136,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,2028,364.1732693340915,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,2029,368.432589845483,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,2030,372.5756440952327,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,2031,377.20594010396474,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,2032,382.3332208228629,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,2033,387.8295429089708,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,2034,393.27425846614415,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,2035,398.48198277944107,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,2036,403.78477016931157,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,2037,409.28898683299184,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,2038,415.0384028871981,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,2039,420.8766295723219,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,2040,426.76454578303344,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,2041,432.69616242736527,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,2042,438.37243790257946,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,2043,439.1555537337043,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,2044,438.85258877515935,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,2045,442.05361432268205,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,2046,445.6078793987106,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,2047,449.91127838138556,quit,Quit,Projected,2048
+stomach,Stomach,Stomach,2048,454.38367004875664,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,1998,360.4921987022261,quit,Quit,Observed,2048
+pancreas,Pancreas,Pancreas,1999,377.4539957682777,quit,Quit,Observed,2048
+pancreas,Pancreas,Pancreas,2000,391.1544727127121,quit,Quit,Observed,2048
+pancreas,Pancreas,Pancreas,2001,378.7651290320231,quit,Quit,Observed,2048
+pancreas,Pancreas,Pancreas,2002,425.9665053734476,quit,Quit,Observed,2048
+pancreas,Pancreas,Pancreas,2003,402.1702608466778,quit,Quit,Observed,2048
+pancreas,Pancreas,Pancreas,2004,405.67143432472204,quit,Quit,Observed,2048
+pancreas,Pancreas,Pancreas,2005,400.23353259271437,quit,Quit,Observed,2048
+pancreas,Pancreas,Pancreas,2006,407.66870510083197,quit,Quit,Observed,2048
+pancreas,Pancreas,Pancreas,2007,407.77010715625505,quit,Quit,Observed,2048
+pancreas,Pancreas,Pancreas,2008,451.0089681311648,quit,Quit,Observed,2048
+pancreas,Pancreas,Pancreas,2009,465.0271371083376,quit,Quit,Observed,2048
+pancreas,Pancreas,Pancreas,2010,464.4299545203929,quit,Quit,Observed,2048
+pancreas,Pancreas,Pancreas,2011,476.46613325500914,quit,Quit,Observed,2048
+pancreas,Pancreas,Pancreas,2012,488.8858163270693,quit,Quit,Observed,2048
+pancreas,Pancreas,Pancreas,2013,522.4822031113752,quit,Quit,Observed,2048
+pancreas,Pancreas,Pancreas,2014,542.0183088675341,quit,Quit,Observed,2048
+pancreas,Pancreas,Pancreas,2015,566.8630014174189,quit,Quit,Observed,2048
+pancreas,Pancreas,Pancreas,2016,595.2004032685284,quit,Quit,Observed,2048
+pancreas,Pancreas,Pancreas,2017,546.151592480787,quit,Quit,Observed,2048
+pancreas,Pancreas,Pancreas,2018,560.1976113016586,quit,Quit,Observed,2048
+pancreas,Pancreas,Pancreas,2019,601.7297166337637,quit,Quit,Observed,2048
+pancreas,Pancreas,Pancreas,2020,641.0107648945686,quit,Quit,Observed,2048
+pancreas,Pancreas,Pancreas,2021,616.870071565823,quit,Quit,Observed,2048
+pancreas,Pancreas,Pancreas,2022,596.3743074582937,quit,Quit,Observed,2048
+pancreas,Pancreas,Pancreas,2023,628.7190573177533,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,2024,650.0185732345876,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,2025,656.8236146670691,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,2026,660.3231271449678,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,2027,662.3183034241122,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,2028,665.5072862431541,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,2029,667.9054776350566,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,2030,669.1573780654769,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,2031,670.9333320179817,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,2032,672.9824197706544,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,2033,656.8465977613644,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,2034,637.7077519319573,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,2035,635.084613015993,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,2036,635.0814176825609,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,2037,638.1808374215705,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,2038,642.178757567396,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,2039,647.3522218151593,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,2040,652.8684505391232,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,2041,658.6023972172591,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,2042,664.1623813838551,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,2043,669.7126731731753,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,2044,676.3561248457668,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,2045,683.594248652529,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,2046,690.7247776396996,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,2047,698.355614808452,quit,Quit,Projected,2048
+pancreas,Pancreas,Pancreas,2048,706.2113861234288,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,1998,207.8826621032545,quit,Quit,Observed,2048
+bladder,Bladder,Bladder,1999,209.05744105701237,quit,Quit,Observed,2048
+bladder,Bladder,Bladder,2000,216.97353023678392,quit,Quit,Observed,2048
+bladder,Bladder,Bladder,2001,204.0893853242672,quit,Quit,Observed,2048
+bladder,Bladder,Bladder,2002,193.363468821268,quit,Quit,Observed,2048
+bladder,Bladder,Bladder,2003,181.0296455324792,quit,Quit,Observed,2048
+bladder,Bladder,Bladder,2004,192.03426827276243,quit,Quit,Observed,2048
+bladder,Bladder,Bladder,2005,189.00932947354244,quit,Quit,Observed,2048
+bladder,Bladder,Bladder,2006,207.08725510913555,quit,Quit,Observed,2048
+bladder,Bladder,Bladder,2007,190.3531260979977,quit,Quit,Observed,2048
+bladder,Bladder,Bladder,2008,215.1023938995396,quit,Quit,Observed,2048
+bladder,Bladder,Bladder,2009,214.83113861048815,quit,Quit,Observed,2048
+bladder,Bladder,Bladder,2010,189.032036894464,quit,Quit,Observed,2048
+bladder,Bladder,Bladder,2011,197.36163002667766,quit,Quit,Observed,2048
+bladder,Bladder,Bladder,2012,205.68368757570204,quit,Quit,Observed,2048
+bladder,Bladder,Bladder,2013,213.80720157947832,quit,Quit,Observed,2048
+bladder,Bladder,Bladder,2014,210.00190786467738,quit,Quit,Observed,2048
+bladder,Bladder,Bladder,2015,190.75938132572173,quit,Quit,Observed,2048
+bladder,Bladder,Bladder,2016,220.09916631914794,quit,Quit,Observed,2048
+bladder,Bladder,Bladder,2017,230.81466551167279,quit,Quit,Observed,2048
+bladder,Bladder,Bladder,2018,220.14266157046157,quit,Quit,Observed,2048
+bladder,Bladder,Bladder,2019,221.0566430039899,quit,Quit,Observed,2048
+bladder,Bladder,Bladder,2020,253.9992277982305,quit,Quit,Observed,2048
+bladder,Bladder,Bladder,2021,237.03343018071976,quit,Quit,Observed,2048
+bladder,Bladder,Bladder,2022,228.0718367609341,quit,Quit,Observed,2048
+bladder,Bladder,Bladder,2023,231.27751920860277,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,2024,235.54395414751224,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,2025,238.13640360655674,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,2026,240.00652316612891,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,2027,241.46285450937728,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,2028,243.34342633649987,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,2029,245.33088995687217,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,2030,247.25987743567535,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,2031,249.42788135002397,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,2032,251.76115958713828,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,2033,249.87463613295995,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,2034,246.2691016529696,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,2035,245.7135226104894,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,2036,246.27801362423125,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,2037,248.22380652530126,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,2038,251.58781979316774,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,2039,256.4108903609346,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,2040,261.62434308241825,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,2041,267.07325623258583,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,2042,272.4992584534872,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,2043,277.69493608815577,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,2044,282.507057174931,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,2045,286.6518468278405,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,2046,290.12143213759657,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,2047,292.99001377101536,quit,Quit,Projected,2048
+bladder,Bladder,Bladder,2048,295.0197464295436,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,1998,130.9226340863249,quit,Quit,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,1999,113.90493030216753,quit,Quit,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2000,133.36078489048253,quit,Quit,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2001,123.34104914329691,quit,Quit,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2002,125.88268581727897,quit,Quit,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2003,135.040382671695,quit,Quit,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2004,150.76353469815734,quit,Quit,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2005,138.8391047897447,quit,Quit,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2006,117.74511748926645,quit,Quit,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2007,137.5538549328497,quit,Quit,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2008,135.75222393813098,quit,Quit,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2009,127.33636882147613,quit,Quit,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2010,109.14004249484734,quit,Quit,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2011,111.00713340376436,quit,Quit,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2012,112.89849725668896,quit,Quit,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2013,123.82452445903124,quit,Quit,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2014,125.09827092773025,quit,Quit,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2015,135.1652304367608,quit,Quit,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2016,144.40917779734727,quit,Quit,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2017,108.01025835843235,quit,Quit,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2018,125.75620720928258,quit,Quit,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2019,131.82269112542997,quit,Quit,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2020,130.01872270284903,quit,Quit,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2021,138.72337742156833,quit,Quit,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2022,127.07658986924679,quit,Quit,Observed,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2023,124.36513052699141,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2024,123.39327403721595,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2025,118.38391884957137,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2026,112.54376384561726,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2027,106.73405318461613,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2028,101.04092221379877,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2029,96.12954675938273,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2030,92.32983868767991,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2031,89.1736875412287,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2032,86.48569503309662,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2033,83.78659766677465,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2034,80.77687880097095,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2035,77.53984347025514,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2036,74.22944673363799,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2037,70.8656369074735,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2038,67.88323697144438,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2039,66.09259369829601,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2040,65.39520317084165,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2041,65.33666297434672,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2042,65.70796796853796,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2043,66.35096955685373,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2044,67.07367204938268,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2045,67.69764347163732,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2046,68.29973906067713,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2047,68.94825255260571,quit,Quit,Projected,2048
+oralphar,Oral cavity and pharynx,Oropharynx,2048,69.64172414256836,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,1998,271.0358589934451,quit,Quit,Observed,2048
+esophagus,Esophagus,Esophagus,1999,296.99855638690906,quit,Quit,Observed,2048
+esophagus,Esophagus,Esophagus,2000,293.9259795443989,quit,Quit,Observed,2048
+esophagus,Esophagus,Esophagus,2001,249.9779377640711,quit,Quit,Observed,2048
+esophagus,Esophagus,Esophagus,2002,262.8818128044037,quit,Quit,Observed,2048
+esophagus,Esophagus,Esophagus,2003,275.64287396591004,quit,Quit,Observed,2048
+esophagus,Esophagus,Esophagus,2004,281.05327847913657,quit,Quit,Observed,2048
+esophagus,Esophagus,Esophagus,2005,258.00937410162794,quit,Quit,Observed,2048
+esophagus,Esophagus,Esophagus,2006,242.99181604241363,quit,Quit,Observed,2048
+esophagus,Esophagus,Esophagus,2007,264.7972819346856,quit,Quit,Observed,2048
+esophagus,Esophagus,Esophagus,2008,226.08014462667734,quit,Quit,Observed,2048
+esophagus,Esophagus,Esophagus,2009,229.48786941089432,quit,Quit,Observed,2048
+esophagus,Esophagus,Esophagus,2010,214.96845022863687,quit,Quit,Observed,2048
+esophagus,Esophagus,Esophagus,2011,233.70557154087808,quit,Quit,Observed,2048
+esophagus,Esophagus,Esophagus,2012,252.3929336382849,quit,Quit,Observed,2048
+esophagus,Esophagus,Esophagus,2013,210.04814618454756,quit,Quit,Observed,2048
+esophagus,Esophagus,Esophagus,2014,191.06067356015012,quit,Quit,Observed,2048
+esophagus,Esophagus,Esophagus,2015,228.96432091099658,quit,Quit,Observed,2048
+esophagus,Esophagus,Esophagus,2016,247.81891538675472,quit,Quit,Observed,2048
+esophagus,Esophagus,Esophagus,2017,190.96734936076453,quit,Quit,Observed,2048
+esophagus,Esophagus,Esophagus,2018,202.81150486706758,quit,Quit,Observed,2048
+esophagus,Esophagus,Esophagus,2019,222.7572545670489,quit,Quit,Observed,2048
+esophagus,Esophagus,Esophagus,2020,205.86212345586318,quit,Quit,Observed,2048
+esophagus,Esophagus,Esophagus,2021,178.99887439118197,quit,Quit,Observed,2048
+esophagus,Esophagus,Esophagus,2022,200.0564894370924,quit,Quit,Observed,2048
+esophagus,Esophagus,Esophagus,2023,196.11179978217626,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,2024,196.47592966961525,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,2025,190.82804083142366,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,2026,183.23000976875602,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,2027,174.299095200285,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,2028,165.03602577687502,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,2029,157.16542713949568,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,2030,151.36112556561403,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,2031,146.4124929146966,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,2032,142.0686306044992,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,2033,137.87786940364936,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,2034,134.65436407224524,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,2035,132.61806294452862,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,2036,131.18618248613174,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,2037,130.18379627403502,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,2038,129.29902826742617,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,2039,128.53350466544873,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,2040,127.81663775793095,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,2041,127.03491728151539,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,2042,126.07886490545849,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,2043,124.91528654303596,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,2044,123.66373480643773,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,2045,122.17580835142232,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,2046,120.35153361593017,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,2047,118.40413530823821,quit,Quit,Projected,2048
+esophagus,Esophagus,Esophagus,2048,116.35933330020939,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,1998,185.07368598438643,quit,Quit,Observed,2048
+kidney,Kidney,Kidney,1999,188.9891084390058,quit,Quit,Observed,2048
+kidney,Kidney,Kidney,2000,189.6712754263613,quit,Quit,Observed,2048
+kidney,Kidney,Kidney,2001,177.8345967097338,quit,Quit,Observed,2048
+kidney,Kidney,Kidney,2002,186.36262657311403,quit,Quit,Observed,2048
+kidney,Kidney,Kidney,2003,205.99874822176588,quit,Quit,Observed,2048
+kidney,Kidney,Kidney,2004,197.8378772829547,quit,Quit,Observed,2048
+kidney,Kidney,Kidney,2005,212.04610845559694,quit,Quit,Observed,2048
+kidney,Kidney,Kidney,2006,170.30442671798218,quit,Quit,Observed,2048
+kidney,Kidney,Kidney,2007,208.89485039588058,quit,Quit,Observed,2048
+kidney,Kidney,Kidney,2008,188.3501229081458,quit,Quit,Observed,2048
+kidney,Kidney,Kidney,2009,216.35396595043449,quit,Quit,Observed,2048
+kidney,Kidney,Kidney,2010,207.51709971431265,quit,Quit,Observed,2048
+kidney,Kidney,Kidney,2011,206.86150249236508,quit,Quit,Observed,2048
+kidney,Kidney,Kidney,2012,206.16076313702348,quit,Quit,Observed,2048
+kidney,Kidney,Kidney,2013,219.97488551072564,quit,Quit,Observed,2048
+kidney,Kidney,Kidney,2014,235.6496809110273,quit,Quit,Observed,2048
+kidney,Kidney,Kidney,2015,233.80276754429553,quit,Quit,Observed,2048
+kidney,Kidney,Kidney,2016,295.06579403237197,quit,Quit,Observed,2048
+kidney,Kidney,Kidney,2017,216.0294685012274,quit,Quit,Observed,2048
+kidney,Kidney,Kidney,2018,247.91536143923213,quit,Quit,Observed,2048
+kidney,Kidney,Kidney,2019,259.8879933663122,quit,Quit,Observed,2048
+kidney,Kidney,Kidney,2020,264.15194998396146,quit,Quit,Observed,2048
+kidney,Kidney,Kidney,2021,256.0240646990998,quit,Quit,Observed,2048
+kidney,Kidney,Kidney,2022,225.79376768557876,quit,Quit,Observed,2048
+kidney,Kidney,Kidney,2023,247.5298957742439,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,2024,256.49834480706124,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,2025,259.68111493884555,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,2026,261.2634734809212,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,2027,261.74496758303934,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,2028,262.26135075340574,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,2029,262.2961083990482,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,2030,262.0831393894324,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,2031,262.15308434781844,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,2032,262.59409026334976,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,2033,263.4719536702447,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,2034,264.58913550220734,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,2035,265.55714541393866,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,2036,266.76293169560404,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,2037,268.2171983260056,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,2038,269.6962099013201,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,2039,271.20599211284235,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,2040,272.8454258354886,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,2041,274.6956593705765,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,2042,276.59622400011335,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,2043,276.0150274018064,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,2044,274.6432050937005,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,2045,274.7774837104064,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,2046,274.82284593155447,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,2047,275.16776604615325,quit,Quit,Projected,2048
+kidney,Kidney,Kidney,2048,276.1528509655879,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,1998,136.4160950438064,quit,Quit,Observed,2048
+larynx,Larynx,Larynx,1999,118.05518177541592,quit,Quit,Observed,2048
+larynx,Larynx,Larynx,2000,103.10940413189955,quit,Quit,Observed,2048
+larynx,Larynx,Larynx,2001,124.12765623026404,quit,Quit,Observed,2048
+larynx,Larynx,Larynx,2002,124.07294333359516,quit,Quit,Observed,2048
+larynx,Larynx,Larynx,2003,119.08424524454149,quit,Quit,Observed,2048
+larynx,Larynx,Larynx,2004,130.0568571872334,quit,Quit,Observed,2048
+larynx,Larynx,Larynx,2005,119.40079754183803,quit,Quit,Observed,2048
+larynx,Larynx,Larynx,2006,121.00701803452765,quit,Quit,Observed,2048
+larynx,Larynx,Larynx,2007,122.86905383469173,quit,Quit,Observed,2048
+larynx,Larynx,Larynx,2008,114.88763009278847,quit,Quit,Observed,2048
+larynx,Larynx,Larynx,2009,101.0908442102504,quit,Quit,Observed,2048
+larynx,Larynx,Larynx,2010,106.85701817229975,quit,Quit,Observed,2048
+larynx,Larynx,Larynx,2011,108.92085458594082,quit,Quit,Observed,2048
+larynx,Larynx,Larynx,2012,111.09589446977405,quit,Quit,Observed,2048
+larynx,Larynx,Larynx,2013,107.09268189203316,quit,Quit,Observed,2048
+larynx,Larynx,Larynx,2014,118.04715643728626,quit,Quit,Observed,2048
+larynx,Larynx,Larynx,2015,99.05828324922192,quit,Quit,Observed,2048
+larynx,Larynx,Larynx,2016,120.07185054908406,quit,Quit,Observed,2048
+larynx,Larynx,Larynx,2017,85.10893192575078,quit,Quit,Observed,2048
+larynx,Larynx,Larynx,2018,110.11184144970899,quit,Quit,Observed,2048
+larynx,Larynx,Larynx,2019,124.00575033906398,quit,Quit,Observed,2048
+larynx,Larynx,Larynx,2020,103.12004148652485,quit,Quit,Observed,2048
+larynx,Larynx,Larynx,2021,88.10668124953096,quit,Quit,Observed,2048
+larynx,Larynx,Larynx,2022,74.87244739243624,quit,Quit,Observed,2048
+larynx,Larynx,Larynx,2023,80.38898942455862,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,2024,80.13216206598317,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,2025,79.58712717663988,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,2026,78.43717522634616,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,2027,76.44054528115157,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,2028,74.16814561813948,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,2029,71.54077886205911,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,2030,68.6749059912098,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,2031,65.67644650401357,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,2032,62.692699811381345,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,2033,59.85144893956371,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,2034,57.170387629194636,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,2035,54.53082342357406,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,2036,51.963788982453806,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,2037,49.46606353727488,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,2038,46.99733284460761,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,2039,44.53352951745954,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,2040,42.08857472505493,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,2041,39.685184741477634,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,2042,37.33363301420758,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,2043,34.568692947625934,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,2044,31.950403415199155,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,2045,30.10897909683152,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,2046,28.837843268526804,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,2047,28.059261940480816,quit,Quit,Projected,2048
+larynx,Larynx,Larynx,2048,27.705885370163678,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,1998,100.28498972922938,quit,Quit,Observed,2048
+cervix,Cervix,Cervix,1999,80.0136847382981,quit,Quit,Observed,2048
+cervix,Cervix,Cervix,2000,86.10802358907794,quit,Quit,Observed,2048
+cervix,Cervix,Cervix,2001,95.28623645843874,quit,Quit,Observed,2048
+cervix,Cervix,Cervix,2002,99.00518608992094,quit,Quit,Observed,2048
+cervix,Cervix,Cervix,2003,99.08272988837045,quit,Quit,Observed,2048
+cervix,Cervix,Cervix,2004,77.75576699206802,quit,Quit,Observed,2048
+cervix,Cervix,Cervix,2005,101.2990203507329,quit,Quit,Observed,2048
+cervix,Cervix,Cervix,2006,96.71035527937713,quit,Quit,Observed,2048
+cervix,Cervix,Cervix,2007,93.86817415259793,quit,Quit,Observed,2048
+cervix,Cervix,Cervix,2008,99.408856588241,quit,Quit,Observed,2048
+cervix,Cervix,Cervix,2009,74.87665416066528,quit,Quit,Observed,2048
+cervix,Cervix,Cervix,2010,77.89286050106985,quit,Quit,Observed,2048
+cervix,Cervix,Cervix,2011,76.80132734587801,quit,Quit,Observed,2048
+cervix,Cervix,Cervix,2012,75.73556170785031,quit,Quit,Observed,2048
+cervix,Cervix,Cervix,2013,90.78256686882604,quit,Quit,Observed,2048
+cervix,Cervix,Cervix,2014,87.00290280984349,quit,Quit,Observed,2048
+cervix,Cervix,Cervix,2015,80.40286644166024,quit,Quit,Observed,2048
+cervix,Cervix,Cervix,2016,78.80082807993381,quit,Quit,Observed,2048
+cervix,Cervix,Cervix,2017,89.76579381381728,quit,Quit,Observed,2048
+cervix,Cervix,Cervix,2018,72.00338260488286,quit,Quit,Observed,2048
+cervix,Cervix,Cervix,2019,93.41073940067135,quit,Quit,Observed,2048
+cervix,Cervix,Cervix,2020,104.19910390584323,quit,Quit,Observed,2048
+cervix,Cervix,Cervix,2021,105.70255647234526,quit,Quit,Observed,2048
+cervix,Cervix,Cervix,2022,93.73108545487872,quit,Quit,Observed,2048
+cervix,Cervix,Cervix,2023,94.34268742728177,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,2024,97.17580016598794,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,2025,98.20623463463578,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,2026,98.04638877853536,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,2027,97.12216837943419,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,2028,96.54504810561923,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,2029,96.44243915487046,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,2030,96.70558430444885,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,2031,97.33826578626518,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,2032,98.2031470218715,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,2033,98.9039605429985,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,2034,99.41545873346448,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,2035,99.97089148824696,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,2036,100.65121938296998,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,2037,101.46377174048573,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,2038,102.28878427861406,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,2039,103.1643178964882,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,2040,104.04675135171257,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,2041,104.95215129729452,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,2042,105.89884459752086,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,2043,106.85084727552031,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,2044,107.73473437441453,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,2045,108.41861837069578,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,2046,108.92981594950402,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,2047,109.38920710627202,quit,Quit,Projected,2048
+cervix,Cervix,Cervix,2048,109.88614885867625,quit,Quit,Projected,2048

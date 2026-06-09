@@ -1,0 +1,8 @@
+variant,input_block,variant_label,rr_log_shift,reversal_time_scale,postdx_timing_shift
+baseline,Baseline,Baseline,0,1,0
+rr_low,Incidence relative risk,RR low,-0.2,1,0
+rr_high,Incidence relative risk,RR high,0.2,1,0
+reversal_slow,Risk reversal,Slower risk reversal,0,0.75,0
+reversal_fast,Risk reversal,Faster risk reversal,0,1.25,0
+postdx_late,Post-diagnosis mortality,Later post-diagnosis mortality,0,1,-0.1
+postdx_early,Post-diagnosis mortality,Earlier post-diagnosis mortality,0,1,0.1

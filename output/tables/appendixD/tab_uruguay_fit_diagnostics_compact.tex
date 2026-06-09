@@ -1,0 +1,21 @@
+\begingroup
+\renewcommand{\arraystretch}{1.08}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lllrrrr}
+\toprule
+Sex & Layer & Estimator & $\Delta$WAIC & $\Delta$DIC & dLCPO & RMSE \\
+\midrule
+Male & Incidence & BAPC benchmark & 0.0 & 0.0 & 0.0 & 22.0 \\
+ & Incidence & SBAPC incidence layer & -3.8 & -7.9 & 1.9 & 22.1 \\
+ & Mortality & BAPC benchmark & 0.0 & 0.0 & 0.0 & 18.4 \\
+ & Mortality & SBAPC mortality layer & 0.8 & -4.8 & -0.4 & 18.4 \\
+ & Mortality & Incidence-anchored mortality layer & 3.6 & -0.0 & -1.8 & 18.4 \\
+\midrule
+Female & Incidence & BAPC benchmark & 0.0 & 0.0 & 0.0 & 8.3 \\
+ & Incidence & SBAPC incidence layer & -0.1 & -1.8 & 0.0 & 8.3 \\
+ & Mortality & BAPC benchmark & 0.0 & 0.0 & 0.0 & 6.8 \\
+ & Mortality & SBAPC mortality layer & -14.8 & -18.7 & 7.4 & 6.6 \\
+ & Mortality & Incidence-anchored mortality layer & -11.7 & -12.4 & 5.8 & 6.6 \\
+\bottomrule
+\end{tabular}
+\endgroup

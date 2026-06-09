@@ -1,0 +1,7 @@
+model,scenario,scenario_label,sex,seeds,annual_mare_pct,signed_error_pct,cumulative_recovery_pct,cumulative_recovery_p10,cumulative_recovery_p90,sign_agreement_pct,scenario_tex,recovery
+SBAPC,up1pc,↑ 1% p.a.,Total,200,11.46312853921253,-0.3069992344631461,99.0146039373299,99.0146039373299,99.0146039373299,100,$\uparrow$1\%,0.9901460393732989
+BAPC benchmark,up1pc,↑ 1% p.a.,Total,200,100,-100,0,0,0,0,$\uparrow$1\%,0
+SBAPC,down1pc,↓ 1% p.a.,Total,200,11.09078580630412,1.4135967992564786,97.76915167891536,97.76915167891536,97.76915167891536,100,$\downarrow$1\%,0.9776915167891537
+BAPC benchmark,down1pc,↓ 1% p.a.,Total,200,100,100,0,0,0,0,$\downarrow$1\%,0
+SBAPC,quit,Quit,Total,200,9.947778836610622,2.8611545728528114,96.64086960977687,96.64086960977687,96.64086960977687,100,Quit,0.9664086960977687
+BAPC benchmark,quit,Quit,Total,200,100,100,0,0,0,0,Quit,0

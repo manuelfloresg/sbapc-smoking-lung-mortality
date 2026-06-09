@@ -22,3 +22,52 @@ temp/
 logs/
 *.tmp
 *.log
+
+# Local/private data sources. Public replication data should live under
+# data/analysis_ready/ or data/metadata/ and be added intentionally.
+data/raw/
+data/private/
+data/restricted/
+data/source/
+data/scratch/
+**/raw_data/
+**/raw_data_*/
+
+# Common non-redistributable or heavy data/intermediate formats
+*.rds
+*.RDS
+*.rda
+*.Rda
+*.RData
+*.dta
+*.sav
+*.xlsx
+*.xls
+*.parquet
+*.feather
+*.fst
+*.sqlite
+*.db
+*.zip
+*.7z
+*.rar
+*.tar
+*.gz
+
+# Secrets and local environment overrides
+.env
+.env.*
+*.pem
+*.key
+*.token
+secrets/
+credentials/
+
+# Keep public replication metadata and lightweight products trackable.
+!data/
+!data/analysis_ready/
+!data/analysis_ready/README.md
+!data/metadata/
+!data/metadata/**
+!output/
+!output/**

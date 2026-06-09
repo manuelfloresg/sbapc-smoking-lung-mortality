@@ -1,24 +1,27 @@
 # Final 200-seed simulation run for Section 4 and Appendix C.
 #
-# Intended RStudio use:
-#   setwd("D:/Git/Bloomberg_2025/Estimacion4")
+# Intended RStudio use from Estimacion4/:
 #   source("runs/run_final_simulation_200.R")
 #
 # The script writes only under Estimacion4/results and keeps INLA temporaries
-# in C:/tmp_inla, never in Dropbox.
+# outside Dropbox.
+
+inla_tmp <- Sys.getenv("BAPC_INLA_TMPDIR", unset = "")
+if (!nzchar(inla_tmp)) inla_tmp <- "C:/tmp_inla"
 
 Sys.setenv(
   BAPC_OUT_BASE = Sys.getenv("BAPC_OUT_BASE", "results/20260521_FINAL_200SEEDS"),
   BAPC_N_SEEDS = Sys.getenv("BAPC_N_SEEDS", "200"),
   BAPC_FIG_FORMAT = Sys.getenv("BAPC_FIG_FORMAT", "both"),
-  INLA_TMPDIR = "C:/tmp_inla",
-  TMPDIR = "C:/tmp_inla",
-  TMP = "C:/tmp_inla",
-  TEMP = "C:/tmp_inla",
+  BAPC_INLA_TMPDIR = inla_tmp,
+  INLA_TMPDIR = inla_tmp,
+  TMPDIR = inla_tmp,
+  TMP = inla_tmp,
+  TEMP = inla_tmp,
   OMP_NUM_THREADS = "1"
 )
 
-dir.create("C:/tmp_inla", recursive = TRUE, showWarnings = FALSE)
+dir.create(inla_tmp, recursive = TRUE, showWarnings = FALSE)
 
 source("runs/replication_diagnostics.R")
 
@@ -33,4 +36,3 @@ replicate_final_simulations(
   run_oracle = TRUE,
   run_misspec = TRUE
 )
-

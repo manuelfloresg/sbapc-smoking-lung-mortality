@@ -1,0 +1,859 @@
+scenario,cause_id,label,sex,metric,series,period,mean,lwr,upr,projection_zone,scenario_label,sex_label,metric_label,series_label
+up1pc,lung,Lung,M,incidence,I,2022,1017.6484547612956,943.1895853400194,1098.0084502873453,historical,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2023,1028.1232016027086,948.7077491441806,1113.6152771906573,credible,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2024,1026.1723988237068,943.6186998705856,1115.763621246929,credible,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2025,1022.6342649237694,936.7275550074183,1116.7936035597013,credible,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2026,1019.3582159216578,929.8618547994187,1118.6229552442426,credible,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2027,1016.6716871868647,923.3744529872482,1121.5809096088803,credible,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2028,1014.7893486527266,917.4607216576804,1125.9088321406207,credible,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2029,1013.2179969842458,911.6716537506885,1131.0239273230536,credible,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2030,1011.5918073232262,905.6916852100898,1136.4515652078026,credible,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2031,1010.1267947479764,899.7390855691976,1142.3558044261088,caution,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2032,1009.2032754789369,894.1552437763629,1149.1223939927495,caution,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2033,1008.808984073523,888.9292104603496,1156.7086504418867,caution,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2034,1008.5443297906266,883.7268785503613,1164.599579090565,caution,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2035,1008.52739880483,878.6576394189398,1172.8973384063195,caution,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2036,1009.0169576652369,873.9659071916858,1181.8558771596408,caution,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2037,1010.0928571735909,869.7271405663059,1191.5440025880089,caution,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2038,1011.69118370609,865.8984805806053,1201.8577562662722,caution,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2039,1013.8107528662293,862.4865611607588,1212.7693402408095,caution,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2040,1016.312741426658,859.3997884361671,1224.0559157920954,risky,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2041,1018.9627683285695,856.4609410677922,1235.3917852679676,risky,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2042,1022.1741507501162,854.0219874049122,1247.2843790533143,risky,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2043,1026.239233782377,852.3318368718146,1260.1003807668947,risky,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2044,1031.1813180172683,851.4385416469416,1273.8263128989613,risky,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2045,1036.9827028753318,851.3370864586526,1288.4263810476064,risky,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2046,1043.6342506845856,852.0382886875074,1303.8547697021618,risky,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2047,1051.1450103097209,853.5610208029987,1320.1009198446402,risky,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I,2048,1059.3760166897716,855.7859773569547,1337.0009538958732,risky,Up 1% p.a.,Male,Incidence,BAPC benchmark
+up1pc,lung,Lung,M,incidence,I|P,2023,1000.7469529426459,931.2419234366371,1076.1694382693447,credible,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,incidence,I|P,2024,994.8158322765822,923.3185071584503,1072.516928713182,credible,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,incidence,I|P,2025,989.1359516703675,915.5329989749908,1069.2818631250525,credible,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,incidence,I|P,2026,984.7173282791908,908.8639148547635,1067.5014111651528,credible,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,incidence,I|P,2027,982.5903561067736,904.2442889167082,1068.3075760392285,credible,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,incidence,I|P,2028,982.2601794960423,901.1634667726304,1071.2256229492896,credible,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,incidence,I|P,2029,982.0557731011005,898.0593916850219,1074.4689875769357,credible,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,incidence,I|P,2030,983.4253494748729,896.2560552372544,1079.623877116119,credible,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,incidence,I|P,2031,985.5874051156677,895.0319445294599,1085.8468517616043,caution,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,incidence,I|P,2032,989.4403925878448,895.1944027764322,1094.1422873714014,caution,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,incidence,I|P,2033,994.6053166206578,896.3893661170403,1104.111209972684,caution,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,incidence,I|P,2034,999.9861120620524,897.6318449916837,1114.5400910681808,caution,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,incidence,I|P,2035,1006.2220851577051,899.5058542061106,1126.1354742847357,caution,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,incidence,I|P,2036,1013.4063665941283,902.1004802820937,1139.0015935950537,caution,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,incidence,I|P,2037,1021.7851288988104,905.6376207120016,1153.4183754689313,caution,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,incidence,I|P,2038,1031.1516027372736,909.9337211358309,1169.1594363326183,caution,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,incidence,I|P,2039,1041.0939684895009,914.6271551741069,1185.7604275328463,caution,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,incidence,I|P,2040,1051.7673763224402,919.8687392280101,1203.3849159306808,risky,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,incidence,I|P,2041,1062.658866784356,925.2286508435894,1221.422402164281,risky,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,incidence,I|P,2042,1074.435004351473,931.3053643949432,1240.6148449909192,risky,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,incidence,I|P,2043,1087.3134281563905,938.2979116703802,1261.2020093221233,risky,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,incidence,I|P,2044,1101.125729389436,946.0647347625043,1282.9907500634388,risky,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,incidence,I|P,2045,1115.8846796479124,954.6220342179795,1305.9909926200442,risky,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,incidence,I|P,2046,1131.5601940696492,963.9547509197456,1330.1558749130243,risky,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,incidence,I|P,2047,1148.0495464589526,973.9864263308074,1355.3520384296005,risky,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,incidence,I|P,2048,1165.2553455597936,984.6435950814019,1381.4479264095905,risky,Up 1% p.a.,Male,Incidence,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2022,876.7743098558224,802.0083947015607,954.1212306715307,historical,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2023,872.5620343638317,797.0558155227753,952.8833076756779,credible,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2024,872.0728827184461,794.1385278741651,955.3890551106919,credible,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2025,865.4048915897932,785.4725920497061,951.2413413870805,credible,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2026,858.1579490884588,775.9998959137811,946.786926638648,credible,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2027,851.0287910230012,766.3687739945885,942.7665308206515,credible,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2028,845.0852040719194,757.5098469908203,940.4070770511734,credible,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2029,839.8070097536837,748.9842446848842,939.1019915095128,credible,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2030,834.7998752414578,740.5033742658593,938.3380932590344,credible,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2031,830.48597394945,732.47019616987,938.5690482769063,caution,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2032,827.3835481510831,725.3364750385867,940.4083152005177,caution,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2033,825.3504198209328,719.0201098515136,943.6550720577845,caution,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2034,823.6922519434243,712.9709220389431,947.4573553575733,caution,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2035,822.377144084352,707.1964742685007,951.7403756433561,caution,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2036,822.0580623151127,702.2658960333728,957.2606701963024,caution,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2037,822.9989648935573,698.4042625645428,964.3322383471499,caution,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2038,824.860561042672,695.3468547827607,972.5213863696255,caution,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2039,827.6451985932034,693.1068177722636,981.8191602552191,caution,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2040,831.4883206406021,691.8006763514176,992.3890501028751,risky,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2041,836.2058472338074,691.2753438434561,1004.0213592472329,risky,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2042,841.605496084953,691.3733241964834,1016.4930827523132,risky,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2043,847.8860893291297,692.2593849407815,1030.0508918622872,risky,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2044,854.7381966479406,693.6893444566882,1044.3124801848803,risky,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2045,861.6400059575097,695.2636566519549,1058.586569851272,risky,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2046,869.0499269897782,697.3565010738289,1073.4212449364595,risky,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2047,877.3000793264123,700.2253044423803,1089.2418240216393,risky,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,M,mortality,M|I|P,2048,886.28488967418,703.7766032681469,1105.9184093456727,risky,Up 1% p.a.,Male,Mortality,SBAPC
+up1pc,lung,Lung,F,incidence,I,2022,484.82707034757146,424.33066308672494,554.4661041117845,historical,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2023,503.1624389135935,436.6954087863944,581.2039693026811,credible,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2024,517.8780142584503,445.9933951634247,603.5044118543854,credible,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2025,532.5590948436278,454.46676294158465,627.1355164137566,credible,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2026,547.4143324190703,462.41438859549623,652.1983733804283,credible,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2027,562.4666225021928,469.93621139356316,678.631152256579,credible,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2028,577.599160026739,476.97694666390817,706.2718337403256,credible,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2029,592.5041651304773,483.32769320145064,734.7188795874487,credible,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2030,607.082114671146,488.9444201257656,763.8432544849882,credible,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2031,621.2538952795518,493.8157049341747,793.5111920433204,credible,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2032,635.1407802323429,498.0953148144497,823.8333454256906,credible,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2033,648.6637825430466,501.7707536852425,854.6718322800222,caution,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2034,661.7298893829552,504.8097843276354,885.894001022577,caution,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2035,674.4437558209323,507.3417961161639,917.5965211653383,caution,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2036,686.9016505294084,509.472952577387,949.8982176604007,caution,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2037,699.1246342958422,511.26589962506785,982.7787513939952,caution,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2038,711.102474916878,512.7500309278919,1016.1975139925222,caution,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2039,722.7635040103494,513.9344498506312,1049.9565526181864,caution,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2040,733.9581538511102,514.7803742727548,1083.732106525472,caution,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2041,744.4554327778786,515.1955896528611,1117.0658056690188,caution,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2042,754.4891537122716,515.3832806315329,1150.2276425716982,caution,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2043,764.5290692883843,515.6631405508102,1183.9029280517814,risky,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2044,774.9663434577931,516.2482134945392,1218.7905929470555,risky,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2045,785.9148036833457,517.1592372107864,1255.2042263544809,risky,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2046,797.7928085769412,518.6103875534133,1293.9766970879805,risky,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2047,810.6493987561425,520.6465982496609,1335.1707423666546,risky,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I,2048,824.4742406457685,523.2652180856461,1378.8223067182444,risky,Up 1% p.a.,Female,Incidence,BAPC benchmark
+up1pc,lung,Lung,F,incidence,I|P,2023,491.02513817911534,429.91194192128796,561.6775620678472,credible,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,incidence,I|P,2024,498.53042558992234,434.2564127101462,573.7613957623724,credible,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,incidence,I|P,2025,506.2760339210261,438.314348943851,587.0418099741942,credible,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,incidence,I|P,2026,514.1890646367523,442.11390072727573,601.3518246130482,credible,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,incidence,I|P,2027,522.3846940009983,445.8144647221994,616.7667468245493,credible,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,incidence,I|P,2028,530.8158646190595,449.4050243821721,633.2112941097871,credible,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,incidence,I|P,2029,538.6366051753233,452.19922994434046,649.6425467966453,credible,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,incidence,I|P,2030,546.6472949036527,454.8885985020761,667.0075397260115,credible,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,incidence,I|P,2031,554.509342378376,457.21532668443973,684.8609899741687,credible,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,incidence,I|P,2032,562.3972961776938,459.3532652758736,703.38134723397,credible,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,incidence,I|P,2033,570.4186957707869,461.4082829427359,722.6941012162566,caution,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,incidence,I|P,2034,578.1824880984967,463.0843193566824,742.3009363208233,caution,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,incidence,I|P,2035,586.2321449694547,464.8398814373949,762.8803033903775,caution,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,incidence,I|P,2036,594.5757370876794,466.6856490057503,784.4708656214964,caution,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,incidence,I|P,2037,603.1755440265105,468.6128369969248,807.012459326518,caution,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,incidence,I|P,2038,612.1278847974173,470.7177475177778,830.6130197606648,caution,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,incidence,I|P,2039,621.2040681219955,472.8563982830132,854.8950281726117,caution,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,incidence,I|P,2040,630.6686406204584,475.27094095809184,880.1386235340156,caution,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,incidence,I|P,2041,640.1521997549263,477.70619498305757,905.8019452665417,caution,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,incidence,I|P,2042,649.7544332859658,480.24274560976943,932.0454792306612,caution,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,incidence,I|P,2043,659.8914995643415,483.1851623665671,959.4485609953855,risky,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,incidence,I|P,2044,670.6680590601362,486.5798282043036,988.237857412733,risky,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,incidence,I|P,2045,682.0079389984154,490.349403887534,1018.4061613461377,risky,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,incidence,I|P,2046,694.1292695683669,494.6347667575876,1050.3496002465527,risky,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,incidence,I|P,2047,706.9787813460194,499.4135245810406,1083.940150387153,risky,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,incidence,I|P,2048,720.4224363128561,504.60374382068505,1118.9608371614609,risky,Up 1% p.a.,Female,Incidence,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2022,409.9111873751078,356.28570582105675,467.7310455569278,historical,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2023,422.7798762714633,366.96002896994617,485.68936023663207,credible,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2024,437.00135386670485,377.63631033654326,504.4372097863727,credible,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2025,445.92412988389214,383.83387090969615,516.9007151607423,credible,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2026,453.6028407685348,388.96493384729104,527.9144116808864,credible,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2027,460.8633301691294,393.71223914691944,538.4870090533758,credible,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2028,468.6599090661673,398.80363658121166,549.8776143569693,credible,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2029,476.55553198849026,403.847041154877,561.6151954635797,credible,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2030,484.48159819129484,408.7690491801973,573.6434921584148,credible,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2031,492.63556771470877,413.7050755759984,586.238147703379,credible,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2032,500.85492968427354,418.49793034575185,599.2277634145669,credible,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2033,508.8393385631635,422.91017092869976,612.2221542445649,caution,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2034,516.1557295894593,426.61159132735213,624.6480628723479,caution,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2035,522.7525896538122,429.6000813156404,636.3738356328288,caution,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2036,529.2922140131633,432.4277219397628,648.196721497943,caution,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2037,535.8531833938525,435.1848755396268,660.1829393385292,caution,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2038,542.6028874220854,438.0353812810322,672.5135336626741,caution,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2039,550.1037771336439,441.4261107837973,685.9230701302645,caution,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2040,558.6323952641479,445.5672041288714,700.8002413150158,caution,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2041,568.2420054074028,450.48511383883164,717.2564029621531,caution,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2042,578.7303242185003,455.9886185565768,735.1053572973836,caution,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2043,589.7192186609401,461.7626657355678,753.8911486727169,risky,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2044,600.7463867274772,467.44471152924126,773.0003991611857,risky,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2045,610.8941516968549,472.35384807182606,791.1837741739761,risky,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2046,619.9068797790163,476.336279541746,808.0304387243332,risky,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2047,628.3010293849445,479.8368452518293,824.0977056110836,risky,Up 1% p.a.,Female,Mortality,SBAPC
+up1pc,lung,Lung,F,mortality,M|I|P,2048,636.3236651467687,483.0791321898388,839.6353839237365,risky,Up 1% p.a.,Female,Mortality,SBAPC
+freeze,lung,Lung,M,incidence,I,2022,1017.6484547612956,943.1895853400194,1098.0084502873453,historical,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2023,1028.1232016027086,948.7077491441806,1113.6152771906573,credible,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2024,1026.1723988237068,943.6186998705856,1115.763621246929,credible,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2025,1022.6342649237694,936.7275550074183,1116.7936035597013,credible,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2026,1019.3582159216578,929.8618547994187,1118.6229552442426,credible,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2027,1016.6716871868647,923.3744529872482,1121.5809096088803,credible,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2028,1014.7893486527266,917.4607216576804,1125.9088321406207,credible,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2029,1013.2179969842458,911.6716537506885,1131.0239273230536,credible,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2030,1011.5918073232262,905.6916852100898,1136.4515652078026,credible,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2031,1010.1267947479764,899.7390855691976,1142.3558044261088,caution,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2032,1009.2032754789369,894.1552437763629,1149.1223939927495,caution,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2033,1008.808984073523,888.9292104603496,1156.7086504418867,caution,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2034,1008.5443297906266,883.7268785503613,1164.599579090565,caution,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2035,1008.52739880483,878.6576394189398,1172.8973384063195,caution,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2036,1009.0169576652369,873.9659071916858,1181.8558771596408,caution,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2037,1010.0928571735909,869.7271405663059,1191.5440025880089,caution,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2038,1011.69118370609,865.8984805806053,1201.8577562662722,caution,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2039,1013.8107528662293,862.4865611607588,1212.7693402408095,caution,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2040,1016.312741426658,859.3997884361671,1224.0559157920954,risky,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2041,1018.9627683285695,856.4609410677922,1235.3917852679676,risky,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2042,1022.1741507501162,854.0219874049122,1247.2843790533143,risky,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2043,1026.239233782377,852.3318368718146,1260.1003807668947,risky,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2044,1031.1813180172683,851.4385416469416,1273.8263128989613,risky,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2045,1036.9827028753318,851.3370864586526,1288.4263810476064,risky,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2046,1043.6342506845856,852.0382886875074,1303.8547697021618,risky,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2047,1051.1450103097209,853.5610208029987,1320.1009198446402,risky,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I,2048,1059.3760166897716,855.7859773569547,1337.0009538958732,risky,Frozen at 2022,Male,Incidence,BAPC benchmark
+freeze,lung,Lung,M,incidence,I|P,2022,1000.9552565370493,933.830302440885,1073.5998222851697,historical,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2023,999.4555078652282,930.0459478664844,1074.7730245312798,credible,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2024,991.4433303011733,920.2009361460225,1068.8643680454638,credible,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2025,983.3897668088158,910.234733662386,1063.0431307021167,credible,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2026,976.2646594332272,901.0917312951226,1058.2992286293922,credible,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2027,971.0639599951662,893.6768075282946,1055.7228781848823,credible,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2028,967.2572760871308,887.4515648209263,1054.7945502739253,credible,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2029,963.2604489784471,880.9382602286062,1053.8164875363964,credible,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2030,960.5343910776788,875.4763903121311,1054.3837090772013,credible,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2031,958.2896091076851,870.3406709607073,1055.639366678724,caution,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2032,957.38217232813,866.303715090736,1058.5360632326663,caution,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2033,957.3814808277757,862.9706011895082,1062.609901482749,caution,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2034,957.3102727133926,859.4685709267249,1066.7720814048635,caution,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2035,957.8018523062963,856.3803366682521,1071.7165476057833,caution,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2036,958.9226208443423,853.7750823098523,1077.5117064654007,caution,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2037,960.9153625731484,851.8752618705288,1084.4279969369118,caution,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2038,963.5692569200486,850.4974813642111,1092.2285259557173,caution,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2039,966.4832397500445,849.2929610447983,1100.4555642813639,caution,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2040,969.8347683042533,848.434553592227,1109.2934559320925,risky,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2041,973.1309296137117,847.5117787376714,1118.1510417571928,risky,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2042,977.0125549919333,847.1018988430868,1127.7377929688957,risky,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2043,981.6404998621929,847.3556911214139,1138.225272733925,risky,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2044,986.8782025678788,848.1606596674154,1149.4531199596813,risky,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2045,992.7165685347023,849.5139169677277,1161.4048867944682,risky,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2046,999.1043240842645,851.381740044652,1174.0080589414595,risky,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2047,1005.9332310157333,853.6818928341193,1187.1224693454901,risky,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,incidence,I|P,2048,1013.1248631010691,856.3553622497238,1200.640141080633,risky,Frozen at 2022,Male,Incidence,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2022,876.7743098558224,802.0083947015607,954.1212306715307,historical,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2023,872.1640854434946,796.694124534839,952.4464008212179,credible,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2024,870.5481471521239,792.7581412395754,953.7081383399433,credible,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2025,862.2704715321528,782.6437937852455,947.774945266182,credible,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2026,853.0553181589324,771.4116249217866,941.1232193900668,credible,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2027,843.6298656780173,759.7428414069809,934.5208124004808,credible,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2028,835.0748018400639,748.5844281639169,929.2034197006194,credible,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2029,826.8927808699267,737.5240135556486,924.582517709391,credible,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2030,818.730221417957,726.3151905964968,920.1832702297759,credible,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2031,811.0170456885648,715.3740387336894,916.460060668916,caution,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2032,804.2637003902081,705.1526533922612,914.0079039739895,caution,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2033,798.3403718557147,695.5836781198861,912.6346129275454,caution,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2034,792.5919538163389,686.1536543091983,911.5290334180684,caution,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2035,787.0352531204526,676.9138234058449,910.6697050488813,caution,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2036,782.2952839151541,668.4107598426315,910.7777565397297,caution,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2037,778.577378207945,660.8235623040912,912.0918457023251,caution,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2038,775.565727602684,653.9084277907847,914.2038845437846,caution,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2039,773.2556725988164,647.6735700277712,917.094225802677,caution,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2040,771.7718840770021,642.2275730884,920.9105514682254,risky,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2041,770.9406501916301,637.4268997917529,925.4522738488472,risky,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2042,770.5861160353095,633.1283964927321,930.5127700644452,risky,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2043,770.8929313896731,629.4852680502718,936.319077449472,risky,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2044,771.5587938096486,626.2584609166616,942.4959220223657,risky,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2045,772.122012777302,623.0943920446318,948.4295428841417,risky,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2046,773.0131582890151,620.3417951398426,954.6377666573487,risky,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2047,774.4861277315374,618.1952913617281,961.447056055771,risky,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,M,mortality,M|I|P,2048,776.4397152488817,616.5644805775802,968.7332222011197,risky,Frozen at 2022,Male,Mortality,SBAPC
+freeze,lung,Lung,F,incidence,I,2022,484.82707034757146,424.33066308672494,554.4661041117845,historical,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2023,503.1624389135935,436.6954087863944,581.2039693026811,credible,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2024,517.8780142584503,445.9933951634247,603.5044118543854,credible,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2025,532.5590948436278,454.46676294158465,627.1355164137566,credible,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2026,547.4143324190703,462.41438859549623,652.1983733804283,credible,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2027,562.4666225021928,469.93621139356316,678.631152256579,credible,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2028,577.599160026739,476.97694666390817,706.2718337403256,credible,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2029,592.5041651304773,483.32769320145064,734.7188795874487,credible,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2030,607.082114671146,488.9444201257656,763.8432544849882,credible,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2031,621.2538952795518,493.8157049341747,793.5111920433204,credible,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2032,635.1407802323429,498.0953148144497,823.8333454256906,credible,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2033,648.6637825430466,501.7707536852425,854.6718322800222,caution,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2034,661.7298893829552,504.8097843276354,885.894001022577,caution,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2035,674.4437558209323,507.3417961161639,917.5965211653383,caution,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2036,686.9016505294084,509.472952577387,949.8982176604007,caution,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2037,699.1246342958422,511.26589962506785,982.7787513939952,caution,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2038,711.102474916878,512.7500309278919,1016.1975139925222,caution,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2039,722.7635040103494,513.9344498506312,1049.9565526181864,caution,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2040,733.9581538511102,514.7803742727548,1083.732106525472,caution,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2041,744.4554327778786,515.1955896528611,1117.0658056690188,caution,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2042,754.4891537122716,515.3832806315329,1150.2276425716982,caution,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2043,764.5290692883843,515.6631405508102,1183.9029280517814,risky,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2044,774.9663434577931,516.2482134945392,1218.7905929470555,risky,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2045,785.9148036833457,517.1592372107864,1255.2042263544809,risky,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2046,797.7928085769412,518.6103875534133,1293.9766970879805,risky,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2047,810.6493987561425,520.6465982496609,1335.1707423666546,risky,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I,2048,824.4742406457685,523.2652180856461,1378.8223067182444,risky,Frozen at 2022,Female,Incidence,BAPC benchmark
+freeze,lung,Lung,F,incidence,I|P,2022,480.23189472220145,422.9069478157185,545.7885923738937,historical,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2023,490.55451605046,429.5049665615189,561.1335960419667,credible,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2024,497.21623166259417,433.1218902831817,572.2371879994798,credible,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2025,503.9452505213653,436.3120214662345,584.3211021219978,credible,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2026,510.6563965490058,439.0979286296044,597.1948101664769,credible,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2027,517.4549772976121,441.63566798973204,610.9118847957112,credible,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2028,524.295419591038,443.9205826578607,625.3880782688777,credible,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2029,530.3630854628335,445.2973625008494,639.6072550006768,credible,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2030,536.4386672957096,446.4457355290278,654.4811842664719,credible,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2031,542.1732108591864,447.1041712305502,669.5398172738707,credible,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2032,547.7321931905873,447.44386465655776,684.9372971319987,credible,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2033,553.210989713084,447.56597518245064,700.7692170421059,caution,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2034,558.2526660370876,447.20718324434813,716.5649413576464,caution,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2035,563.3926566428553,446.82367883481555,732.9785880420228,caution,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2036,568.6286930116518,446.42213343418075,750.0206385936028,caution,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2037,573.9191744672513,445.9943338302706,767.6116290253552,caution,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2038,579.3582199226903,445.63773349298094,785.8437643677543,caution,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2039,584.7283748751179,445.21862792884735,804.3452102666757,caution,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2040,590.305243386265,444.9874224162159,823.4047691728169,caution,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2041,595.7293433236375,444.698022064441,842.4829460176352,caution,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2042,601.0834613233884,444.41981724755857,861.7059315652822,caution,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2043,606.7200020739405,444.40682566992086,881.5652273873063,risky,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2044,612.8047911733521,444.75817880172076,902.3494751441797,risky,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2045,619.279530994632,445.4148079985223,924.0575881128862,risky,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2046,626.26132391399,446.43229110854884,946.9549216647575,risky,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2047,633.7368084531133,447.8204273159226,970.9581003334836,risky,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,incidence,I|P,2048,641.6419295862573,449.55253630143477,995.9361109153937,risky,Frozen at 2022,Female,Incidence,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2022,409.9111873751078,356.28570582105675,467.7310455569278,historical,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2023,422.65071974797064,366.8492494813498,485.5394051855314,credible,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2024,436.46795935935035,377.1807774769447,503.81471266729005,credible,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2025,444.7618143079189,382.8440204821292,515.5399593590438,credible,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2026,451.62936941143664,387.289359577841,525.59663228069,credible,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2027,457.9022570124655,391.20546721764674,534.9988332785672,credible,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2028,464.516558788651,395.30826643346273,544.9787588109082,credible,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2029,471.05721202136857,399.2271518345197,555.086821735869,credible,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2030,477.4651218397637,402.89992943911636,565.2731653469584,credible,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2031,483.92920049323897,406.4587582665037,575.7972176880528,credible,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2032,490.31306547189786,409.7697151916016,586.5167057962083,credible,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2033,496.31919725807467,412.59928437448616,597.0426178640386,caution,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2034,501.50173462889023,414.6103810260762,606.7804419286023,caution,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2035,505.82684331569834,415.8174070673951,615.6168625376033,caution,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2036,509.94684689876584,416.7663841670234,624.3333219822938,caution,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2037,513.9319585283257,417.54269557322374,632.9821867875867,caution,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2038,517.9453310451105,418.30795670383475,641.7362585472372,caution,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2039,522.5297525481037,419.495128611052,651.3010663066394,caution,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2040,527.947950406099,421.3056424115351,662.0424846626765,caution,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2041,534.2844201230987,423.7924648289948,674.1068929546547,caution,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2042,541.3140071798093,426.7496497460854,687.2714547044181,caution,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2043,548.5385527784518,429.7738967455605,700.9153289443451,risky,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2044,555.6941954469336,432.65621758469814,714.6826815245415,risky,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2045,561.9671015993724,434.7942991181277,727.4616356487122,risky,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2046,566.8520972560123,435.8445639132418,738.5101979248201,risky,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2047,570.9512014801902,436.31486941914113,748.5031163687147,risky,Frozen at 2022,Female,Mortality,SBAPC
+freeze,lung,Lung,F,mortality,M|I|P,2048,574.6408442801179,436.5235591454816,757.8686623764736,risky,Frozen at 2022,Female,Mortality,SBAPC
+down1pc,lung,Lung,M,incidence,I,2022,1017.6484547612956,943.1895853400194,1098.0084502873453,historical,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2023,1028.1232016027086,948.7077491441806,1113.6152771906573,credible,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2024,1026.1723988237068,943.6186998705856,1115.763621246929,credible,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2025,1022.6342649237694,936.7275550074183,1116.7936035597013,credible,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2026,1019.3582159216578,929.8618547994187,1118.6229552442426,credible,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2027,1016.6716871868647,923.3744529872482,1121.5809096088803,credible,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2028,1014.7893486527266,917.4607216576804,1125.9088321406207,credible,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2029,1013.2179969842458,911.6716537506885,1131.0239273230536,credible,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2030,1011.5918073232262,905.6916852100898,1136.4515652078026,credible,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2031,1010.1267947479764,899.7390855691976,1142.3558044261088,caution,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2032,1009.2032754789369,894.1552437763629,1149.1223939927495,caution,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2033,1008.808984073523,888.9292104603496,1156.7086504418867,caution,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2034,1008.5443297906266,883.7268785503613,1164.599579090565,caution,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2035,1008.52739880483,878.6576394189398,1172.8973384063195,caution,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2036,1009.0169576652369,873.9659071916858,1181.8558771596408,caution,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2037,1010.0928571735909,869.7271405663059,1191.5440025880089,caution,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2038,1011.69118370609,865.8984805806053,1201.8577562662722,caution,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2039,1013.8107528662293,862.4865611607588,1212.7693402408095,caution,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2040,1016.312741426658,859.3997884361671,1224.0559157920954,risky,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2041,1018.9627683285695,856.4609410677922,1235.3917852679676,risky,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2042,1022.1741507501162,854.0219874049122,1247.2843790533143,risky,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2043,1026.239233782377,852.3318368718146,1260.1003807668947,risky,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2044,1031.1813180172683,851.4385416469416,1273.8263128989613,risky,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2045,1036.9827028753318,851.3370864586526,1288.4263810476064,risky,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2046,1043.6342506845856,852.0382886875074,1303.8547697021618,risky,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2047,1051.1450103097209,853.5610208029987,1320.1009198446402,risky,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I,2048,1059.3760166897716,855.7859773569547,1337.0009538958732,risky,Down 1% p.a.,Male,Incidence,BAPC benchmark
+down1pc,lung,Lung,M,incidence,I|P,2023,999.1987570755324,929.8095426593095,1074.4935885660625,credible,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,incidence,I|P,2024,989.9217368187379,918.7957158814064,1067.2146855241488,credible,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,incidence,I|P,2025,980.2533976189086,907.3447916097361,1059.6354491209663,credible,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,incidence,I|P,2026,971.1534965693435,896.3949291083843,1052.7311525760226,credible,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,incidence,I|P,2027,963.6102911976757,886.8471467619685,1047.579732530833,credible,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,incidence,I|P,2028,957.0805006883044,878.1552525405873,1043.6426424798335,credible,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,incidence,I|P,2029,950.0843260736143,868.9413646655295,1039.3307400764136,credible,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,incidence,I|P,2030,944.0833640196015,860.5491603174512,1036.235291810957,credible,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,incidence,I|P,2031,938.2880154586915,852.2566825517983,1033.4949085789297,caution,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,incidence,I|P,2032,933.5383630512168,844.8255435908721,1032.0399666638998,caution,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,incidence,I|P,2033,929.3857734086066,837.8487132466586,1031.3809742546202,caution,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,incidence,I|P,2034,924.9840401804955,830.5752966607745,1030.5693412088092,caution,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,incidence,I|P,2035,920.9599054594096,823.5847392572952,1030.2877399643517,caution,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,incidence,I|P,2036,917.3625322085262,816.9333036154084,1030.5813647251975,caution,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,incidence,I|P,2037,914.4271608223768,810.8391333902897,1031.708176258049,caution,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,incidence,I|P,2038,911.9375788690787,805.1164820366796,1033.421093031695,caution,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,incidence,I|P,2039,909.5270311622181,799.448959904228,1035.2975190082775,caution,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,incidence,I|P,2040,907.3822911738835,794.0186588215939,1037.5299720909939,risky,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,incidence,I|P,2041,905.0221020037736,788.4257179193097,1039.539168282262,risky,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,incidence,I|P,2042,903.0712909742135,783.2334762585944,1042.0152556726905,risky,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,incidence,I|P,2043,901.6519311716769,778.5590772735023,1045.0840756584507,risky,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,incidence,I|P,2044,900.6745005512162,774.3310061533465,1048.6378469001772,risky,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,incidence,I|P,2045,900.125119828507,770.5414811928463,1052.6545989174178,risky,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,incidence,I|P,2046,899.9503245471238,767.1538532307748,1057.0595563495547,risky,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,incidence,I|P,2047,900.0390782125088,764.0819716264677,1061.7102304564614,risky,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,incidence,I|P,2048,900.3245061618011,761.2752400838893,1066.5135617722042,risky,Down 1% p.a.,Male,Incidence,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2022,876.7743098558224,802.0083947015607,954.1212306715307,historical,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2023,872.0889678923825,796.6264432497478,952.3630550308114,credible,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2024,870.0124783092712,792.2742157055906,953.1159087018518,credible,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2025,860.7974251989472,781.3151293832342,946.1442855927559,credible,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2026,850.3055490688101,768.939231930398,938.0699670871892,credible,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2027,839.269766739765,755.8376660535607,929.6614335024556,credible,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2028,828.7848581817682,742.9755249705495,922.1634808485721,credible,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2029,818.390219982102,729.9790079333674,915.0216309857267,credible,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2030,807.7853243279774,716.6540571294544,907.8142311319308,credible,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2031,797.4171535054646,703.4364562700868,901.0091096519056,caution,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2032,787.802354146779,690.78842269536,895.2021928859945,caution,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2033,778.8122313262622,678.6473176445801,890.1974154071628,caution,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2034,769.832016304113,666.5377281685627,885.2253613529653,caution,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2035,760.9282840446273,654.5555803502742,880.3190868951575,caution,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2036,752.7176836691647,643.2415560767267,876.1874311844427,caution,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2037,745.3853204018093,632.7592603305186,873.0420403310933,caution,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2038,738.6226070023032,622.8713759996384,870.4820664824744,caution,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2039,732.425427886,613.586803473307,868.4871219128962,caution,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2040,726.9174230326,605.0133567580581,867.2021894944893,risky,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2041,721.9306408773534,597.0121209692337,866.4322237412033,risky,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2042,717.2992237631381,589.447969999964,865.9812520208915,risky,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2043,713.1984289850432,582.4657927624047,866.0640920948522,risky,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2044,709.3374027180674,575.834804770163,866.3190774991588,risky,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2045,705.3019674421073,569.2376527759167,866.1936152673071,risky,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2046,701.5148466645591,563.0142778025655,866.1990584557309,risky,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2047,698.1902933098779,557.3267175471772,866.6125133484833,risky,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,M,mortality,M|I|P,2048,695.2329712414279,552.0884157344597,867.3181174923305,risky,Down 1% p.a.,Male,Mortality,SBAPC
+down1pc,lung,Lung,F,incidence,I,2022,484.82707034757146,424.33066308672494,554.4661041117845,historical,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2023,503.1624389135935,436.6954087863944,581.2039693026811,credible,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2024,517.8780142584503,445.9933951634247,603.5044118543854,credible,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2025,532.5590948436278,454.46676294158465,627.1355164137566,credible,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2026,547.4143324190703,462.41438859549623,652.1983733804283,credible,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2027,562.4666225021928,469.93621139356316,678.631152256579,credible,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2028,577.599160026739,476.97694666390817,706.2718337403256,credible,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2029,592.5041651304773,483.32769320145064,734.7188795874487,credible,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2030,607.082114671146,488.9444201257656,763.8432544849882,credible,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2031,621.2538952795518,493.8157049341747,793.5111920433204,credible,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2032,635.1407802323429,498.0953148144497,823.8333454256906,credible,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2033,648.6637825430466,501.7707536852425,854.6718322800222,caution,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2034,661.7298893829552,504.8097843276354,885.894001022577,caution,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2035,674.4437558209323,507.3417961161639,917.5965211653383,caution,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2036,686.9016505294084,509.472952577387,949.8982176604007,caution,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2037,699.1246342958422,511.26589962506785,982.7787513939952,caution,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2038,711.102474916878,512.7500309278919,1016.1975139925222,caution,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2039,722.7635040103494,513.9344498506312,1049.9565526181864,caution,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2040,733.9581538511102,514.7803742727548,1083.732106525472,caution,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2041,744.4554327778786,515.1955896528611,1117.0658056690188,caution,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2042,754.4891537122716,515.3832806315329,1150.2276425716982,caution,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2043,764.5290692883843,515.6631405508102,1183.9029280517814,risky,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2044,774.9663434577931,516.2482134945392,1218.7905929470555,risky,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2045,785.9148036833457,517.1592372107864,1255.2042263544809,risky,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2046,797.7928085769412,518.6103875534133,1293.9766970879805,risky,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2047,810.6493987561425,520.6465982496609,1335.1707423666546,risky,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I,2048,824.4742406457685,523.2652180856461,1378.8223067182444,risky,Down 1% p.a.,Female,Incidence,BAPC benchmark
+down1pc,lung,Lung,F,incidence,I|P,2023,490.2449773163855,429.23579414940525,560.7781547488445,credible,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,incidence,I|P,2024,496.21251741727536,432.25203898822434,571.0780770609706,credible,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,incidence,I|P,2025,502.0883126405604,434.7121437112977,582.1605474253201,credible,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,incidence,I|P,2026,507.7785958094445,436.63544103503534,593.8173129217171,credible,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,incidence,I|P,2027,513.3818600117713,438.1765521197577,606.0851471509986,credible,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,incidence,I|P,2028,518.8570127898395,439.3388880263338,618.8758748824254,credible,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,incidence,I|P,2029,523.4245808654371,439.50099381788806,631.2058311638123,credible,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,incidence,I|P,2030,527.8527846308431,439.33607668438566,643.9621421288512,credible,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,incidence,I|P,2031,531.787363197067,438.58217548467525,656.6582922588876,credible,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,incidence,I|P,2032,535.3875986969517,437.40919452136956,669.430328796961,credible,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,incidence,I|P,2033,538.740204472801,435.91537515204016,682.3512760298403,caution,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,incidence,I|P,2034,541.5354746389315,433.87934686832915,694.9986507910276,caution,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,incidence,I|P,2035,544.3044810596182,431.7564322783353,708.0111537610148,caution,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,incidence,I|P,2036,547.0378165729658,429.55033353375217,721.3795320034357,caution,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,incidence,I|P,2037,549.690930795645,427.2526864083264,735.0107987791592,caution,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,incidence,I|P,2038,552.3590232367277,424.96343009275614,748.989962642611,caution,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,incidence,I|P,2039,554.8700192296942,422.5857225861842,762.9962484716563,caution,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,incidence,I|P,2040,557.4842291286219,420.3570604697961,777.2967805406392,caution,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,incidence,I|P,2041,559.8137512465871,418.00706972188215,791.3154119993422,caution,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,incidence,I|P,2042,561.9518811186944,415.6147046263873,805.182692751052,caution,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,incidence,I|P,2043,564.2512591076406,413.43546347756694,819.3829879468617,risky,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,incidence,I|P,2044,566.8926357444651,411.57950387331033,834.221485432183,risky,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,incidence,I|P,2045,569.8090244465758,409.9805058888128,849.6797215598704,risky,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,incidence,I|P,2046,573.1106129812005,408.68943205649975,866.0060621312879,risky,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,incidence,I|P,2047,576.7923914506995,407.7203981650031,883.1293270202275,risky,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,incidence,I|P,2048,580.8176727938342,407.0634382832673,900.9610841422584,risky,Down 1% p.a.,Female,Incidence,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2022,409.9111873751078,356.28570582105675,467.7310455569278,historical,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2023,422.57339565188636,366.7828571530805,485.44983106236333,credible,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2024,436.11145125996774,376.8750919742277,503.4007486805074,credible,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2025,443.9159555520059,382.1209519131029,514.554147404307,credible,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2026,450.1229613670669,386.00626013079125,523.8340081832062,credible,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2027,455.5618400211258,389.21958087362196,532.2490925431401,credible,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2028,461.17186338025067,392.4816164524156,541.0322041189556,credible,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2029,466.55826875720396,395.44135417710356,549.7539734288164,credible,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2030,471.6749624890264,398.05027572138636,558.3757863588413,credible,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2031,476.70883648481947,400.4419871148654,567.1497718209725,credible,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2032,481.54675727274946,402.50301733225876,575.9599355136661,credible,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2033,485.8870806457077,403.99831012329645,584.4095131803456,caution,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2034,489.28654770843275,404.5956403611069,591.9029357998124,caution,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2035,491.73245354759877,404.3283422836449,598.3500947800603,caution,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2036,493.87412866886706,403.74144848422725,604.5262207418418,caution,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2037,495.7776878219032,402.918197457791,610.4762164850983,caution,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2038,497.60402501812314,402.0190839881332,616.3680913480512,caution,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2039,499.97028293870096,401.5352802710086,623.0017917500155,caution,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2040,503.07203905607906,401.6170855545296,630.6532720145626,caution,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2041,506.88745086197133,402.2371227882495,639.3261967750639,caution,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2042,511.24692096001525,403.2344902675035,648.8650464600373,caution,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2043,515.6945711570783,404.2402801475112,658.7001965341536,risky,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2044,519.9878852021384,405.06302360193314,668.5015931349511,risky,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2045,523.3368959486074,405.11833910110624,677.1887232660931,risky,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2046,525.2517772853329,404.0729983481616,684.0420098178615,risky,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2047,526.3259595682642,402.4260617235136,689.7293419820576,risky,Down 1% p.a.,Female,Mortality,SBAPC
+down1pc,lung,Lung,F,mortality,M|I|P,2048,526.9371050732361,400.4952493637509,694.6829506560472,risky,Down 1% p.a.,Female,Mortality,SBAPC
+quit,lung,Lung,M,incidence,I,2022,1017.6484547612956,943.1895853400194,1098.0084502873453,historical,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2023,1028.1232016027086,948.7077491441806,1113.6152771906573,credible,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2024,1026.1723988237068,943.6186998705856,1115.763621246929,credible,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2025,1022.6342649237694,936.7275550074183,1116.7936035597013,credible,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2026,1019.3582159216578,929.8618547994187,1118.6229552442426,credible,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2027,1016.6716871868647,923.3744529872482,1121.5809096088803,credible,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2028,1014.7893486527266,917.4607216576804,1125.9088321406207,credible,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2029,1013.2179969842458,911.6716537506885,1131.0239273230536,credible,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2030,1011.5918073232262,905.6916852100898,1136.4515652078026,credible,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2031,1010.1267947479764,899.7390855691976,1142.3558044261088,caution,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2032,1009.2032754789369,894.1552437763629,1149.1223939927495,caution,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2033,1008.808984073523,888.9292104603496,1156.7086504418867,caution,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2034,1008.5443297906266,883.7268785503613,1164.599579090565,caution,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2035,1008.52739880483,878.6576394189398,1172.8973384063195,caution,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2036,1009.0169576652369,873.9659071916858,1181.8558771596408,caution,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2037,1010.0928571735909,869.7271405663059,1191.5440025880089,caution,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2038,1011.69118370609,865.8984805806053,1201.8577562662722,caution,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2039,1013.8107528662293,862.4865611607588,1212.7693402408095,caution,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2040,1016.312741426658,859.3997884361671,1224.0559157920954,risky,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2041,1018.9627683285695,856.4609410677922,1235.3917852679676,risky,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2042,1022.1741507501162,854.0219874049122,1247.2843790533143,risky,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2043,1026.239233782377,852.3318368718146,1260.1003807668947,risky,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2044,1031.1813180172683,851.4385416469416,1273.8263128989613,risky,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2045,1036.9827028753318,851.3370864586526,1288.4263810476064,risky,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2046,1043.6342506845856,852.0382886875074,1303.8547697021618,risky,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2047,1051.1450103097209,853.5610208029987,1320.1009198446402,risky,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I,2048,1059.3760166897716,855.7859773569547,1337.0009538958732,risky,Quit,Male,Incidence,BAPC benchmark
+quit,lung,Lung,M,incidence,I|P,2023,999.1802435412993,929.7934495111231,1074.4722160119097,credible,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,incidence,I|P,2024,886.5511335276478,823.00586111744,955.5912939529438,credible,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,incidence,I|P,2025,842.9614269273667,780.485414464675,910.9605890776861,credible,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,incidence,I|P,2026,799.3148529866768,738.0815114762083,866.0978674117844,credible,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,incidence,I|P,2027,756.4869186000936,696.605231421974,821.9397741714353,credible,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,incidence,I|P,2028,713.8060512058498,655.4155042568677,777.7784092078934,credible,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,incidence,I|P,2029,682.1956579557612,624.4803589098176,745.5884911592686,credible,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,incidence,I|P,2030,651.0989929483883,594.1146790444658,713.8551093596512,credible,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,incidence,I|P,2031,619.6822948674106,563.5683158072667,681.6511676070907,caution,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,incidence,I|P,2032,588.6521880070593,533.4944343180854,649.7413297160648,caution,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,incidence,I|P,2033,557.488357730088,503.43594906373573,617.5343898928315,caution,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,incidence,I|P,2034,539.5429992130668,485.37787009544564,599.9139041853362,caution,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,incidence,I|P,2035,521.622687352582,467.41743576388984,582.2493630456277,caution,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,incidence,I|P,2036,503.6842136078313,449.52923818929355,564.4772559891503,caution,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,incidence,I|P,2037,485.9265720145543,431.90021349286303,546.8093965575854,caution,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,incidence,I|P,2038,468.08151631666135,414.3090152185951,528.9201600164533,caution,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,incidence,I|P,2039,454.8538819398235,400.882436006364,516.1782002089112,caution,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,incidence,I|P,2040,441.63266440899906,387.54899785310437,503.35845584257044,risky,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,incidence,I|P,2041,428.0702313977516,374.01737794480084,490.043941149981,risky,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,incidence,I|P,2042,414.61546373544365,360.6898585445358,476.7320773385535,risky,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,incidence,I|P,2043,401.2324794211428,347.5410605848523,463.37216554964033,risky,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,incidence,I|P,2044,394.2129425437245,339.9826583397576,457.2851480239209,risky,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,incidence,I|P,2045,387.2886011275408,332.58075340505445,451.2345626546854,risky,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,incidence,I|P,2046,380.439157122434,325.3216086439819,445.19088504456573,risky,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,incidence,I|P,2047,373.5572052927071,318.11672419784975,439.0227285790484,risky,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,incidence,I|P,2048,366.6600863125205,310.9831583599085,432.7434104986682,risky,Quit,Male,Incidence,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2022,876.7743098558224,802.0083947015607,954.1212306715307,historical,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2023,872.0826453160465,796.621114049295,952.3555435963071,credible,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2024,839.2718083767143,764.3476646198603,919.3546424950075,credible,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2025,783.8766289953934,711.6355265735554,861.4237982260859,credible,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2026,741.091431716675,670.369317067314,817.341280473425,credible,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2027,697.7430233766737,628.6378847831825,772.5671529423822,credible,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2028,656.2534390136549,588.6384503297232,729.7720397391532,credible,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2029,618.675921406581,552.2323788786844,691.2221801480893,credible,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2030,586.04874901221865,520.3778578216209,658.042693687167,credible,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2031,554.7844384958316,489.89402638080156,626.2074864008007,caution,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2032,524.8428134031128,460.7498955648612,595.6784771438631,caution,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2033,495.65934892217246,432.4876479432683,565.7736368452223,caution,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2034,470.4439594621857,407.9165627682532,540.1478310947576,caution,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2035,449.81609072776416,387.5373230099719,519.555688946166,caution,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2036,430.93498837143744,368.8596360665755,500.77143838353777,caution,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2037,413.37099660993084,351.50396519212546,483.3081177582264,caution,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2038,396.45342787908965,334.9038097612226,466.36770212119563,caution,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2039,381.23933065653233,319.9417854612179,451.20346431651643,caution,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2040,367.8750913245466,306.71150194900684,438.0284053872551,risky,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2041,355.1508598975156,294.187310806517,425.4244196953525,risky,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2042,342.8353790016367,282.1708526952346,413.12408778935844,risky,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2043,330.87745887901696,270.6127756303722,401.07530383938473,risky,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2044,320.64749312141953,260.62217171170795,390.95257587086854,risky,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2045,312.20428879524957,252.23054652211565,382.83779425394357,risky,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2046,304.41974311378726,244.502154247023,375.37706932894076,risky,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2047,297.15559869877137,237.3129092354518,368.41639521094453,risky,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,M,mortality,M|I|P,2048,290.1636791626367,230.4531628953137,361.657834493619,risky,Quit,Male,Mortality,SBAPC
+quit,lung,Lung,F,incidence,I,2022,484.82707034757146,424.33066308672494,554.4661041117845,historical,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2023,503.1624389135935,436.6954087863944,581.2039693026811,credible,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2024,517.8780142584503,445.9933951634247,603.5044118543854,credible,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2025,532.5590948436278,454.46676294158465,627.1355164137566,credible,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2026,547.4143324190703,462.41438859549623,652.1983733804283,credible,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2027,562.4666225021928,469.93621139356316,678.631152256579,credible,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2028,577.599160026739,476.97694666390817,706.2718337403256,credible,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2029,592.5041651304773,483.32769320145064,734.7188795874487,credible,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2030,607.082114671146,488.9444201257656,763.8432544849882,credible,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2031,621.2538952795518,493.8157049341747,793.5111920433204,credible,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2032,635.1407802323429,498.0953148144497,823.8333454256906,credible,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2033,648.6637825430466,501.7707536852425,854.6718322800222,caution,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2034,661.7298893829552,504.8097843276354,885.894001022577,caution,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2035,674.4437558209323,507.3417961161639,917.5965211653383,caution,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2036,686.9016505294084,509.472952577387,949.8982176604007,caution,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2037,699.1246342958422,511.26589962506785,982.7787513939952,caution,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2038,711.102474916878,512.7500309278919,1016.1975139925222,caution,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2039,722.7635040103494,513.9344498506312,1049.9565526181864,caution,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2040,733.9581538511102,514.7803742727548,1083.732106525472,caution,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2041,744.4554327778786,515.1955896528611,1117.0658056690188,caution,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2042,754.4891537122716,515.3832806315329,1150.2276425716982,caution,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2043,764.5290692883843,515.6631405508102,1183.9029280517814,risky,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2044,774.9663434577931,516.2482134945392,1218.7905929470555,risky,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2045,785.9148036833457,517.1592372107864,1255.2042263544809,risky,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2046,797.7928085769412,518.6103875534133,1293.9766970879805,risky,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2047,810.6493987561425,520.6465982496609,1335.1707423666546,risky,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I,2048,824.4742406457685,523.2652180856461,1378.8223067182444,risky,Quit,Female,Incidence,BAPC benchmark
+quit,lung,Lung,F,incidence,I|P,2023,489.7736322314189,428.82477681985415,560.2387745694751,credible,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,incidence,I|P,2024,453.80533156424,395.37841181953894,522.1747934498401,credible,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,incidence,I|P,2025,444.9763587189166,385.3689219983762,515.7841460167026,credible,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,incidence,I|P,2026,435.2683492797851,374.4321718102997,508.7939811881945,credible,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,incidence,I|P,2027,424.7616349519861,362.73410470025664,501.1530353100434,credible,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,incidence,I|P,2028,413.42720337986975,350.3126178866998,492.7223194679919,credible,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,incidence,I|P,2029,405.98761846377323,341.1840241308745,489.1003666435327,credible,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,incidence,I|P,2030,397.95868054830936,331.5585389036568,484.91910990829706,credible,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,incidence,I|P,2031,388.98705565327765,321.185616228844,479.65611368332804,credible,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,incidence,I|P,2032,379.1938791196909,310.2129311426033,473.36320944317384,credible,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,incidence,I|P,2033,368.658947710273,298.7428959304785,466.06358221075976,caution,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,incidence,I|P,2034,363.77368780930163,291.926313849734,465.9095461334715,caution,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,incidence,I|P,2035,358.5673711922096,284.91308324012095,465.3753356095714,caution,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,incidence,I|P,2036,353.0002312262502,277.68611473820374,464.3861720492308,caution,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,incidence,I|P,2037,347.0211636520133,270.23130816181316,462.823704923001,caution,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,incidence,I|P,2038,340.72658837193137,262.6504474241143,460.7574188439352,caution,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,incidence,I|P,2039,336.38993551372585,256.6977567421419,461.24410236369306,caution,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,incidence,I|P,2040,331.9645153657415,250.80692153866622,461.4760943005385,caution,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,incidence,I|P,2041,327.13929714828305,244.7590458383577,460.98482080740797,caution,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,incidence,I|P,2042,321.95540870875067,238.5922954396216,459.81692779363937,caution,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,incidence,I|P,2043,316.7529112810032,232.55453354073566,458.43286779237775,risky,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,incidence,I|P,2044,314.7578359258944,228.96757440685343,461.61484862126747,risky,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,incidence,I|P,2045,312.8107434020387,225.4801692542641,464.89251210632113,risky,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,incidence,I|P,2046,311.0801133235657,222.1992887359196,468.558954679735,risky,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,incidence,I|P,2047,309.57994385192217,219.14331428336206,472.5990882228728,risky,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,incidence,I|P,2048,308.31816496326434,216.31906277021884,477.0222139208756,risky,Quit,Female,Incidence,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2022,409.9111873751078,356.28570582105675,467.7310455569278,historical,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2023,422.4553822723676,366.6811144181062,485.3136017881522,credible,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2024,424.162628149586,366.57896300689777,489.5708926558737,credible,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2025,413.5326939840514,356.0299352576904,479.2576286030585,credible,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2026,405.4802920730149,347.8185282068233,471.75899839952206,credible,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2027,396.0209222306944,338.4920323671296,462.4993940892227,credible,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2028,386.6449171875879,329.2570074303283,453.3311397746506,credible,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2029,378.24702933723955,320.8517708058741,445.34663284193783,credible,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2030,371.47981467005945,313.8162516705926,439.3330222292523,credible,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2031,364.79867670055427,306.82114406473613,433.49459467417927,credible,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2032,357.94243676770037,299.63604604056053,427.5282872377798,credible,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2033,350.47928121228404,291.9186056418202,420.8807082512877,caution,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2034,343.77418184472276,284.82958738220447,415.1469331534791,caution,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2035,338.2373804715534,278.72501034419525,410.7906909097816,caution,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2036,332.9866734249334,272.86928267252017,406.755466584061,caution,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2037,327.7901221981757,267.09135412268597,402.73418480127725,caution,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2038,322.52542294614375,261.31027429320767,398.55716703662785,caution,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2039,318.1183501632401,256.2650726971869,395.39947436629024,caution,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2040,314.7710338870149,252.10195891696083,393.55321098152655,caution,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2041,311.98510650613326,248.41115547683236,392.4207287753808,caution,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2042,309.52823647747937,244.98860207404667,391.7489154719204,caution,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2043,307.04482705532394,241.5460095532772,391.0914820160271,risky,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2044,305.1847815082119,238.58569466583472,391.2711313942883,risky,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2045,303.4913976253869,235.76359308431802,391.67053635179633,risky,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2046,301.00320863260583,232.3585035972836,390.9999524601976,risky,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2047,298.1026210877912,228.68939959581502,389.692710569023,risky,Quit,Female,Mortality,SBAPC
+quit,lung,Lung,F,mortality,M|I|P,2048,294.9150438880452,224.8674519714952,387.8777492491859,risky,Quit,Female,Mortality,SBAPC
+up1pc,NA,NA,M,mortality,BAPC benchmark,2022,875.5662640953301,795.8480753617544,961.4390730247404,historical,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2023,865.8250284433626,785.0522919492054,953.2688901376742,credible,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2024,856.3159979362898,774.5098784483736,945.3225815231611,credible,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2025,845.1390109860857,762.5682283945663,935.4200529488452,credible,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2026,834.0533770192947,750.7659369970462,925.5709123216649,credible,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2027,822.9893682014961,738.9709252154126,915.7871735565981,credible,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2028,811.8510657940337,727.0464620361091,906.0299532695411,credible,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2029,800.5692039542006,714.9050028288434,896.257888107097,credible,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2030,789.0770013036292,702.492630962092,886.3919055446713,credible,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2031,777.4808977357259,689.8988205660759,876.56121478927,caution,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2032,765.9353220757334,677.2447270412608,866.9632992346964,caution,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2033,754.3983813615638,664.5018222690097,857.5439894863058,caution,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2034,742.914532733858,651.7267922336187,848.3353350216776,caution,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2035,731.6413676791251,639.0694752538477,839.5052310428171,caution,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2036,720.7888752628565,626.7127404064754,831.2969215026928,caution,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2037,710.4119439667141,614.7026191530903,823.779393372185,caution,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2038,700.4014797199222,602.9583840166501,816.8132010474798,caution,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2039,690.7846020176448,591.5067408727543,810.428310079979,caution,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2040,681.5155855658124,580.3083974015539,804.5726729259833,risky,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2041,672.533012103742,569.3134804123945,799.1721918370998,risky,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2042,663.8366299882485,558.5282812863483,794.2194314186642,risky,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2043,655.4951207616981,548.0198340056656,789.7838588637688,risky,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2044,647.5644966793843,537.8506057386902,785.9125125262279,risky,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2045,640.042257860685,528.0416422479908,782.5714817148512,risky,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2046,633.072724992241,518.7170807136634,779.9270781349463,risky,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2047,626.6911785680032,509.89698226366005,778.03347242013,risky,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,M,mortality,BAPC benchmark,2048,620.7850526243918,501.48307058049545,776.7612104807727,risky,Up 1% p.a.,Male,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2022,412.8440784412344,353.6075969395589,480.35320485715863,historical,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2023,429.20835712725636,366.27376260048453,501.4809291871232,credible,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2024,446.6923885857357,379.724008965456,524.196298749099,credible,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2025,464.44635249484975,393.31563597291904,547.3982690380749,credible,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2026,482.82829067182564,407.3881428361094,571.4640803857304,credible,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2027,502.01966294567524,422.07923830118233,596.6332787337868,credible,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2028,521.782564721159,437.16431189963316,622.6659835820099,credible,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2029,541.9098422505987,452.43387369995486,649.3725811381139,credible,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2030,562.2973345028907,467.7616787353834,676.6863844985887,credible,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2031,582.8292339560629,483.005670844754,704.5359284606084,credible,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2032,603.2503928080547,497.916026447036,732.6733786187467,credible,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2033,623.2178522639952,512.18466919796,760.7270982927223,caution,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2034,642.4973670865888,525.6081902294626,788.4391123823674,caution,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2035,660.9901071594173,538.1091007199831,815.6983278496688,caution,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2036,678.9508183298932,549.896806391234,842.8256039444445,caution,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2037,696.4364725551898,561.0236199792279,869.8970464442438,caution,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2038,713.480543271349,571.5249066693536,896.9623978634849,caution,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2039,730.4177603008213,581.6634203805503,924.4589876008793,caution,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2040,747.3140508124943,591.4819247050701,952.4956030572378,caution,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2041,764.0910929854496,600.8980828940598,981.0119204561291,caution,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2042,780.555744136763,609.7289752524285,1009.8176222608064,caution,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2043,796.2536965827,617.5810706980128,1038.3964017258236,risky,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2044,810.5937747419061,623.9615332015082,1066.0508588002856,risky,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2045,822.8875755865598,628.3261993009028,1091.9297165447572,risky,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2046,833.0786155789008,630.6519174279501,1115.945276883525,risky,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2047,841.3721993349657,631.1311244065403,1138.3215010268384,risky,Up 1% p.a.,Female,Mortality,BAPC benchmark
+up1pc,NA,NA,F,mortality,BAPC benchmark,2048,848.0833328721972,630.055133605254,1159.4057763622689,risky,Up 1% p.a.,Female,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2022,875.5662640953301,795.8480753617544,961.4390730247404,historical,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2023,865.8250284433626,785.0522919492054,953.2688901376742,credible,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2024,856.3159979362898,774.5098784483736,945.3225815231611,credible,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2025,845.1390109860857,762.5682283945663,935.4200529488452,credible,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2026,834.0533770192947,750.7659369970462,925.5709123216649,credible,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2027,822.9893682014961,738.9709252154126,915.7871735565981,credible,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2028,811.8510657940337,727.0464620361091,906.0299532695411,credible,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2029,800.5692039542006,714.9050028288434,896.257888107097,credible,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2030,789.0770013036292,702.492630962092,886.3919055446713,credible,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2031,777.4808977357259,689.8988205660759,876.56121478927,caution,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2032,765.9353220757334,677.2447270412608,866.9632992346964,caution,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2033,754.3983813615638,664.5018222690097,857.5439894863058,caution,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2034,742.914532733858,651.7267922336187,848.3353350216776,caution,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2035,731.6413676791251,639.0694752538477,839.5052310428171,caution,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2036,720.7888752628565,626.7127404064754,831.2969215026928,caution,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2037,710.4119439667141,614.7026191530903,823.779393372185,caution,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2038,700.4014797199222,602.9583840166501,816.8132010474798,caution,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2039,690.7846020176448,591.5067408727543,810.428310079979,caution,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2040,681.5155855658124,580.3083974015539,804.5726729259833,risky,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2041,672.533012103742,569.3134804123945,799.1721918370998,risky,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2042,663.8366299882485,558.5282812863483,794.2194314186642,risky,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2043,655.4951207616981,548.0198340056656,789.7838588637688,risky,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2044,647.5644966793843,537.8506057386902,785.9125125262279,risky,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2045,640.042257860685,528.0416422479908,782.5714817148512,risky,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2046,633.072724992241,518.7170807136634,779.9270781349463,risky,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2047,626.6911785680032,509.89698226366005,778.03347242013,risky,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,M,mortality,BAPC benchmark,2048,620.7850526243918,501.48307058049545,776.7612104807727,risky,Frozen at 2022,Male,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2022,412.8440784412344,353.6075969395589,480.35320485715863,historical,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2023,429.20835712725636,366.27376260048453,501.4809291871232,credible,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2024,446.6923885857357,379.724008965456,524.196298749099,credible,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2025,464.44635249484975,393.31563597291904,547.3982690380749,credible,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2026,482.82829067182564,407.3881428361094,571.4640803857304,credible,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2027,502.01966294567524,422.07923830118233,596.6332787337868,credible,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2028,521.782564721159,437.16431189963316,622.6659835820099,credible,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2029,541.9098422505987,452.43387369995486,649.3725811381139,credible,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2030,562.2973345028907,467.7616787353834,676.6863844985887,credible,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2031,582.8292339560629,483.005670844754,704.5359284606084,credible,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2032,603.2503928080547,497.916026447036,732.6733786187467,credible,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2033,623.2178522639952,512.18466919796,760.7270982927223,caution,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2034,642.4973670865888,525.6081902294626,788.4391123823674,caution,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2035,660.9901071594173,538.1091007199831,815.6983278496688,caution,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2036,678.9508183298932,549.896806391234,842.8256039444445,caution,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2037,696.4364725551898,561.0236199792279,869.8970464442438,caution,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2038,713.480543271349,571.5249066693536,896.9623978634849,caution,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2039,730.4177603008213,581.6634203805503,924.4589876008793,caution,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2040,747.3140508124943,591.4819247050701,952.4956030572378,caution,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2041,764.0910929854496,600.8980828940598,981.0119204561291,caution,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2042,780.555744136763,609.7289752524285,1009.8176222608064,caution,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2043,796.2536965827,617.5810706980128,1038.3964017258236,risky,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2044,810.5937747419061,623.9615332015082,1066.0508588002856,risky,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2045,822.8875755865598,628.3261993009028,1091.9297165447572,risky,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2046,833.0786155789008,630.6519174279501,1115.945276883525,risky,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2047,841.3721993349657,631.1311244065403,1138.3215010268384,risky,Frozen at 2022,Female,Mortality,BAPC benchmark
+freeze,NA,NA,F,mortality,BAPC benchmark,2048,848.0833328721972,630.055133605254,1159.4057763622689,risky,Frozen at 2022,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2022,875.5662640953301,795.8480753617544,961.4390730247404,historical,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2023,865.8250284433626,785.0522919492054,953.2688901376742,credible,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2024,856.3159979362898,774.5098784483736,945.3225815231611,credible,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2025,845.1390109860857,762.5682283945663,935.4200529488452,credible,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2026,834.0533770192947,750.7659369970462,925.5709123216649,credible,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2027,822.9893682014961,738.9709252154126,915.7871735565981,credible,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2028,811.8510657940337,727.0464620361091,906.0299532695411,credible,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2029,800.5692039542006,714.9050028288434,896.257888107097,credible,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2030,789.0770013036292,702.492630962092,886.3919055446713,credible,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2031,777.4808977357259,689.8988205660759,876.56121478927,caution,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2032,765.9353220757334,677.2447270412608,866.9632992346964,caution,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2033,754.3983813615638,664.5018222690097,857.5439894863058,caution,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2034,742.914532733858,651.7267922336187,848.3353350216776,caution,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2035,731.6413676791251,639.0694752538477,839.5052310428171,caution,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2036,720.7888752628565,626.7127404064754,831.2969215026928,caution,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2037,710.4119439667141,614.7026191530903,823.779393372185,caution,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2038,700.4014797199222,602.9583840166501,816.8132010474798,caution,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2039,690.7846020176448,591.5067408727543,810.428310079979,caution,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2040,681.5155855658124,580.3083974015539,804.5726729259833,risky,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2041,672.533012103742,569.3134804123945,799.1721918370998,risky,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2042,663.8366299882485,558.5282812863483,794.2194314186642,risky,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2043,655.4951207616981,548.0198340056656,789.7838588637688,risky,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2044,647.5644966793843,537.8506057386902,785.9125125262279,risky,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2045,640.042257860685,528.0416422479908,782.5714817148512,risky,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2046,633.072724992241,518.7170807136634,779.9270781349463,risky,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2047,626.6911785680032,509.89698226366005,778.03347242013,risky,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,M,mortality,BAPC benchmark,2048,620.7850526243918,501.48307058049545,776.7612104807727,risky,Down 1% p.a.,Male,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2022,412.8440784412344,353.6075969395589,480.35320485715863,historical,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2023,429.20835712725636,366.27376260048453,501.4809291871232,credible,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2024,446.6923885857357,379.724008965456,524.196298749099,credible,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2025,464.44635249484975,393.31563597291904,547.3982690380749,credible,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2026,482.82829067182564,407.3881428361094,571.4640803857304,credible,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2027,502.01966294567524,422.07923830118233,596.6332787337868,credible,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2028,521.782564721159,437.16431189963316,622.6659835820099,credible,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2029,541.9098422505987,452.43387369995486,649.3725811381139,credible,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2030,562.2973345028907,467.7616787353834,676.6863844985887,credible,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2031,582.8292339560629,483.005670844754,704.5359284606084,credible,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2032,603.2503928080547,497.916026447036,732.6733786187467,credible,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2033,623.2178522639952,512.18466919796,760.7270982927223,caution,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2034,642.4973670865888,525.6081902294626,788.4391123823674,caution,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2035,660.9901071594173,538.1091007199831,815.6983278496688,caution,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2036,678.9508183298932,549.896806391234,842.8256039444445,caution,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2037,696.4364725551898,561.0236199792279,869.8970464442438,caution,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2038,713.480543271349,571.5249066693536,896.9623978634849,caution,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2039,730.4177603008213,581.6634203805503,924.4589876008793,caution,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2040,747.3140508124943,591.4819247050701,952.4956030572378,caution,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2041,764.0910929854496,600.8980828940598,981.0119204561291,caution,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2042,780.555744136763,609.7289752524285,1009.8176222608064,caution,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2043,796.2536965827,617.5810706980128,1038.3964017258236,risky,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2044,810.5937747419061,623.9615332015082,1066.0508588002856,risky,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2045,822.8875755865598,628.3261993009028,1091.9297165447572,risky,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2046,833.0786155789008,630.6519174279501,1115.945276883525,risky,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2047,841.3721993349657,631.1311244065403,1138.3215010268384,risky,Down 1% p.a.,Female,Mortality,BAPC benchmark
+down1pc,NA,NA,F,mortality,BAPC benchmark,2048,848.0833328721972,630.055133605254,1159.4057763622689,risky,Down 1% p.a.,Female,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2022,875.5662640953301,795.8480753617544,961.4390730247404,historical,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2023,865.8250284433626,785.0522919492054,953.2688901376742,credible,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2024,856.3159979362898,774.5098784483736,945.3225815231611,credible,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2025,845.1390109860857,762.5682283945663,935.4200529488452,credible,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2026,834.0533770192947,750.7659369970462,925.5709123216649,credible,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2027,822.9893682014961,738.9709252154126,915.7871735565981,credible,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2028,811.8510657940337,727.0464620361091,906.0299532695411,credible,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2029,800.5692039542006,714.9050028288434,896.257888107097,credible,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2030,789.0770013036292,702.492630962092,886.3919055446713,credible,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2031,777.4808977357259,689.8988205660759,876.56121478927,caution,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2032,765.9353220757334,677.2447270412608,866.9632992346964,caution,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2033,754.3983813615638,664.5018222690097,857.5439894863058,caution,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2034,742.914532733858,651.7267922336187,848.3353350216776,caution,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2035,731.6413676791251,639.0694752538477,839.5052310428171,caution,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2036,720.7888752628565,626.7127404064754,831.2969215026928,caution,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2037,710.4119439667141,614.7026191530903,823.779393372185,caution,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2038,700.4014797199222,602.9583840166501,816.8132010474798,caution,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2039,690.7846020176448,591.5067408727543,810.428310079979,caution,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2040,681.5155855658124,580.3083974015539,804.5726729259833,risky,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2041,672.533012103742,569.3134804123945,799.1721918370998,risky,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2042,663.8366299882485,558.5282812863483,794.2194314186642,risky,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2043,655.4951207616981,548.0198340056656,789.7838588637688,risky,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2044,647.5644966793843,537.8506057386902,785.9125125262279,risky,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2045,640.042257860685,528.0416422479908,782.5714817148512,risky,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2046,633.072724992241,518.7170807136634,779.9270781349463,risky,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2047,626.6911785680032,509.89698226366005,778.03347242013,risky,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,M,mortality,BAPC benchmark,2048,620.7850526243918,501.48307058049545,776.7612104807727,risky,Quit,Male,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2022,412.8440784412344,353.6075969395589,480.35320485715863,historical,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2023,429.20835712725636,366.27376260048453,501.4809291871232,credible,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2024,446.6923885857357,379.724008965456,524.196298749099,credible,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2025,464.44635249484975,393.31563597291904,547.3982690380749,credible,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2026,482.82829067182564,407.3881428361094,571.4640803857304,credible,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2027,502.01966294567524,422.07923830118233,596.6332787337868,credible,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2028,521.782564721159,437.16431189963316,622.6659835820099,credible,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2029,541.9098422505987,452.43387369995486,649.3725811381139,credible,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2030,562.2973345028907,467.7616787353834,676.6863844985887,credible,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2031,582.8292339560629,483.005670844754,704.5359284606084,credible,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2032,603.2503928080547,497.916026447036,732.6733786187467,credible,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2033,623.2178522639952,512.18466919796,760.7270982927223,caution,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2034,642.4973670865888,525.6081902294626,788.4391123823674,caution,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2035,660.9901071594173,538.1091007199831,815.6983278496688,caution,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2036,678.9508183298932,549.896806391234,842.8256039444445,caution,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2037,696.4364725551898,561.0236199792279,869.8970464442438,caution,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2038,713.480543271349,571.5249066693536,896.9623978634849,caution,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2039,730.4177603008213,581.6634203805503,924.4589876008793,caution,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2040,747.3140508124943,591.4819247050701,952.4956030572378,caution,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2041,764.0910929854496,600.8980828940598,981.0119204561291,caution,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2042,780.555744136763,609.7289752524285,1009.8176222608064,caution,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2043,796.2536965827,617.5810706980128,1038.3964017258236,risky,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2044,810.5937747419061,623.9615332015082,1066.0508588002856,risky,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2045,822.8875755865598,628.3261993009028,1091.9297165447572,risky,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2046,833.0786155789008,630.6519174279501,1115.945276883525,risky,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2047,841.3721993349657,631.1311244065403,1138.3215010268384,risky,Quit,Female,Mortality,BAPC benchmark
+quit,NA,NA,F,mortality,BAPC benchmark,2048,848.0833328721972,630.055133605254,1159.4057763622689,risky,Quit,Female,Mortality,BAPC benchmark

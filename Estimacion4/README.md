@@ -82,17 +82,14 @@ redirects R and INLA temporary paths to a local temp directory, currently:
 C:/tmp_inla
 ```
 
-Run scripts from `D:/Git/Bloomberg_2025/Estimacion4`, not from Dropbox.
+Run scripts from the local `Estimacion4/` directory, not from a synced
+Dropbox/OneDrive folder.
 
 ## R Setup
 
-The working environment currently uses R 4.6 with a local user library:
-
-```text
-D:/Git/Bloomberg_2025/.Rlib/4.6
-```
-
-The `.Rlib/` folder is local infrastructure and is ignored by Git.
+The working environment currently uses R 4.6. A project-local `.Rlib/`
+directory can be used for local package installation, but it is local
+infrastructure and is ignored by Git.
 
 ## Main Simulation Entry Point
 
@@ -114,8 +111,8 @@ For the final 200-seed simulation run used for manuscript and supplement
 products:
 
 ```r
-setwd("D:/Git/Bloomberg_2025/Estimacion4")
-Sys.setenv(BAPC_FINAL_N_CORES = "4")  # increase to 6 only if memory is stable
+setwd("Estimacion4")
+Sys.setenv(BAPC_FINAL_N_CORES = "4")  # increase only if memory is stable
 source("runs/run_final_simulation_200.R")
 ```
 
