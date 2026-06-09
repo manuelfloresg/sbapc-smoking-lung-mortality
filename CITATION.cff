@@ -4,11 +4,10 @@ title: "From smoking scenarios to lung cancer mortality: Sequential Bayesian APC
 authors:
   - family-names: "Flores"
     given-names: "Manuel"
-    affiliation: "TODO: add affiliation before public release"
 type: software
+version: "1.0-submission"
 date-released: 2026-06-09
 license: MIT
 abstract: "Replication code and lightweight outputs for the SBAPC simulation study and Uruguay empirical application."
 repository-code: "https://github.com/manuelfloresg/sbapc-smoking-lung-mortality"
-# TODO: after public release, add the final Zenodo DOI, for example:
-# doi: "10.5281/zenodo.XXXXXXX"
+doi: "10.5281/zenodo.20615656"
