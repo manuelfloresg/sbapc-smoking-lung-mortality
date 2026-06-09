@@ -168,6 +168,6 @@ For reviewer checks, use the 2-seed smoke run described above.
 
 ## Citation
 
-Use `CITATION.cff` once the GitHub repository and Zenodo DOI have been created.
-Before public release, replace the placeholder repository URL and add the final
-Zenodo DOI.
+Use `CITATION.cff` to cite the GitHub repository. After creating the Zenodo
+archive, add the final Zenodo DOI to `CITATION.cff` and to the manuscript
+reproducibility statement.

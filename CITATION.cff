@@ -9,6 +9,6 @@ type: software
 date-released: 2026-06-09
 license: MIT
 abstract: "Replication code and lightweight outputs for the SBAPC simulation study and Uruguay empirical application."
-# TODO: after public release, add the final GitHub URL and Zenodo DOI, for example:
-# repository-code: "https://github.com/OWNER/REPOSITORY"
+repository-code: "https://github.com/manuelfloresg/sbapc-smoking-lung-mortality"
+# TODO: after public release, add the final Zenodo DOI, for example:
 # doi: "10.5281/zenodo.XXXXXXX"
