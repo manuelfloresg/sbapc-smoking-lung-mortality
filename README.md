@@ -13,7 +13,7 @@ and supplementary material.
 ## Repository Layout
 
 ```text
-Estimacion4/
+code/
   R/                         Core SBAPC model code
   adapters/                  Simulation and empirical input adapters
   runs/                      Reproduction scripts and product builders
@@ -78,7 +78,7 @@ By default this runs the final 200-seed simulation configuration and writes
 outputs under:
 
 ```text
-Estimacion4/results/20260521_FINAL_200SEEDS/
+code/results/20260521_FINAL_200SEEDS/
 ```
 
 For a quicker smoke run:
@@ -121,7 +121,7 @@ Sys.setenv(BAPC_PATH_INC_CSV  = "path/to/uruguay_incidence_smooth_1998_2022.csv"
 Empirical outputs are written under:
 
 ```text
-Estimacion4/results/20260520_URUGUAY_CANDIDATE/
+code/results/20260520_URUGUAY_CANDIDATE/
 ```
 
 ## Output Mapping

@@ -1,9 +1,9 @@
 # Final 200-seed simulation run for Section 4 and Appendix C.
 #
-# Intended RStudio use from Estimacion4/:
+# Intended RStudio use from code/:
 #   source("runs/run_final_simulation_200.R")
 #
-# The script writes only under Estimacion4/results and keeps INLA temporaries
+# The script writes only under code/results and keeps INLA temporaries
 # outside Dropbox.
 
 inla_tmp <- Sys.getenv("BAPC_INLA_TMPDIR", unset = "")

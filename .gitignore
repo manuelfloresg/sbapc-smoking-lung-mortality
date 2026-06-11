@@ -4,11 +4,11 @@ results/
 runtime/
 
 # Project generated outputs, caches, and diagnostics
-Estimacion4/results/
-Estimacion4/runtime/
-Estimacion4/diag_prev_simulated.csv
-Estimacion4/dump_inla_err.rda
-Estimacion4/scratch/
+code/results/
+code/runtime/
+code/diag_prev_simulated.csv
+code/dump_inla_err.rda
+code/scratch/
 
 # R session state
 .Rhistory

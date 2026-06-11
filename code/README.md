@@ -39,7 +39,7 @@ Model labels used in paper-facing outputs are:
 ## Directory Structure
 
 ```text
-Estimacion4/
+code/
   adapters/
     build_inputs_real.R
     build_inputs_sim.R
@@ -82,7 +82,7 @@ redirects R and INLA temporary paths to a local temp directory, currently:
 C:/tmp_inla
 ```
 
-Run scripts from the local `Estimacion4/` directory, not from a synced
+Run scripts from the local `code/` directory, not from a synced
 Dropbox/OneDrive folder.
 
 ## R Setup
@@ -93,7 +93,7 @@ infrastructure and is ignored by Git.
 
 ## Main Simulation Entry Point
 
-From `Estimacion4/`:
+From `code/`:
 
 ```r
 source("runs/replication_diagnostics.R")
@@ -111,7 +111,7 @@ For the final 200-seed simulation run used for manuscript and supplement
 products:
 
 ```r
-setwd("Estimacion4")
+setwd("code")
 Sys.setenv(BAPC_FINAL_N_CORES = "4")  # increase only if memory is stable
 source("runs/run_final_simulation_200.R")
 ```

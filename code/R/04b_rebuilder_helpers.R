@@ -1,6 +1,6 @@
 # =============================================================
-# Bloomberg 2025 / Estimacion4
-# Rebuilder Helpers for SBAPC Sequential Pipeline
+# SBAPC smoking-to-mortality replication code
+# Rebuilder helpers for the sequential pipeline
 # =============================================================
 
 #' Recover Demographic Keys (Age, Period, Cohort)

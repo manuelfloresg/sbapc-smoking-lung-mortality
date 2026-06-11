@@ -1,7 +1,7 @@
 repo_root <- normalizePath(file.path(dirname(sys.frame(1)$ofile), ".."), winslash = "/", mustWork = FALSE)
-project_dir <- file.path(repo_root, "Estimacion4")
+project_dir <- file.path(repo_root, "code")
 
-if (!dir.exists(project_dir)) stop("Cannot find Estimacion4 directory: ", project_dir)
+if (!dir.exists(project_dir)) stop("Cannot find code directory: ", project_dir)
 
 if (!nzchar(Sys.getenv("BAPC_OUT_BASE", unset = ""))) {
   Sys.setenv(BAPC_OUT_BASE = "results/20260521_FINAL_200SEEDS")
