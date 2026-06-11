@@ -4,7 +4,7 @@ Replication repository for:
 
 > Flores, Manuel. *From smoking scenarios to lung cancer mortality: Sequential Bayesian APC projections.*
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20615656.svg)](https://doi.org/10.5281/zenodo.20615656)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20635784.svg)](https://doi.org/10.5281/zenodo.20635784)
 
 This repository contains the code and lightweight replication outputs for the
 simulation study and Uruguay empirical application reported in the manuscript
@@ -174,5 +174,5 @@ Use `CITATION.cff` to cite the archived repository. The submission archive is:
 
 ```text
 Flores, Manuel. From smoking scenarios to lung cancer mortality: Sequential Bayesian APC projections.
-Zenodo. https://doi.org/10.5281/zenodo.20615656
+Zenodo. https://doi.org/10.5281/zenodo.20635784
 ```
